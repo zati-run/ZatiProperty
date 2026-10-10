@@ -23,8 +23,23 @@ def role_snapshot(snapshot):
   if isinstance(row.get('actions'),list):row['actions']=[semantic(action) for action in row['actions']]
   result['permissions'].append(row)
  return result
+SCHEMA_OPERATIONS={
+ 'loom_schema_authoring_create_has_many':('loom_schema_authoring_create_has_ma','Executes POST /loomSchemaAuthoring:createHasMany'),
+ 'loom_schema_authoring_preview_has_many':('loom_schema_authoring_preview_has_m','Execute bounded schema preview and confirm transactional rollback; not read-only'),
+}
 def tool(c,stem):
- matches=[name for name in c.by_name if re.fullmatch('loom_native_'+re.escape(stem)+'_[a-f0-9]+',name)]
+ if stem in SCHEMA_OPERATIONS:
+  observed,description=SCHEMA_OPERATIONS[stem];matches=[]
+  for name,metadata in c.by_name.items():
+   if not re.fullmatch('loom_native_(?:'+re.escape(stem)+'|'+re.escape(observed)+')_[a-f0-9]+',name):continue
+   if metadata.get('description')!=description:continue
+   schema=metadata.get('inputSchema',{});body=schema.get('properties',{}).get('requestBody',{})
+   required={'collection','name','target','foreignKey','expectedAclDigest'}
+   if schema.get('type')!='object' or schema.get('required')!=['requestBody'] or body.get('type')!='object' or body.get('additionalProperties') is not False:continue
+   if set(body.get('required',[]))!=required or set(body.get('properties',{}))!=required:continue
+   if any(body['properties'][key].get('type')!='string' for key in required):continue
+   matches.append(name)
+ else:matches=[name for name in c.by_name if re.fullmatch('loom_native_'+re.escape(stem)+'_[a-f0-9]+',name)]
  if len(matches)!=1:raise RuntimeError('Missing or ambiguous discovered operation: '+stem)
  return matches[0]
 def call(c,stem,args=None):return unwrap(c.call(tool(c,stem),args or {}))

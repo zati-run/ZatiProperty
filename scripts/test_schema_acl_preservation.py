@@ -1,9 +1,12 @@
 import copy,json,pathlib,tempfile,unittest
 from unittest.mock import Mock,patch
 from verify_schema_acl_preservation import Acceptance,TARGET,denied,semantic,tool,role_snapshot,checked_role
+def native_metadata(description='Executes POST /loomSchemaAuthoring:createHasMany'):
+ fields=['collection','name','target','foreignKey','expectedAclDigest']
+ return {'description':description,'inputSchema':{'type':'object','required':['requestBody'],'properties':{'requestBody':{'type':'object','additionalProperties':False,'required':fields,'properties':{key:{'type':'string'} for key in fields}}}}}
 class Tests(unittest.TestCase):
  def fixture(self):
-  c=Mock();c.call.return_value={'data':{'ok':True}};c.by_name={'loom_native_loom_schema_authoring_create_has_many_ab12':{}}
+  c=Mock();c.call.return_value={'data':{'ok':True}};c.by_name={'loom_native_loom_schema_authoring_create_has_many_ab12':native_metadata()}
   a=Acceptance(c)
   before={'field':None,'inspect':{'field':None,'aclDigest':'a'*64},'foreignKey':{'name':'buildingId'},'belongsTo':{'name':'building'},'roles':{'manager':{'fields':['id']}}}
   after=copy.deepcopy(before);after['field']={'name':'units','type':'hasMany','target':'zp_units','foreignKey':'buildingId','sourceKey':'id','targetKey':'id'}
@@ -44,6 +47,18 @@ class Tests(unittest.TestCase):
   with self.assertRaisesRegex(RuntimeError,'Uncertain rejection'):denied(c,'inspect',{},'DENIED')
  def test_semantic_only_timestamps(self):
   self.assertEqual(semantic({'createdAt':'x','fields':['id'],'filter':{'id':1}}),{'fields':['id'],'filter':{'id':1}})
+class DiscoveryTests(unittest.TestCase):
+ def test_actual_truncated_create_and_preview_are_distinct(self):
+  c=Mock();create='loom_native_loom_schema_authoring_create_has_ma_3dbe18cc301e153e';preview='loom_native_loom_schema_authoring_preview_has_m_0166cd2ed89617d4';c.by_name={create:native_metadata(),preview:native_metadata('Execute bounded schema preview and confirm transactional rollback; not read-only')}
+  self.assertEqual(tool(c,'loom_schema_authoring_create_has_many'),create);self.assertEqual(tool(c,'loom_schema_authoring_preview_has_many'),preview)
+ def test_wrong_operation_or_schema_never_resolves(self):
+  c=Mock();name='loom_native_loom_schema_authoring_create_has_ma_3dbe18cc301e153e'
+  for metadata in [native_metadata('Executes POST /other:createHasMany'),{'description':'Executes POST /loomSchemaAuthoring:createHasMany','inputSchema':{}},native_metadata('Execute bounded schema preview and confirm transactional rollback; not read-only')]:
+   c.by_name={name:metadata}
+   with self.assertRaisesRegex(RuntimeError,'Missing or ambiguous'):tool(c,'loom_schema_authoring_create_has_many')
+ def test_ambiguous_matching_catalog_is_rejected(self):
+  c=Mock();c.by_name={name:native_metadata() for name in ['loom_native_loom_schema_authoring_create_has_ma_3dbe18cc301e153e','loom_native_loom_schema_authoring_create_has_many_abc123']}
+  with self.assertRaisesRegex(RuntimeError,'Missing or ambiguous'):tool(c,'loom_schema_authoring_create_has_many')
 if __name__=='__main__':unittest.main()
 
 class SecurityRegressions(unittest.TestCase):
