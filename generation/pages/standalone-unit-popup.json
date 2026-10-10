@@ -1,0 +1,38 @@
+{
+  "requestBody": {
+    "target": {
+      "uid": "1n2j1liptef"
+    },
+    "type": "view",
+    "settings": {
+      "title": "Add unit",
+      "openView": {
+        "mode": "drawer"
+      }
+    },
+    "popup": {
+      "title": "Add unit without a building",
+      "mode": "append",
+      "blocks": [
+        {
+          "key": "standalone-unit-context",
+          "type": "details",
+          "resource": {
+            "binding": "currentRecord"
+          },
+          "settings": {
+            "title": "Selected property",
+            "layout": "vertical",
+            "labelWrap": true
+          },
+          "fields": [
+            "name",
+            "address"
+          ],
+          "actions": [],
+          "recordActions": []
+        }
+      ]
+    }
+  }
+}

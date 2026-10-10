@@ -6,7 +6,7 @@
     {
       "key": "create-standalone-unit",
       "uid": "zp_create_standalone_unit_form_v1",
-      "placement": "property.details-grid",
+      "placement": "property.standalone-unit-grid",
       "config": {
         "actionPackage": "@zati/plugin-property-tenancy",
         "resource": "zpPropertyTenancy",
