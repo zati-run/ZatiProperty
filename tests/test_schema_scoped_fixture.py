@@ -8,6 +8,11 @@ class FixtureSafety(unittest.TestCase):
   self.assertEqual(f.native_list({'data':[{'name':'manager'}],'meta':{'count':1,'page':1,'pageSize':20,'totalPage':1}}),[{'name':'manager'}])
   for meta in [{'count':2,'page':1,'totalPage':1},{'count':1,'page':1,'totalPage':2}]:
    with self.assertRaises(RuntimeError):f.native_list({'data':[{}],'meta':meta})
+ def test_all_later_steps_require_exact_grants_pre_and_post(self):
+  import inspect
+  source=inspect.getsource(f.run)
+  self.assertIn("step in ('account','bind','remove-member') and not verify_permissions(acl_rows(c))",source)
+  self.assertIn("step in ('permissions','account','bind','remove-member') and not verify_permissions(after['acl'])",source)
  def test_no_broad_actions(self):
   p=f.permissions();self.assertEqual(p['dataSourceKey'],'main')
   for r in p['resources']:
@@ -36,9 +41,15 @@ class FixtureSafety(unittest.TestCase):
  def test_complete_exact_permissions_required(self):
   rows={k:[] for k in f.ACL_TABLES}
   for i,r in enumerate(f.permissions()['resources']):
-   rows[f.ACL_TABLES[0]].append({'id':i,'roleName':f.ROLE,'name':r['name']})
+   rows[f.ACL_TABLES[0]].append({'id':i,'roleName':f.ROLE,'name':r['name'],'dataSourceKey':'main','usingActionsConfig':True})
    rows[f.ACL_TABLES[1]] += [dict(a,id=100+len(rows[f.ACL_TABLES[1]])+j,rolesResourceId=i) for j,a in enumerate(r['actions'])]
   self.assertTrue(f.verify_permissions(rows))
+  for table in f.ACL_TABLES[:2]:
+   duplicate=copy.deepcopy(rows);duplicate[table].append(copy.deepcopy(duplicate[table][0]))
+   self.assertFalse(f.verify_permissions(duplicate))
+  for key,value in [('dataSourceKey','foreign'),('usingActionsConfig',False)]:
+   changed=copy.deepcopy(rows);changed[f.ACL_TABLES[0]][0][key]=value
+   self.assertFalse(f.verify_permissions(changed))
   rows[f.ACL_TABLES[1]][0]['name']='destroy'
   self.assertFalse(f.verify_permissions(rows))
 if __name__=='__main__':unittest.main()

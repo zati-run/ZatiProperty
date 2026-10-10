@@ -39,10 +39,11 @@ def preserve_acl(before,after):
  return after[ACL_TABLES[2]]==before[ACL_TABLES[2]]
 def verify_permissions(rows):
  resources=[r for r in rows[ACL_TABLES[0]] if r['roleName']==ROLE]
- if {r['name'] for r in resources}!=set(RESOURCE_ACTIONS):return False
+ if len(resources)!=len(RESOURCE_ACTIONS) or len({r['id'] for r in resources})!=len(resources) or {r['name'] for r in resources}!=set(RESOURCE_ACTIONS):return False
+ if any(r.get('dataSourceKey')!='main' or r.get('usingActionsConfig') is not True for r in resources):return False
  for resource in resources:
   actions=[a for a in rows[ACL_TABLES[1]] if a['rolesResourceId']==resource['id']]
-  if {a['name'] for a in actions}!=set(RESOURCE_ACTIONS[resource['name']]):return False
+  if len(actions)!=len(RESOURCE_ACTIONS[resource['name']]) or len({a['id'] for a in actions})!=len(actions) or {a['name'] for a in actions}!=set(RESOURCE_ACTIONS[resource['name']]):return False
   if any(a.get('scopeId') is not None for a in actions):return False
   expected=['id'] if resource['name']!='loomSchemaAuthoring' else None
   if any(a.get('fields')!=expected for a in actions):return False
@@ -61,6 +62,7 @@ def run(c,path,step):
  original=json.loads(before_path.read_text())
  current={r:role_snapshot(api.snapshot(r)) for r in original['roles']}
  if current!=original['roles'] or not preserve_acl(original['acl'],acl_rows(c)):raise RuntimeError('Existing role state changed')
+ if step in ('account','bind','remove-member') and not verify_permissions(acl_rows(c)):raise RuntimeError('Owned fixture permissions changed')
  existing_account=read_rows(c,'users',fields=['id','email'],filter={'email':EMAIL})
  if len(existing_account)>1:raise RuntimeError('Duplicate fixture account')
  if matches:validate_role(matches[0])
@@ -100,7 +102,7 @@ def run(c,path,step):
           'account':read_rows(c,'users',fields=['id','email'],filter={'email':EMAIL}),'acl':acl_rows(c),'userIds':sorted(u['id'] for u in read_rows(c,'users',fields=['id']))}
  def verify(after):
   if after['existingRoles']!=original['roles'] or not preserve_acl(original['acl'],after['acl']):return False
-  if step=='permissions' and not verify_permissions(after['acl']):return False
+  if step in ('permissions','account','bind','remove-member') and not verify_permissions(after['acl']):return False
   after_uid=after['account'][0]['id'] if len(after['account'])==1 else None
   if after['userIds']!=sorted(original['users']+([after_uid] if after_uid else [])):return False
   validate_role(after['fixture']['role'])
