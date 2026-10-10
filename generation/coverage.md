@@ -1,6 +1,6 @@
 # RFC implementation coverage
 
-Status: partial live development generation. The bounded representative manager maintenance journey is verified and locally integrated (receipt 015); broader maintenance and RFC acceptance remain open. Protected property creation has bounded browser, reload and role verification (receipts 020–021). Draft amendment has a saved browser journey (receipt 022), with independent reload/role verification pending. Broader property and tenancy acceptance remains open.
+Status: partial live development generation. The bounded representative manager maintenance journey is verified and locally integrated (receipt 015); broader maintenance and RFC acceptance remain open. Protected property creation has bounded browser, reload and role verification (receipts 020–021). Draft amendment has a saved browser journey (receipt 022), with bounded independent reload and role verification in receipt 024; stale-version and full lifecycle checks remain open. Broader property and tenancy acceptance remains open.
 
 Authority: the owner now authorizes synthetic development app generation and reusable Loom repairs. Historical workflow-only scope is superseded for this session. Production and consequential operations remain unauthorized.
 
@@ -152,3 +152,5 @@ All construction used Loom native MCP in the same synthetic CE2.2.21 target.
 
 Multiple owner/co-tenant portal membership changes currently fail closed pending
 qualified scope migration. This is an open requirement, not an approved deferral.
+
+Schema hierarchy continuation remains blocked by the native rollback metadata invariant in [receipt 025](../docs/generation/receipts/025-schema-preview-metadata-blocker.md). The target relationship was not created; observed persistent state and role policies match the baseline.
