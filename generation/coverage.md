@@ -1,6 +1,6 @@
 # RFC implementation coverage
 
-Status: partial live development generation. The bounded representative manager maintenance journey is verified and locally integrated (receipt 015); broader maintenance and RFC acceptance remain open. Property and tenancy command/read boundaries are under native verification; their rendered journey is not yet accepted.
+Status: partial live development generation. The bounded representative manager maintenance journey is verified and locally integrated (receipt 015); broader maintenance and RFC acceptance remain open. Protected property creation has bounded browser, reload and role verification (receipts 020–021). Draft amendment has a saved browser journey (receipt 022), with independent reload/role verification pending. Broader property and tenancy acceptance remains open.
 
 Authority: the owner now authorizes synthetic development app generation and reusable Loom repairs. Historical workflow-only scope is superseded for this session. Production and consequential operations remain unauthorized.
 
