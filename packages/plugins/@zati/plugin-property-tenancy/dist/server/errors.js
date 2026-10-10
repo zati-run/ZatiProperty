@@ -44,5 +44,17 @@ function safeFailure(error){
  return {code,status:['PROPERTY_SCOPE','CONSTRUCTOR_REQUIRED'].includes(code)?403:409,
  message:messages[code]||'The operation could not be confirmed. Check its recorded outcome before making another request.'};
 }
-module.exports={safeFailure};
+const hookMessages=Object.freeze({
+ DOMAIN_ACTION_REQUIRED:'Use the approved property or tenancy action to change this record. No changes were saved.',
+ CONTEXT_IMMUTABLE:'The ownership or property relationship cannot be changed through this action. No changes were saved.',
+ CONTEXT_DELETE_PROTECTED:'This property context cannot be deleted through this action. No changes were saved.'
+});
+function denyHook(code){
+ if(!Object.hasOwn(hookMessages,code))throw new TypeError('Unknown protected hook failure');
+ const error=new Error(hookMessages[code]);
+ error.code=code;error.status=403;error.statusCode=403;error.expose=true;
+ throw error;
+}
+module.exports={safeFailure,denyHook};
+
 

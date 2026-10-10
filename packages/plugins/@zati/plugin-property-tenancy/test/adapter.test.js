@@ -28,15 +28,15 @@ test('native resource defines only fixed typed actions and explicit ACL snippet'
 test('generic creates updates destroys bulk and nested save paths denied',async()=>{
  const {hooks}=await load();
  for(const collection of ['zp_tenancies','zp_tenancy_terms','zp_tenancy_parties','zp_ownership_sets','zp_property_interests','zp_domain_events','zp_audit_heads','zp_domain_outbox','zp_properties','zp_units','zp_buildings','zp_owner_contacts','zp_tenant_account_permissions']) {
-   for(const hook of ['beforeCreate','beforeUpdate','beforeDestroy','beforeSave','afterSave','beforeBulkCreate'])assert.throws(()=>hooks.get(collection+'.'+hook)({}, {transaction:{}}),/DOMAIN_ACTION_REQUIRED/);
-   for(const hook of ['beforeBulkUpdate','beforeBulkDestroy'])assert.throws(()=>hooks.get(collection+'.'+hook)({transaction:{}}),/DOMAIN_ACTION_REQUIRED/);
+   for(const hook of ['beforeCreate','beforeUpdate','beforeDestroy','beforeSave','afterSave','beforeBulkCreate'])assert.throws(()=>hooks.get(collection+'.'+hook)({}, {transaction:{}}),error=>error.code==='DOMAIN_ACTION_REQUIRED'&&error.status===403&&error.expose===true);
+   for(const hook of ['beforeBulkUpdate','beforeBulkDestroy'])assert.throws(()=>hooks.get(collection+'.'+hook)({transaction:{}}),error=>error.code==='DOMAIN_ACTION_REQUIRED'&&error.status===403&&error.expose===true);
  }
 });
 test('identity and hierarchy reassignment and deletes denied',async()=>{
  const {hooks}=await load();
- assert.throws(()=>hooks.get('zp_units.beforeUpdate')({changed:key=>key==='propertyId'},{}),/DOMAIN_ACTION_REQUIRED/);
- assert.throws(()=>hooks.get('zp_properties.beforeBulkUpdate')({attributes:{managerUserId:20}}),/DOMAIN_ACTION_REQUIRED/);
- assert.throws(()=>hooks.get('zp_owner_contacts.beforeDestroy')(),/DOMAIN_ACTION_REQUIRED/);
+ assert.throws(()=>hooks.get('zp_units.beforeUpdate')({changed:key=>key==='propertyId'},{}),error=>error.code==='DOMAIN_ACTION_REQUIRED'&&error.status===403&&error.expose===true);
+ assert.throws(()=>hooks.get('zp_properties.beforeBulkUpdate')({attributes:{managerUserId:20}}),error=>error.code==='DOMAIN_ACTION_REQUIRED'&&error.status===403&&error.expose===true);
+ assert.throws(()=>hooks.get('zp_owner_contacts.beforeDestroy')(),error=>error.code==='DOMAIN_ACTION_REQUIRED'&&error.status===403&&error.expose===true);
 });
 test('no implicit root business role or union-role bypass',async()=>{
  const {resource}=await load();

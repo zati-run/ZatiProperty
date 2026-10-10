@@ -1,8 +1,7 @@
 'use strict';
 const {Plugin}=require('@nocobase/server');
 const {Service,ACTIONS,ZERO}=require('./service');
-const {deny}=require('./domain');
-const {safeFailure}=require('./errors');
+const {safeFailure,denyHook}=require('./errors');
 const PROTECTED=['zp_tenancies','zp_tenancy_terms','zp_tenancy_parties','zp_ownership_sets','zp_property_interests','zp_domain_events','zp_audit_heads','zp_domain_outbox','zp_properties','zp_units','zp_buildings','zp_owner_contacts','zp_tenant_account_permissions','zp_domain_commands'];
 const plain=row=>row ? (typeof row.toJSON==='function'?row.toJSON():row) : null;
 class PropertyTenancyPlugin extends Plugin {
@@ -34,8 +33,8 @@ class PropertyTenancyPlugin extends Plugin {
         try{return await callback(store);}finally{authorized.delete(transaction);}
       })
     });
-    const guard=(_row,options)=>{if(!options?.transaction||!authorized.has(options.transaction))deny('DOMAIN_ACTION_REQUIRED');};
-    const bulkGuard=options=>{if(!options?.transaction||!authorized.has(options.transaction))deny('DOMAIN_ACTION_REQUIRED');};
+    const guard=(_row,options)=>{if(!options?.transaction||!authorized.has(options.transaction))denyHook('DOMAIN_ACTION_REQUIRED');};
+    const bulkGuard=options=>{if(!options?.transaction||!authorized.has(options.transaction))denyHook('DOMAIN_ACTION_REQUIRED');};
     for(const name of PROTECTED) {
       for(const hook of ['beforeCreate','beforeUpdate','beforeDestroy','beforeSave','afterSave'])db.on(name+'.'+hook,guard);
       for(const hook of ['beforeBulkCreate','beforeBulkUpdate','beforeBulkDestroy']) {
@@ -45,12 +44,12 @@ class PropertyTenancyPlugin extends Plugin {
     // Preserve hierarchy/scope references even if a generic update bypasses a UI.
     for(const [name,fields] of Object.entries({zp_properties:['managerUserId','ownerUserId'],zp_units:['propertyId','buildingId'],zp_buildings:['propertyId'],zp_owner_contacts:['userId','managerUserId']})) {
       db.on(name+'.beforeUpdate',(row,options)=>{
-        if(fields.some(field=>row.changed(field)))deny('CONTEXT_IMMUTABLE');
+        if(fields.some(field=>row.changed(field)))denyHook('CONTEXT_IMMUTABLE');
       });
       db.on(name+'.beforeBulkUpdate',options=>{
-        if(fields.some(field=>Object.hasOwn(options.attributes||{},field)))deny('CONTEXT_IMMUTABLE');
+        if(fields.some(field=>Object.hasOwn(options.attributes||{},field)))denyHook('CONTEXT_IMMUTABLE');
       });
-      for(const hook of ['beforeDestroy','beforeBulkDestroy'])db.on(name+'.'+hook,()=>deny('CONTEXT_DELETE_PROTECTED'));
+      for(const hook of ['beforeDestroy','beforeBulkDestroy'])db.on(name+'.'+hook,()=>denyHook('CONTEXT_DELETE_PROTECTED'));
     }
     const actions={};
     for(const action of ACTIONS) {
