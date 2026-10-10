@@ -90,7 +90,7 @@
                         {
                           "path": "tenancyId",
                           "operator": "$eq",
-                          "value": "{{ ctx.record.id }}"
+                          "value": "{{ ctx.popup.record.id }}"
                         }
                       ]
                     }
@@ -130,7 +130,7 @@
                         {
                           "path": "tenancyId",
                           "operator": "$eq",
-                          "value": "{{ ctx.record.id }}"
+                          "value": "{{ ctx.popup.record.id }}"
                         }
                       ]
                     }

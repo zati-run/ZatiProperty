@@ -82,9 +82,9 @@
                       "logic": "$and",
                       "items": [
                         {
-                          "path": "propertyId",
+                          "path": "property.id",
                           "operator": "$eq",
-                          "value": "{{ ctx.record.id }}"
+                          "value": "{{ ctx.popup.record.id }}"
                         }
                       ]
                     }
@@ -144,9 +144,9 @@
                                 "logic": "$and",
                                 "items": [
                                   {
-                                    "path": "unitId",
+                                    "path": "unit.id",
                                     "operator": "$eq",
-                                    "value": "{{ ctx.record.id }}"
+                                    "value": "{{ ctx.popup.record.id }}"
                                   }
                                 ]
                               }
@@ -214,7 +214,7 @@
                                             {
                                               "path": "tenancyId",
                                               "operator": "$eq",
-                                              "value": "{{ ctx.record.id }}"
+                                              "value": "{{ ctx.popup.record.id }}"
                                             }
                                           ]
                                         }
@@ -254,7 +254,7 @@
                                             {
                                               "path": "tenancyId",
                                               "operator": "$eq",
-                                              "value": "{{ ctx.record.id }}"
+                                              "value": "{{ ctx.popup.record.id }}"
                                             }
                                           ]
                                         }
