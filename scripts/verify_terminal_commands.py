@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Source-only by default; coordinator must explicitly schedule --execute after 0.1.3."""
-import argparse,concurrent.futures,datetime,hashlib,json,uuid,threading
+import argparse,concurrent.futures,datetime,hashlib,json,uuid,threading,jsonschema
 from pathlib import Path
 from loom_mcp import Loom
 import verify_property_commands as base
@@ -77,7 +77,7 @@ def execute(root):
     if installed.get('version')!='0.1.3' or installed.get('enabled') is not True:raise RuntimeError('Expected enabled domain0.1.3')
     q=Harness(root);accounts=json.loads((root.runtime/'maintenance-test-accounts.json').read_text())
     actor=str(accounts['zp_property_manager.1']['id'])
-    def invalid():return {'requestId':str(uuid.uuid4()),'name':'','reasonCode':'initial-setup'}
+    def invalid():return {'requestId':str(uuid.uuid4()),'name':' ','reasonCode':'initial-setup'}
     with base.role_client(root,q,'terminal_manager','zp_property_manager','1',18462) as manager:
         legacy=[r for r in read_rows(root,'zp_domain_commands') if str(r['actorId'])==actor and r['action']=='createProperty' and 'commandReceiptVersion' not in json.loads(r['resultJSON'])]
         if not legacy:raise RuntimeError('Legacy committed fixture absent')
@@ -85,7 +85,9 @@ def execute(root):
         lookup=base.call(manager,'reconcileCommand',{'action':old['action'],'requestId':old['requestId']})
         if lookup.get('receiptVersion')!=1 or lookup.get('outcome')!='committed' or lookup.get('requestDigest')!=old['requestDigest'] or q.snapshot()!=before:raise AssertionError('Legacy normalization/read-only failure')
         q.results.append({'case':'legacy012-committed-normalization','passed':True})
-        payload=invalid();before=q.before('rejected-first')
+        payload=invalid()
+        jsonschema.validate({'requestBody':payload},manager.by_name[base.tool(manager,base.PREFIX+base.ACTIONS['createProperty'])]['inputSchema'])
+        before=q.before('rejected-first')
         result=q.write(manager,'rejected-first',payload)
         if result!={'outcome':'error','code':'INVALID_TEXT'}:raise AssertionError('Expected validation rejection')
         q.transition(before,q.snapshot(),payload,'rejected')
