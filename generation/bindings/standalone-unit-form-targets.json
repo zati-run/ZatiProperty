@@ -1,0 +1,8 @@
+{
+  "property.standalone-unit-grid": {
+    "gridUid": "kj2z4lqtgvu",
+    "contextCollection": "zp_properties",
+    "source": "native-readback",
+    "evidenceRef": "docs/generation/receipts/standalone-unit-placement-native-readback.json"
+  }
+}

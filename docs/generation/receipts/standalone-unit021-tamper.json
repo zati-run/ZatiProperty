@@ -1,0 +1,24 @@
+{
+  "cases": [
+    {
+      "case": "prepare-injected-building",
+      "status": 400,
+      "code": "OMITTED_INPUT_PRESENT"
+    },
+    {
+      "case": "submit-injected-building",
+      "status": 400,
+      "code": "OMITTED_INPUT_PRESENT"
+    }
+  ],
+  "protectedSnapshotsUnchanged": true,
+  "collections": [
+    "zp_units",
+    "zp_domain_events",
+    "zp_domain_outbox",
+    "zp_domain_commands"
+  ],
+  "role": "zp_property_manager",
+  "through": "role-specific Loom MCP",
+  "noDomainEffects": true
+}

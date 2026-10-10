@@ -162,3 +162,7 @@ The historical rollback metadata blocker in [receipt025](../docs/generation/rece
 ## Building journey continuation
 
 The bounded property-to-building create/read path is generated in [receipt031](../docs/generation/receipts/031-building-native-journey.md): one protected native command saved building2 under property6, desktop reload recovered it through the scoped Buildings list, and the correct building/property context rendered without page errors. Independent48-case role/read/form and1365/390 browser checks passed (building-journey-independent receipt). Native generic write controls were removed. The complete hierarchy requirement remains open, including units without buildings and the building-to-unit relationship. The protected unit form is now generated, with one saved native command and48 independent role/read/form checks plus1365/390 reloads in [receipt033](../docs/generation/receipts/033-unit-native-journey.md). Broader hierarchy acceptance remains open.
+
+## Standalone unit subset
+
+[Receipt036](../docs/generation/receipts/036-standalone-unit-native-journey.md) records focused Portfolio Add unit generation, one persisted null-building unit,48 role/read checks, native prepare/submit tamper denials with unchanged protected snapshots and1365/390 reloads. This covers the optional-building unit path only; independent generated-change review and broader E3 remain open.

@@ -1,0 +1,37 @@
+{
+  "status": 200,
+  "body": {
+    "data": {
+      "status": "verified",
+      "requestId": "71174253-0663-4b73-b2fd-5c835d6c85d8",
+      "result": {
+        "id": 6,
+        "propertyId": 6,
+        "state": "created",
+        "version": 0
+      },
+      "record": {
+        "id": 6,
+        "name": "Synthetic standalone unit 20261010-R1",
+        "propertyId": 6,
+        "buildingId": null
+      }
+    }
+  },
+  "request": {
+    "uid": "zp_create_standalone_unit_form_v1",
+    "configDigest": "8a24aea16eff0690b44f3b075ce21669f8ee055c60595d2ebdc799b0d770e645",
+    "contextDigest": "2efeddc4166b132c59f0ded067978530f1dfc03d7b9d0ead6862c31f6e398ad5",
+    "prefillDigest": null,
+    "recordId": "6",
+    "payload": {
+      "name": "Synthetic standalone unit 20261010-R1",
+      "reasonCode": "initial-setup",
+      "propertyId": 6,
+      "requestId": "71174253-0663-4b73-b2fd-5c835d6c85d8"
+    },
+    "payloadDigest": "c17e7591884d9bb7fdd638e2f9be3d9dd787e7ebbc4ba4ae2e1d76e1d0629a79",
+    "expectedActorId": "2",
+    "expectedRole": "zp_property_manager"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "scope": "Observed generated popup after removal of native generic Edit",
+  "actionUid": "6glxoi1mnbz",
+  "gridUid": "kj2z4lqtgvu",
+  "detailsUid": "wk26mzryt9t",
+  "placementProof": {
+    "kind": "native-popup-record",
+    "collection": "zp_properties",
+    "chain": [
+      {
+        "uid": "kj2z4lqtgvu",
+        "use": "BlockGridModel",
+        "parentId": "hofqcs74ijt",
+        "openView": null,
+        "resource": null
+      },
+      {
+        "uid": "hofqcs74ijt",
+        "use": "ChildPageTabModel",
+        "parentId": "0xb76nerogy",
+        "openView": null,
+        "resource": null
+      },
+      {
+        "uid": "0xb76nerogy",
+        "use": "ChildPageModel",
+        "parentId": "6glxoi1mnbz",
+        "openView": null,
+        "resource": null
+      },
+      {
+        "uid": "6glxoi1mnbz",
+        "use": "ViewActionModel",
+        "parentId": "3fnq7u1cexl",
+        "openView": {
+          "mode": "drawer",
+          "size": "medium",
+          "pageModelClass": "ChildPageModel",
+          "dataSourceKey": "main",
+          "collectionName": "zp_properties",
+          "filterByTk": "{{ctx.record.id}}"
+        },
+        "resource": null
+      },
+      {
+        "uid": "3fnq7u1cexl",
+        "use": "TableActionsColumnModel",
+        "parentId": "1n2j1liptef",
+        "openView": null,
+        "resource": null
+      },
+      {
+        "uid": "1n2j1liptef",
+        "use": "TableBlockModel",
+        "parentId": "e3pqxowwqlx",
+        "openView": null,
+        "resource": {
+          "dataSourceKey": "main",
+          "collectionName": "zp_properties"
+        }
+      }
+    ]
+  },
+  "genericWriteActionsAbsent": true,
+  "initialPopupReadbackMismatch": "tree and nodeMap duplicate node enumeration; returned IDs reconciled by fresh reads; no replay"
+}

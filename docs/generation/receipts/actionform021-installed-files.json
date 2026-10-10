@@ -1,0 +1,20 @@
+{
+  "version": "0.2.1",
+  "source": "2cdb865e404ac9eb91248f3ce18874b3956b7c71",
+  "archiveSha256": "78ca5dceb40410a2f32ae5b1069e27fd8e14e4c8ee630700e9e7b760e46bd5ce",
+  "allFilesMatch": true,
+  "files": {
+    "dist/server/availability.js": "4fc79163e1b2f816bca9f90ab1d2cbc6dec6f761291a876a3adf887e85b61289",
+    "dist/externalVersion.js": "d060ecdd9b513ceb6a88c1dd67f8f0d8ccae66b46b71816938386d1ae14512e1",
+    "dist/client/index.js": "1d62eda4d92268aabc5ec3433cd4d577ec7fb2bcb1c0e1ddda27399cad697399",
+    "dist/server/index.js": "aed5171504c221ea827a207bc317b1c1bedb518e542b512f30fa9a13e81f1c27",
+    "dist/server/migration.js": "9da7c601bf976ba5f0796ef2b20d98ac0a0d199cf4622c7d354a178782f0a2b3",
+    "dist/server/omitted-inputs.js": "794c9ca1ce51eaa26659326c74f69c25f8c13419420392a51121eb16a55f771b",
+    "dist/server/policy.js": "c2455777ccf95da6fb8a18f0d482cfbab7af313c3010a2cba8c1e62a567cbc7b",
+    "dist/server/prefill.js": "11c42daecee48dd949a44467b061907c1f37404fc9d24ecf8a5d33450355f3f7",
+    "dist/server/service.js": "0255269ca16904b2943a135d907441fcf14a860384f2848c5d0d48ad169614f7",
+    "dist/swagger/index.json": "1ae1f403d65f375cc72f73260a45cea2672e089f525f1d33b6149cac3d37ec4a",
+    "package.json": "41e0b0ac6602ddd7c25d388eb25b3e3dedb2759ee27b15649cd769a9683205f4",
+    "README.md": "893178951675f2b6f5a624be735754d5e4662e73cc3e2ea415160b2db041284d"
+  }
+}
