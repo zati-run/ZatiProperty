@@ -52,3 +52,25 @@ class QualificationGate(unittest.TestCase):
    self.assertEqual(api.forms.reads,[('flow_surfaces_get',{'pageSchemaUid':'zp-create-property'})])
   with patch('apply_create_property_route.page_binding',return_value={'gridUid':'other'}):
    with self.assertRaisesRegex(RuntimeError,'grid changed'):api.gate(q)
+
+class ActualManifestSnapshot(unittest.TestCase):
+ def test_real_constructor_and_all_role_snapshots_share_normalized_manifest(self):
+  from apply_property_ui import load_manifest
+  class NativeReadStub:
+   def __init__(self):
+    self.calls=[]
+    self.tools=[{'name':prefix+'abc'} for prefix in ['loom_native_roles_data_source_resources_get_','loom_native_roles_get_','loom_native_data_sources_roles_get_','loom_native_roles_desktop_routes_list_']]
+   def call(self,name,args):
+    self.calls.append((name,args))
+    if name.startswith('loom_native_roles_data_source_resources_get_'):return {'data':{'name':args['name'],'actions':[]}}
+    if name.startswith('loom_native_roles_desktop_routes_list_'):return {'data':[]}
+    return {'data':{'name':args.get('roleName',args.get('filterByTk'))}}
+  client=NativeReadStub();api=FocusedRoute(client)
+  self.assertEqual(api.api.manifest,load_manifest())
+  snapshots=api.snapshots()
+  self.assertEqual(set(snapshots),set(ROLES))
+  declared=set(load_manifest()['resources'])
+  for role,snapshot in snapshots.items():
+   self.assertTrue(declared.issubset({r['name'] for r in snapshot['permissions']}))
+   self.assertIn('zp_domain_commands',{r['name'] for r in snapshot['permissions']})
+  self.assertTrue(all(isinstance(args.get('name',''),str) for _,args in client.calls))

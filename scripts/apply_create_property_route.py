@@ -2,7 +2,7 @@
 """Grant only the focused protected create-property route after native form readback."""
 import argparse,json,pathlib,os
 from loom_mcp import Loom
-from apply_property_ui import Apply,Journal,ROLE,PORTALS,page_binding,data
+from apply_property_ui import Apply,Journal,ROLE,PORTALS,page_binding,data,load_manifest
 from apply_protected_forms import Forms,sync_write
 from property_ui_journal import sha
 ROOT=pathlib.Path(__file__).resolve().parents[1]
@@ -18,7 +18,7 @@ def verify_roles(before,after,wanted):
    if {str(row['id']) for row in after[role]['routes']}!=set(wanted):raise RuntimeError('Manager route readback mismatch')
    if {k:v for k,v in after[role].items() if k!='routes'}!={k:v for k,v in before[role].items() if k!='routes'}:raise RuntimeError('Manager authority changed')
 class FocusedRoute:
- def __init__(self,client):self.c=client;self.api=Apply(client,{},json.loads((ROOT/'generation/roles/property-tenancy.json').read_text()),None);self.forms=Forms(client)
+ def __init__(self,client):self.c=client;self.api=Apply(client,{},load_manifest(),None);self.forms=Forms(client)
  def snapshots(self):return {role:self.api.snapshot(role) for role in ROLES}
  def gate(self,qualified):
   desired=json.loads((ROOT/'generation/pages/create-property.json').read_text())

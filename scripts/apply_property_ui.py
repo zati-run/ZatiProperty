@@ -12,6 +12,23 @@ ROLE='zp_property_manager'
 PORTALS=['zp_owner','zp_tenant','zp_vendor']
 SNIPPET='pm.@zati/plugin-property-tenancy.manager'
 
+def load_manifest(path=None):
+    """Load the one canonical role manifest shape used by every apply entrypoint."""
+    manifest=json.loads((Path(path) if path else ROOT/'generation/roles/property-tenancy.json').read_text())
+    resources=manifest.get('resources')
+    if not isinstance(resources,list):raise RuntimeError('Expected declared resource list')
+    normalized={}
+    for resource in resources:
+        name=resource['name']
+        if name in normalized:raise RuntimeError('Duplicate declared permission resource')
+        normalized[name]={'fields':resource['addViewFields'],'scope':resource['scope']}
+    chooser={'fields':['id','userId','displayName'],'scope':{'managerUserId':{'$eq':'{{ ctx.state.currentUser.id }}'}}}
+    if 'zp_tenant_account_permissions' in normalized and normalized['zp_tenant_account_permissions']!=chooser:
+        raise RuntimeError('Account chooser permission contract changed')
+    normalized['zp_tenant_account_permissions']=chooser
+    manifest['resources']=normalized
+    return manifest
+
 def rows(value):
     value=value.get('data',value) if isinstance(value,dict) else value
     if not isinstance(value,list):raise RuntimeError('Unexpected list readback')
@@ -286,10 +303,7 @@ def main():
     p.add_argument('--reconcile-page',choices=['portfolio','tenancies']);p.add_argument('--resume-pages',action='store_true')
     p.add_argument('--qualified-manager-snippet');p.add_argument('--approved-page-digest')
     args=p.parse_args();client=Loom();runtime=Path(os.environ['ZP_RUNTIME_DIR'])
-    manifest=json.loads((ROOT/'generation/roles/property-tenancy.json').read_text())
-    manifest['resources']={r['name']:{'fields':r['addViewFields'],'scope':r['scope']} for r in manifest['resources']}
-    # Add only the constructor-managed account chooser read scope.
-    manifest['resources']['zp_tenant_account_permissions']={'fields':['id','userId','displayName'],'scope':{'managerUserId':{'$eq':'{{ ctx.state.currentUser.id }}'}}}
+    manifest=load_manifest()
     if not args.checkpoint.replace('-','').isalnum():raise RuntimeError('Invalid checkpoint label')
     baseline_path=runtime/('property-ui-'+args.checkpoint+'-baseline.json')
     if args.journal_suffix and (args.phase not in [None,'permissions'] or not args.journal_suffix.replace('-','').isalnum()):raise RuntimeError('Separate journal only supports a bounded permissions overlay')
