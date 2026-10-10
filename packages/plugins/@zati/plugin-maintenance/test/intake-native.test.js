@@ -30,7 +30,10 @@ test('generic single and bulk receipt mutation and generic intake creation deny 
  const f=app();
  for(const event of ['beforeCreate','beforeUpdate','beforeSave','beforeDestroy','beforeBulkCreate'])assert.throws(()=>f.listeners.get('zp_maintenance_commands.'+event)({},{}),{code:'DOMAIN_ACTION_REQUIRED'});
  for(const event of ['beforeBulkUpdate','beforeBulkDestroy'])assert.throws(()=>f.listeners.get('zp_maintenance_commands.'+event)({}),{code:'DOMAIN_ACTION_REQUIRED'});
- for(const table of ['zp_maintenance_requests','zp_work_orders'])assert.throws(()=>f.listeners.get(table+'.beforeCreate')({},{}),{code:'DOMAIN_ACTION_REQUIRED'});
+ for(const table of ['zp_maintenance_requests','zp_work_orders']){
+  assert.throws(()=>f.listeners.get(table+'.beforeCreate')({},{}),{code:'DOMAIN_ACTION_REQUIRED'});
+  assert.throws(()=>f.listeners.get(table+'.beforeBulkCreate')([{}],{}),{code:'DOMAIN_ACTION_REQUIRED'});
+ }
 });
 test('attachment association hook requires current actor to own linked native files',async()=>{
  const f=app(),hook=f.listeners.get('zp_maintenance_requests.afterSaveWithAssociations'),transaction={};

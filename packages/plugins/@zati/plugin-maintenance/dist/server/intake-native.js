@@ -53,7 +53,10 @@ function protect(db){
  const bulk=options=>guard(null,options);
  for(const event of ['beforeCreate','beforeUpdate','beforeSave','beforeDestroy'])db.on(RECEIPTS+'.'+event,guard);
  for(const event of ['beforeBulkCreate','beforeBulkUpdate','beforeBulkDestroy'])db.on(RECEIPTS+'.'+event,event==='beforeBulkCreate'?guard:bulk);
- for(const table of ['zp_maintenance_requests','zp_work_orders'])db.on(table+'.beforeCreate',guard);
+ for(const table of ['zp_maintenance_requests','zp_work_orders']){
+  db.on(table+'.beforeCreate',guard);
+  db.on(table+'.beforeBulkCreate',guard);
+ }
  db.on('zp_maintenance_requests.afterSaveWithAssociations',async(row,options={})=>{
   if(ownedTransactions.has(options.transaction))return;
   const actor=options.context?.state?.currentUser?.id;
