@@ -68,6 +68,9 @@ def run():
                 if status!=200:problems.append('expected-read-unavailable')
                 if expected is not None and ids(value)!=sorted(str(x) for x in expected):problems.append('wrong-record-scope')
                 problems+=projections(value,resource,allowed)
+                if label.startswith('populated-fields:') and expected:
+                    selected=value[0] if isinstance(value,list) else value
+                    if not set(params['fields[]']).issubset(selected):problems.append('Requested allowed scalar fields missing')
                 for relation,expected_ids in (relation_ids or {}).items():
                     if not isinstance(value,dict) or ids(value.get(relation))!=sorted(str(x) for x in expected_ids):problems.append('wrong-associated-scope:'+relation)
             if status>=500:problems.append('server-error')
@@ -80,6 +83,11 @@ def run():
                 if role=='zp_property_manager':
                     fields=sorted(allowed[resource]-set(REL))
                     probe('populated-fields:'+resource+':'+str(identifier),resource+':get',{'filterByTk':identifier,'fields[]':fields},resource,expected=[identifier] if manager else None,deny=not manager)
+        for resource in ['zp_tenancy_parties','zp_tenancy_terms']:
+            for identifier in populated[resource]:
+                manager=role=='zp_property_manager' and suffix=='1'
+                parent=next(r['tenancyId'] for r in graph[resource] if r['id']==identifier)
+                probe('nested-context:'+resource+':'+str(identifier),resource+':get',{'filterByTk':identifier,'appends[]':['tenancy.unit.property']},resource,expected=[identifier] if manager else None,deny=not manager,relation_ids={'tenancy':[parent]} if manager else None)
         for tenancy in tenants:
             for relation,target in [('parties','zp_tenancy_parties'),('terms','zp_tenancy_terms')]:
                 expected=[r['id'] for r in graph[target] if r['tenancyId']==tenancy['id']]
