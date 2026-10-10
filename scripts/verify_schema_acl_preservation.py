@@ -9,10 +9,20 @@ TARGET={'collection':'zp_buildings','name':'units','target':'zp_units','foreignK
 def unwrap(v):
  while isinstance(v,dict) and set(v)=={'data'}:v=v['data']
  return v
-def semantic(v):
- if isinstance(v,dict):return {k:semantic(x) for k,x in v.items() if k not in ('createdAt','updatedAt')}
- if isinstance(v,list):return [semantic(x) for x in v]
- return v
+def semantic(row):
+ # Remove only native row metadata; nested predicates/options are product state.
+ if isinstance(row,dict):return {k:v for k,v in row.items() if k not in ('createdAt','updatedAt')}
+ return row
+def role_snapshot(snapshot):
+ result=dict(snapshot)
+ for key in ('role','strategy'):result[key]=semantic(snapshot.get(key))
+ result['routes']=[semantic(row) for row in snapshot.get('routes',[])]
+ result['permissions']=[]
+ for resource in snapshot.get('permissions',[]):
+  row=semantic(resource)
+  if isinstance(row.get('actions'),list):row['actions']=[semantic(action) for action in row['actions']]
+  result['permissions'].append(row)
+ return result
 def tool(c,stem):
  matches=[name for name in c.by_name if re.fullmatch('loom_native_'+re.escape(stem)+'_[a-f0-9]+',name)]
  if len(matches)!=1:raise RuntimeError('Missing or ambiguous discovered operation: '+stem)
@@ -40,13 +50,14 @@ class Acceptance:
   if not isinstance(fields,list) or len(fields)>1:raise RuntimeError('Unexpected field inventory')
   fk=call(self.c,'collections_fields_get',{'collectionName':TARGET['target'],'filterByTk':TARGET['foreignKey']})
   belongs=call(self.c,'collections_fields_get',{'collectionName':'zp_units','filterByTk':'building'})
-  return {'target':TARGET,'inspect':inspect,'field':fields[0] if fields else None,'foreignKey':fk,'belongsTo':belongs,'roles':semantic({r:self.roles.snapshot(r) for r in [ROLE,*PORTALS]})}
+  return {'target':TARGET,'inspect':inspect,'field':fields[0] if fields else None,'foreignKey':fk,'belongsTo':belongs,'roles':{r:role_snapshot(self.roles.snapshot(r)) for r in [ROLE,*PORTALS]}}
  def negatives(self,before,manager,scoped=None):
   if self.capture()!=before:raise RuntimeError('Baseline drift')
   role=call(manager,'roles_check')
   if role.get('role')!=ROLE or role.get('allowAll') is not False:raise RuntimeError('Manager bridge not qualified')
   cases=[denied(manager,'loom_schema_authoring_inspect',TARGET,'CONSTRUCTOR_REQUIRED')]
   stale='0'*64 if before['inspect']['aclDigest']!='0'*64 else '1'*64
+  cases.append(denied(manager,'loom_schema_authoring_create_has_many',{'requestBody':{**TARGET,'expectedAclDigest':stale}},'CONSTRUCTOR_REQUIRED'))
   cases.append(denied(self.c,'loom_schema_authoring_create_has_many',{'requestBody':{**TARGET,'expectedAclDigest':stale}},'ACL_BASELINE_CHANGED'))
   if scoped:
    role=call(scoped,'roles_check')
