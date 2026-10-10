@@ -101,7 +101,7 @@ def run():
             probe('private-field:'+resource+'.'+field,resource+':get',{'filterByTk':identifier,'fields[]':['id',field]},resource,deny=True)
         probe('no-generic-user-enumeration','users:list',{'pageSize':20,'fields[]':['id','nickname']},'users',deny=True)
     result={'observedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'kind':'native synthetic role GET matrix; no app writes','caseCount':len(results),'passed':sum(r['passed'] for r in results),'cases':results,'fixtureGraph':graph,'limitations':['Ownership fixtures absent; no populated ownership acceptance','No generic writes or rendered UI checks']}
-    out=ROOT/'docs/generation/receipts/property-populated-role-read-results.json'
+    out=ROOT/'docs/generation/receipts/property-populated-nested-role-read-results.json'
     if out.exists():raise RuntimeError('Preserve prior receipt before rerun')
     out.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({'caseCount':len(results),'passed':result['passed'],'failed':len(results)-result['passed']}))
