@@ -126,3 +126,33 @@ Manager and constructor ACL snippets are separate. Generic CRUD on command recei
 The reviewed additive migration uses generation/collections/property-tenancy-commands.json and apply_property_tenancy.py --commands. It keeps the original manifest and runtime ownership digest unchanged, verifies the pinned parent metadata/IDs, and uses separate command-schema intent/bindings. Never rewrite the original binding digest to bypass the migration chain. Source tests are not native transaction, formatter, browser or live acceptance; those remain required before enablement.
 
 Constructor account setup requires one effective role with both the explicit domain action and unrestricted native flowSurfaces:updateSettings permission, matching Loom constructor companions. Persisted roles.allowAll is not an authority source. Package0.1.2 corrects that check; native acceptance remains receipt-bound.
+
+
+### Terminal command rejection (0.1.3)
+
+The qualified command contract is `idempotent-terminal-v1` in mutation and
+reconciliation OpenAPI operations. Business failure rolls back before a second
+transaction acquires the same audit-head lock and records a terminal rejection.
+Only explicit expected validation/state codes qualify; permission, corruption,
+transport and storage failures remain uncertain. A concurrent matching committed
+receipt wins. Every existing key is checked against the original payload digest
+before returning any outcome. Rejected receipts fence all late attempts permanently.
+
+Rejected resultJSON uses `commandReceiptVersion:1,outcome:rejected,code`.
+Existing raw committed resultJSON is read without rewriting. The rejection event
+contains only actor, action, static code, digest and correlation/time metadata,
+never submitted entity IDs or values; its transactional outbox row is suppressed.
+There is no external dispatcher.
+
+Read-only reconciliation returns `receiptVersion:1,actorId,commandAction,requestId,
+requestDigest,status,outcome` plus committed result or safe rejected code/message.
+Digest is the canonical SHA256 of submitted values excluding requestId (recursive
+sorted object keys, array order preserved). A caller must match every binding
+before offering explicit correction with a new identity. Error terminalProof is
+emitted only after persistence, but is not a substitute for authenticated lookup.
+Absence is never proof that an old request cannot arrive. ACL pre-handler denial
+and failed fencing cannot authorize correction or automatic replay.
+
+Source tests cover rollback, same-key collision, duplicate and late rejection,
+concurrent committed winner, and fence failure. Native concurrent transaction
+behavior, error serialization and rendered correction remain qualification gates.

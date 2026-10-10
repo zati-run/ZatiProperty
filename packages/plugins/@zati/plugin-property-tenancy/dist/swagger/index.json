@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "ZatiProperty protected domain actions",
-    "version": "0.1.1"
+    "version": "0.1.3"
   },
   "paths": {
     "/zpPropertyTenancy:createDraftTenancy": {
@@ -181,7 +181,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:updateDraftTenancy": {
@@ -363,7 +364,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:activateTenancy": {
@@ -429,7 +431,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:endTenancy": {
@@ -500,7 +503,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:createOwnershipSet": {
@@ -570,7 +574,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:setOwnershipInterests": {
@@ -661,7 +666,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:approveOwnershipSet": {
@@ -734,7 +740,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:auditHealth": {
@@ -774,7 +781,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:createProperty": {
@@ -835,7 +843,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:createBuilding": {
@@ -901,7 +910,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:createUnit": {
@@ -971,7 +981,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:createOwnerContact": {
@@ -1041,7 +1052,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:authorizeTenantAccount": {
@@ -1117,7 +1129,8 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1"
       }
     },
     "/zpPropertyTenancy:reconcileCommand": {
@@ -1161,7 +1174,66 @@
         ],
         "responses": {
           "200": {
-            "description": "Own committed receipt or not_observed with retryAuthorized false; absence is not proof an in-flight command cannot commit"
+            "description": "Persisted committed or rejected outcome, or uncertain not_observed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "receiptVersion": {
+                      "type": "integer",
+                      "enum": [
+                        1
+                      ]
+                    },
+                    "actorId": {
+                      "type": "string"
+                    },
+                    "commandAction": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "requestDigest": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "committed",
+                        "rejected",
+                        "not_observed"
+                      ]
+                    },
+                    "outcome": {
+                      "type": "string",
+                      "enum": [
+                        "committed",
+                        "rejected"
+                      ]
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object"
+                    },
+                    "retryAuthorized": {
+                      "type": "boolean",
+                      "enum": [
+                        false
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           },
           "403": {
             "description": "Original action or reconciliation ACL denied"
@@ -1169,7 +1241,9 @@
           "409": {
             "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
-        }
+        },
+        "x-loom-command-contract": "idempotent-terminal-v1",
+        "description": "Read-only actor and original-action authorized lookup. receiptVersion 1 identifies a persisted outcome; requestDigest is canonical SHA256 excluding requestId. Rejected outcomes permit correction only after matching actorId, commandAction, requestId and requestDigest. not_observed never authorizes automatic replay."
       }
     }
   }

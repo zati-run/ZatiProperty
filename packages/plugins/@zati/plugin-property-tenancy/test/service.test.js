@@ -4,7 +4,7 @@ const {Service,ZERO}=require('../dist/server/service');
 const d=require('../dist/server/domain');
 function fixture() {
  let rows={zp_tenancies:[],zp_domain_events:[],zp_domain_outbox:[],zp_properties:[{id:1,managerUserId:10},{id:2,managerUserId:20}],zp_units:[{id:1,propertyId:1},{id:2,propertyId:2}],users:[{id:30,nickname:'Synthetic tenant30'}],zp_owner_contacts:[{id:1,managerUserId:10},{id:2,managerUserId:10},{id:3,managerUserId:20}],zp_domain_commands:[],zp_tenant_account_permissions:[{id:1,managerUserId:10,userId:30}],zp_audit_heads:[{id:1,headSequence:0,headHash:ZERO}]};
- let queue=Promise.resolve(),fail=null;
+ let queue=Promise.resolve(),fail=null,failOnce=null;
  const store={lookupCommand:async key=>structuredClone(rows.zp_domain_commands.filter(r=>r.commandKey===key)),transaction:async cb=>{
    let release;const prior=queue;queue=new Promise(r=>release=r);await prior;
    const copy=structuredClone(rows);
@@ -13,12 +13,12 @@ function fixture() {
      head:async()=>table('zp_audit_heads')[0],
      get:async(name,id)=>table(name).find(r=>d.same(r.id,id)),
      list:async(name,where,limit)=>table(name).filter(r=>Object.entries(where).every(([k,v])=>d.same(r[k],v))).slice(0,limit),
-     create:async(name,value)=>{if(fail===name)throw Error('simulated storage failure');const row={...value,id:Math.max(0,...table(name).map(r=>r.id))+1};table(name).push(row);return row;},
+     create:async(name,value)=>{if(failOnce?.name===name){const code=failOnce.code;failOnce=null;d.deny(code);}if(fail===name)throw Error('simulated storage failure');const row={...value,id:Math.max(0,...table(name).map(r=>r.id))+1};table(name).push(row);return row;},
      update:async(name,id,value)=>{const r=table(name).find(r=>d.same(r.id,id));Object.assign(r,value);return r;}
    };
    try{const result=await cb(tx);rows=copy;return result;}finally{release();}
  }};
- const service=new Service(store),execute=service.execute.bind(service);service.execute=(action,input,actor,authority)=>execute(action,['auditHealth','reconcileCommand'].includes(action)?input:{requestId:require('node:crypto').randomUUID(),...input},actor,authority);return {service,get rows(){return rows;},fail:name=>fail=name};
+ const service=new Service(store),execute=service.execute.bind(service);service.execute=(action,input,actor,authority)=>execute(action,['auditHealth','reconcileCommand'].includes(action)?input:{requestId:require('node:crypto').randomUUID(),...input},actor,authority);return {service,get rows(){return rows;},fail:name=>fail=name,failOnce:(name,code)=>failOnce={name,code}};
 }
 const draft=()=>({unitId:1,code:'T-1',startDate:'2030-01-01',endDate:'2031-01-01',term:{effectiveFrom:'2030-01-01',effectiveTo:'2031-01-01',currency:'USD',rentMinor:100000,depositMinor:50000,rentFrequency:'monthly',dueDay:1,prorationPolicy:'calendar-days'},parties:[{displayName:'Synthetic tenant',userId:30,partyRole:'primary',effectiveFrom:'2030-01-01',effectiveTo:'2031-01-01'}],reasonCode:'initial-setup'});
 test('draft persists immutable proposal revision and atomic audit/outbox without posting',async()=>{
@@ -32,7 +32,7 @@ test('draft persists immutable proposal revision and atomic audit/outbox without
 test('foreign manager and extra nested payload denied without changes',async()=>{
  const f=fixture();await assert.rejects(f.service.execute('createDraftTenancy',draft(),20),/PROPERTY_SCOPE/);
  await assert.rejects(f.service.execute('createDraftTenancy',{...draft(),unit:{propertyId:2}},10),/UNKNOWN_INPUT/);
- assert.equal(f.rows.zp_domain_events.length,0);
+ assert.equal(f.rows.zp_domain_events.length,1);
 });
 test('activation and end preserve status, proposal history, and chain',async()=>{
  const f=fixture();await f.service.execute('createDraftTenancy',draft(),10);
@@ -48,7 +48,7 @@ test('draft edits append proposal versions and stale writes rollback',async()=>{
  await f.service.execute('updateDraftTenancy',{...input,tenancyId:1,expectedVersion:0},10);
  assert.deepEqual(f.rows.zp_tenancy_terms.map(r=>r.revision),[1,2]);
  await assert.rejects(f.service.execute('activateTenancy',{tenancyId:1,expectedVersion:0,reasonCode:'initial-setup'},10),/STALE_VERSION/);
- assert.equal(f.rows.zp_domain_events.length,2);
+ assert.equal(f.rows.zp_domain_events.length,3);
 });
 test('serialized concurrent activations produce one winner and no partial loser',async()=>{
  const f=fixture();await f.service.execute('createDraftTenancy',draft(),10);
@@ -56,7 +56,7 @@ test('serialized concurrent activations produce one winner and no partial loser'
  const results=await Promise.allSettled([1,2].map(tenancyId=>f.service.execute('activateTenancy',{tenancyId,expectedVersion:0,reasonCode:'initial-setup'},10)));
  assert.equal(results.filter(r=>r.status==='fulfilled').length,1);
  assert.match(results.find(r=>r.status==='rejected').reason.message,/OCCUPANCY_OVERLAP/);
- assert.equal(f.rows.zp_domain_events.length,3);
+ assert.equal(f.rows.zp_domain_events.length,4);
 });
 test('outbox failure rolls back tenancy and audit in same transaction',async()=>{
  const f=fixture();f.fail('zp_domain_outbox');
@@ -70,7 +70,7 @@ test('ownership complete set revisions sum exactly and approval is immutable',as
  await f.service.execute('setOwnershipInterests',{ownershipSetId:1,expectedVersion:0,interests:[{ownerContactId:1,shareBasisPoints:6000},{ownerContactId:2,shareBasisPoints:4000}],reasonCode:'initial-setup'},10);
  await f.service.execute('approveOwnershipSet',{ownershipSetId:1,expectedVersion:1,completeSet:true,reasonCode:'initial-setup'},10);
  await assert.rejects(f.service.execute('setOwnershipInterests',{ownershipSetId:1,expectedVersion:2,interests:[{ownerContactId:1,shareBasisPoints:10000}],reasonCode:'initial-setup'},10),/OWNERSHIP_IMMUTABLE/);
- assert.equal(f.rows.zp_property_interests.length,2);assert.equal(f.rows.zp_domain_events.length,3);
+ assert.equal(f.rows.zp_property_interests.length,2);assert.equal(f.rows.zp_domain_events.length,4);
 });
 test('audit tamper, reorder and missing tail fail independent chain verification',async()=>{
  const f=fixture();await f.service.execute('createDraftTenancy',draft(),10);
@@ -111,7 +111,7 @@ test('foreign owner linkage and missing complete-set confirmation denied atomica
  const f=fixture();await f.service.execute('createOwnershipSet',{propertyId:1,effectiveFrom:'2030-01-01',reasonCode:'initial-setup'},10);
  await assert.rejects(f.service.execute('setOwnershipInterests',{ownershipSetId:1,expectedVersion:0,interests:[{ownerContactId:3,shareBasisPoints:10000}],reasonCode:'initial-setup'},10),/OWNER_SCOPE/);
  await assert.rejects(f.service.execute('approveOwnershipSet',{ownershipSetId:1,expectedVersion:0,reasonCode:'initial-setup'},10),/COMPLETE_SET_CONFIRMATION/);
- assert.equal(f.rows.zp_property_interests,undefined);assert.equal(f.rows.zp_domain_events.length,1);
+ assert.equal(f.rows.zp_property_interests,undefined);assert.equal(f.rows.zp_domain_events.length,2);
 });
 test('simultaneous overlapping ownership approvals have one winner',async()=>{
  const f=fixture();
@@ -122,7 +122,7 @@ test('simultaneous overlapping ownership approvals have one winner',async()=>{
  const results=await Promise.allSettled([1,2].map(ownershipSetId=>f.service.execute('approveOwnershipSet',{ownershipSetId,expectedVersion:1,completeSet:true,reasonCode:'initial-setup'},10)));
  assert.equal(results.filter(r=>r.status==='fulfilled').length,1);
  assert.match(results.find(r=>r.status==='rejected').reason.message,/OWNERSHIP_OVERLAP/);
- assert.equal(f.rows.zp_domain_events.length,5);
+ assert.equal(f.rows.zp_domain_events.length,6);
 });
 test('unsupported per-room leasing and over-limit monetary values fail closed',async()=>{
  const f=fixture();f.rows.zp_properties[0].perRoomLeasing=true;
@@ -172,7 +172,7 @@ test('activation revalidates account existence before publishing identity',async
  f.rows.users=[];
  await assert.rejects(f.service.execute('activateTenancy',{tenancyId:1,expectedVersion:0,reasonCode:'activation-reviewed'},10),/PARTY_ACCOUNT_NOT_PERMITTED/);
  assert.equal(f.rows.zp_tenancies[0].tenantUserId,null);
- assert.equal(f.rows.zp_domain_events.length,1);
+ assert.equal(f.rows.zp_domain_events.length,2);
  const input=draft();input.term.currency=['USD'];
  assert.throws(()=>d.tenancyInput(input),/INVALID_TERMS/);
 });
@@ -183,7 +183,7 @@ test('same request retry after lost response returns committed result without du
  const second=await f.service.execute('createDraftTenancy',input,10);
  assert.deepEqual(second,first);assert.equal(f.rows.zp_tenancies.length,1);assert.equal(f.rows.zp_domain_events.length,1);assert.equal(f.rows.zp_domain_outbox.length,1);assert.equal(f.rows.zp_domain_commands.length,1);
  const receipt=await f.service.execute('reconcileCommand',{action:'createDraftTenancy',requestId:input.requestId},10);
- assert.deepEqual(receipt,{status:'committed',requestId:input.requestId,result:first});
+ assert.deepEqual(receipt,{receiptVersion:1,actorId:'10',commandAction:'createDraftTenancy',status:'committed',outcome:'committed',requestId:input.requestId,requestDigest:f.rows.zp_domain_commands[0].requestDigest,result:first});
 });
 test('concurrent identical commands return one committed effect and audit',async()=>{
  const f=fixture();const input={...draft(),requestId:'22222222-2222-4222-8222-222222222222'};
@@ -244,4 +244,74 @@ test('audit health on an empty store remains read-only and reports zero chain',a
  const before=structuredClone(f.rows);
  const result=await f.service.execute('auditHealth',{propertyId:1},10);
  assert.equal(result.valid,true);assert.equal(result.sequence,0);assert.deepEqual(f.rows,before);
+});
+
+test('terminal rejection is durable, late duplicates cannot run, and changed payload collides',async()=>{
+ const f=fixture(),requestId='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
+ const input={...draft(),requestId,unexpected:'sensitive-invalid-value'};
+ let first;
+ await assert.rejects(f.service.execute('createDraftTenancy',input,10),e=>{first=e;return e.code==='UNKNOWN_INPUT'&&e.terminalProof.outcome==='rejected';});
+ assert.equal(f.rows.zp_tenancies.length,0);
+ assert.equal(f.rows.zp_domain_events.length,1);
+ assert.ok(!f.rows.zp_domain_events[0].canonicalPayload.includes('sensitive-invalid-value'));
+ const outcome=await f.service.execute('reconcileCommand',{action:'createDraftTenancy',requestId},10);
+ assert.equal(outcome.outcome,'rejected');assert.equal(outcome.requestDigest,first.terminalProof.requestDigest);
+ await assert.rejects(f.service.execute('createDraftTenancy',input,10),e=>e.terminalProof.requestDigest===outcome.requestDigest);
+ await assert.rejects(f.service.execute('createDraftTenancy',{...draft(),requestId},10),/REQUEST_ID_COLLISION/);
+ assert.equal(f.rows.zp_domain_events.length,1);assert.equal(f.rows.zp_domain_commands.length,1);
+ assert.equal(d.verifyEvents(f.rows.zp_domain_events,f.rows.zp_audit_heads[0]).sequence,1);
+});
+test('concurrent identical rejection attempts create exactly one terminal fence',async()=>{
+ const f=fixture(),input={...draft(),requestId:'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',unexpected:true};
+ const results=await Promise.allSettled([1,2,3].map(()=>f.service.execute('createDraftTenancy',input,10)));
+ assert.ok(results.every(r=>r.status==='rejected'&&r.reason.terminalProof.outcome==='rejected'));
+ assert.equal(f.rows.zp_domain_commands.length,1);assert.equal(f.rows.zp_domain_events.length,1);
+});
+test('failed rejection fence stays unknown and rolls back its audit and outbox',async()=>{
+ for(const table of ['zp_domain_events','zp_domain_outbox','zp_domain_commands']){
+  const f=fixture();f.fail(table);
+  const requestId='cccccccc-cccc-4ccc-8ccc-cccccccccccc';
+  await assert.rejects(f.service.execute('createDraftTenancy',{...draft(),requestId,unexpected:true},10),e=>!e.terminalProof&&/storage failure/.test(e.message));
+  assert.equal(f.rows.zp_domain_commands.length,0);assert.equal(f.rows.zp_domain_events.length,0);assert.equal(f.rows.zp_domain_outbox.length,0);
+  assert.equal((await f.service.execute('reconcileCommand',{action:'createDraftTenancy',requestId},10)).status,'not_observed');
+ }
+});
+test('permission failures and unexpected storage errors never become terminal proof',async()=>{
+ const f=fixture();
+ await assert.rejects(f.service.execute('createDraftTenancy',draft(),20),e=>e.code==='PROPERTY_SCOPE'&&!e.terminalProof);
+ f.fail('zp_tenancies');
+ await assert.rejects(f.service.execute('createDraftTenancy',draft(),10),e=>!e.terminalProof);
+ assert.equal(f.rows.zp_domain_commands.length,0);assert.equal(f.rows.zp_domain_events.length,0);
+});
+
+test('business rows roll back before a terminal audit fence is committed',async()=>{
+ const f=fixture();f.failOnce('zp_tenancy_terms','INVALID_TERMS');
+ await assert.rejects(f.service.execute('createDraftTenancy',draft(),10),e=>e.code==='INVALID_TERMS'&&!!e.terminalProof);
+ assert.equal(f.rows.zp_tenancies.length,0);assert.equal((f.rows.zp_tenancy_terms||[]).length,0);
+ assert.equal(f.rows.zp_domain_events.length,1);
+ assert.equal(f.rows.zp_domain_outbox[0].status,'suppressed');
+ assert.ok(!f.rows.zp_domain_events[0].canonicalPayload.includes('entityId'));
+});
+test('concurrent successful matching command wins before delayed rejection fence',async()=>{
+ const f=fixture();f.failOnce('zp_tenancy_terms','INVALID_TERMS');
+ const input={...draft(),requestId:'dddddddd-dddd-4ddd-8ddd-dddddddddddd'};
+ const results=await Promise.all([f.service.execute('createDraftTenancy',input,10),f.service.execute('createDraftTenancy',input,10)]);
+ assert.deepEqual(results[0],results[1]);assert.equal(f.rows.zp_tenancies.length,1);
+ assert.equal(f.rows.zp_domain_events.length,1);assert.equal(f.rows.zp_domain_commands.length,1);
+ assert.equal((await f.service.execute('reconcileCommand',{action:'createDraftTenancy',requestId:input.requestId},10)).outcome,'committed');
+});
+
+test('audit-stage validator failures stay unknown instead of becoming domain rejection',async()=>{
+ const f=fixture();f.rows.zp_audit_heads[0].headSequence=-1;
+ await assert.rejects(f.service.execute('createDraftTenancy',draft(),10),e=>e.code==='INVALID_INTEGER'&&!e.terminalProof);
+ assert.equal(f.rows.zp_tenancies.length,0);assert.equal(f.rows.zp_domain_commands.length,0);
+});
+test('legacy committed result remains byte-identical through replay and reconciliation',async()=>{
+ const f=fixture(),input={...draft(),requestId:'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee'};
+ const result=await f.service.execute('createDraftTenancy',input,10),original=f.rows.zp_domain_commands[0].resultJSON;
+ assert.equal(JSON.parse(original).commandReceiptVersion,undefined);
+ assert.deepEqual(await f.service.execute('createDraftTenancy',input,10),result);
+ const lookup=await f.service.execute('reconcileCommand',{action:'createDraftTenancy',requestId:input.requestId},10);
+ assert.equal(lookup.receiptVersion,1);assert.equal(lookup.actorId,'10');assert.equal(lookup.commandAction,'createDraftTenancy');
+ assert.equal(f.rows.zp_domain_commands[0].resultJSON,original);
 });

@@ -73,7 +73,7 @@ class PropertyTenancyPlugin extends Plugin {
         } catch(error) {
           // Only bounded domain codes; never echo SQL, values, credentials or PII.
           const failure=safeFailure(error);
-          ctx.throw(failure.status,failure.message,{code:failure.code});
+          ctx.throw(failure.status,failure.message,{code:failure.code,...(error.terminalProof?{terminalProof:error.terminalProof}: {})});
         }
         await next();
       };

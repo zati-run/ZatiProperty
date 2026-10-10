@@ -1,6 +1,23 @@
 'use strict';
 const d=require('./domain');
 const {randomUUID}=require('node:crypto');
+const {safeFailure}=require('./errors');
+const TERMINAL_CODES=new Set(['STALE_VERSION','PARTY_ACCOUNT_NOT_PERMITTED','OCCUPANCY_OVERLAP','OWNER_SCOPE_MIGRATION_REQUIRED','PARTY_SCOPE_MIGRATION_REQUIRED','INVALID_TEXT','UNKNOWN_INPUT','INVALID_DATE','INVALID_INTERVAL','INVALID_INTEGER','INVALID_TERMS','INVALID_PARTIES','TERM_PERIOD_MISMATCH','NOT_DRAFT','NOT_ACTIVE','COMPLETE_SET_CONFIRMATION','INVALID_REASON_CODE','DUPLICATE_OWNER','DUPLICATE_PARTY_USER','INVALID_ID','INVALID_INTERESTS','INVALID_PARTY_ROLE','OWNERSHIP_TOTAL','PARTY_PERIOD_MISMATCH','PRIMARY_PARTY_REQUIRED','PRIMARY_USER_REQUIRED','OWNERSHIP_OVERLAP','END_EXTENSION_FORBIDDEN','PRIMARY_IDENTITY_IMMUTABLE']);
+function receiptOutcome(row) {
+ let value;try{value=JSON.parse(row.resultJSON);}catch{d.deny('COMMAND_CORRUPT');}
+ if(value?.commandReceiptVersion===1) {
+  if(value.outcome!=='rejected'||!TERMINAL_CODES.has(value.code))d.deny('COMMAND_CORRUPT');
+  return {outcome:'rejected',code:value.code};
+ }
+ return {outcome:'committed',result:value};
+}
+function deliver(row) {
+ const outcome=receiptOutcome(row);
+ if(outcome.outcome==='committed')return outcome.result;
+ const error=new Error(outcome.code);error.code=outcome.code;
+ error.terminalProof={outcome:'rejected',requestId:row.requestId,requestDigest:row.requestDigest};
+ throw error;
+}
 const ACTIONS=['createDraftTenancy','updateDraftTenancy','activateTenancy','endTenancy','createOwnershipSet','setOwnershipInterests','approveOwnershipSet','auditHealth','createProperty','createBuilding','createUnit','createOwnerContact','authorizeTenantAccount','reconcileCommand'];
 const ZERO='0'.repeat(64);
 function commandKey(actor,action,requestId) {
@@ -18,7 +35,9 @@ class Service {
       if(!ACTIONS.includes(input.action)||['auditHealth','reconcileCommand'].includes(input.action))d.deny('UNKNOWN_ACTION');
       const found=await this.store.lookupCommand(commandKey(actor,input.action,input.requestId));
       if(found.length>1)d.deny('COMMAND_CORRUPT');
-      return found.length?{status:'committed',requestId:input.requestId,result:JSON.parse(found[0].resultJSON)}:{status:'not_observed',requestId:input.requestId,retryAuthorized:false};
+      if(!found.length)return {status:'not_observed',requestId:input.requestId,retryAuthorized:false};
+      const outcome=receiptOutcome(found[0]);
+      return {receiptVersion:1,actorId:String(actor),commandAction:input.action,status:outcome.outcome,...outcome,requestId:input.requestId,requestDigest:found[0].requestDigest,...(outcome.outcome==='rejected'?{message:safeFailure({code:outcome.code}).message}: {})};
     }
     let key,requestId,requestDigest;
     if(action!=='auditHealth'){
@@ -26,7 +45,8 @@ class Service {
       requestId=input.requestId;key=commandKey(actor,action,requestId);
       input={...input};delete input.requestId;requestDigest=d.hash(d.canonical(input));
     }
-    return this.store.transaction(async tx=>{
+    let businessFailureEligible=false;
+    try { return await this.store.transaction(async tx=>{
       // One lock order across every domain mutation; head serializes audit ordering.
       const head=await tx.head(action!=='auditHealth')||{headSequence:0,headHash:ZERO};
       if(key){
@@ -34,7 +54,7 @@ class Service {
         if(prior.length>1)d.deny('COMMAND_CORRUPT');
         if(prior.length){
           if(prior[0].requestDigest!==requestDigest)d.deny('REQUEST_ID_COLLISION');
-          return JSON.parse(prior[0].resultJSON);
+          return deliver(prior[0]);
         }
       }
       if(action==='auditHealth') {
@@ -45,6 +65,7 @@ class Service {
         events.sort((a,b)=>Number(a.sequence)-Number(b.sequence));
         return d.verifyEvents(events,head);
       }
+      businessFailureEligible=true;
       if(!Object.hasOwn(d.REASONS,input.reasonCode))d.deny('INVALID_REASON_CODE');
       let result,previous=null;
       let entityCollection=action.includes('Tenancy')?'zp_tenancies':'zp_ownership_sets';
@@ -150,6 +171,7 @@ class Service {
         }
         result={id:set.id,propertyId:set.propertyId,state:set.state,version:set.version};
       }
+      businessFailureEligible=false;
       const sequence=d.integer(Number(head.headSequence),0,2147483646)+1;
       const resulting=this.snapshot(entityCollection,await tx.get(entityCollection,result.id));
       const canonicalPayload=d.canonical({sequence,actorId:String(actor),action,entityId:String(result.id),propertyId:String(result.propertyId),version:result.version,entityCollection,previous,resulting,reasonCode:input.reasonCode,reason:d.REASONS[input.reasonCode],occurredAt:new Date().toISOString(),correlationId:randomUUID(),requestDigest:d.hash(d.canonical(input))});
@@ -159,7 +181,27 @@ class Service {
       await tx.update('zp_audit_heads',1,{headSequence:sequence,headHash:eventHash});
       await tx.create('zp_domain_commands',{commandKey:key,actorId:actor,action,requestId,requestDigest,resultJSON:d.canonical(result),eventId:event.id});
       return result;
-    });
+    }); } catch(error) {
+      if(!businessFailureEligible||action==='auditHealth'||error.terminalProof||!TERMINAL_CODES.has(error.code))throw error;
+      // The failed business transaction has fully rolled back before this fence begins.
+      const receipt=await this.store.transaction(async tx=>{
+        const head=await tx.head(true);
+        const prior=await tx.list('zp_domain_commands',{commandKey:key},2);
+        if(prior.length>1)d.deny('COMMAND_CORRUPT');
+        if(prior.length) {
+          if(prior[0].requestDigest!==requestDigest)d.deny('REQUEST_ID_COLLISION');
+          return prior[0];
+        }
+        const sequence=d.integer(Number(head.headSequence),0,2147483646)+1;
+        const canonicalPayload=d.canonical({sequence,actorId:String(actor),action:'commandRejected',commandAction:action,code:error.code,requestDigest,occurredAt:new Date().toISOString(),correlationId:randomUUID()});
+        const eventHash=d.hash(head.headHash+'\n'+canonicalPayload);
+        const event=await tx.create('zp_domain_events',{sequence,previousHash:head.headHash,eventHash,canonicalPayload});
+        await tx.create('zp_domain_outbox',{eventId:event.id,topic:'property-tenancy.commandRejected',payload:canonicalPayload,status:'suppressed'});
+        await tx.update('zp_audit_heads',1,{headSequence:sequence,headHash:eventHash});
+        return tx.create('zp_domain_commands',{commandKey:key,actorId:actor,action,requestId,requestDigest,eventId:event.id,resultJSON:d.canonical({commandReceiptVersion:1,outcome:'rejected',code:error.code})});
+      });
+      return deliver(receipt);
+    }
   }
 
   snapshot(collection,row) {
