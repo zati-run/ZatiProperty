@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "requiredDomainVersion": "0.1.4",
+  "requiredCompanionVersion": "0.2.1",
+  "forms": [
+    {
+      "key": "create-standalone-unit",
+      "uid": "zp_create_standalone_unit_form_v1",
+      "placement": "property.details-grid",
+      "config": {
+        "actionPackage": "@zati/plugin-property-tenancy",
+        "resource": "zpPropertyTenancy",
+        "action": "createUnit",
+        "reconcileAction": "reconcileCommand",
+        "commandContract": "idempotent-terminal-v1",
+        "qualification": {
+          "reviewed": true,
+          "evidenceRef": "docs/generation/receipts/standalone-unit-form-independent.md"
+        },
+        "context": {
+          "collection": "zp_properties",
+          "recordPath": "popup.record"
+        },
+        "bindings": {
+          "propertyId": {
+            "recordField": "id"
+          }
+        },
+        "title": "Add unit without a building",
+        "submitLabel": "Save unit",
+        "labels": {
+          "/name": "Unit reference",
+          "/reasonCode": "Reason for this change"
+        },
+        "readback": {
+          "collection": "zp_units",
+          "resultIdField": "id",
+          "fields": [
+            "id",
+            "name",
+            "propertyId",
+            "buildingId"
+          ]
+        },
+        "omittedInputs": [
+          "buildingId"
+        ]
+      }
+    }
+  ]
+}
