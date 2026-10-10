@@ -27,6 +27,8 @@ def validate(status,body,expected,kind):
     if kind=="nested":
         for row in rows:
             if not isinstance(row.get("tenancies"),list):return False
+            expected_children={2:[2],3:[4,5],4:[]}.get(int(row["id"]))
+            if expected_children is None or sorted(int(t["id"]) for t in row["tenancies"])!=expected_children:return False
             if any(str(t.get("unitId",row["id"]))!=str(row["id"]) for t in row["tenancies"]):return False
     return True
 def main():
