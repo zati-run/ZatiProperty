@@ -24,7 +24,7 @@ def denied_generic(root,q,client,actor,operation,args,label):
     if snapshot(root,q)!=before:raise AssertionError("Denied generic write changed state")
     q.record({"label":label,"status":"denied-unchanged","actor":actor,"boundary":code,"snapshotDigest":v.hashlib.sha256(json.dumps(before,sort_keys=True,separators=(",",":")).encode()).hexdigest()})
 
-def run(root,q):
+def run(root,q,checkpoint=None):
     properties=v.read_rows(root,"zp_properties",filter={"id":4})
     units=v.read_rows(root,"zp_units",filter={"id":3})
     contacts=v.read_rows(root,"zp_owner_contacts",filter={"id":1})
@@ -34,20 +34,28 @@ def run(root,q):
     if str(properties[0]["managerUserId"])!=str(contacts[0]["managerUserId"]):raise RuntimeError("Owner contact scope drift")
     allcontacts=v.read_rows(root,"zp_owner_contacts",fields=["id"])
     absent=max([int(x["id"]) for x in allcontacts]+[1000000])+1
-    with v.role_client(root,q,"invariant_manager","zp_property_manager","1",18462) as manager:
+    with v.role_client(root,q,"invariant_manager_resume" if checkpoint else "invariant_manager","zp_property_manager","1",18462) as manager:
         create={"propertyId":4,"effectiveFrom":"2040-01-01","effectiveTo":"2040-12-31","reasonCode":"initial-setup"}
-        a,_=q.command(manager,"manager1","createOwnershipSet",create,"ownership-a")
-        aid=a["id"];av=v.expected_version(a)
-        interests={"ownershipSetId":aid,"expectedVersion":av,"interests":[{"ownerContactId":1,"shareBasisPoints":10000}],"reasonCode":"correction"}
-        q.command(manager,"manager1","setOwnershipInterests",{**interests,"interests":[{"ownerContactId":1,"shareBasisPoints":9999}]},"ownership-sum-denied",expected_error="OWNERSHIP_TOTAL")
-        before=snapshot(root,q)
-        q.command(manager,"manager1","setOwnershipInterests",{**interests,"interests":[{"ownerContactId":1,"shareBasisPoints":5000},{"ownerContactId":absent,"shareBasisPoints":5000}]},"ownership-partial-rollback",expected_error="OWNER_SCOPE")
-        if snapshot(root,q)!=before:raise AssertionError("Partial nested transaction did not roll back")
-        q.record({"label":"partial-nested-rollback","status":"native-state-unchanged","failureKind":"domain validation after first nested insertion; not injected database constraint"})
-        a,_=q.command(manager,"manager1","setOwnershipInterests",interests,"ownership-interests")
-        approval={"ownershipSetId":aid,"expectedVersion":v.expected_version(a),"completeSet":True,"reasonCode":"ownership-reviewed"}
-        q.command(manager,"manager1","approveOwnershipSet",{**approval,"expectedVersion":av},"ownership-stale",expected_error="STALE_VERSION")
-        q.command(manager,"manager1","approveOwnershipSet",{**approval,"completeSet":False},"ownership-incomplete",expected_error="COMPLETE_SET_CONFIRMATION")
+        if checkpoint:
+            a=checkpoint;aid=a["id"];av=0
+            interests={"ownershipSetId":aid,"expectedVersion":av,"interests":[{"ownerContactId":1,"shareBasisPoints":10000}],"reasonCode":"correction"}
+            approval={"ownershipSetId":aid,"expectedVersion":v.expected_version(a),"completeSet":True,"reasonCode":"ownership-reviewed"}
+        else:
+            a,_=q.command(manager,"manager1","createOwnershipSet",create,"ownership-a")
+            aid=a["id"];av=v.expected_version(a)
+            interests={"ownershipSetId":aid,"expectedVersion":av,"interests":[{"ownerContactId":1,"shareBasisPoints":10000}],"reasonCode":"correction"}
+            q.command(manager,"manager1","setOwnershipInterests",{**interests,"interests":[{"ownerContactId":1,"shareBasisPoints":9999}]},"ownership-sum-denied",expected_error="OWNERSHIP_TOTAL")
+            before=snapshot(root,q)
+            q.command(manager,"manager1","setOwnershipInterests",{**interests,"interests":[{"ownerContactId":1,"shareBasisPoints":5000},{"ownerContactId":absent,"shareBasisPoints":5000}]},"ownership-partial-rollback",expected_error="OWNER_SCOPE")
+            if snapshot(root,q)!=before:raise AssertionError("Partial nested transaction did not roll back")
+            q.record({"label":"partial-nested-rollback","status":"native-state-unchanged","failureKind":"domain validation after first nested insertion; not injected database constraint"})
+            a,_=q.command(manager,"manager1","setOwnershipInterests",interests,"ownership-interests")
+            approval={"ownershipSetId":aid,"expectedVersion":v.expected_version(a),"completeSet":True,"reasonCode":"ownership-reviewed"}
+            q.command(manager,"manager1","approveOwnershipSet",{**approval,"expectedVersion":av},"ownership-stale",expected_error="STALE_VERSION")
+        name=v.tool(manager,v.PREFIX+v.ACTIONS["approveOwnershipSet"])
+        try:jsonschema.validate({"requestBody":{**approval,"completeSet":False,"requestId":str(uuid.uuid4())}},manager.by_name[name]["inputSchema"])
+        except jsonschema.ValidationError:q.record({"label":"ownership-incomplete","status":"local-schema-rejected-no-native-call"})
+        else:raise AssertionError("Expected qualified completeSet schema restriction")
         a,_=q.command(manager,"manager1","approveOwnershipSet",approval,"ownership-approved")
         q.command(manager,"manager1","setOwnershipInterests",{**interests,"expectedVersion":v.expected_version(a)},"ownership-immutable",expected_error="OWNERSHIP_IMMUTABLE")
         b,_=q.command(manager,"manager1","createOwnershipSet",create,"ownership-b")
@@ -69,15 +77,32 @@ def run(root,q):
         if health.get("valid") is not True:raise AssertionError("Audit invalid")
         q.record({"label":"final-audit-health","status":"qualified","result":health})
 
+def resume_checkpoint(root,q):
+    stopped=[e for e in q.events if e.get("label")=="ownership-incomplete" and e.get("status")=="blocked-unknown-or-unexpected"]
+    if len(stopped)!=1:raise RuntimeError("Expected stopped checkpoint absent")
+    prior=stopped[0]
+    if q.audit()!=prior["after"] or prior["before"]!=prior["after"]:raise RuntimeError("Audit drift before resume")
+    commands=v.read_rows(root,"zp_domain_commands",filter={"requestId":prior["requestId"]})
+    if commands:raise RuntimeError("Unexpected command receipt for locally rejected request")
+    rows=v.read_rows(root,"zp_ownership_sets",filter={"id":1})
+    if len(rows)!=1 or rows[0]["state"]!="draft" or rows[0]["version"]!=1 or str(rows[0]["propertyId"])!="4":raise RuntimeError("Ownership checkpoint drift")
+    interests=v.read_rows(root,"zp_property_interests",filter={"ownershipSetId":1})
+    if len(interests)!=1 or interests[0]["shareBasisPoints"]!=10000 or str(interests[0]["ownerContactId"])!="1" or interests[0]["revision"]!=1:raise RuntimeError("Interest checkpoint drift")
+    if q.audit()!=prior["after"]:raise RuntimeError("Audit changed during checkpoint")
+    q.record({"label":"explicit-resume-after-schema-check","status":"native-readback-unchanged"})
+    return {"id":1,"version":1}
+
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument("--execute",action="store_true");p.add_argument("--run-id",required=True);p.add_argument("--receipt",type=pathlib.Path);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument("--execute",action="store_true");p.add_argument("--resume-incomplete",action="store_true");p.add_argument("--run-id",required=True);p.add_argument("--receipt",type=pathlib.Path);a=p.parse_args()
     if not v.re.fullmatch(r"[A-Za-z0-9-]{1,60}",a.run_id):p.error("invalid run ID")
     root=Loom();v.schema_gate(root)
     if not a.execute:
-        print(json.dumps({"status":"source-schema-preflight-only","plannedWrites":28,"successfulCommands":5,"domainDenials":7,"genericDenials":16}));return
+        print(json.dumps({"status":"source-schema-preflight-only","plannedWrites":27,"successfulCommands":5,"domainDenials":6,"genericDenials":16}));return
     if not a.receipt or a.receipt.exists():p.error("fresh receipt required")
-    q=v.Qualification(root,a.run_id)
-    try:run(root,q);status="passed"
+    q=v.Qualification(root,a.run_id,resume=a.resume_incomplete)
+    try:
+        checkpoint=resume_checkpoint(root,q) if a.resume_incomplete else None
+        run(root,q,checkpoint);status="passed"
     except Exception as exc:q.record({"label":"stopped","status":"blocked","errorType":type(exc).__name__});raise
     finally:
         a.receipt.parent.mkdir(parents=True,exist_ok=True)

@@ -47,4 +47,20 @@ class Safety(unittest.TestCase):
   with patch.object(s.v,"read_rows",return_value=[]) as read:
    s.snapshot(None,Q())
    for name in s.v.AUDIT:self.assertIn(((None,name),{}),[(c.args,c.kwargs) for c in read.call_args_list])
+ def test_resume_missing_checkpoint_fails(self):
+  class Q:events=[]
+  with self.assertRaisesRegex(RuntimeError,"checkpoint absent"):s.resume_checkpoint(None,Q())
+ def test_resume_changed_audit_stops_before_reads(self):
+  class Q:
+   events=[{"label":"ownership-incomplete","status":"blocked-unknown-or-unexpected","before":{"head":13},"after":{"head":13}}]
+   def audit(self):return {"head":14}
+  with patch.object(s.v,"read_rows") as read:
+   with self.assertRaisesRegex(RuntimeError,"Audit drift"):s.resume_checkpoint(None,Q())
+   read.assert_not_called()
+ def test_resume_rejects_existing_receipt(self):
+  class Q:
+   events=[{"label":"ownership-incomplete","status":"blocked-unknown-or-unexpected","before":{},"after":{},"requestId":"original"}]
+   def audit(self):return {}
+  with patch.object(s.v,"read_rows",return_value=[{"id":1}]):
+   with self.assertRaisesRegex(RuntimeError,"Unexpected command receipt"):s.resume_checkpoint(None,Q())
 if __name__=="__main__":unittest.main()
