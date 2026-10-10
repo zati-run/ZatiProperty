@@ -19,4 +19,3 @@ class Restore(unittest.TestCase):
   before=self.fixture();after=copy.deepcopy(before);after["routes"]=[{"id":1}]
   with self.assertRaisesRegex(RuntimeError,"Non-permission"):payload_for(before,after)
 if __name__=="__main__":unittest.main()
-

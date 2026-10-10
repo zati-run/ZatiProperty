@@ -36,4 +36,3 @@ class Tests(unittest.TestCase):
   result=subprocess.run(["node","-e",script,str(module)],input=json.dumps(draft),text=True,capture_output=True)
   self.assertEqual(result.returncode,0,result.stderr);self.assertEqual(result.stdout,"valid")
 if __name__=="__main__":unittest.main()
-

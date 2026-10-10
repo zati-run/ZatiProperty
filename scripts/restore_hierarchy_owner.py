@@ -56,4 +56,3 @@ def main():
     result=journal.run("restore-reviewed-owner-auto-grants",client,app.tool("loom_native_roles_apply_data_permissions_"),request,verify)
     print(json.dumps({"status":"verified-owner-restore","evidence":result}))
 if __name__=="__main__":main()
-

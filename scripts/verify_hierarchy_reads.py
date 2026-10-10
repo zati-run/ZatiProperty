@@ -60,4 +60,3 @@ def main():
     print(json.dumps({"passed":output["passed"],"total":output["total"],"failed":[x for x in results if not x["passed"]]}))
     if not output["allPassed"]:sys.exit(1)
 if __name__=="__main__":main()
-

@@ -18,5 +18,12 @@
     "tabUid": "07yzp8v77yr",
     "contextCollection": null,
     "source": "native-readback"
+  },
+  "manager-tenancy-amendment-grid": {
+    "gridUid": "4pv0ezsa1pp",
+    "contextCollection": "zp_tenancies",
+    "formUid": "zp_tenancy_amend_draft_command",
+    "source": "native-readback",
+    "evidenceRef": "docs/generation/receipts/amendment-placement-native-readback.json"
   }
 }

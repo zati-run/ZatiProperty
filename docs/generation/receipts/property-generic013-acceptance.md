@@ -13,4 +13,3 @@ The previous fresh run stopped after three verified hook denials because the ass
 A separate read-only owner check confirmed current permissions equal the original baseline after the reviewed restore, owner digest102a1779647d76b03b5da724dcb6e41ed63b457c9906b79b01cc27aec0381d50.
 
 Limits: these are synthetic native API/guard results. They do not establish browser acceptance, physical NOT NULL/FK constraints, all generic delete/bulk-create variants, production readiness or ledger posting. The protected service and hooks are the verified application boundary; physical constraints remain a separately recorded gap.
-

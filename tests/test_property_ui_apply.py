@@ -41,4 +41,3 @@ class Tests(unittest.TestCase):
    self.assertEqual(journal.run('once',c,'qualified-tool',{},lambda _:wanted),wanted)
    self.assertTrue((Path(tmp)/'journal/once.json').exists())
 if __name__=='__main__':unittest.main()
-

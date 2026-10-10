@@ -167,4 +167,3 @@ class MigrationFaults(unittest.TestCase):
         with self.assertRaises(RuntimeError):self.run_migration('--hierarchy','--apply')
         self.assertEqual(self.writes(),[])
 if __name__=='__main__': unittest.main()
-

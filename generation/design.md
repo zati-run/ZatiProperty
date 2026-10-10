@@ -1,6 +1,6 @@
 # ZatiProperty design contract
 
-Status: proposed implementation baseline; no rendered app acceptance yet.
+Status: active design contract with bounded rendered evidence; whole-app acceptance remains open.
 Authority: RFC-001 defines product scope, permissions and financial invariants.
 This document defines design intent, not executable Loom schema or live capability.
 
@@ -60,10 +60,10 @@ Use `.agents/skills/loom-design/references/review.md` for the evidence procedure
 Evidence: synthetic manager browser receipts establish save/reload and keyboard
 controls; context visibility, eligible vendor choices and final narrow review remain
 open. See `docs/generation/receipts/007-manager-browser-journey.md` and security
-blocker receipt 005. Full journey and portal acceptance remain unestablished.
+blocker receipt 005. This is a historical sample; bounded maintenance journey acceptance was subsequently established in receipt 015. Full portal and broader maintenance acceptance remain open.
 
 ## Current interaction findings
 
-Protected native forms must preserve selected-record context, complete proposal prefill, scoped account choices, and command receipts. The implemented forms now support draft creation and amendment; independent reload and role checks remain their acceptance gate. Success feedback currently asks users to refresh surrounding tables. Improve automatic refresh or provide a direct refresh action through a qualified reusable Loom capability. Preserve explicit pending/unknown outcomes and never retry a business command silently.
+Protected native forms must preserve selected-record context, complete proposal prefill, scoped account choices, and command receipts. The implemented forms now support draft creation and amendment; independent reload and role checks are recorded in receipts 024 and 027; broader interaction and lifecycle coverage remain their acceptance gate. Success feedback currently asks users to refresh surrounding tables. Improve automatic refresh or provide a direct refresh action through a qualified reusable Loom capability. Preserve explicit pending/unknown outcomes and never retry a business command silently.
 
 Remaining sampled UX issues: duplicate optional labels, raw enum punctuation, integer-minor-unit editing in the multi-currency amendment form, and a pre-login notification on fast root-path sign-in. These are tracked as corrections, not deliberate design exceptions. Native narrow layouts and full keyboard paths need further qualification before declaring the wider design accepted.

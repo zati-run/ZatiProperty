@@ -14,4 +14,3 @@ class Matrix(unittest.TestCase):
   self.assertFalse(h.validate(200,{},None,"scoped-get"))
  def test_nested_policy_remains_denied(self):self.assertIsNone(h.cases(True,"1")[4][3])
 if __name__=="__main__":unittest.main()
-

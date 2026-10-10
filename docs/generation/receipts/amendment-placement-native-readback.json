@@ -1,0 +1,69 @@
+{
+  "scope": "read-only observed native placement, no authoring replay",
+  "formUid": "zp_tenancy_amend_draft_command",
+  "gridUid": "4pv0ezsa1pp",
+  "observedGridHash": "c6aa1d13139ad3fe31f353b771756ab120a5b0b0d7185fdaa6c21b3fc464e9fe",
+  "placementProof": {
+    "chain": [
+      {
+        "openView": null,
+        "parentId": "kegn2cvhj7r",
+        "resource": null,
+        "uid": "4pv0ezsa1pp",
+        "use": "BlockGridModel"
+      },
+      {
+        "openView": null,
+        "parentId": "m9sab5w1esm",
+        "resource": null,
+        "uid": "kegn2cvhj7r",
+        "use": "ChildPageTabModel"
+      },
+      {
+        "openView": null,
+        "parentId": "94sogajaq7q",
+        "resource": null,
+        "uid": "m9sab5w1esm",
+        "use": "ChildPageModel"
+      },
+      {
+        "openView": {
+          "collectionName": "zp_tenancies",
+          "dataSourceKey": "main",
+          "filterByTk": "{{ctx.record.id}}",
+          "mode": "drawer",
+          "pageModelClass": "ChildPageModel",
+          "size": "medium"
+        },
+        "parentId": "x876210c336",
+        "resource": null,
+        "uid": "94sogajaq7q",
+        "use": "ViewActionModel"
+      },
+      {
+        "openView": null,
+        "parentId": "nv2iuqn7b91",
+        "resource": null,
+        "uid": "x876210c336",
+        "use": "TableActionsColumnModel"
+      },
+      {
+        "openView": null,
+        "parentId": "54wmde9wmsu",
+        "resource": {
+          "collectionName": "zp_tenancies",
+          "dataSourceKey": "main"
+        },
+        "uid": "nv2iuqn7b91",
+        "use": "TableBlockModel"
+      }
+    ],
+    "collection": "zp_tenancies",
+    "kind": "native-popup-record"
+  },
+  "appSourceRevision": "01169bb3650b8aff0f069c9211517d528aa059c2",
+  "relatedReceipts": [
+    "022-draft-amendment-browser-save.md",
+    "024-tenancy-prefill-independent-review.md"
+  ]
+}

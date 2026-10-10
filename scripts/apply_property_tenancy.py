@@ -147,4 +147,3 @@ def main():
         intent.unlink(); syncdir(runtime)
     print(json.dumps({'completedOperations':len(pending),'appAcceptance':False}))
 if __name__=='__main__': main()
-

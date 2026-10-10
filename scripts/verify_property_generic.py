@@ -79,4 +79,3 @@ def main():
         args.receipt.parent.mkdir(parents=True,exist_ok=True)
         args.receipt.write_text(json.dumps({"status":locals().get("status","blocked"),"observedAt":datetime.datetime.now(datetime.timezone.utc).isoformat(),"checks":q.events},indent=2)+"\n")
 if __name__=="__main__":main()
-

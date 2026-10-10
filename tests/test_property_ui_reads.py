@@ -14,4 +14,3 @@ class ReadAssertions(unittest.TestCase):
  def test_unexpected_scalar_record_is_rejected(self):
   self.assertEqual(projections('unexpected','x',{'x':{'id'}}),['unexpected-record-shape'])
 if __name__=='__main__':unittest.main()
-

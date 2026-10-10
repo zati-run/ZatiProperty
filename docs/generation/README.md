@@ -61,12 +61,19 @@ integration and native role, persistence and rendered evidence; see receipt015,
 the final manager journey and feedback receipts. Association-read guard0.1.3
 resolved the previously recorded maintenance disclosure within the tested scope.
 
-Property/tenancy generation is in progress: eleven additional collections, twelve
-additive fields and the protected domain plugin0.1.0 have native readback. This is
-not property/tenancy acceptance. Native action forms cannot render with generic
-create denied; a reusable Loom action-form capability is being implemented.
-Command reconciliation, full role/workflow/concurrency and rendered checks remain
-open. See receipt016 for the bounded installed-state evidence.
+Property/tenancy generation is in progress. Domain plugin0.1.4 and Loom
+action-form0.1.9 support protected commands without generic CRUD grants.
+Property creation has independent browser/reload/role evidence (020–021).
+Draft creation and amendment have saved journeys and independent persistence,
+prefill and eight-account checks (022–024). Activation/end, stale context denial,
+and independent lifecycle/audit checks are recorded separately (026–027).
+Receipt028 is controlled error-rendering evidence, not backend acceptance.
+
+The reverse hierarchy relationship remains absent: Loom's transactional preview
+identified a native foreign-key allowNull metadata mismatch (025,029); persistent
+fields and permissions remained unchanged. The delayed anonymous authentication
+failure still needs successful session-retention browser evidence. Broader E3
+work, complete role/workflow/concurrency coverage and UI polish remain open.
 
 Complete RFC acceptance, accounting, external integrations and production are not
 established. Historical preparation-only statements are not current runtime evidence.

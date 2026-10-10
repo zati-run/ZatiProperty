@@ -107,4 +107,3 @@ def run():
     print(json.dumps({'caseCount':len(results),'passed':result['passed'],'failed':len(results)-result['passed']}))
     if result['passed']!=len(results):raise SystemExit(2)
 if __name__=='__main__':run()
-

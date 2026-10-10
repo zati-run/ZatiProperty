@@ -334,4 +334,3 @@ def main():
     fd=os.open(output,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
     with os.fdopen(fd,'w') as f:json.dump(result,f,indent=2);f.flush();os.fsync(f.fileno())
 if __name__=='__main__':main()
-
