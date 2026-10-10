@@ -1187,6 +1187,102 @@
           }
         }
       ]
+    },
+    {
+      "name": "zp_tenant_account_permissions",
+      "title": "Permitted tenancy accounts",
+      "description": "Constructor-managed manager/account authorization; no application role writes.",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "managerUserId",
+          "type": "bigInt",
+          "interface": "integer",
+          "allowNull": false,
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 9007199254740991
+                }
+              }
+            ]
+          },
+          "uiSchema": {
+            "type": "number",
+            "title": "Assigned manager",
+            "x-component": "InputNumber"
+          }
+        },
+        {
+          "name": "userId",
+          "type": "bigInt",
+          "interface": "integer",
+          "allowNull": false,
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 9007199254740991
+                }
+              }
+            ]
+          },
+          "uiSchema": {
+            "type": "number",
+            "title": "Permitted account",
+            "x-component": "InputNumber"
+          }
+        },
+        {
+          "name": "mappingKey",
+          "type": "string",
+          "interface": "input",
+          "unique": true,
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Canonical manager/account key",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 64
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "addFields": [
