@@ -1,0 +1,39 @@
+{
+  "target": {
+    "uid": "nv2iuqn7b91"
+  },
+  "type": "view",
+  "settings": {
+    "title": "Amend draft",
+    "openView": {
+      "mode": "drawer"
+    }
+  },
+  "popup": {
+    "title": "Amend draft tenancy",
+    "mode": "append",
+    "blocks": [
+      {
+        "key": "draft-amendment-context",
+        "type": "details",
+        "resource": {
+          "binding": "currentRecord"
+        },
+        "settings": {
+          "title": "Selected tenancy",
+          "layout": "vertical",
+          "labelWrap": true
+        },
+        "fields": [
+          "code",
+          "unit",
+          "leaseState",
+          "version",
+          "draftRevision"
+        ],
+        "actions": [],
+        "recordActions": []
+      }
+    ]
+  }
+}

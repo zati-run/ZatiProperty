@@ -1,7 +1,7 @@
 {
   "version": 1,
   "requiredDomainVersion": "0.1.4",
-  "requiredCompanionVersion": "0.1.6",
+  "requiredCompanionVersion": "0.1.8",
   "forms": [
     {
       "key": "create-property",

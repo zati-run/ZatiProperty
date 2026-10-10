@@ -144,10 +144,10 @@ All construction used Loom native MCP in the same synthetic CE2.2.21 target.
 | Requirement subset | Status | Evidence / remaining gate |
 | --- | --- | --- |
 | ZP-11.1.property-tenancy-foundation | generated | [016](../docs/generation/receipts/016-property-domain-initial-qualification.md): eleven collections, twelve additive fields, separately chained command collection and account label field; native readback/bindings |
-| ZP-5.1.protected-lifecycle | generated | Plugin0.1.1 installed with fourteen native domain actions; [file identity](../docs/generation/receipts/property-tenancy-011-installed-files.json). Live transactions, roles, concurrency and lifecycle journey pending |
+| ZP-5.1.protected-lifecycle | generated | Plugin0.1.4 installed with fourteen native domain actions; historical foundation evidence: [file identity](../docs/generation/receipts/property-tenancy-011-installed-files.json). Live transactions, roles, concurrency and lifecycle journey pending |
 | ZP-9.9.protected-audit-foundation | generated | Direct audit create denied and empty command reconciliation unchanged. Audit chain/rollback/concurrency/security acceptance pending; no accounting implementation |
-| ZP-4.6.protected-action-forms | blocked | [Native probe](../docs/generation/receipts/protected-action-ui-qualification.md) confirms CRUD-coupled forms hide protected actions. Reusable Loom action-form implementation in progress; no bypass or generic create grant |
-| ZP-6.1.property-navigation | planned | Reviewed read-only navigation candidate; native role overlay, pages, context bindings and rendered checks pending |
+| ZP-4.6.protected-action-forms | generated | Loom action-form 0.1.8 supports protected commands without generic CRUD grants. Property creation has bounded browser/role verification (receipt020); draft amendment saved (receipt022), independent reload/roles pending. Full lifecycle remains open |
+| ZP-6.1.property-navigation | generated | Portfolio, Tenancies and manager property creation pages generated through Loom. Independent property creation review (receipt021) covers bounded desktop/narrow reloads; complete navigation and portals remain open |
 | ZP-13.1.maintenance-regression-after-domain | verified | [95 bounded read cases](../docs/generation/receipts/maintenance-security-after-domain-upgrade.json) pass after0.1.1 installation, before new E3 role grants |
 
 Multiple owner/co-tenant portal membership changes currently fail closed pending

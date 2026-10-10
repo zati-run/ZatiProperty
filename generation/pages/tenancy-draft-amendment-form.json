@@ -1,7 +1,7 @@
 {
   "version": 1,
   "requiredDomainVersion": "0.1.4",
-  "requiredCompanionVersion": "0.1.6",
+  "requiredCompanionVersion": "0.1.8",
   "forms": [
     {
       "key": "amend-draft-tenancy",
@@ -21,7 +21,7 @@
         },
         "qualification": {
           "reviewed": true,
-          "evidenceRef": "docs/generation/receipts/tenancy-draft-amendment-form-review.md"
+          "evidenceRef": "docs/generation/receipts/draft-amendment-source-independent.md"
         },
         "action": "updateDraftTenancy",
         "context": {
