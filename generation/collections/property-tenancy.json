@@ -1,0 +1,1476 @@
+{
+  "format": "zp.additive-schema.v1",
+  "status": "prepared-unapplied",
+  "namespace": "zp.property-tenancy.increment1",
+  "authority": "Synthetic development through Loom MCP only; no data writes or role grants by this schema batch",
+  "preserve": [
+    "Existing collection and field native IDs",
+    "Existing tenancy status and maintenance references",
+    "Existing role grants; additive relations grant no access"
+  ],
+  "domainContract": {
+    "resource": "zpPropertyTenancy",
+    "actions": [
+      "createDraftTenancy",
+      "updateDraftTenancy",
+      "activateTenancy",
+      "endTenancy",
+      "createOwnershipSet",
+      "setOwnershipInterests",
+      "approveOwnershipSet",
+      "auditHealth"
+    ],
+    "legacyTenancy": "leaseState/version remain nullable without defaults; explicit adoptLegacy with full terms/parties/dates is required by domain service",
+    "ownershipApproval": "Complete-set approval protected by transactional domain action and audit; schema/default draft is not authorization",
+    "protectedCollections": [
+      "zp_ownership_sets",
+      "zp_property_interests",
+      "zp_tenancy_parties",
+      "zp_tenancy_terms",
+      "zp_domain_events",
+      "zp_audit_heads",
+      "zp_domain_outbox"
+    ],
+    "integerBound": "Amounts are contract terms in integer minor units 0..2147483647, not ledger balances; sequences/versions bounded to signed32-bit until reviewed migration",
+    "auditDependency": "No business records or mutable app-role grants before domain guard and audit service are installed, reviewed and verified",
+    "eventPrivacy": "Canonical audit payload contains bounded actor/action/entity IDs, state/version transitions, reason and request digest; no raw party/contact/contract payload.",
+    "tenancyInterval": "[startDate,endDate), end exclusive; ended historical occupancy still participates in backdated overlap rejection."
+  },
+  "collections": [
+    {
+      "name": "zp_portfolios",
+      "title": "Portfolios",
+      "description": "ZatiProperty owned property/tenancy development namespace; protected domain writes require qualified service",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Portfolio",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 200
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Code",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 64
+                }
+              }
+            ]
+          },
+          "unique": true
+        },
+        {
+          "name": "managerUserId",
+          "type": "bigInt",
+          "interface": "integer",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Assigned manager",
+            "x-component": "InputNumber"
+          },
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 9007199254740991
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "interface": "textarea",
+          "allowNull": true,
+          "uiSchema": {
+            "title": "Description",
+            "x-component": "Input.TextArea"
+          }
+        }
+      ]
+    },
+    {
+      "name": "zp_buildings",
+      "title": "Buildings",
+      "description": "ZatiProperty owned property/tenancy development namespace; protected domain writes require qualified service",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Building",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 200
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "property",
+          "type": "belongsTo",
+          "interface": "m2o",
+          "target": "zp_properties",
+          "foreignKey": "propertyId",
+          "sourceKey": "id",
+          "targetKey": "id",
+          "onDelete": "RESTRICT",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Property",
+            "x-component": "AssociationField",
+            "x-component-props": {
+              "fieldNames": {
+                "label": "name",
+                "value": "id"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "zp_owner_contacts",
+      "title": "Owner contacts",
+      "description": "ZatiProperty owned property/tenancy development namespace; protected domain writes require qualified service",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "displayName",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Owner",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 200
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "userId",
+          "type": "bigInt",
+          "interface": "integer",
+          "allowNull": true,
+          "uiSchema": {
+            "title": "Portal user",
+            "x-component": "InputNumber"
+          },
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 9007199254740991
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "interface": "input",
+          "allowNull": true,
+          "uiSchema": {
+            "title": "Email",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 254
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "interface": "input",
+          "allowNull": true,
+          "uiSchema": {
+            "title": "Phone",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 64
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "managerUserId",
+          "type": "bigInt",
+          "interface": "integer",
+          "allowNull": false,
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 9007199254740991
+                }
+              }
+            ]
+          },
+          "uiSchema": {
+            "type": "number",
+            "title": "Assigned manager",
+            "x-component": "InputNumber"
+          }
+        }
+      ]
+    },
+    {
+      "name": "zp_ownership_sets",
+      "title": "Property ownership sets",
+      "description": "ZatiProperty owned property/tenancy development namespace; protected domain writes require qualified service",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "property",
+          "type": "belongsTo",
+          "interface": "m2o",
+          "target": "zp_properties",
+          "foreignKey": "propertyId",
+          "sourceKey": "id",
+          "targetKey": "id",
+          "onDelete": "RESTRICT",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Property",
+            "x-component": "AssociationField",
+            "x-component-props": {
+              "fieldNames": {
+                "label": "name",
+                "value": "id"
+              }
+            }
+          }
+        },
+        {
+          "name": "effectiveFrom",
+          "type": "dateOnly",
+          "interface": "date",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Effective from",
+            "x-component": "DatePicker"
+          }
+        },
+        {
+          "name": "effectiveTo",
+          "type": "dateOnly",
+          "interface": "date",
+          "allowNull": true,
+          "uiSchema": {
+            "title": "Effective to",
+            "x-component": "DatePicker"
+          }
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "interface": "select",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Ownership review",
+            "x-component": "Select",
+            "enum": [
+              {
+                "label": "Draft",
+                "value": "draft"
+              },
+              {
+                "label": "Approved",
+                "value": "approved"
+              }
+            ]
+          },
+          "defaultValue": "draft"
+        },
+        {
+          "name": "version",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Version",
+            "x-component": "InputNumber"
+          },
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 0
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 2147483647
+                }
+              }
+            ]
+          },
+          "defaultValue": 0
+        },
+        {
+          "name": "interestsRevision",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": true,
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              }
+            ]
+          },
+          "uiSchema": {
+            "type": "number",
+            "title": "interestsRevision",
+            "x-component": "InputNumber"
+          }
+        }
+      ]
+    },
+    {
+      "name": "zp_property_interests",
+      "title": "Property interests",
+      "description": "ZatiProperty owned property/tenancy development namespace; protected domain writes require qualified service",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "ownershipSet",
+          "type": "belongsTo",
+          "interface": "m2o",
+          "target": "zp_ownership_sets",
+          "foreignKey": "ownershipSetId",
+          "sourceKey": "id",
+          "targetKey": "id",
+          "onDelete": "RESTRICT",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Ownership set",
+            "x-component": "AssociationField",
+            "x-component-props": {
+              "fieldNames": {
+                "label": "name",
+                "value": "id"
+              }
+            }
+          }
+        },
+        {
+          "name": "ownerContact",
+          "type": "belongsTo",
+          "interface": "m2o",
+          "target": "zp_owner_contacts",
+          "foreignKey": "ownerContactId",
+          "sourceKey": "id",
+          "targetKey": "id",
+          "onDelete": "RESTRICT",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Owner",
+            "x-component": "AssociationField",
+            "x-component-props": {
+              "fieldNames": {
+                "label": "displayName",
+                "value": "id"
+              }
+            }
+          }
+        },
+        {
+          "name": "shareBasisPoints",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Ownership share (basis points)",
+            "x-component": "InputNumber"
+          },
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 10000
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              }
+            ]
+          },
+          "uiSchema": {
+            "type": "number",
+            "title": "revision",
+            "x-component": "InputNumber"
+          }
+        }
+      ]
+    },
+    {
+      "name": "zp_tenancy_parties",
+      "title": "Tenancy parties",
+      "description": "ZatiProperty owned property/tenancy development namespace; protected domain writes require qualified service",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "tenancy",
+          "type": "belongsTo",
+          "interface": "m2o",
+          "target": "zp_tenancies",
+          "foreignKey": "tenancyId",
+          "sourceKey": "id",
+          "targetKey": "id",
+          "onDelete": "RESTRICT",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Tenancy",
+            "x-component": "AssociationField",
+            "x-component-props": {
+              "fieldNames": {
+                "label": "code",
+                "value": "id"
+              }
+            }
+          }
+        },
+        {
+          "name": "displayName",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Party name",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 200
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "userId",
+          "type": "bigInt",
+          "interface": "integer",
+          "allowNull": true,
+          "uiSchema": {
+            "title": "Portal user",
+            "x-component": "InputNumber"
+          },
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 9007199254740991
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "partyRole",
+          "type": "string",
+          "interface": "select",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Party role",
+            "x-component": "Select",
+            "enum": [
+              {
+                "label": "Primary",
+                "value": "primary"
+              },
+              {
+                "label": "Cotenant",
+                "value": "cotenant"
+              },
+              {
+                "label": "Guarantor",
+                "value": "guarantor"
+              },
+              {
+                "label": "Occupant",
+                "value": "occupant"
+              }
+            ]
+          }
+        },
+        {
+          "name": "effectiveFrom",
+          "type": "dateOnly",
+          "interface": "date",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Effective from",
+            "x-component": "DatePicker"
+          }
+        },
+        {
+          "name": "effectiveTo",
+          "type": "dateOnly",
+          "interface": "date",
+          "allowNull": true,
+          "uiSchema": {
+            "title": "Effective to",
+            "x-component": "DatePicker"
+          }
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              }
+            ]
+          },
+          "uiSchema": {
+            "type": "number",
+            "title": "revision",
+            "x-component": "InputNumber"
+          }
+        }
+      ]
+    },
+    {
+      "name": "zp_tenancy_terms",
+      "title": "Tenancy contractual terms",
+      "description": "ZatiProperty owned property/tenancy development namespace; protected domain writes require qualified service",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "tenancy",
+          "type": "belongsTo",
+          "interface": "m2o",
+          "target": "zp_tenancies",
+          "foreignKey": "tenancyId",
+          "sourceKey": "id",
+          "targetKey": "id",
+          "onDelete": "RESTRICT",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Tenancy",
+            "x-component": "AssociationField",
+            "x-component-props": {
+              "fieldNames": {
+                "label": "code",
+                "value": "id"
+              }
+            }
+          }
+        },
+        {
+          "name": "effectiveFrom",
+          "type": "dateOnly",
+          "interface": "date",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Effective from",
+            "x-component": "DatePicker"
+          }
+        },
+        {
+          "name": "effectiveTo",
+          "type": "dateOnly",
+          "interface": "date",
+          "allowNull": true,
+          "uiSchema": {
+            "title": "Effective to",
+            "x-component": "DatePicker"
+          }
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Currency",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "pattern",
+                "args": {
+                  "regex": "^[A-Z]{3}$"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "rentMinor",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Contract rent (minor units)",
+            "x-component": "InputNumber"
+          },
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 0
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 2147483647
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "depositMinor",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Contract deposit (minor units)",
+            "x-component": "InputNumber"
+          },
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 0
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 2147483647
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "rentFrequency",
+          "type": "string",
+          "interface": "select",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Rent frequency",
+            "x-component": "Select",
+            "enum": [
+              {
+                "label": "Weekly",
+                "value": "weekly"
+              },
+              {
+                "label": "Fortnightly",
+                "value": "fortnightly"
+              },
+              {
+                "label": "Monthly",
+                "value": "monthly"
+              },
+              {
+                "label": "Quarterly",
+                "value": "quarterly"
+              },
+              {
+                "label": "Annually",
+                "value": "annually"
+              }
+            ]
+          }
+        },
+        {
+          "name": "dueDay",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Due day",
+            "x-component": "InputNumber"
+          },
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 31
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "prorationPolicy",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Proration policy",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 64
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              }
+            ]
+          },
+          "uiSchema": {
+            "type": "number",
+            "title": "revision",
+            "x-component": "InputNumber"
+          }
+        }
+      ]
+    },
+    {
+      "name": "zp_domain_events",
+      "title": "Protected domain audit events",
+      "description": "ZatiProperty owned property/tenancy development namespace; protected domain writes require qualified service",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "sequence",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Sequence",
+            "x-component": "InputNumber"
+          },
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 2147483647
+                }
+              }
+            ]
+          },
+          "unique": true
+        },
+        {
+          "name": "previousHash",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Previous hash",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 64
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "eventHash",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Event hash",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 64
+                }
+              }
+            ]
+          },
+          "unique": true
+        },
+        {
+          "name": "canonicalPayload",
+          "type": "text",
+          "interface": "textarea",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Canonical event payload",
+            "x-component": "Input.TextArea"
+          }
+        }
+      ]
+    },
+    {
+      "name": "zp_audit_heads",
+      "title": "Protected audit chain head",
+      "description": "ZatiProperty owned property/tenancy development namespace; protected domain writes require qualified service",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "headSequence",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Head sequence",
+            "x-component": "InputNumber"
+          },
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 0
+                }
+              },
+              {
+                "name": "max",
+                "args": {
+                  "limit": 2147483647
+                }
+              }
+            ]
+          },
+          "defaultValue": 0
+        },
+        {
+          "name": "headHash",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Head hash",
+            "x-component": "Input"
+          },
+          "validation": {
+            "type": "string",
+            "rules": [
+              {
+                "name": "max",
+                "args": {
+                  "limit": 64
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "zp_domain_outbox",
+      "title": "Protected domain event outbox",
+      "description": "Transactional synthetic domain outbox; no dispatcher or sending authority",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "eventId",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "unique": true,
+          "validation": {
+            "type": "number",
+            "rules": [
+              {
+                "name": "integer"
+              },
+              {
+                "name": "min",
+                "args": {
+                  "limit": 1
+                }
+              }
+            ]
+          },
+          "uiSchema": {
+            "title": "Audit event ID",
+            "x-component": "InputNumber"
+          }
+        },
+        {
+          "name": "topic",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Topic",
+            "x-component": "Input"
+          }
+        },
+        {
+          "name": "payload",
+          "type": "text",
+          "interface": "textarea",
+          "allowNull": false,
+          "uiSchema": {
+            "title": "Canonical event payload",
+            "x-component": "Input.TextArea"
+          }
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "defaultValue": "pending",
+          "uiSchema": {
+            "title": "Dispatch state",
+            "x-component": "Input"
+          }
+        }
+      ]
+    }
+  ],
+  "addFields": [
+    {
+      "collection": "zp_properties",
+      "field": {
+        "name": "portfolio",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_portfolios",
+        "foreignKey": "portfolioId",
+        "sourceKey": "id",
+        "targetKey": "id",
+        "onDelete": "RESTRICT",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Portfolio",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        }
+      }
+    },
+    {
+      "collection": "zp_properties",
+      "field": {
+        "name": "buildings",
+        "type": "hasMany",
+        "interface": "o2m",
+        "target": "zp_buildings",
+        "foreignKey": "propertyId",
+        "sourceKey": "id",
+        "targetKey": "id",
+        "onDelete": "RESTRICT",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Buildings",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        }
+      }
+    },
+    {
+      "collection": "zp_properties",
+      "field": {
+        "name": "ownershipSets",
+        "type": "hasMany",
+        "interface": "o2m",
+        "target": "zp_ownership_sets",
+        "foreignKey": "propertyId",
+        "sourceKey": "id",
+        "targetKey": "id",
+        "onDelete": "RESTRICT",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Ownership history",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "id",
+              "value": "id"
+            }
+          }
+        }
+      }
+    },
+    {
+      "collection": "zp_units",
+      "field": {
+        "name": "building",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_buildings",
+        "foreignKey": "buildingId",
+        "sourceKey": "id",
+        "targetKey": "id",
+        "onDelete": "RESTRICT",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Building",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        }
+      }
+    },
+    {
+      "collection": "zp_tenancies",
+      "field": {
+        "name": "leaseState",
+        "type": "string",
+        "interface": "select",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Tenancy lifecycle",
+          "x-component": "Select",
+          "enum": [
+            {
+              "label": "Draft",
+              "value": "draft"
+            },
+            {
+              "label": "Active",
+              "value": "active"
+            },
+            {
+              "label": "Ended",
+              "value": "ended"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "collection": "zp_tenancies",
+      "field": {
+        "name": "startDate",
+        "type": "dateOnly",
+        "interface": "date",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Starts",
+          "x-component": "DatePicker"
+        }
+      }
+    },
+    {
+      "collection": "zp_tenancies",
+      "field": {
+        "name": "endDate",
+        "type": "dateOnly",
+        "interface": "date",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Ends",
+          "x-component": "DatePicker"
+        }
+      }
+    },
+    {
+      "collection": "zp_tenancies",
+      "field": {
+        "name": "version",
+        "type": "integer",
+        "interface": "integer",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Lifecycle version",
+          "x-component": "InputNumber"
+        },
+        "validation": {
+          "type": "number",
+          "rules": [
+            {
+              "name": "integer"
+            },
+            {
+              "name": "min",
+              "args": {
+                "limit": 0
+              }
+            },
+            {
+              "name": "max",
+              "args": {
+                "limit": 2147483647
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "collection": "zp_tenancies",
+      "field": {
+        "name": "parties",
+        "type": "hasMany",
+        "interface": "o2m",
+        "target": "zp_tenancy_parties",
+        "foreignKey": "tenancyId",
+        "sourceKey": "id",
+        "targetKey": "id",
+        "onDelete": "RESTRICT",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Parties",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "displayName",
+              "value": "id"
+            }
+          }
+        }
+      }
+    },
+    {
+      "collection": "zp_tenancies",
+      "field": {
+        "name": "terms",
+        "type": "hasMany",
+        "interface": "o2m",
+        "target": "zp_tenancy_terms",
+        "foreignKey": "tenancyId",
+        "sourceKey": "id",
+        "targetKey": "id",
+        "onDelete": "RESTRICT",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Contractual terms",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "effectiveFrom",
+              "value": "id"
+            }
+          }
+        }
+      }
+    },
+    {
+      "collection": "zp_ownership_sets",
+      "field": {
+        "name": "interests",
+        "type": "hasMany",
+        "interface": "o2m",
+        "target": "zp_property_interests",
+        "foreignKey": "ownershipSetId",
+        "sourceKey": "id",
+        "targetKey": "id",
+        "onDelete": "RESTRICT",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Ownership interests",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "shareBasisPoints",
+              "value": "id"
+            }
+          }
+        }
+      }
+    },
+    {
+      "collection": "zp_tenancies",
+      "field": {
+        "name": "draftRevision",
+        "type": "integer",
+        "interface": "integer",
+        "allowNull": true,
+        "validation": {
+          "type": "number",
+          "rules": [
+            {
+              "name": "integer"
+            },
+            {
+              "name": "min",
+              "args": {
+                "limit": 1
+              }
+            }
+          ]
+        },
+        "uiSchema": {
+          "type": "number",
+          "title": "draftRevision",
+          "x-component": "InputNumber"
+        }
+      }
+    }
+  ]
+}
