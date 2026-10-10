@@ -1,0 +1,323 @@
+{
+  "runId": "native-20261010T1045",
+  "status": "blocked",
+  "observedAt": "2026-10-10T10:59:58.744335+00:00",
+  "tools": {
+    "createProperty": "loom_native_zp_property_tenancy_create_property_2a4948c6b4c5ab42",
+    "createBuilding": "loom_native_zp_property_tenancy_create_building_e8d53a8bae753cc1",
+    "createUnit": "loom_native_zp_property_tenancy_create_unit_50758a2e5823c57c",
+    "createOwnerContact": "loom_native_zp_property_tenancy_create_owner_co_7a18469abb38e05e",
+    "authorizeTenantAccount": "loom_native_zp_property_tenancy_authorize_tenan_70dd8d8f6caca87b",
+    "createDraftTenancy": "loom_native_zp_property_tenancy_create_draft_te_8b02a543da11d642",
+    "updateDraftTenancy": "loom_native_zp_property_tenancy_update_draft_te_e44e941fdf40df69",
+    "activateTenancy": "loom_native_zp_property_tenancy_activate_tenanc_405b9b8f07276ef3",
+    "endTenancy": "loom_native_zp_property_tenancy_end_tenancy_fa9492ef5a25bd6e",
+    "createOwnershipSet": "loom_native_zp_property_tenancy_create_ownershi_094dce40649a2876",
+    "setOwnershipInterests": "loom_native_zp_property_tenancy_set_ownership_i_ce9dc066d0c0ccf3",
+    "approveOwnershipSet": "loom_native_zp_property_tenancy_approve_ownersh_18ecdf6fe9498076",
+    "auditHealth": "loom_native_zp_property_tenancy_audit_health_b79b65bf704dc306",
+    "reconcileCommand": "loom_native_zp_property_tenancy_reconcile_comma_c3b844dab49b9cdd"
+  },
+  "checks": [
+    {
+      "initialAuditCounts": {
+        "zp_audit_heads": 0,
+        "zp_domain_commands": 0,
+        "zp_domain_events": 0,
+        "zp_domain_outbox": 0
+      },
+      "label": "pre-mutation-audit-health",
+      "result": {
+        "sequence": 0,
+        "valid": true
+      },
+      "status": "readonly"
+    },
+    {
+      "action": "createProperty",
+      "actor": "manager1",
+      "auditDelta": 1,
+      "label": "create-property",
+      "reconcileReadOnly": true,
+      "requestId": "aae70436-9ac9-481b-b2d0-ef23e2fb44ff",
+      "result": {
+        "id": 4,
+        "propertyId": 4,
+        "state": "created",
+        "version": 0
+      },
+      "status": "committed"
+    },
+    {
+      "action": "createProperty",
+      "actor": "manager1",
+      "auditDelta": 0,
+      "label": "replay-property",
+      "reconcileReadOnly": true,
+      "requestId": "aae70436-9ac9-481b-b2d0-ef23e2fb44ff",
+      "result": {
+        "id": 4,
+        "propertyId": 4,
+        "state": "created",
+        "version": 0
+      },
+      "status": "committed"
+    },
+    {
+      "action": "createProperty",
+      "actor": "manager1",
+      "auditUnchanged": true,
+      "code": "REQUEST_ID_COLLISION",
+      "label": "collision-property",
+      "requestId": "aae70436-9ac9-481b-b2d0-ef23e2fb44ff",
+      "status": "denied"
+    },
+    {
+      "action": "createBuilding",
+      "actor": "manager1",
+      "auditDelta": 1,
+      "label": "create-building",
+      "reconcileReadOnly": true,
+      "requestId": "0cfc7192-5a4f-41ae-8358-fd74d46a5a2e",
+      "result": {
+        "id": 1,
+        "propertyId": 4,
+        "state": "created",
+        "version": 0
+      },
+      "status": "committed"
+    },
+    {
+      "action": "createUnit",
+      "actor": "manager1",
+      "auditDelta": 1,
+      "label": "create-unit",
+      "reconcileReadOnly": true,
+      "requestId": "9aae1e0d-b319-465d-b396-5c1b4c996bb0",
+      "result": {
+        "id": 3,
+        "propertyId": 4,
+        "state": "created",
+        "version": 0
+      },
+      "status": "committed"
+    },
+    {
+      "action": "createOwnerContact",
+      "actor": "manager1",
+      "auditDelta": 1,
+      "label": "create-owner-contact",
+      "reconcileReadOnly": true,
+      "requestId": "dc37ecfd-23d9-42b1-acca-940169fd2dfe",
+      "result": {
+        "id": 1,
+        "propertyId": 4,
+        "state": "created",
+        "version": 0
+      },
+      "status": "committed"
+    },
+    {
+      "action": "authorizeTenantAccount",
+      "actor": "constructor",
+      "after": {
+        "zp_audit_heads": [
+          {
+            "headHash": "8c401c3e0b88657b0bbaf3d10e880b7efc2fd653471cd65929712d260d481cf5",
+            "headSequence": 4,
+            "id": 1
+          }
+        ],
+        "zp_domain_commands": [
+          {
+            "action": "createProperty",
+            "actorId": 2,
+            "commandKey": "6866b07e64e514fee920a1f165ca27582cb3676840720c6ca20f241bfd05cd43",
+            "eventId": 1,
+            "id": 1,
+            "requestId": "aae70436-9ac9-481b-b2d0-ef23e2fb44ff"
+          },
+          {
+            "action": "createBuilding",
+            "actorId": 2,
+            "commandKey": "a437d5b4635fd5f6a62cfa9074b608f4d982af9fee61ffc1788d7588457e13b6",
+            "eventId": 2,
+            "id": 2,
+            "requestId": "0cfc7192-5a4f-41ae-8358-fd74d46a5a2e"
+          },
+          {
+            "action": "createUnit",
+            "actorId": 2,
+            "commandKey": "0badb9281136045a83fb994ae7e57f260c934663452e07c97136f1f7d187ad36",
+            "eventId": 3,
+            "id": 3,
+            "requestId": "9aae1e0d-b319-465d-b396-5c1b4c996bb0"
+          },
+          {
+            "action": "createOwnerContact",
+            "actorId": 2,
+            "commandKey": "e4a1d2ae7461661a5ec9afb7ead01c9234f1bd698402c0b0b2c754d58468930e",
+            "eventId": 4,
+            "id": 4,
+            "requestId": "dc37ecfd-23d9-42b1-acca-940169fd2dfe"
+          }
+        ],
+        "zp_domain_events": [
+          {
+            "eventHash": "12b7db19270c417dedd52a7ade605b704d7ad627838a3d19c8a0e1f8fc9e9814",
+            "id": 1,
+            "sequence": 1
+          },
+          {
+            "eventHash": "0decb57465ceecf9eacfe28bf4b110d946ec0fd2174babeea5a6747b38342aec",
+            "id": 2,
+            "sequence": 2
+          },
+          {
+            "eventHash": "7114707231ae29fabf7d26d7fa55faff711ec9b67ff06c2dffa9db1d88d07d14",
+            "id": 3,
+            "sequence": 3
+          },
+          {
+            "eventHash": "8c401c3e0b88657b0bbaf3d10e880b7efc2fd653471cd65929712d260d481cf5",
+            "id": 4,
+            "sequence": 4
+          }
+        ],
+        "zp_domain_outbox": [
+          {
+            "eventId": 1,
+            "id": 1,
+            "status": "pending"
+          },
+          {
+            "eventId": 2,
+            "id": 2,
+            "status": "pending"
+          },
+          {
+            "eventId": 3,
+            "id": 3,
+            "status": "pending"
+          },
+          {
+            "eventId": 4,
+            "id": 4,
+            "status": "pending"
+          }
+        ]
+      },
+      "before": {
+        "zp_audit_heads": [
+          {
+            "headHash": "8c401c3e0b88657b0bbaf3d10e880b7efc2fd653471cd65929712d260d481cf5",
+            "headSequence": 4,
+            "id": 1
+          }
+        ],
+        "zp_domain_commands": [
+          {
+            "action": "createProperty",
+            "actorId": 2,
+            "commandKey": "6866b07e64e514fee920a1f165ca27582cb3676840720c6ca20f241bfd05cd43",
+            "eventId": 1,
+            "id": 1,
+            "requestId": "aae70436-9ac9-481b-b2d0-ef23e2fb44ff"
+          },
+          {
+            "action": "createBuilding",
+            "actorId": 2,
+            "commandKey": "a437d5b4635fd5f6a62cfa9074b608f4d982af9fee61ffc1788d7588457e13b6",
+            "eventId": 2,
+            "id": 2,
+            "requestId": "0cfc7192-5a4f-41ae-8358-fd74d46a5a2e"
+          },
+          {
+            "action": "createUnit",
+            "actorId": 2,
+            "commandKey": "0badb9281136045a83fb994ae7e57f260c934663452e07c97136f1f7d187ad36",
+            "eventId": 3,
+            "id": 3,
+            "requestId": "9aae1e0d-b319-465d-b396-5c1b4c996bb0"
+          },
+          {
+            "action": "createOwnerContact",
+            "actorId": 2,
+            "commandKey": "e4a1d2ae7461661a5ec9afb7ead01c9234f1bd698402c0b0b2c754d58468930e",
+            "eventId": 4,
+            "id": 4,
+            "requestId": "dc37ecfd-23d9-42b1-acca-940169fd2dfe"
+          }
+        ],
+        "zp_domain_events": [
+          {
+            "eventHash": "12b7db19270c417dedd52a7ade605b704d7ad627838a3d19c8a0e1f8fc9e9814",
+            "id": 1,
+            "sequence": 1
+          },
+          {
+            "eventHash": "0decb57465ceecf9eacfe28bf4b110d946ec0fd2174babeea5a6747b38342aec",
+            "id": 2,
+            "sequence": 2
+          },
+          {
+            "eventHash": "7114707231ae29fabf7d26d7fa55faff711ec9b67ff06c2dffa9db1d88d07d14",
+            "id": 3,
+            "sequence": 3
+          },
+          {
+            "eventHash": "8c401c3e0b88657b0bbaf3d10e880b7efc2fd653471cd65929712d260d481cf5",
+            "id": 4,
+            "sequence": 4
+          }
+        ],
+        "zp_domain_outbox": [
+          {
+            "eventId": 1,
+            "id": 1,
+            "status": "pending"
+          },
+          {
+            "eventId": 2,
+            "id": 2,
+            "status": "pending"
+          },
+          {
+            "eventId": 3,
+            "id": 3,
+            "status": "pending"
+          },
+          {
+            "eventId": 4,
+            "id": 4,
+            "status": "pending"
+          }
+        ]
+      },
+      "label": "authorize-account",
+      "reconciliation": {
+        "requestId": "e94a0770-0ad3-4182-8d1f-42b9d5b55f43",
+        "retryAuthorized": false,
+        "status": "not_observed"
+      },
+      "requestId": "e94a0770-0ad3-4182-8d1f-42b9d5b55f43",
+      "status": "blocked-unknown-or-unexpected"
+    },
+    {
+      "errorType": "RuntimeError",
+      "label": "run-stopped",
+      "status": "blocked"
+    },
+    {
+      "label": "explicit-resume-authorize-checkpoint",
+      "status": "native-reconciled-before-explicit-resume",
+      "accountRequestId": "e94a0770-0ad3-4182-8d1f-42b9d5b55f43",
+      "contextsUnchanged": true
+    },
+    {
+      "label": "run-stopped",
+      "status": "blocked",
+      "errorType": "FileExistsError"
+    }
+  ]
+}
