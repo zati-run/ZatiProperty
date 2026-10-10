@@ -1,0 +1,7 @@
+# Maintenance additive helper: independent review
+
+**Rejected for any live write**, exact candidate c00099ef4686259534aaa535b8dad55d8173d72e. Source-only review on2026-10-10 in isolated DGX worktree; three helper tests and range diff-check pass, but do not qualify safe authoring.
+
+Blocking finding: apply-one dispatches native generic collections_fields_create, then compares the complete ACL digest afterward. Native fields.afterCreate has an already-established auto-grant behavior. The manifest adds eleven fields to existing maintenance resources, including tenant information, request snapshots and attachment relationships. A post-write digest mismatch stops the helper only after the field and unintended permissions can be persisted/published. Durable no-replay intent and whole-ACL detection do not provide atomic prevention or rollback. The qualified schema-preservation companion supports its own bounded hasMany path; this helper does not invoke it and scalar/belongsToMany authoring has not been qualified for equivalent protection.
+
+Do not run even the initial operation as part of this unqualified batch. Required correction is reusable Loom-side atomic preservation for the actual field types, with native transaction/ACL publication and failure tests, or an explicitly fail-closed capability blocker. Do not substitute post-hoc restoration or weaken digest checks. This receipt does not reject the product intake requirement; it rejects this live authoring path. No runtime mutation or deeper unrelated review performed.
