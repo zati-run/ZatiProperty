@@ -1,0 +1,2467 @@
+{
+  "observedAt": "2026-10-10T11:15:36.555564+00:00",
+  "kind": "native synthetic role GET matrix; no app writes",
+  "caseCount": 222,
+  "passed": 222,
+  "cases": [
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-get:zp_tenancy_parties:1",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-fields:zp_tenancy_parties:1",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-get:zp_tenancy_parties:2",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-fields:zp_tenancy_parties:2",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-get:zp_tenancy_parties:3",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-fields:zp_tenancy_parties:3",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-get:zp_tenancy_terms:1",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-fields:zp_tenancy_terms:1",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-get:zp_tenancy_terms:2",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-fields:zp_tenancy_terms:2",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-get:zp_tenancy_terms:3",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-fields:zp_tenancy_terms:3",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-get:zp_tenant_account_permissions:1",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "displayName",
+        "id",
+        "userId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-fields:zp_tenant_account_permissions:1",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "displayName",
+        "id",
+        "userId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "nested-context:zp_tenancy_parties:1",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancy",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "nested-context:zp_tenancy_parties:2",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancy",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "nested-context:zp_tenancy_parties:3",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancy",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "nested-context:zp_tenancy_terms:1",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancy",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "nested-context:zp_tenancy_terms:2",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancy",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "nested-context:zp_tenancy_terms:3",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancy",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-appends:4.parties",
+      "http": 200,
+      "recordIds": [
+        "4"
+      ],
+      "keys": [
+        "code",
+        "draftRevision",
+        "endDate",
+        "id",
+        "leaseState",
+        "parties",
+        "startDate",
+        "status",
+        "unitId",
+        "version"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-association:4.parties",
+      "http": 200,
+      "recordIds": [
+        "1",
+        "3"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "current-revision:4.parties",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-appends:4.terms",
+      "http": 200,
+      "recordIds": [
+        "4"
+      ],
+      "keys": [
+        "code",
+        "draftRevision",
+        "endDate",
+        "id",
+        "leaseState",
+        "startDate",
+        "status",
+        "terms",
+        "unitId",
+        "version"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-association:4.terms",
+      "http": 200,
+      "recordIds": [
+        "1",
+        "3"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "current-revision:4.terms",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-appends:5.parties",
+      "http": 200,
+      "recordIds": [
+        "5"
+      ],
+      "keys": [
+        "code",
+        "draftRevision",
+        "endDate",
+        "id",
+        "leaseState",
+        "parties",
+        "startDate",
+        "status",
+        "unitId",
+        "version"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-association:5.parties",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "current-revision:5.parties",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "displayName",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "partyRole",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-appends:5.terms",
+      "http": 200,
+      "recordIds": [
+        "5"
+      ],
+      "keys": [
+        "code",
+        "draftRevision",
+        "endDate",
+        "id",
+        "leaseState",
+        "startDate",
+        "status",
+        "terms",
+        "unitId",
+        "version"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "populated-association:5.terms",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "current-revision:5.terms",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "currency",
+        "depositMinor",
+        "dueDay",
+        "effectiveFrom",
+        "effectiveTo",
+        "id",
+        "prorationPolicy",
+        "rentFrequency",
+        "rentMinor",
+        "revision",
+        "tenancyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "private-field:zp_tenant_account_permissions.managerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "private-field:zp_tenant_account_permissions.mappingKey",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "private-field:zp_tenancy_parties.userId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "no-generic-user-enumeration",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-get:zp_tenancy_parties:1",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-fields:zp_tenancy_parties:1",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-get:zp_tenancy_parties:2",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-fields:zp_tenancy_parties:2",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-get:zp_tenancy_parties:3",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-fields:zp_tenancy_parties:3",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-get:zp_tenancy_terms:1",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-fields:zp_tenancy_terms:1",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-get:zp_tenancy_terms:2",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-fields:zp_tenancy_terms:2",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-get:zp_tenancy_terms:3",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-fields:zp_tenancy_terms:3",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-get:zp_tenant_account_permissions:1",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-fields:zp_tenant_account_permissions:1",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "nested-context:zp_tenancy_parties:1",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "nested-context:zp_tenancy_parties:2",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "nested-context:zp_tenancy_parties:3",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "nested-context:zp_tenancy_terms:1",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "nested-context:zp_tenancy_terms:2",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "nested-context:zp_tenancy_terms:3",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-appends:4.parties",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-association:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "current-revision:4.parties",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-appends:4.terms",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-association:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "current-revision:4.terms",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-appends:5.parties",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-association:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "current-revision:5.parties",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-appends:5.terms",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "populated-association:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "current-revision:5.terms",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "private-field:zp_tenant_account_permissions.managerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "private-field:zp_tenant_account_permissions.mappingKey",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "private-field:zp_tenancy_parties.userId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "no-generic-user-enumeration",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-get:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-get:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-get:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-get:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-get:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-get:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-get:zp_tenant_account_permissions:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "nested-context:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "nested-context:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "nested-context:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "nested-context:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "nested-context:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "nested-context:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-appends:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-association:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-appends:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-association:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-appends:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-association:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-appends:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "populated-association:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "private-field:zp_tenant_account_permissions.managerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "private-field:zp_tenant_account_permissions.mappingKey",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "private-field:zp_tenancy_parties.userId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "no-generic-user-enumeration",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-get:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-get:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-get:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-get:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-get:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-get:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-get:zp_tenant_account_permissions:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "nested-context:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "nested-context:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "nested-context:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "nested-context:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "nested-context:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "nested-context:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-appends:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-association:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-appends:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-association:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-appends:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-association:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-appends:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "populated-association:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "private-field:zp_tenant_account_permissions.managerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "private-field:zp_tenant_account_permissions.mappingKey",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "private-field:zp_tenancy_parties.userId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "no-generic-user-enumeration",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-get:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-get:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-get:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-get:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-get:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-get:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-get:zp_tenant_account_permissions:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "nested-context:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "nested-context:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "nested-context:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "nested-context:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "nested-context:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "nested-context:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-appends:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-association:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-appends:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-association:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-appends:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-association:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-appends:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "populated-association:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "private-field:zp_tenant_account_permissions.managerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "private-field:zp_tenant_account_permissions.mappingKey",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "private-field:zp_tenancy_parties.userId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "no-generic-user-enumeration",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-get:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-get:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-get:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-get:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-get:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-get:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-get:zp_tenant_account_permissions:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "nested-context:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "nested-context:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "nested-context:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "nested-context:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "nested-context:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "nested-context:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-appends:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-association:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-appends:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-association:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-appends:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-association:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-appends:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "populated-association:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "private-field:zp_tenant_account_permissions.managerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "private-field:zp_tenant_account_permissions.mappingKey",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "private-field:zp_tenancy_parties.userId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "no-generic-user-enumeration",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-get:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-get:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-get:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-get:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-get:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-get:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-get:zp_tenant_account_permissions:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "nested-context:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "nested-context:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "nested-context:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "nested-context:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "nested-context:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "nested-context:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-appends:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-association:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-appends:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-association:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-appends:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-association:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-appends:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "populated-association:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "private-field:zp_tenant_account_permissions.managerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "private-field:zp_tenant_account_permissions.mappingKey",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "private-field:zp_tenancy_parties.userId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "no-generic-user-enumeration",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-get:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-get:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-get:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-get:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-get:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-get:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-get:zp_tenant_account_permissions:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "nested-context:zp_tenancy_parties:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "nested-context:zp_tenancy_parties:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "nested-context:zp_tenancy_parties:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "nested-context:zp_tenancy_terms:1",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "nested-context:zp_tenancy_terms:2",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "nested-context:zp_tenancy_terms:3",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-appends:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-association:4.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-appends:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-association:4.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-appends:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-association:5.parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-appends:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "populated-association:5.terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "private-field:zp_tenant_account_permissions.managerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "private-field:zp_tenant_account_permissions.mappingKey",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "private-field:zp_tenancy_parties.userId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "no-generic-user-enumeration",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    }
+  ],
+  "fixtureGraph": {
+    "zp_tenancies": [
+      {
+        "id": 1,
+        "unitId": 1,
+        "draftRevision": null,
+        "leaseState": null,
+        "tenantUserId": 6
+      },
+      {
+        "id": 2,
+        "unitId": 2,
+        "draftRevision": null,
+        "leaseState": null,
+        "tenantUserId": 7
+      },
+      {
+        "id": 4,
+        "unitId": 3,
+        "draftRevision": 2,
+        "leaseState": "draft",
+        "tenantUserId": null
+      },
+      {
+        "id": 5,
+        "unitId": 3,
+        "draftRevision": 1,
+        "leaseState": "ended",
+        "tenantUserId": 6
+      }
+    ],
+    "zp_tenancy_parties": [
+      {
+        "id": 1,
+        "tenancyId": 4,
+        "revision": 1
+      },
+      {
+        "id": 2,
+        "tenancyId": 5,
+        "revision": 1
+      },
+      {
+        "id": 3,
+        "tenancyId": 4,
+        "revision": 2
+      }
+    ],
+    "zp_tenancy_terms": [
+      {
+        "id": 1,
+        "tenancyId": 4,
+        "revision": 1
+      },
+      {
+        "id": 2,
+        "tenancyId": 5,
+        "revision": 1
+      },
+      {
+        "id": 3,
+        "tenancyId": 4,
+        "revision": 2
+      }
+    ],
+    "zp_tenant_account_permissions": [
+      {
+        "id": 1,
+        "userId": 6,
+        "managerUserId": 2
+      }
+    ]
+  },
+  "limitations": [
+    "Ownership fixtures absent; no populated ownership acceptance",
+    "No generic writes or rendered UI checks"
+  ]
+}
