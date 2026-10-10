@@ -46,3 +46,25 @@ in-window evidence. Persist intent before one preview using the fresh post-fixtu
 ACL digest. Reconcile field absence, all ACL rows, target FK/associations and owned
 cache state. Uncertain outcome or unproven overlap leaves this gate open. Positive
 building.units creation awaits both gates and coordinator handoff.
+
+## Reviewed implementation candidates
+
+Loom candidate 06fecec adds a separate fixed five-second observed preview.
+Its passive middleware records only qualified requests entering and completing in
+the same process interval, with actor/role/argument digests. All schema mutations
+hold the lifecycle fence. Source-only tests and isolated installed-native middleware
+tests do not establish concurrent application acceptance.
+
+scripts/verify_schema_preview_overlap.py prepares eight role bridges before one
+durably journaled preview, then performs six bounded GETs per account (48 total).
+It requires actual own-record, foreign-null and portal-denied native responses,
+matching actor/role/resource/argument digests and timestamps within the returned
+window, and identical before/after schema/ACL state. Existing synthetic building 1
+is the read target; the reverse-field preview target remains building.units.
+Explicit reserved ports are required; no other native write/upgrade lane may run.
+The tool schema and summary must match the reviewed operation before dispatch.
+
+This harness has not run against the application. Do not interpret source readiness
+as concurrent or positive schema acceptance. The coordinator must independently
+review both candidates, qualify installed package bytes/catalog, finish the scoped
+fixture and capture a fresh baseline before executing the one-shot preview.
