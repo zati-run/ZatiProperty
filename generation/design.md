@@ -57,4 +57,7 @@ Review desktop and narrow layouts, keyboard operation, empty/error/denied states
 and persisted results using synthetic accounts. Financial journeys need separate
 protected-service acceptance; this sample does not qualify accounting or portals.
 Use `.agents/skills/loom-design/references/review.md` for the evidence procedure.
-Evidence: pending connection to an authorized native app and browser surface.
+Evidence: synthetic manager browser receipts establish save/reload and keyboard
+controls; context visibility, eligible vendor choices and final narrow review remain
+open. See `docs/generation/receipts/007-manager-browser-journey.md` and security
+blocker receipt 005. Full journey and portal acceptance remain unestablished.

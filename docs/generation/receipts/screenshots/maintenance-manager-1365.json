@@ -1,0 +1,31 @@
+{
+  "observedAt": "2026-10-10T09:08:31.195Z",
+  "width": 1365,
+  "checks": [
+    {
+      "context": [
+        {
+          "text": "Demo Property 1",
+          "visible": false
+        },
+        {
+          "text": "Unit 1",
+          "visible": false
+        },
+        {
+          "text": "DEMO-T1",
+          "visible": false
+        }
+      ]
+    },
+    {
+      "freshSession": "Quote and Demo Vendor 1 visible",
+      "keyboard": "native View activated with Enter"
+    }
+  ],
+  "limits": [
+    "Root-independent manager session.",
+    "Full journey acceptance requires all context checks plus independent visual review.",
+    "Backend deny and portal checks are separate."
+  ]
+}

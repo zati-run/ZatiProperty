@@ -23,10 +23,12 @@ Loom, not permission to bypass it.
    source, untracked files and concurrent work. Record ownership and handoffs there;
    keep this coordination file ignored in the public repository and free of secrets.
 2. Inspect repository status and the current generation artifacts and receipts.
-   This repository currently contains specification and workflow preparation;
-   no generated application or live NocoBase acceptance is established.
+   Historical preparation status is superseded by the current generation receipts.
+   Read those receipts; generated resources do not imply complete app acceptance.
 3. Confirm the task's scope: preparing local artifacts does not authorize connecting
-   or mutating a live instance. The current assignment is workflow preparation only.
+   or mutating a live instance. The owner authorized synthetic development implementation and DGX deployment
+   in the current session, including reusable Loom fixes. Production and
+   consequential operational actions remain excluded.
 4. For authorized generation, discover the available Loom endpoint and tool schemas,
    verify the target installation, authenticated role, pinned versions and enabled
    CE packages. Never infer live capabilities from fixture or source evidence.
@@ -58,7 +60,7 @@ Perform active coding and verification on qualified DGX resources under the glob
 execution rules. Do not start Mac builds or containers for this Linux application.
 Use isolated task worktrees and bounded resources; preserve the original checkout.
 
-There is no generated app, package manifest or app test suite yet. Do not claim that
+Qualify current artifacts and test commands from their source. Do not claim that
 `npm test`, a NocoBase install, or an MCP server is available just because the RFC
 mentions it. Document actual commands when tooling exists. Relevant preparation
 checks include `git diff --check`, Markdown/link checks and the initializer's own

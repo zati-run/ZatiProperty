@@ -1,0 +1,28 @@
+{
+  "maintenance": {
+    "data": {
+      "routeId": 391323161067520,
+      "parentMenuRouteId": null,
+      "pageSchemaUid": "zp-maintenance",
+      "menuSchemaUid": "ravif471lhc",
+      "pageUid": "oz6qrr4s02l",
+      "tabSchemaUid": "5vmyqd1zv0o",
+      "tabRouteId": 391323161067521,
+      "tabSchemaName": "n3k5l7mto0d",
+      "gridUid": "4zzvqp3g16y"
+    }
+  },
+  "work-orders": {
+    "data": {
+      "routeId": 391323161067522,
+      "parentMenuRouteId": null,
+      "pageSchemaUid": "zp-work-orders",
+      "menuSchemaUid": "gyqlli4yki2",
+      "pageUid": "tmmjzrpnthz",
+      "tabSchemaUid": "feq2x29h2pk",
+      "tabRouteId": 391323161067523,
+      "tabSchemaName": "0o0cwv56e47",
+      "gridUid": "1mt7j9jc0ds"
+    }
+  }
+}

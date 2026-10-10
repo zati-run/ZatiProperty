@@ -1,0 +1,2127 @@
+{
+  "purpose": "Keep saved state and vendor near the start at narrow widths; focused save action",
+  "changes": [
+    {
+      "uid": "pvwat1w2e4q",
+      "changes": {
+        "width": 105
+      }
+    },
+    {
+      "uid": "9ttl6v68xh5",
+      "changes": {
+        "width": 80
+      }
+    },
+    {
+      "uid": "97mvg754vr6",
+      "changes": {
+        "width": 130
+      }
+    },
+    {
+      "uid": "0te7wutx023",
+      "changes": {
+        "width": 160
+      }
+    },
+    {
+      "uid": "7psepzfswbj",
+      "changes": {
+        "title": "Save assignment"
+      }
+    }
+  ],
+  "removedOwnedNode": "79uuquc1noq",
+  "readback": {
+    "data": {
+      "target": {
+        "locator": {
+          "uid": "u2v1ba8nqbp"
+        },
+        "uid": "u2v1ba8nqbp",
+        "kind": "block"
+      },
+      "tree": {
+        "parentId": "xavei31sxda",
+        "subKey": "items",
+        "subType": "array",
+        "use": "TableBlockModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "zp_work_orders",
+              "associationName": "zp_maintenance_requests.workOrders",
+              "sourceId": "{{ctx.view.inputArgs.filterByTk}}"
+            }
+          },
+          "cardSettings": {
+            "titleDescription": {
+              "title": "Work to arrange"
+            }
+          },
+          "tableSettings": {
+            "enableRowSelection": {
+              "enableRowSelection": false
+            }
+          }
+        },
+        "uid": "u2v1ba8nqbp",
+        "subModels": {
+          "columns": [
+            {
+              "use": "TableActionsColumnModel",
+              "props": {
+                "width": 105
+              },
+              "decoratorProps": {},
+              "stepParams": {
+                "tableColumnSettings": {
+                  "title": {
+                    "title": "{{t(\"Actions\")}}"
+                  },
+                  "width": {
+                    "width": 105
+                  }
+                }
+              },
+              "flowRegistry": {},
+              "subKey": "columns",
+              "subType": "array",
+              "uid": "pvwat1w2e4q",
+              "subModels": {
+                "actions": [
+                  {
+                    "parentId": "pvwat1w2e4q",
+                    "subKey": "actions",
+                    "subType": "array",
+                    "use": "EditActionModel",
+                    "props": {
+                      "title": "Assign vendor",
+                      "icon": null,
+                      "type": "link"
+                    },
+                    "decoratorProps": {},
+                    "stepParams": {
+                      "buttonSettings": {
+                        "general": {
+                          "title": "Assign vendor",
+                          "icon": null,
+                          "type": "link",
+                          "iconOnly": false
+                        }
+                      },
+                      "popupSettings": {
+                        "openView": {
+                          "mode": "drawer",
+                          "size": "medium",
+                          "pageModelClass": "ChildPageModel",
+                          "dataSourceKey": "main",
+                          "collectionName": "zp_work_orders",
+                          "associationName": "zp_maintenance_requests.workOrders",
+                          "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+                          "filterByTk": "{{ctx.record.id}}"
+                        }
+                      }
+                    },
+                    "flowRegistry": {},
+                    "uid": "mmjqygge58g",
+                    "subModels": {
+                      "page": {
+                        "parentId": "mmjqygge58g",
+                        "subKey": "page",
+                        "subType": "object",
+                        "use": "ChildPageModel",
+                        "props": {
+                          "displayTitle": false,
+                          "enableTabs": true
+                        },
+                        "stepParams": {
+                          "pageSettings": {
+                            "general": {
+                              "displayTitle": false,
+                              "enableTabs": true
+                            }
+                          }
+                        },
+                        "uid": "p2yd94t1jt8",
+                        "subModels": {
+                          "tabs": [
+                            {
+                              "use": "ChildPageTabModel",
+                              "props": {
+                                "title": "{{t(\"Details\")}}"
+                              },
+                              "stepParams": {
+                                "pageTabSettings": {
+                                  "tab": {
+                                    "title": "{{t(\"Details\")}}"
+                                  }
+                                }
+                              },
+                              "subKey": "tabs",
+                              "subType": "array",
+                              "uid": "sqn5gnna1rv",
+                              "subModels": {
+                                "grid": {
+                                  "use": "BlockGridModel",
+                                  "subKey": "grid",
+                                  "subType": "object",
+                                  "props": {
+                                    "rows": {
+                                      "row1": [
+                                        [
+                                          "cx0k3gwjyi7"
+                                        ]
+                                      ],
+                                      "row2": [
+                                        [
+                                          "csi4w13xvi1"
+                                        ]
+                                      ]
+                                    },
+                                    "sizes": {
+                                      "row1": [
+                                        24
+                                      ],
+                                      "row2": [
+                                        24
+                                      ]
+                                    },
+                                    "rowOrder": [
+                                      "row1",
+                                      "row2"
+                                    ]
+                                  },
+                                  "stepParams": {
+                                    "gridSettings": {
+                                      "grid": {
+                                        "rows": {
+                                          "row1": [
+                                            [
+                                              "cx0k3gwjyi7"
+                                            ]
+                                          ],
+                                          "row2": [
+                                            [
+                                              "csi4w13xvi1"
+                                            ]
+                                          ]
+                                        },
+                                        "sizes": {
+                                          "row1": [
+                                            24
+                                          ],
+                                          "row2": [
+                                            24
+                                          ]
+                                        },
+                                        "rowOrder": [
+                                          "row1",
+                                          "row2"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "uid": "8tdha9u2b01",
+                                  "subModels": {
+                                    "items": [
+                                      {
+                                        "parentId": "8tdha9u2b01",
+                                        "subKey": "items",
+                                        "subType": "array",
+                                        "use": "DetailsBlockModel",
+                                        "props": {},
+                                        "decoratorProps": {},
+                                        "stepParams": {
+                                          "resourceSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "zp_work_orders",
+                                              "filterByTk": "{{ctx.record.id}}",
+                                              "associationName": "zp_maintenance_requests.workOrders",
+                                              "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+                                            }
+                                          }
+                                        },
+                                        "uid": "cx0k3gwjyi7",
+                                        "subModels": {
+                                          "grid": {
+                                            "use": "DetailsGridModel",
+                                            "subKey": "grid",
+                                            "subType": "object",
+                                            "stepParams": {
+                                              "gridSettings": {
+                                                "grid": {
+                                                  "rows": {
+                                                    "row1": [
+                                                      [
+                                                        "vs6vsv6ihtj"
+                                                      ],
+                                                      [
+                                                        "y0ecbqmi1e3"
+                                                      ]
+                                                    ],
+                                                    "row2": [
+                                                      [
+                                                        "97yfga3xd66"
+                                                      ],
+                                                      [
+                                                        "kd3wr9u303q"
+                                                      ]
+                                                    ]
+                                                  },
+                                                  "sizes": {
+                                                    "row1": [
+                                                      12,
+                                                      12
+                                                    ],
+                                                    "row2": [
+                                                      12,
+                                                      12
+                                                    ]
+                                                  },
+                                                  "rowOrder": [
+                                                    "row1",
+                                                    "row2"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "props": {
+                                              "rows": {
+                                                "row1": [
+                                                  [
+                                                    "vs6vsv6ihtj"
+                                                  ],
+                                                  [
+                                                    "y0ecbqmi1e3"
+                                                  ]
+                                                ],
+                                                "row2": [
+                                                  [
+                                                    "97yfga3xd66"
+                                                  ],
+                                                  [
+                                                    "kd3wr9u303q"
+                                                  ]
+                                                ]
+                                              },
+                                              "sizes": {
+                                                "row1": [
+                                                  12,
+                                                  12
+                                                ],
+                                                "row2": [
+                                                  12,
+                                                  12
+                                                ]
+                                              },
+                                              "rowOrder": [
+                                                "row1",
+                                                "row2"
+                                              ]
+                                            },
+                                            "uid": "6hsm1kfxafv",
+                                            "subModels": {
+                                              "items": [
+                                                {
+                                                  "parentId": "6hsm1kfxafv",
+                                                  "subKey": "items",
+                                                  "subType": "array",
+                                                  "use": "DetailsItemModel",
+                                                  "props": {},
+                                                  "stepParams": {
+                                                    "fieldSettings": {
+                                                      "init": {
+                                                        "dataSourceKey": "main",
+                                                        "collectionName": "zp_work_orders",
+                                                        "fieldPath": "title"
+                                                      }
+                                                    }
+                                                  },
+                                                  "uid": "vs6vsv6ihtj",
+                                                  "subModels": {
+                                                    "field": {
+                                                      "use": "DisplayTextFieldModel",
+                                                      "props": {},
+                                                      "stepParams": {
+                                                        "fieldSettings": {
+                                                          "init": {
+                                                            "dataSourceKey": "main",
+                                                            "collectionName": "zp_work_orders",
+                                                            "fieldPath": "title"
+                                                          }
+                                                        }
+                                                      },
+                                                      "subKey": "field",
+                                                      "subType": "object",
+                                                      "uid": "k2yvakjvlrm",
+                                                      "parent": "vs6vsv6ihtj",
+                                                      "parentId": "vs6vsv6ihtj",
+                                                      "sortIndex": 1,
+                                                      "popup": {
+                                                        "mode": "local"
+                                                      }
+                                                    }
+                                                  },
+                                                  "parent": "6hsm1kfxafv",
+                                                  "sortIndex": 1,
+                                                  "popup": {
+                                                    "mode": "local"
+                                                  }
+                                                },
+                                                {
+                                                  "parentId": "6hsm1kfxafv",
+                                                  "subKey": "items",
+                                                  "subType": "array",
+                                                  "use": "DetailsItemModel",
+                                                  "props": {
+                                                    "titleField": "name"
+                                                  },
+                                                  "stepParams": {
+                                                    "fieldSettings": {
+                                                      "init": {
+                                                        "dataSourceKey": "main",
+                                                        "collectionName": "zp_work_orders",
+                                                        "fieldPath": "property"
+                                                      }
+                                                    },
+                                                    "detailItemSettings": {
+                                                      "fieldNames": {
+                                                        "label": "name"
+                                                      }
+                                                    }
+                                                  },
+                                                  "uid": "y0ecbqmi1e3",
+                                                  "subModels": {
+                                                    "field": {
+                                                      "use": "DisplayTextFieldModel",
+                                                      "props": {
+                                                        "titleField": "name",
+                                                        "clickToOpen": true
+                                                      },
+                                                      "stepParams": {
+                                                        "fieldSettings": {
+                                                          "init": {
+                                                            "dataSourceKey": "main",
+                                                            "collectionName": "zp_work_orders",
+                                                            "fieldPath": "property"
+                                                          }
+                                                        },
+                                                        "displayFieldSettings": {
+                                                          "clickToOpen": {
+                                                            "clickToOpen": true
+                                                          }
+                                                        },
+                                                        "popupSettings": {
+                                                          "openView": {
+                                                            "dataSourceKey": "main",
+                                                            "collectionName": "zp_properties",
+                                                            "associationName": "zp_work_orders.property"
+                                                          }
+                                                        }
+                                                      },
+                                                      "subKey": "field",
+                                                      "subType": "object",
+                                                      "uid": "bhw9ex7tzs8",
+                                                      "parent": "y0ecbqmi1e3",
+                                                      "parentId": "y0ecbqmi1e3",
+                                                      "sortIndex": 1,
+                                                      "popup": {
+                                                        "template": {
+                                                          "uid": "r9jvmpquy29",
+                                                          "mode": "reference"
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "parent": "6hsm1kfxafv",
+                                                  "sortIndex": 2,
+                                                  "popup": {
+                                                    "mode": "local"
+                                                  }
+                                                },
+                                                {
+                                                  "parentId": "6hsm1kfxafv",
+                                                  "subKey": "items",
+                                                  "subType": "array",
+                                                  "use": "DetailsItemModel",
+                                                  "props": {
+                                                    "titleField": "name"
+                                                  },
+                                                  "stepParams": {
+                                                    "fieldSettings": {
+                                                      "init": {
+                                                        "dataSourceKey": "main",
+                                                        "collectionName": "zp_work_orders",
+                                                        "fieldPath": "unit"
+                                                      }
+                                                    },
+                                                    "detailItemSettings": {
+                                                      "fieldNames": {
+                                                        "label": "name"
+                                                      }
+                                                    }
+                                                  },
+                                                  "uid": "97yfga3xd66",
+                                                  "subModels": {
+                                                    "field": {
+                                                      "use": "DisplayTextFieldModel",
+                                                      "props": {
+                                                        "titleField": "name",
+                                                        "clickToOpen": true
+                                                      },
+                                                      "stepParams": {
+                                                        "fieldSettings": {
+                                                          "init": {
+                                                            "dataSourceKey": "main",
+                                                            "collectionName": "zp_work_orders",
+                                                            "fieldPath": "unit"
+                                                          }
+                                                        },
+                                                        "displayFieldSettings": {
+                                                          "clickToOpen": {
+                                                            "clickToOpen": true
+                                                          }
+                                                        },
+                                                        "popupSettings": {
+                                                          "openView": {
+                                                            "dataSourceKey": "main",
+                                                            "collectionName": "zp_units",
+                                                            "associationName": "zp_work_orders.unit"
+                                                          }
+                                                        }
+                                                      },
+                                                      "subKey": "field",
+                                                      "subType": "object",
+                                                      "uid": "lg2qvw8u40k",
+                                                      "parent": "97yfga3xd66",
+                                                      "parentId": "97yfga3xd66",
+                                                      "sortIndex": 1,
+                                                      "popup": {
+                                                        "template": {
+                                                          "uid": "efvabjbht43",
+                                                          "mode": "reference"
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "parent": "6hsm1kfxafv",
+                                                  "sortIndex": 3,
+                                                  "popup": {
+                                                    "mode": "local"
+                                                  }
+                                                },
+                                                {
+                                                  "parentId": "6hsm1kfxafv",
+                                                  "subKey": "items",
+                                                  "subType": "array",
+                                                  "use": "DetailsItemModel",
+                                                  "props": {
+                                                    "titleField": "code"
+                                                  },
+                                                  "stepParams": {
+                                                    "fieldSettings": {
+                                                      "init": {
+                                                        "dataSourceKey": "main",
+                                                        "collectionName": "zp_work_orders",
+                                                        "fieldPath": "tenancy"
+                                                      }
+                                                    },
+                                                    "detailItemSettings": {
+                                                      "fieldNames": {
+                                                        "label": "code"
+                                                      }
+                                                    }
+                                                  },
+                                                  "uid": "kd3wr9u303q",
+                                                  "subModels": {
+                                                    "field": {
+                                                      "use": "DisplayTextFieldModel",
+                                                      "props": {
+                                                        "titleField": "code",
+                                                        "clickToOpen": true
+                                                      },
+                                                      "stepParams": {
+                                                        "fieldSettings": {
+                                                          "init": {
+                                                            "dataSourceKey": "main",
+                                                            "collectionName": "zp_work_orders",
+                                                            "fieldPath": "tenancy"
+                                                          }
+                                                        },
+                                                        "displayFieldSettings": {
+                                                          "clickToOpen": {
+                                                            "clickToOpen": true
+                                                          }
+                                                        },
+                                                        "popupSettings": {
+                                                          "openView": {
+                                                            "dataSourceKey": "main",
+                                                            "collectionName": "zp_tenancies",
+                                                            "associationName": "zp_work_orders.tenancy"
+                                                          }
+                                                        }
+                                                      },
+                                                      "subKey": "field",
+                                                      "subType": "object",
+                                                      "uid": "yqbbs9qd2l8",
+                                                      "parent": "kd3wr9u303q",
+                                                      "parentId": "kd3wr9u303q",
+                                                      "sortIndex": 1,
+                                                      "popup": {
+                                                        "template": {
+                                                          "uid": "71eoo79pq4c",
+                                                          "mode": "reference"
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "parent": "6hsm1kfxafv",
+                                                  "sortIndex": 4,
+                                                  "popup": {
+                                                    "mode": "local"
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            "parent": "cx0k3gwjyi7",
+                                            "parentId": "cx0k3gwjyi7",
+                                            "sortIndex": 1,
+                                            "popup": {
+                                              "mode": "local"
+                                            }
+                                          }
+                                        },
+                                        "parent": "8tdha9u2b01",
+                                        "sortIndex": 1,
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      },
+                                      {
+                                        "parentId": "8tdha9u2b01",
+                                        "subKey": "items",
+                                        "subType": "array",
+                                        "use": "EditFormModel",
+                                        "props": {},
+                                        "decoratorProps": {},
+                                        "stepParams": {
+                                          "resourceSettings": {
+                                            "init": {
+                                              "dataSourceKey": "main",
+                                              "collectionName": "zp_work_orders",
+                                              "filterByTk": "{{ctx.record.id}}",
+                                              "associationName": "zp_maintenance_requests.workOrders",
+                                              "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+                                            }
+                                          }
+                                        },
+                                        "uid": "csi4w13xvi1",
+                                        "subModels": {
+                                          "grid": {
+                                            "use": "FormGridModel",
+                                            "subKey": "grid",
+                                            "subType": "object",
+                                            "stepParams": {
+                                              "gridSettings": {
+                                                "grid": {
+                                                  "rows": {
+                                                    "row1": [
+                                                      [
+                                                        "zox8ahs0g47"
+                                                      ],
+                                                      [
+                                                        "u6k7b20lghg"
+                                                      ]
+                                                    ]
+                                                  },
+                                                  "sizes": {
+                                                    "row1": [
+                                                      12,
+                                                      12
+                                                    ]
+                                                  },
+                                                  "rowOrder": [
+                                                    "row1"
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "props": {
+                                              "rows": {
+                                                "row1": [
+                                                  [
+                                                    "zox8ahs0g47"
+                                                  ],
+                                                  [
+                                                    "u6k7b20lghg"
+                                                  ]
+                                                ]
+                                              },
+                                              "sizes": {
+                                                "row1": [
+                                                  12,
+                                                  12
+                                                ]
+                                              },
+                                              "rowOrder": [
+                                                "row1"
+                                              ]
+                                            },
+                                            "uid": "bnebe6zyuw2",
+                                            "subModels": {
+                                              "items": [
+                                                {
+                                                  "parentId": "bnebe6zyuw2",
+                                                  "subKey": "items",
+                                                  "subType": "array",
+                                                  "use": "FormItemModel",
+                                                  "props": {
+                                                    "titleField": "name"
+                                                  },
+                                                  "stepParams": {
+                                                    "fieldSettings": {
+                                                      "init": {
+                                                        "dataSourceKey": "main",
+                                                        "collectionName": "zp_work_orders",
+                                                        "fieldPath": "vendor"
+                                                      }
+                                                    },
+                                                    "editItemSettings": {
+                                                      "titleField": {
+                                                        "label": "name"
+                                                      }
+                                                    }
+                                                  },
+                                                  "uid": "zox8ahs0g47",
+                                                  "subModels": {
+                                                    "field": {
+                                                      "use": "RecordSelectFieldModel",
+                                                      "props": {
+                                                        "titleField": "name"
+                                                      },
+                                                      "stepParams": {
+                                                        "fieldSettings": {
+                                                          "init": {
+                                                            "dataSourceKey": "main",
+                                                            "collectionName": "zp_work_orders",
+                                                            "fieldPath": "vendor"
+                                                          }
+                                                        }
+                                                      },
+                                                      "subKey": "field",
+                                                      "subType": "object",
+                                                      "uid": "bj2lik9byrf",
+                                                      "parent": "zox8ahs0g47",
+                                                      "parentId": "zox8ahs0g47",
+                                                      "sortIndex": 1,
+                                                      "popup": {
+                                                        "mode": "local"
+                                                      }
+                                                    }
+                                                  },
+                                                  "parent": "bnebe6zyuw2",
+                                                  "sortIndex": 1,
+                                                  "popup": {
+                                                    "mode": "local"
+                                                  }
+                                                },
+                                                {
+                                                  "parentId": "bnebe6zyuw2",
+                                                  "subKey": "items",
+                                                  "subType": "array",
+                                                  "use": "FormItemModel",
+                                                  "props": {},
+                                                  "stepParams": {
+                                                    "fieldSettings": {
+                                                      "init": {
+                                                        "dataSourceKey": "main",
+                                                        "collectionName": "zp_work_orders",
+                                                        "fieldPath": "state"
+                                                      }
+                                                    }
+                                                  },
+                                                  "uid": "u6k7b20lghg",
+                                                  "subModels": {
+                                                    "field": {
+                                                      "use": "SelectFieldModel",
+                                                      "props": {
+                                                        "allowClear": true
+                                                      },
+                                                      "stepParams": {
+                                                        "fieldSettings": {
+                                                          "init": {
+                                                            "dataSourceKey": "main",
+                                                            "collectionName": "zp_work_orders",
+                                                            "fieldPath": "state"
+                                                          }
+                                                        }
+                                                      },
+                                                      "subKey": "field",
+                                                      "subType": "object",
+                                                      "uid": "oayivi3clpg",
+                                                      "parent": "u6k7b20lghg",
+                                                      "parentId": "u6k7b20lghg",
+                                                      "sortIndex": 1,
+                                                      "popup": {
+                                                        "mode": "local"
+                                                      }
+                                                    }
+                                                  },
+                                                  "parent": "bnebe6zyuw2",
+                                                  "sortIndex": 2,
+                                                  "popup": {
+                                                    "mode": "local"
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            "parent": "csi4w13xvi1",
+                                            "parentId": "csi4w13xvi1",
+                                            "sortIndex": 1,
+                                            "popup": {
+                                              "mode": "local"
+                                            }
+                                          },
+                                          "actions": [
+                                            {
+                                              "parentId": "csi4w13xvi1",
+                                              "subKey": "actions",
+                                              "subType": "array",
+                                              "use": "FormSubmitActionModel",
+                                              "props": {
+                                                "title": "Save assignment",
+                                                "type": "primary",
+                                                "htmlType": "submit"
+                                              },
+                                              "decoratorProps": {},
+                                              "stepParams": {
+                                                "buttonSettings": {
+                                                  "general": {
+                                                    "title": "Save assignment",
+                                                    "type": "primary"
+                                                  }
+                                                },
+                                                "submitSettings": {
+                                                  "confirm": {
+                                                    "enable": false,
+                                                    "title": "{{t(\"Submit record\")}}",
+                                                    "content": "{{t(\"Are you sure you want to save it?\")}}"
+                                                  }
+                                                }
+                                              },
+                                              "flowRegistry": {},
+                                              "uid": "7psepzfswbj",
+                                              "parent": "csi4w13xvi1",
+                                              "sortIndex": 1,
+                                              "popup": {
+                                                "mode": "local"
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "parent": "8tdha9u2b01",
+                                        "sortIndex": 2,
+                                        "popup": {
+                                          "mode": "local"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "parent": "sqn5gnna1rv",
+                                  "parentId": "sqn5gnna1rv",
+                                  "sortIndex": 1,
+                                  "popup": {
+                                    "mode": "local"
+                                  }
+                                }
+                              },
+                              "parent": "p2yd94t1jt8",
+                              "parentId": "p2yd94t1jt8",
+                              "sortIndex": 1,
+                              "popup": {
+                                "mode": "local"
+                              }
+                            }
+                          ]
+                        },
+                        "parent": "mmjqygge58g",
+                        "sortIndex": 1,
+                        "popup": {
+                          "mode": "local"
+                        }
+                      }
+                    },
+                    "parent": "pvwat1w2e4q",
+                    "sortIndex": 1,
+                    "popup": {
+                      "mode": "local",
+                      "pageUid": "p2yd94t1jt8",
+                      "tabUid": "sqn5gnna1rv",
+                      "gridUid": "8tdha9u2b01"
+                    }
+                  }
+                ]
+              },
+              "parent": "u2v1ba8nqbp",
+              "parentId": "u2v1ba8nqbp",
+              "sortIndex": 1,
+              "popup": {
+                "mode": "local"
+              }
+            },
+            {
+              "parentId": "u2v1ba8nqbp",
+              "subKey": "columns",
+              "subType": "array",
+              "use": "TableColumnModel",
+              "props": {
+                "width": 80
+              },
+              "stepParams": {
+                "fieldSettings": {
+                  "init": {
+                    "dataSourceKey": "main",
+                    "collectionName": "zp_work_orders",
+                    "fieldPath": "state"
+                  }
+                },
+                "tableColumnSettings": {
+                  "width": {
+                    "width": 80
+                  }
+                }
+              },
+              "parent": "u2v1ba8nqbp",
+              "uid": "9ttl6v68xh5",
+              "subModels": {
+                "field": {
+                  "use": "DisplayEnumFieldModel",
+                  "props": {},
+                  "stepParams": {
+                    "fieldSettings": {
+                      "init": {
+                        "dataSourceKey": "main",
+                        "collectionName": "zp_work_orders",
+                        "fieldPath": "state"
+                      }
+                    }
+                  },
+                  "subKey": "field",
+                  "subType": "object",
+                  "uid": "z9wqdklsjzz",
+                  "parent": "9ttl6v68xh5",
+                  "parentId": "9ttl6v68xh5",
+                  "sortIndex": 1,
+                  "popup": {
+                    "mode": "local"
+                  }
+                }
+              },
+              "sortIndex": 2,
+              "popup": {
+                "mode": "local"
+              }
+            },
+            {
+              "parentId": "u2v1ba8nqbp",
+              "subKey": "columns",
+              "subType": "array",
+              "use": "TableColumnModel",
+              "props": {
+                "titleField": "name",
+                "width": 130
+              },
+              "stepParams": {
+                "fieldSettings": {
+                  "init": {
+                    "dataSourceKey": "main",
+                    "collectionName": "zp_work_orders",
+                    "fieldPath": "vendor"
+                  }
+                },
+                "tableColumnSettings": {
+                  "fieldNames": {
+                    "label": "name"
+                  },
+                  "width": {
+                    "width": 130
+                  }
+                }
+              },
+              "parent": "u2v1ba8nqbp",
+              "uid": "97mvg754vr6",
+              "subModels": {
+                "field": {
+                  "use": "DisplayTextFieldModel",
+                  "props": {
+                    "titleField": "name",
+                    "clickToOpen": true
+                  },
+                  "stepParams": {
+                    "fieldSettings": {
+                      "init": {
+                        "dataSourceKey": "main",
+                        "collectionName": "zp_work_orders",
+                        "fieldPath": "vendor"
+                      }
+                    },
+                    "displayFieldSettings": {
+                      "clickToOpen": {
+                        "clickToOpen": true
+                      }
+                    },
+                    "popupSettings": {
+                      "openView": {
+                        "dataSourceKey": "main",
+                        "collectionName": "zp_vendors",
+                        "associationName": "zp_work_orders.vendor",
+                        "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+                      }
+                    }
+                  },
+                  "subKey": "field",
+                  "subType": "object",
+                  "uid": "vtfy5febksr",
+                  "parent": "97mvg754vr6",
+                  "parentId": "97mvg754vr6",
+                  "sortIndex": 1,
+                  "popup": {
+                    "template": {
+                      "uid": "tkg33chw5ar",
+                      "mode": "reference"
+                    }
+                  }
+                }
+              },
+              "sortIndex": 3,
+              "popup": {
+                "mode": "local"
+              }
+            },
+            {
+              "parentId": "u2v1ba8nqbp",
+              "subKey": "columns",
+              "subType": "array",
+              "use": "TableColumnModel",
+              "props": {
+                "width": 160
+              },
+              "stepParams": {
+                "fieldSettings": {
+                  "init": {
+                    "dataSourceKey": "main",
+                    "collectionName": "zp_work_orders",
+                    "fieldPath": "title"
+                  }
+                },
+                "tableColumnSettings": {
+                  "width": {
+                    "width": 160
+                  }
+                }
+              },
+              "uid": "0te7wutx023",
+              "subModels": {
+                "field": {
+                  "use": "DisplayTextFieldModel",
+                  "props": {},
+                  "stepParams": {
+                    "fieldSettings": {
+                      "init": {
+                        "dataSourceKey": "main",
+                        "collectionName": "zp_work_orders",
+                        "fieldPath": "title"
+                      }
+                    }
+                  },
+                  "subKey": "field",
+                  "subType": "object",
+                  "uid": "02et8m1xp9s",
+                  "parent": "0te7wutx023",
+                  "parentId": "0te7wutx023",
+                  "sortIndex": 1,
+                  "popup": {
+                    "mode": "local"
+                  }
+                }
+              },
+              "parent": "u2v1ba8nqbp",
+              "sortIndex": 4,
+              "popup": {
+                "mode": "local"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "parentId": "u2v1ba8nqbp",
+              "subKey": "actions",
+              "subType": "array",
+              "use": "FilterActionModel",
+              "props": {
+                "title": "{{t(\"Filter\")}}",
+                "icon": "FilterOutlined",
+                "defaultFilterValue": {
+                  "logic": "$and",
+                  "items": [
+                    {
+                      "path": "title",
+                      "operator": "$includes"
+                    },
+                    {
+                      "path": "priority",
+                      "operator": "$eq"
+                    },
+                    {
+                      "path": "state",
+                      "operator": "$eq"
+                    },
+                    {
+                      "path": "currency",
+                      "operator": "$includes"
+                    }
+                  ]
+                },
+                "filterValue": {
+                  "logic": "$and",
+                  "items": [
+                    {
+                      "path": "title",
+                      "operator": "$includes"
+                    },
+                    {
+                      "path": "priority",
+                      "operator": "$eq"
+                    },
+                    {
+                      "path": "state",
+                      "operator": "$eq"
+                    },
+                    {
+                      "path": "currency",
+                      "operator": "$includes"
+                    }
+                  ]
+                }
+              },
+              "decoratorProps": {},
+              "stepParams": {
+                "buttonSettings": {
+                  "general": {
+                    "title": "{{t(\"Filter\")}}",
+                    "icon": "FilterOutlined"
+                  }
+                },
+                "filterSettings": {
+                  "defaultFilter": {
+                    "defaultFilter": {
+                      "logic": "$and",
+                      "items": [
+                        {
+                          "path": "title",
+                          "operator": "$includes"
+                        },
+                        {
+                          "path": "priority",
+                          "operator": "$eq"
+                        },
+                        {
+                          "path": "state",
+                          "operator": "$eq"
+                        },
+                        {
+                          "path": "currency",
+                          "operator": "$includes"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "flowRegistry": {},
+              "uid": "8vqmtg1qi9m",
+              "parent": "u2v1ba8nqbp",
+              "sortIndex": 1,
+              "popup": {
+                "mode": "local"
+              }
+            },
+            {
+              "parentId": "u2v1ba8nqbp",
+              "subKey": "actions",
+              "subType": "array",
+              "use": "RefreshActionModel",
+              "props": {
+                "title": "{{t(\"Refresh\")}}",
+                "icon": "ReloadOutlined"
+              },
+              "decoratorProps": {},
+              "stepParams": {
+                "buttonSettings": {
+                  "general": {
+                    "title": "{{t(\"Refresh\")}}",
+                    "icon": "ReloadOutlined"
+                  }
+                }
+              },
+              "flowRegistry": {},
+              "uid": "5ebhmp053zh",
+              "parent": "u2v1ba8nqbp",
+              "sortIndex": 2,
+              "popup": {
+                "mode": "local"
+              }
+            }
+          ]
+        },
+        "parent": "xavei31sxda",
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "nodeMap": {
+        "u2v1ba8nqbp": {
+          "uid": "u2v1ba8nqbp",
+          "use": "TableBlockModel",
+          "props": {},
+          "decoratorProps": {},
+          "stepParams": {
+            "resourceSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "associationName": "zp_maintenance_requests.workOrders",
+                "sourceId": "{{ctx.view.inputArgs.filterByTk}}"
+              }
+            },
+            "cardSettings": {
+              "titleDescription": {
+                "title": "Work to arrange"
+              }
+            },
+            "tableSettings": {
+              "enableRowSelection": {
+                "enableRowSelection": false
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "pvwat1w2e4q": {
+          "uid": "pvwat1w2e4q",
+          "use": "TableActionsColumnModel",
+          "props": {
+            "width": 105
+          },
+          "decoratorProps": {},
+          "stepParams": {
+            "tableColumnSettings": {
+              "title": {
+                "title": "{{t(\"Actions\")}}"
+              },
+              "width": {
+                "width": 105
+              }
+            }
+          },
+          "flowRegistry": {},
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "mmjqygge58g": {
+          "uid": "mmjqygge58g",
+          "use": "EditActionModel",
+          "props": {
+            "title": "Assign vendor",
+            "icon": null,
+            "type": "link"
+          },
+          "decoratorProps": {},
+          "stepParams": {
+            "buttonSettings": {
+              "general": {
+                "title": "Assign vendor",
+                "icon": null,
+                "type": "link",
+                "iconOnly": false
+              }
+            },
+            "popupSettings": {
+              "openView": {
+                "mode": "drawer",
+                "size": "medium",
+                "pageModelClass": "ChildPageModel",
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "associationName": "zp_maintenance_requests.workOrders",
+                "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+                "filterByTk": "{{ctx.record.id}}"
+              }
+            }
+          },
+          "flowRegistry": {},
+          "popup": {
+            "mode": "local",
+            "pageUid": "p2yd94t1jt8",
+            "tabUid": "sqn5gnna1rv",
+            "gridUid": "8tdha9u2b01"
+          }
+        },
+        "p2yd94t1jt8": {
+          "uid": "p2yd94t1jt8",
+          "use": "ChildPageModel",
+          "props": {
+            "displayTitle": false,
+            "enableTabs": true
+          },
+          "stepParams": {
+            "pageSettings": {
+              "general": {
+                "displayTitle": false,
+                "enableTabs": true
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "sqn5gnna1rv": {
+          "uid": "sqn5gnna1rv",
+          "use": "ChildPageTabModel",
+          "props": {
+            "title": "{{t(\"Details\")}}"
+          },
+          "stepParams": {
+            "pageTabSettings": {
+              "tab": {
+                "title": "{{t(\"Details\")}}"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "8tdha9u2b01": {
+          "uid": "8tdha9u2b01",
+          "use": "BlockGridModel",
+          "props": {
+            "rows": {
+              "row1": [
+                [
+                  "cx0k3gwjyi7"
+                ]
+              ],
+              "row2": [
+                [
+                  "csi4w13xvi1"
+                ]
+              ]
+            },
+            "sizes": {
+              "row1": [
+                24
+              ],
+              "row2": [
+                24
+              ]
+            },
+            "rowOrder": [
+              "row1",
+              "row2"
+            ]
+          },
+          "stepParams": {
+            "gridSettings": {
+              "grid": {
+                "rows": {
+                  "row1": [
+                    [
+                      "cx0k3gwjyi7"
+                    ]
+                  ],
+                  "row2": [
+                    [
+                      "csi4w13xvi1"
+                    ]
+                  ]
+                },
+                "sizes": {
+                  "row1": [
+                    24
+                  ],
+                  "row2": [
+                    24
+                  ]
+                },
+                "rowOrder": [
+                  "row1",
+                  "row2"
+                ]
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "cx0k3gwjyi7": {
+          "uid": "cx0k3gwjyi7",
+          "use": "DetailsBlockModel",
+          "props": {},
+          "decoratorProps": {},
+          "stepParams": {
+            "resourceSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "filterByTk": "{{ctx.record.id}}",
+                "associationName": "zp_maintenance_requests.workOrders",
+                "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "6hsm1kfxafv": {
+          "uid": "6hsm1kfxafv",
+          "use": "DetailsGridModel",
+          "props": {
+            "rows": {
+              "row1": [
+                [
+                  "vs6vsv6ihtj"
+                ],
+                [
+                  "y0ecbqmi1e3"
+                ]
+              ],
+              "row2": [
+                [
+                  "97yfga3xd66"
+                ],
+                [
+                  "kd3wr9u303q"
+                ]
+              ]
+            },
+            "sizes": {
+              "row1": [
+                12,
+                12
+              ],
+              "row2": [
+                12,
+                12
+              ]
+            },
+            "rowOrder": [
+              "row1",
+              "row2"
+            ]
+          },
+          "stepParams": {
+            "gridSettings": {
+              "grid": {
+                "rows": {
+                  "row1": [
+                    [
+                      "vs6vsv6ihtj"
+                    ],
+                    [
+                      "y0ecbqmi1e3"
+                    ]
+                  ],
+                  "row2": [
+                    [
+                      "97yfga3xd66"
+                    ],
+                    [
+                      "kd3wr9u303q"
+                    ]
+                  ]
+                },
+                "sizes": {
+                  "row1": [
+                    12,
+                    12
+                  ],
+                  "row2": [
+                    12,
+                    12
+                  ]
+                },
+                "rowOrder": [
+                  "row1",
+                  "row2"
+                ]
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "vs6vsv6ihtj": {
+          "uid": "vs6vsv6ihtj",
+          "use": "DetailsItemModel",
+          "props": {},
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "title"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "k2yvakjvlrm": {
+          "uid": "k2yvakjvlrm",
+          "use": "DisplayTextFieldModel",
+          "props": {},
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "title"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "y0ecbqmi1e3": {
+          "uid": "y0ecbqmi1e3",
+          "use": "DetailsItemModel",
+          "props": {
+            "titleField": "name"
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "property"
+              }
+            },
+            "detailItemSettings": {
+              "fieldNames": {
+                "label": "name"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "bhw9ex7tzs8": {
+          "uid": "bhw9ex7tzs8",
+          "use": "DisplayTextFieldModel",
+          "props": {
+            "titleField": "name",
+            "clickToOpen": true
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "property"
+              }
+            },
+            "displayFieldSettings": {
+              "clickToOpen": {
+                "clickToOpen": true
+              }
+            },
+            "popupSettings": {
+              "openView": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_properties",
+                "associationName": "zp_work_orders.property"
+              }
+            }
+          },
+          "popup": {
+            "template": {
+              "uid": "r9jvmpquy29",
+              "mode": "reference"
+            }
+          }
+        },
+        "97yfga3xd66": {
+          "uid": "97yfga3xd66",
+          "use": "DetailsItemModel",
+          "props": {
+            "titleField": "name"
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "unit"
+              }
+            },
+            "detailItemSettings": {
+              "fieldNames": {
+                "label": "name"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "lg2qvw8u40k": {
+          "uid": "lg2qvw8u40k",
+          "use": "DisplayTextFieldModel",
+          "props": {
+            "titleField": "name",
+            "clickToOpen": true
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "unit"
+              }
+            },
+            "displayFieldSettings": {
+              "clickToOpen": {
+                "clickToOpen": true
+              }
+            },
+            "popupSettings": {
+              "openView": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_units",
+                "associationName": "zp_work_orders.unit"
+              }
+            }
+          },
+          "popup": {
+            "template": {
+              "uid": "efvabjbht43",
+              "mode": "reference"
+            }
+          }
+        },
+        "kd3wr9u303q": {
+          "uid": "kd3wr9u303q",
+          "use": "DetailsItemModel",
+          "props": {
+            "titleField": "code"
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "tenancy"
+              }
+            },
+            "detailItemSettings": {
+              "fieldNames": {
+                "label": "code"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "yqbbs9qd2l8": {
+          "uid": "yqbbs9qd2l8",
+          "use": "DisplayTextFieldModel",
+          "props": {
+            "titleField": "code",
+            "clickToOpen": true
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "tenancy"
+              }
+            },
+            "displayFieldSettings": {
+              "clickToOpen": {
+                "clickToOpen": true
+              }
+            },
+            "popupSettings": {
+              "openView": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_tenancies",
+                "associationName": "zp_work_orders.tenancy"
+              }
+            }
+          },
+          "popup": {
+            "template": {
+              "uid": "71eoo79pq4c",
+              "mode": "reference"
+            }
+          }
+        },
+        "csi4w13xvi1": {
+          "uid": "csi4w13xvi1",
+          "use": "EditFormModel",
+          "props": {},
+          "decoratorProps": {},
+          "stepParams": {
+            "resourceSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "filterByTk": "{{ctx.record.id}}",
+                "associationName": "zp_maintenance_requests.workOrders",
+                "sourceId": "{{ctx.view.inputArgs.sourceId}}"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "bnebe6zyuw2": {
+          "uid": "bnebe6zyuw2",
+          "use": "FormGridModel",
+          "props": {
+            "rows": {
+              "row1": [
+                [
+                  "zox8ahs0g47"
+                ],
+                [
+                  "u6k7b20lghg"
+                ]
+              ]
+            },
+            "sizes": {
+              "row1": [
+                12,
+                12
+              ]
+            },
+            "rowOrder": [
+              "row1"
+            ]
+          },
+          "stepParams": {
+            "gridSettings": {
+              "grid": {
+                "rows": {
+                  "row1": [
+                    [
+                      "zox8ahs0g47"
+                    ],
+                    [
+                      "u6k7b20lghg"
+                    ]
+                  ]
+                },
+                "sizes": {
+                  "row1": [
+                    12,
+                    12
+                  ]
+                },
+                "rowOrder": [
+                  "row1"
+                ]
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "zox8ahs0g47": {
+          "uid": "zox8ahs0g47",
+          "use": "FormItemModel",
+          "props": {
+            "titleField": "name"
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "vendor"
+              }
+            },
+            "editItemSettings": {
+              "titleField": {
+                "label": "name"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "bj2lik9byrf": {
+          "uid": "bj2lik9byrf",
+          "use": "RecordSelectFieldModel",
+          "props": {
+            "titleField": "name"
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "vendor"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "u6k7b20lghg": {
+          "uid": "u6k7b20lghg",
+          "use": "FormItemModel",
+          "props": {},
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "state"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "oayivi3clpg": {
+          "uid": "oayivi3clpg",
+          "use": "SelectFieldModel",
+          "props": {
+            "allowClear": true
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "state"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "7psepzfswbj": {
+          "uid": "7psepzfswbj",
+          "use": "FormSubmitActionModel",
+          "props": {
+            "title": "Save assignment",
+            "type": "primary",
+            "htmlType": "submit"
+          },
+          "decoratorProps": {},
+          "stepParams": {
+            "buttonSettings": {
+              "general": {
+                "title": "Save assignment",
+                "type": "primary"
+              }
+            },
+            "submitSettings": {
+              "confirm": {
+                "enable": false,
+                "title": "{{t(\"Submit record\")}}",
+                "content": "{{t(\"Are you sure you want to save it?\")}}"
+              }
+            }
+          },
+          "flowRegistry": {},
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "9ttl6v68xh5": {
+          "uid": "9ttl6v68xh5",
+          "use": "TableColumnModel",
+          "props": {
+            "width": 80
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "state"
+              }
+            },
+            "tableColumnSettings": {
+              "width": {
+                "width": 80
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "z9wqdklsjzz": {
+          "uid": "z9wqdklsjzz",
+          "use": "DisplayEnumFieldModel",
+          "props": {},
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "state"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "97mvg754vr6": {
+          "uid": "97mvg754vr6",
+          "use": "TableColumnModel",
+          "props": {
+            "titleField": "name",
+            "width": 130
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "vendor"
+              }
+            },
+            "tableColumnSettings": {
+              "fieldNames": {
+                "label": "name"
+              },
+              "width": {
+                "width": 130
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "vtfy5febksr": {
+          "uid": "vtfy5febksr",
+          "use": "DisplayTextFieldModel",
+          "props": {
+            "titleField": "name",
+            "clickToOpen": true
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "vendor"
+              }
+            },
+            "displayFieldSettings": {
+              "clickToOpen": {
+                "clickToOpen": true
+              }
+            },
+            "popupSettings": {
+              "openView": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_vendors",
+                "associationName": "zp_work_orders.vendor",
+                "filterByTk": "{{ctx.view.inputArgs.filterByTk}}"
+              }
+            }
+          },
+          "popup": {
+            "template": {
+              "uid": "tkg33chw5ar",
+              "mode": "reference"
+            }
+          }
+        },
+        "0te7wutx023": {
+          "uid": "0te7wutx023",
+          "use": "TableColumnModel",
+          "props": {
+            "width": 160
+          },
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "title"
+              }
+            },
+            "tableColumnSettings": {
+              "width": {
+                "width": 160
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "02et8m1xp9s": {
+          "uid": "02et8m1xp9s",
+          "use": "DisplayTextFieldModel",
+          "props": {},
+          "stepParams": {
+            "fieldSettings": {
+              "init": {
+                "dataSourceKey": "main",
+                "collectionName": "zp_work_orders",
+                "fieldPath": "title"
+              }
+            }
+          },
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "8vqmtg1qi9m": {
+          "uid": "8vqmtg1qi9m",
+          "use": "FilterActionModel",
+          "props": {
+            "title": "{{t(\"Filter\")}}",
+            "icon": "FilterOutlined",
+            "defaultFilterValue": {
+              "logic": "$and",
+              "items": [
+                {
+                  "path": "title",
+                  "operator": "$includes"
+                },
+                {
+                  "path": "priority",
+                  "operator": "$eq"
+                },
+                {
+                  "path": "state",
+                  "operator": "$eq"
+                },
+                {
+                  "path": "currency",
+                  "operator": "$includes"
+                }
+              ]
+            },
+            "filterValue": {
+              "logic": "$and",
+              "items": [
+                {
+                  "path": "title",
+                  "operator": "$includes"
+                },
+                {
+                  "path": "priority",
+                  "operator": "$eq"
+                },
+                {
+                  "path": "state",
+                  "operator": "$eq"
+                },
+                {
+                  "path": "currency",
+                  "operator": "$includes"
+                }
+              ]
+            }
+          },
+          "decoratorProps": {},
+          "stepParams": {
+            "buttonSettings": {
+              "general": {
+                "title": "{{t(\"Filter\")}}",
+                "icon": "FilterOutlined"
+              }
+            },
+            "filterSettings": {
+              "defaultFilter": {
+                "defaultFilter": {
+                  "logic": "$and",
+                  "items": [
+                    {
+                      "path": "title",
+                      "operator": "$includes"
+                    },
+                    {
+                      "path": "priority",
+                      "operator": "$eq"
+                    },
+                    {
+                      "path": "state",
+                      "operator": "$eq"
+                    },
+                    {
+                      "path": "currency",
+                      "operator": "$includes"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "flowRegistry": {},
+          "popup": {
+            "mode": "local"
+          }
+        },
+        "5ebhmp053zh": {
+          "uid": "5ebhmp053zh",
+          "use": "RefreshActionModel",
+          "props": {
+            "title": "{{t(\"Refresh\")}}",
+            "icon": "ReloadOutlined"
+          },
+          "decoratorProps": {},
+          "stepParams": {
+            "buttonSettings": {
+              "general": {
+                "title": "{{t(\"Refresh\")}}",
+                "icon": "ReloadOutlined"
+              }
+            }
+          },
+          "flowRegistry": {},
+          "popup": {
+            "mode": "local"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "requestBody": {
+    "target": {
+      "uid": "1mt7j9jc0ds"
+    },
+    "mode": "append",
+    "blocks": [
+      {
+        "key": "orders",
+        "type": "table",
+        "resource": {
+          "dataSourceKey": "main",
+          "collectionName": "zp_work_orders"
+        },
+        "fields": [
+          "title",
+          "property",
+          "unit",
+          "tenancy",
+          "vendor",
+          "state"
+        ],
+        "recordActions": [
+          {
+            "type": "view",
+            "popup": {
+              "title": "Work order",
+              "blocks": [
+                {
+                  "key": "workContext",
+                  "type": "details",
+                  "resource": {
+                    "binding": "currentRecord"
+                  },
+                  "fields": [
+                    "title",
+                    "request",
+                    "property",
+                    "unit",
+                    "tenancy",
+                    "vendor",
+                    "state",
+                    "approvalRequired",
+                    "approvalGranted"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "edit",
+            "popup": {
+              "title": "Assign vendor",
+              "blocks": [
+                {
+                  "key": "assignmentContext",
+                  "type": "details",
+                  "resource": {
+                    "binding": "currentRecord"
+                  },
+                  "fields": [
+                    "title",
+                    "property",
+                    "unit",
+                    "tenancy"
+                  ]
+                },
+                {
+                  "key": "assignment",
+                  "type": "editForm",
+                  "resource": {
+                    "binding": "currentRecord"
+                  },
+                  "fields": [
+                    "vendor",
+                    "state"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "defaults": {
+      "collections": {
+        "zp_work_orders": {
+          "fieldGroups": [
+            {
+              "title": "Work and context",
+              "fields": [
+                "title",
+                "request",
+                "property",
+                "unit",
+                "tenancy",
+                "priority"
+              ]
+            },
+            {
+              "title": "Assignment",
+              "fields": [
+                "vendor",
+                "state"
+              ]
+            },
+            {
+              "title": "Approval",
+              "fields": [
+                "estimatedAmount",
+                "currency",
+                "approvalRequired",
+                "approvalGranted"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

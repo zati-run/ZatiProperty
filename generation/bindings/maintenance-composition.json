@@ -1,0 +1,140 @@
+{
+  "data": {
+    "target": {
+      "uid": "4zzvqp3g16y"
+    },
+    "mode": "append",
+    "blocks": [
+      {
+        "key": "requests",
+        "type": "table",
+        "uid": "sh1t4ocj2ga",
+        "actionsColumnUid": "xsp5magkh16",
+        "fields": [
+          {
+            "key": "title",
+            "uid": "3ptyea3haxj",
+            "fieldPath": "title",
+            "wrapperUid": "3ptyea3haxj",
+            "fieldUid": "8zbokllojbf",
+            "innerFieldUid": "8zbokllojbf"
+          },
+          {
+            "key": "property",
+            "uid": "wit7funm2us",
+            "fieldPath": "property",
+            "wrapperUid": "wit7funm2us",
+            "fieldUid": "8dc0ptumbra",
+            "innerFieldUid": "8dc0ptumbra"
+          },
+          {
+            "key": "unit",
+            "uid": "dan5bnh5lgz",
+            "fieldPath": "unit",
+            "wrapperUid": "dan5bnh5lgz",
+            "fieldUid": "nxgxnh13ag1",
+            "innerFieldUid": "nxgxnh13ag1"
+          },
+          {
+            "key": "tenancy",
+            "uid": "aet2pj7460m",
+            "fieldPath": "tenancy",
+            "wrapperUid": "aet2pj7460m",
+            "fieldUid": "5ididl87ts9",
+            "innerFieldUid": "5ididl87ts9"
+          },
+          {
+            "key": "priority",
+            "uid": "0e25m0byup6",
+            "fieldPath": "priority",
+            "wrapperUid": "0e25m0byup6",
+            "fieldUid": "y1nusd0aa2t",
+            "innerFieldUid": "y1nusd0aa2t"
+          },
+          {
+            "key": "status",
+            "uid": "40r1nmuvf55",
+            "fieldPath": "status",
+            "wrapperUid": "40r1nmuvf55",
+            "fieldUid": "rt3deo75bf5",
+            "innerFieldUid": "rt3deo75bf5"
+          }
+        ],
+        "actions": [
+          {
+            "key": "filterDefault",
+            "type": "filter",
+            "scope": "block",
+            "uid": "5mjq969idxo",
+            "parentUid": "sh1t4ocj2ga"
+          },
+          {
+            "key": "refreshDefault",
+            "type": "refresh",
+            "scope": "block",
+            "uid": "ucps2c1f61f",
+            "parentUid": "sh1t4ocj2ga"
+          },
+          {
+            "key": "bulkDeleteDefault",
+            "type": "bulkDelete",
+            "scope": "block",
+            "uid": "ytpszduqotx",
+            "parentUid": "sh1t4ocj2ga"
+          },
+          {
+            "key": "addNewDefault",
+            "type": "addNew",
+            "scope": "block",
+            "uid": "94fg3jo0f4a",
+            "parentUid": "sh1t4ocj2ga"
+          }
+        ],
+        "recordActions": [
+          {
+            "key": "view",
+            "type": "view",
+            "scope": "record",
+            "uid": "1c6xggl7lvs",
+            "parentUid": "xsp5magkh16",
+            "popupPageUid": "4i98qv5rfw0",
+            "popupTabUid": "cnldbhppu2m",
+            "popupGridUid": "xavei31sxda"
+          },
+          {
+            "key": "editDefault",
+            "type": "edit",
+            "scope": "record",
+            "uid": "ophfkfyyq9s",
+            "parentUid": "xsp5magkh16"
+          },
+          {
+            "key": "deleteDefault",
+            "type": "delete",
+            "scope": "record",
+            "uid": "tjizuxjzoot",
+            "parentUid": "xsp5magkh16"
+          }
+        ]
+      }
+    ],
+    "layout": {
+      "uid": "4zzvqp3g16y",
+      "rows": {
+        "autoRow1": [
+          [
+            "sh1t4ocj2ga"
+          ]
+        ]
+      },
+      "sizes": {
+        "autoRow1": [
+          24
+        ]
+      },
+      "rowOrder": [
+        "autoRow1"
+      ]
+    }
+  }
+}

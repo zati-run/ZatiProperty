@@ -1,0 +1,95 @@
+{
+  "requestBody": {
+    "target": {
+      "uid": "xavei31sxda"
+    },
+    "mode": "append",
+    "blocks": [
+      {
+        "key": "relatedWork",
+        "type": "table",
+        "resource": {
+          "binding": "associatedRecords",
+          "associationField": "workOrders"
+        },
+        "fields": [
+          "state",
+          "vendor",
+          "title"
+        ],
+        "recordActions": [
+          {
+            "type": "edit",
+            "settings": {
+              "title": "Assign vendor"
+            },
+            "popup": {
+              "title": "Assign vendor",
+              "blocks": [
+                {
+                  "key": "context",
+                  "type": "details",
+                  "resource": {
+                    "binding": "currentRecord"
+                  },
+                  "fields": [
+                    "title",
+                    "property",
+                    "unit",
+                    "tenancy"
+                  ]
+                },
+                {
+                  "key": "assignment",
+                  "type": "editForm",
+                  "resource": {
+                    "binding": "currentRecord"
+                  },
+                  "fields": [
+                    "vendor",
+                    "state"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "defaults": {
+      "collections": {
+        "zp_work_orders": {
+          "fieldGroups": [
+            {
+              "title": "Work and context",
+              "fields": [
+                "title",
+                "request",
+                "property",
+                "unit",
+                "tenancy",
+                "priority"
+              ]
+            },
+            {
+              "title": "Assignment",
+              "fields": [
+                "vendor",
+                "state"
+              ]
+            },
+            {
+              "title": "Approval",
+              "fields": [
+                "estimatedAmount",
+                "currency",
+                "approvalRequired",
+                "approvalGranted"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

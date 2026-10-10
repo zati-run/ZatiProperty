@@ -75,8 +75,8 @@ Arrange coherent, reviewable batches in this dependency order:
 
 No batch order relaxes the RFC's licensing, access, financial or release gates.
 Review proposed collections/relations, role scopes, pages, workflow side effects,
-plugin changes and rollback/repair paths before applying. Current owner scope is
-preparation only; live application generation must be a subsequent authorized task.
+plugin changes and rollback/repair paths before applying. The owner has authorized synthetic development implementation through Loom
+in this session; production and consequential actions retain separate gates.
 
 ## 3. Apply through Loom and reconcile
 

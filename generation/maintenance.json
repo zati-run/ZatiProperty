@@ -1,0 +1,26 @@
+{
+  "status": "planned",
+  "requirements": [
+    "RFC8.1",
+    "RFC8.2",
+    "RFC8.4",
+    "RFC8.8",
+    "RFC11.2",
+    "RFC13.2"
+  ],
+  "collections": "collections/maintenance.json",
+  "journey": "Manager opens request, inspects property/unit/tenancy, assigns eligible vendor to linked work order, saves Quote and verifies reload.",
+  "protected": "Server plugin blocks illegal transitions, cross-property context, expired vendor and forged approval; financial progression remains unavailable until protected decision/payment capabilities pass.",
+  "deletions": [],
+  "external_side_effects": [],
+  "rollback": "Stop dependent writes on any uncertain outcome. Native readback identifies owned effects before a scoped repair. Preserve created data.",
+  "acceptance": [
+    "native relations read back",
+    "assignment persisted across fresh read and browser reload",
+    "manager allowed and out-of-property denied",
+    "tenant and vendor cross-record denial",
+    "expired vendor rejected server-side",
+    "forged approval denied",
+    "desktop narrow keyboard journey screenshots"
+  ]
+}

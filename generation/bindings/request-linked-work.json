@@ -1,0 +1,125 @@
+{
+  "data": {
+    "target": {
+      "uid": "xavei31sxda"
+    },
+    "mode": "append",
+    "blocks": [
+      {
+        "key": "relatedWork",
+        "type": "table",
+        "uid": "u2v1ba8nqbp",
+        "actionsColumnUid": "pvwat1w2e4q",
+        "fields": [
+          {
+            "key": "title",
+            "uid": "0te7wutx023",
+            "fieldPath": "title",
+            "wrapperUid": "0te7wutx023",
+            "fieldUid": "02et8m1xp9s",
+            "innerFieldUid": "02et8m1xp9s"
+          },
+          {
+            "key": "state",
+            "uid": "9ttl6v68xh5",
+            "fieldPath": "state",
+            "wrapperUid": "9ttl6v68xh5",
+            "fieldUid": "z9wqdklsjzz",
+            "innerFieldUid": "z9wqdklsjzz"
+          },
+          {
+            "key": "vendor",
+            "uid": "vtfy5febksr",
+            "fieldPath": "vendor",
+            "wrapperUid": "97mvg754vr6",
+            "fieldUid": "vtfy5febksr",
+            "innerFieldUid": "vtfy5febksr"
+          }
+        ],
+        "actions": [
+          {
+            "key": "filterDefault",
+            "type": "filter",
+            "scope": "block",
+            "uid": "8vqmtg1qi9m",
+            "parentUid": "u2v1ba8nqbp"
+          },
+          {
+            "key": "refreshDefault",
+            "type": "refresh",
+            "scope": "block",
+            "uid": "5ebhmp053zh",
+            "parentUid": "u2v1ba8nqbp"
+          },
+          {
+            "key": "bulkDeleteDefault",
+            "type": "bulkDelete",
+            "scope": "block",
+            "uid": "7wlduy99fao",
+            "parentUid": "u2v1ba8nqbp"
+          },
+          {
+            "key": "addNewDefault",
+            "type": "addNew",
+            "scope": "block",
+            "uid": "5liog3fais6",
+            "parentUid": "u2v1ba8nqbp"
+          }
+        ],
+        "recordActions": [
+          {
+            "key": "viewDefault",
+            "type": "view",
+            "scope": "record",
+            "uid": "sib5yfpm0i3",
+            "parentUid": "pvwat1w2e4q"
+          },
+          {
+            "key": "edit",
+            "type": "edit",
+            "scope": "record",
+            "uid": "mmjqygge58g",
+            "parentUid": "pvwat1w2e4q",
+            "popupPageUid": "p2yd94t1jt8",
+            "popupTabUid": "sqn5gnna1rv",
+            "popupGridUid": "8tdha9u2b01"
+          },
+          {
+            "key": "deleteDefault",
+            "type": "delete",
+            "scope": "record",
+            "uid": "naeef1d86b6",
+            "parentUid": "pvwat1w2e4q"
+          }
+        ]
+      }
+    ],
+    "layout": {
+      "uid": "xavei31sxda",
+      "rows": {
+        "row1": [
+          [
+            "9bbeopilm6t"
+          ]
+        ],
+        "appendRow1": [
+          [
+            "u2v1ba8nqbp"
+          ]
+        ]
+      },
+      "sizes": {
+        "row1": [
+          24
+        ],
+        "appendRow1": [
+          24
+        ]
+      },
+      "rowOrder": [
+        "row1",
+        "appendRow1"
+      ]
+    }
+  }
+}

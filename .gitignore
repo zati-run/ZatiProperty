@@ -2,3 +2,6 @@ ajent.social
 .local-source/
 __pycache__/
 *.pyc
+
+# Reproducible plugin upload archives remain local verification artifacts.
+packages/plugins/*/*/artifacts/

@@ -1,0 +1,97 @@
+{
+  "requestBody": {
+    "target": {
+      "uid": "4zzvqp3g16y"
+    },
+    "mode": "append",
+    "blocks": [
+      {
+        "key": "requests",
+        "type": "table",
+        "resource": {
+          "dataSourceKey": "main",
+          "collectionName": "zp_maintenance_requests"
+        },
+        "fields": [
+          "title",
+          "property",
+          "unit",
+          "tenancy",
+          "priority",
+          "status"
+        ],
+        "recordActions": [
+          {
+            "type": "view",
+            "popup": {
+              "title": "Maintenance request",
+              "blocks": [
+                {
+                  "key": "requestContext",
+                  "type": "details",
+                  "resource": {
+                    "binding": "currentRecord"
+                  },
+                  "fields": [
+                    "title",
+                    "description",
+                    "property",
+                    "unit",
+                    "tenancy",
+                    "priority",
+                    "permissionToEnter",
+                    "status",
+                    {
+                      "fieldPath": "workOrders",
+                      "fieldType": "subTable",
+                      "fields": [
+                        "title",
+                        "vendor",
+                        "state"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "defaults": {
+      "collections": {
+        "zp_work_orders": {
+          "fieldGroups": [
+            {
+              "title": "Work and context",
+              "fields": [
+                "title",
+                "request",
+                "property",
+                "unit",
+                "tenancy",
+                "priority"
+              ]
+            },
+            {
+              "title": "Assignment",
+              "fields": [
+                "vendor",
+                "state"
+              ]
+            },
+            {
+              "title": "Approval",
+              "fields": [
+                "estimatedAmount",
+                "currency",
+                "approvalRequired",
+                "approvalGranted"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

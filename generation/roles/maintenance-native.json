@@ -1,0 +1,307 @@
+{
+  "status": "prepared-unapplied",
+  "currentUserExpression": "{{ ctx.state.currentUser.id }}",
+  "expressionEvidence": "NocoBase 2.2.21 installed @nocobase/plugin-acl dist/server/server.js built-in own scope",
+  "defaultStrategy": {
+    "actions": []
+  },
+  "snippets": [],
+  "roles": {
+    "zp_property_manager": {
+      "title": "Property manager",
+      "resources": [
+        {
+          "name": "zp_properties",
+          "scope": {
+            "managerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "name",
+            "address"
+          ],
+          "updateFields": []
+        },
+        {
+          "name": "zp_units",
+          "scope": {
+            "property.managerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "name",
+            "propertyId"
+          ],
+          "updateFields": []
+        },
+        {
+          "name": "zp_tenancies",
+          "scope": {
+            "unit.property.managerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "code",
+            "unitId",
+            "status"
+          ],
+          "updateFields": []
+        },
+        {
+          "name": "zp_vendors",
+          "scope": {
+            "propertyPermissions.property.managerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "name",
+            "trade",
+            "active",
+            "insuranceExpiresAt",
+            "licenseExpiresAt"
+          ],
+          "updateFields": []
+        },
+        {
+          "name": "zp_maintenance_requests",
+          "scope": {
+            "property.managerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "title",
+            "description",
+            "priority",
+            "status",
+            "propertyId",
+            "unitId",
+            "tenancyId",
+            "property",
+            "unit",
+            "tenancy"
+          ],
+          "updateFields": [
+            "title",
+            "description",
+            "priority"
+          ]
+        },
+        {
+          "name": "zp_work_orders",
+          "scope": {
+            "request.property.managerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "title",
+            "state",
+            "priority",
+            "requestId",
+            "vendorId",
+            "vendor",
+            "property",
+            "unit",
+            "tenancy",
+            "request"
+          ],
+          "updateFields": [
+            "state",
+            "vendorId",
+            "vendor",
+            "priority"
+          ]
+        }
+      ]
+    },
+    "zp_owner": {
+      "title": "Owner",
+      "resources": [
+        {
+          "name": "zp_properties",
+          "scope": {
+            "ownerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "name",
+            "address"
+          ],
+          "updateFields": []
+        },
+        {
+          "name": "zp_units",
+          "scope": {
+            "property.ownerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "name",
+            "propertyId"
+          ],
+          "updateFields": []
+        },
+        {
+          "name": "zp_maintenance_requests",
+          "scope": {
+            "property.ownerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "title",
+            "priority",
+            "status",
+            "propertyId",
+            "unitId"
+          ],
+          "updateFields": []
+        },
+        {
+          "name": "zp_work_orders",
+          "scope": {
+            "request.property.ownerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "title",
+            "state",
+            "priority"
+          ],
+          "updateFields": []
+        }
+      ]
+    },
+    "zp_tenant": {
+      "title": "Tenant",
+      "resources": [
+        {
+          "name": "zp_tenancies",
+          "scope": {
+            "tenantUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "code",
+            "unitId",
+            "status"
+          ],
+          "updateFields": []
+        },
+        {
+          "name": "zp_maintenance_requests",
+          "scope": {
+            "tenancy.tenantUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "title",
+            "priority",
+            "status",
+            "propertyId",
+            "unitId"
+          ],
+          "updateFields": []
+        },
+        {
+          "name": "zp_work_orders",
+          "scope": {
+            "request.tenancy.tenantUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "title",
+            "state",
+            "priority"
+          ],
+          "updateFields": []
+        }
+      ]
+    },
+    "zp_vendor": {
+      "title": "Vendor",
+      "resources": [
+        {
+          "name": "zp_vendors",
+          "scope": {
+            "userId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "name",
+            "trade",
+            "active",
+            "insuranceExpiresAt",
+            "licenseExpiresAt"
+          ],
+          "updateFields": []
+        },
+        {
+          "name": "zp_work_orders",
+          "scope": {
+            "vendor.userId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "title",
+            "state",
+            "priority"
+          ],
+          "updateFields": []
+        }
+      ]
+    }
+  },
+  "routePolicy": "Explicit coordinator-supplied generated page IDs only; empty until pages exist. No wildcard menu grants.",
+  "protectedFieldsExcluded": [
+    "approvalGranted",
+    "invoiceApproved",
+    "ownerApproved",
+    "managerUserId",
+    "ownerUserId",
+    "tenantUserId",
+    "userId",
+    "permittedProperties",
+    "propertyId",
+    "unitId",
+    "tenancyId",
+    "requestId",
+    "approvalRequired"
+  ],
+  "limitations": [
+    "No create or delete grants in this maintenance assignment slice. Tenant submission and vendor progress updates remain later gates.",
+    "Related record popup/appends need separate role-specific read tests before exposing native relation blocks.",
+    "No root/admin/member role may remain on fixture users. Default system role behavior is verified per account without changing global defaults.",
+    "Manager assignment uses vendorId only; nested association payloads must be denied by domain guards.",
+    "zp_vendor_properties join records are constructor-owned; no application role receives join-resource grants.",
+    "Manager context relation view additions require ZP-ACL-001 server-side target scope/field guard before applying; existing scalar grants do not safely authorize relation serialization."
+  ]
+}

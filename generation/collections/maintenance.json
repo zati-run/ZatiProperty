@@ -1,0 +1,743 @@
+[
+  {
+    "name": "zp_properties",
+    "title": "Properties",
+    "description": "ZatiProperty owned synthetic development namespace zp.*",
+    "template": "general",
+    "autoGenId": true,
+    "createdBy": true,
+    "updatedBy": true,
+    "timestamps": true,
+    "fields": [
+      {
+        "name": "name",
+        "type": "string",
+        "interface": "input",
+        "uiSchema": {
+          "type": "string",
+          "title": "Property",
+          "x-component": "Input"
+        },
+        "allowNull": false
+      },
+      {
+        "name": "address",
+        "type": "string",
+        "interface": "input",
+        "uiSchema": {
+          "type": "string",
+          "title": "Address",
+          "x-component": "Input"
+        }
+      },
+      {
+        "name": "managerUserId",
+        "type": "bigInt",
+        "interface": "integer",
+        "uiSchema": {
+          "type": "number",
+          "title": "Manager user",
+          "x-component": "InputNumber"
+        }
+      },
+      {
+        "name": "ownerUserId",
+        "type": "bigInt",
+        "interface": "integer",
+        "uiSchema": {
+          "type": "number",
+          "title": "Owner user",
+          "x-component": "InputNumber"
+        }
+      }
+    ]
+  },
+  {
+    "name": "zp_units",
+    "title": "Units",
+    "description": "ZatiProperty owned synthetic development namespace zp.*",
+    "template": "general",
+    "autoGenId": true,
+    "createdBy": true,
+    "updatedBy": true,
+    "timestamps": true,
+    "fields": [
+      {
+        "name": "name",
+        "type": "string",
+        "interface": "input",
+        "uiSchema": {
+          "type": "string",
+          "title": "Unit",
+          "x-component": "Input"
+        },
+        "allowNull": false
+      },
+      {
+        "name": "property",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_properties",
+        "foreignKey": "propertyId",
+        "onDelete": "RESTRICT",
+        "uiSchema": {
+          "title": "Property",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        },
+        "allowNull": false
+      }
+    ]
+  },
+  {
+    "name": "zp_tenancies",
+    "title": "Tenancies",
+    "description": "ZatiProperty owned synthetic development namespace zp.*",
+    "template": "general",
+    "autoGenId": true,
+    "createdBy": true,
+    "updatedBy": true,
+    "timestamps": true,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "interface": "input",
+        "uiSchema": {
+          "type": "string",
+          "title": "Tenancy",
+          "x-component": "Input"
+        },
+        "unique": true,
+        "allowNull": false
+      },
+      {
+        "name": "unit",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_units",
+        "foreignKey": "unitId",
+        "onDelete": "RESTRICT",
+        "uiSchema": {
+          "title": "Unit",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        },
+        "allowNull": false
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "interface": "select",
+        "uiSchema": {
+          "type": "string",
+          "title": "status",
+          "x-component": "Select",
+          "enum": [
+            {
+              "label": "Open",
+              "value": "open"
+            },
+            {
+              "label": "Closed",
+              "value": "closed"
+            },
+            {
+              "label": "Closed Allow Transactions",
+              "value": "closed_allow_transactions"
+            }
+          ]
+        },
+        "enum": [
+          "open",
+          "closed",
+          "closed_allow_transactions"
+        ],
+        "defaultValue": "open"
+      },
+      {
+        "name": "tenantUserId",
+        "type": "bigInt",
+        "interface": "integer",
+        "uiSchema": {
+          "type": "number",
+          "title": "Tenant user",
+          "x-component": "InputNumber"
+        }
+      }
+    ]
+  },
+  {
+    "name": "zp_vendors",
+    "title": "Vendors",
+    "description": "ZatiProperty owned synthetic development namespace zp.*",
+    "template": "general",
+    "autoGenId": true,
+    "createdBy": true,
+    "updatedBy": true,
+    "timestamps": true,
+    "fields": [
+      {
+        "name": "name",
+        "type": "string",
+        "interface": "input",
+        "uiSchema": {
+          "type": "string",
+          "title": "Vendor",
+          "x-component": "Input"
+        },
+        "allowNull": false
+      },
+      {
+        "name": "trade",
+        "type": "string",
+        "interface": "input",
+        "uiSchema": {
+          "type": "string",
+          "title": "Trade",
+          "x-component": "Input"
+        }
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "interface": "checkbox",
+        "uiSchema": {
+          "type": "boolean",
+          "title": "Active",
+          "x-component": "Checkbox"
+        },
+        "defaultValue": true
+      },
+      {
+        "name": "insuranceExpiresAt",
+        "type": "dateOnly",
+        "interface": "date",
+        "uiSchema": {
+          "type": "string",
+          "title": "Insurance expires",
+          "x-component": "DatePicker"
+        }
+      },
+      {
+        "name": "licenseExpiresAt",
+        "type": "dateOnly",
+        "interface": "date",
+        "uiSchema": {
+          "type": "string",
+          "title": "License expires",
+          "x-component": "DatePicker"
+        }
+      },
+      {
+        "name": "userId",
+        "type": "bigInt",
+        "interface": "integer",
+        "uiSchema": {
+          "type": "number",
+          "title": "Vendor user",
+          "x-component": "InputNumber"
+        }
+      }
+    ]
+  },
+  {
+    "name": "zp_maintenance_requests",
+    "title": "Maintenance requests",
+    "description": "ZatiProperty owned synthetic development namespace zp.*",
+    "template": "general",
+    "autoGenId": true,
+    "createdBy": true,
+    "updatedBy": true,
+    "timestamps": true,
+    "fields": [
+      {
+        "name": "title",
+        "type": "string",
+        "interface": "input",
+        "uiSchema": {
+          "type": "string",
+          "title": "Request",
+          "x-component": "Input"
+        },
+        "allowNull": false
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "interface": "textarea",
+        "uiSchema": {
+          "type": "string",
+          "title": "Issue description",
+          "x-component": "Input.TextArea"
+        }
+      },
+      {
+        "name": "property",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_properties",
+        "foreignKey": "propertyId",
+        "onDelete": "RESTRICT",
+        "uiSchema": {
+          "title": "Property",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        },
+        "allowNull": false
+      },
+      {
+        "name": "unit",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_units",
+        "foreignKey": "unitId",
+        "onDelete": "RESTRICT",
+        "uiSchema": {
+          "title": "Unit",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        }
+      },
+      {
+        "name": "tenancy",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_tenancies",
+        "foreignKey": "tenancyId",
+        "onDelete": "RESTRICT",
+        "uiSchema": {
+          "title": "Tenancy",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "code",
+              "value": "id"
+            }
+          }
+        }
+      },
+      {
+        "name": "priority",
+        "type": "string",
+        "interface": "select",
+        "uiSchema": {
+          "type": "string",
+          "title": "priority",
+          "x-component": "Select",
+          "enum": [
+            {
+              "label": "Low",
+              "value": "low"
+            },
+            {
+              "label": "Medium",
+              "value": "medium"
+            },
+            {
+              "label": "High",
+              "value": "high"
+            },
+            {
+              "label": "Urgent",
+              "value": "urgent"
+            }
+          ]
+        },
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "urgent"
+        ],
+        "defaultValue": "medium"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "interface": "select",
+        "uiSchema": {
+          "type": "string",
+          "title": "status",
+          "x-component": "Select",
+          "enum": [
+            {
+              "label": "Open",
+              "value": "open"
+            },
+            {
+              "label": "Triaged",
+              "value": "triaged"
+            },
+            {
+              "label": "Closed",
+              "value": "closed"
+            }
+          ]
+        },
+        "enum": [
+          "open",
+          "triaged",
+          "closed"
+        ],
+        "defaultValue": "open"
+      },
+      {
+        "name": "permissionToEnter",
+        "type": "boolean",
+        "interface": "checkbox",
+        "uiSchema": {
+          "type": "boolean",
+          "title": "Permission to enter",
+          "x-component": "Checkbox"
+        },
+        "defaultValue": false
+      }
+    ]
+  },
+  {
+    "name": "zp_work_orders",
+    "title": "Work orders",
+    "description": "ZatiProperty owned synthetic development namespace zp.*",
+    "template": "general",
+    "autoGenId": true,
+    "createdBy": true,
+    "updatedBy": true,
+    "timestamps": true,
+    "fields": [
+      {
+        "name": "title",
+        "type": "string",
+        "interface": "input",
+        "uiSchema": {
+          "type": "string",
+          "title": "Work order",
+          "x-component": "Input"
+        },
+        "allowNull": false
+      },
+      {
+        "name": "request",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_maintenance_requests",
+        "foreignKey": "requestId",
+        "onDelete": "RESTRICT",
+        "uiSchema": {
+          "title": "Request",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "title",
+              "value": "id"
+            }
+          }
+        },
+        "allowNull": false,
+        "reverseField": {
+          "name": "workOrders",
+          "type": "hasMany",
+          "interface": "o2m",
+          "foreignKey": "requestId",
+          "uiSchema": {
+            "title": "Work orders",
+            "x-component": "AssociationField",
+            "x-component-props": {
+              "fieldNames": {
+                "label": "title",
+                "value": "id"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "property",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_properties",
+        "foreignKey": "propertyId",
+        "onDelete": "RESTRICT",
+        "uiSchema": {
+          "title": "Property",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        },
+        "allowNull": false
+      },
+      {
+        "name": "unit",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_units",
+        "foreignKey": "unitId",
+        "onDelete": "RESTRICT",
+        "uiSchema": {
+          "title": "Unit",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        }
+      },
+      {
+        "name": "tenancy",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_tenancies",
+        "foreignKey": "tenancyId",
+        "onDelete": "RESTRICT",
+        "uiSchema": {
+          "title": "Tenancy",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "code",
+              "value": "id"
+            }
+          }
+        }
+      },
+      {
+        "name": "vendor",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_vendors",
+        "foreignKey": "vendorId",
+        "onDelete": "RESTRICT",
+        "uiSchema": {
+          "title": "Vendor",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        }
+      },
+      {
+        "name": "state",
+        "type": "string",
+        "interface": "select",
+        "uiSchema": {
+          "type": "string",
+          "title": "state",
+          "x-component": "Select",
+          "enum": [
+            {
+              "label": "New job",
+              "value": "new",
+              "color": "blue"
+            },
+            {
+              "label": "Quote",
+              "value": "quote",
+              "color": "orange"
+            },
+            {
+              "label": "Progress",
+              "value": "progress",
+              "color": "processing"
+            },
+            {
+              "label": "Complete",
+              "value": "complete",
+              "color": "green"
+            },
+            {
+              "label": "Closed",
+              "value": "closed",
+              "color": "default"
+            }
+          ]
+        },
+        "enum": [
+          "new",
+          "quote",
+          "progress",
+          "complete",
+          "closed"
+        ],
+        "defaultValue": "new"
+      },
+      {
+        "name": "priority",
+        "type": "string",
+        "interface": "select",
+        "uiSchema": {
+          "type": "string",
+          "title": "priority",
+          "x-component": "Select",
+          "enum": [
+            {
+              "label": "Low",
+              "value": "low"
+            },
+            {
+              "label": "Medium",
+              "value": "medium"
+            },
+            {
+              "label": "High",
+              "value": "high"
+            },
+            {
+              "label": "Urgent",
+              "value": "urgent"
+            }
+          ]
+        },
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "urgent"
+        ],
+        "defaultValue": "medium"
+      },
+      {
+        "name": "estimatedAmount",
+        "type": "bigInt",
+        "interface": "integer",
+        "uiSchema": {
+          "type": "number",
+          "title": "Estimate (minor units)",
+          "x-component": "InputNumber"
+        },
+        "defaultValue": 0
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "interface": "input",
+        "uiSchema": {
+          "type": "string",
+          "title": "Currency",
+          "x-component": "Input"
+        },
+        "defaultValue": "USD"
+      },
+      {
+        "name": "approvalRequired",
+        "type": "boolean",
+        "interface": "checkbox",
+        "uiSchema": {
+          "type": "boolean",
+          "title": "Owner approval required",
+          "x-component": "Checkbox"
+        },
+        "defaultValue": true
+      },
+      {
+        "name": "approvalGranted",
+        "type": "boolean",
+        "interface": "checkbox",
+        "uiSchema": {
+          "type": "boolean",
+          "title": "Owner approval granted",
+          "x-component": "Checkbox"
+        },
+        "defaultValue": false
+      }
+    ]
+  },
+  {
+    "name": "zp_vendor_properties",
+    "title": "Vendor property permissions",
+    "description": "ZatiProperty constructor-owned assignment eligibility; application roles have no mutation grants",
+    "template": "general",
+    "autoGenId": true,
+    "createdBy": true,
+    "updatedBy": true,
+    "timestamps": true,
+    "fields": [
+      {
+        "name": "vendor",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_vendors",
+        "foreignKey": "vendorId",
+        "onDelete": "RESTRICT",
+        "allowNull": false,
+        "uiSchema": {
+          "title": "Vendor",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        },
+        "reverseField": {
+          "name": "propertyPermissions",
+          "type": "hasMany",
+          "interface": "o2m",
+          "foreignKey": "vendorId",
+          "uiSchema": {
+            "title": "Vendor permission mappings",
+            "x-component": "AssociationField"
+          }
+        }
+      },
+      {
+        "name": "property",
+        "type": "belongsTo",
+        "interface": "m2o",
+        "target": "zp_properties",
+        "foreignKey": "propertyId",
+        "onDelete": "RESTRICT",
+        "allowNull": false,
+        "uiSchema": {
+          "title": "Property",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        },
+        "reverseField": {
+          "name": "vendorPermissions",
+          "type": "hasMany",
+          "interface": "o2m",
+          "foreignKey": "propertyId",
+          "uiSchema": {
+            "title": "Vendor permission mappings",
+            "x-component": "AssociationField"
+          }
+        }
+      }
+    ]
+  }
+]

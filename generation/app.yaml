@@ -1,0 +1,18 @@
+app: ZatiProperty
+installation_alias: zp-dev
+source_base: 7084a5d0039227992179247463212a33ac8affd7
+platform: NocoBase Community Edition
+nocobase_version: 2.2.21
+loom_base_revision: 5ed932583ef550edb4446f0b4d9ad7c5f3a470ae
+namespace: zp
+physical_collection_prefix: zp_
+ownership: Create only absent resources; bind returned identifiers; do not adopt by name.
+environment: isolated synthetic development
+native_authoring: enabled
+construction_role: root
+read_endpoint: disabled
+coverage: coverage.md
+batch: maintenance-context-and-vendor-assignment
+consequential_actions: disabled
+production_deployment: not-authorized
+format: Project desired-state specification; not a native Loom input schema.

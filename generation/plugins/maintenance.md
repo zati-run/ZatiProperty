@@ -1,0 +1,3 @@
+# Server invariant gap
+
+RFC8.8 requires non-editable server rules for maintenance transitions. Native field validation handles scalar constraints but cannot prove cross-record context, vendor eligibility, or protected approvals. The original @zati/plugin-maintenance package will enforce those rules through pinned NocoBase hooks, installed and enabled only via qualified Loom plugin tools. Package installation is subject to independent review, readback, restart/catalog reconciliation, and real negative tests. Accounting/audit invariants remain separate work; no generic ledger collections are created by this slice.

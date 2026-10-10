@@ -1,0 +1,187 @@
+{
+  "status": "prepared-unapplied",
+  "namespace": "zp.demo.maintenance",
+  "accounts": [
+    {
+      "key": "zp_property_manager.1",
+      "email": "property_manager1@example.invalid",
+      "role": "zp_property_manager",
+      "password": "generated privately at execution; never committed"
+    },
+    {
+      "key": "zp_property_manager.2",
+      "email": "property_manager2@example.invalid",
+      "role": "zp_property_manager",
+      "password": "generated privately at execution; never committed"
+    },
+    {
+      "key": "zp_owner.1",
+      "email": "owner1@example.invalid",
+      "role": "zp_owner",
+      "password": "generated privately at execution; never committed"
+    },
+    {
+      "key": "zp_owner.2",
+      "email": "owner2@example.invalid",
+      "role": "zp_owner",
+      "password": "generated privately at execution; never committed"
+    },
+    {
+      "key": "zp_tenant.1",
+      "email": "tenant1@example.invalid",
+      "role": "zp_tenant",
+      "password": "generated privately at execution; never committed"
+    },
+    {
+      "key": "zp_tenant.2",
+      "email": "tenant2@example.invalid",
+      "role": "zp_tenant",
+      "password": "generated privately at execution; never committed"
+    },
+    {
+      "key": "zp_vendor.1",
+      "email": "vendor1@example.invalid",
+      "role": "zp_vendor",
+      "password": "generated privately at execution; never committed"
+    },
+    {
+      "key": "zp_vendor.2",
+      "email": "vendor2@example.invalid",
+      "role": "zp_vendor",
+      "password": "generated privately at execution; never committed"
+    }
+  ],
+  "graphs": [
+    {
+      "key": "company-demo-1",
+      "property": {
+        "name": "Demo Property 1",
+        "address": "Synthetic address 1",
+        "managerUserId": "$user.zp_property_manager.1",
+        "ownerUserId": "$user.zp_owner.1"
+      },
+      "unit": {
+        "name": "Unit 1",
+        "propertyId": "$property"
+      },
+      "tenancy": {
+        "unitId": "$unit",
+        "tenantUserId": "$user.zp_tenant.1",
+        "status": "open",
+        "code": "DEMO-T1"
+      },
+      "vendor": {
+        "name": "Demo Vendor 1",
+        "trade": "Plumbing",
+        "userId": "$user.zp_vendor.1",
+        "active": true,
+        "insuranceExpiresAt": "2099-12-31",
+        "licenseExpiresAt": "2099-12-31"
+      },
+      "request": {
+        "title": "Leaking kitchen tap",
+        "description": "Synthetic maintenance request",
+        "priority": "medium",
+        "status": "open",
+        "propertyId": "$property",
+        "unitId": "$unit",
+        "tenancyId": "$tenancy"
+      },
+      "workOrder": {
+        "title": "Inspect kitchen tap",
+        "requestId": "$request",
+        "state": "new",
+        "propertyId": "$property",
+        "unitId": "$unit",
+        "tenancyId": "$tenancy",
+        "priority": "medium",
+        "approvalRequired": true,
+        "approvalGranted": false
+      },
+      "vendorProperty": {
+        "vendorId": "$vendor",
+        "propertyId": "$property"
+      }
+    },
+    {
+      "key": "company-demo-2",
+      "property": {
+        "name": "Demo Property 2",
+        "address": "Synthetic address 2",
+        "managerUserId": "$user.zp_property_manager.2",
+        "ownerUserId": "$user.zp_owner.2"
+      },
+      "unit": {
+        "name": "Unit 2",
+        "propertyId": "$property"
+      },
+      "tenancy": {
+        "unitId": "$unit",
+        "tenantUserId": "$user.zp_tenant.2",
+        "status": "open",
+        "code": "DEMO-T2"
+      },
+      "vendor": {
+        "name": "Demo Vendor 2",
+        "trade": "Plumbing",
+        "userId": "$user.zp_vendor.2",
+        "active": true,
+        "insuranceExpiresAt": "2099-12-31",
+        "licenseExpiresAt": "2099-12-31"
+      },
+      "request": {
+        "title": "Leaking kitchen tap",
+        "description": "Synthetic maintenance request",
+        "priority": "medium",
+        "status": "open",
+        "propertyId": "$property",
+        "unitId": "$unit",
+        "tenancyId": "$tenancy"
+      },
+      "workOrder": {
+        "title": "Inspect kitchen tap",
+        "requestId": "$request",
+        "state": "new",
+        "propertyId": "$property",
+        "unitId": "$unit",
+        "tenancyId": "$tenancy",
+        "priority": "medium",
+        "approvalRequired": true,
+        "approvalGranted": false
+      },
+      "vendorProperty": {
+        "vendorId": "$vendor",
+        "propertyId": "$property"
+      }
+    }
+  ],
+  "bindingPolicy": "Coordinator resolves logical IDs from returned native readback through Loom. No direct REST/CLI/database mutations. Seed only after domain plugin guards are qualified.",
+  "tests": [
+    {
+      "role": "zp_property_manager",
+      "allow": "own graph record list/get",
+      "deny": "other graph list/get and foreign ID filters; unrelated collection; create/delete; protected and nested field writes; builder routes"
+    },
+    {
+      "role": "zp_owner",
+      "allow": "own graph record list/get",
+      "deny": "other graph list/get and foreign ID filters; unrelated collection; create/delete; protected and nested field writes; builder routes"
+    },
+    {
+      "role": "zp_tenant",
+      "allow": "own graph record list/get",
+      "deny": "other graph list/get and foreign ID filters; unrelated collection; create/delete; protected and nested field writes; builder routes"
+    },
+    {
+      "role": "zp_vendor",
+      "allow": "own graph record list/get",
+      "deny": "other graph list/get and foreign ID filters; unrelated collection; create/delete; protected and nested field writes; builder routes"
+    },
+    {
+      "role": "zp_property_manager",
+      "allow": "own work order new to quote with same-property compliant vendor; reload persists state/vendor",
+      "deny": "foreign vendor; inactive/expired vendor; cross-property references; progress/complete/closed without approvals; protected approvalRequired/approvalGranted writes"
+    }
+  ],
+  "verificationBoundary": "Direct native GET may verify reads. Writes use role-specific Loom credentials/instances or native end-user browser interactions, never root as a portal identity. Auth tokens and passwords stay in private runtime files."
+}

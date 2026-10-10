@@ -2,7 +2,7 @@
 
 The construction authority is [RFC-ZP-0001](../rfc/rfc-001.md). The execution
 procedure is [zatiproperty-loom](../../.agents/skills/zatiproperty-loom/SKILL.md).
-This is a record contract for future generation, not an already generated app.
+This contract separates intended state, observed generation and acceptance evidence.
 
 ## Desired state
 
@@ -54,10 +54,16 @@ Cross-role checks are required even though one install serves one company.
 
 ## Current state
 
-Only the RFC and agent workflow are being prepared. No target endpoint, generated
-resources, live mutations, customer data, provider integration or deployment has
-been qualified by this delivery. Future generation must discover its own connection
-and capabilities. Historical Loom fixture results do not establish this app's state.
+The owner authorized synthetic development implementation and an isolated DGX
+installation. The `zp-dev` target runs NocoBase CE 2.2.21 and qualified Loom native
+MCP authoring. Seven maintenance-context collections, two native pages, four scoped
+roles and eight synthetic accounts have been generated. See the receipts for exact
+versions, identifiers and separate verification results.
+
+The representative maintenance journey is still under verification. Association
+read disclosure ZP-ACL-001 blocks portal acceptance; see receipt 005. Complete RFC
+acceptance, accounting, external integrations and production are not established.
+Historical preparation-only statements are not current runtime evidence.
 
 ## Design contract
 

@@ -1,0 +1,22 @@
+{
+  "name": "@zati/plugin-maintenance",
+  "version": "0.1.2",
+  "displayName": "ZatiProperty maintenance invariants",
+  "description": "Protected maintenance context, assignment and lifecycle rules. Financial transitions fail closed.",
+  "main": "dist/server/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 test/*.test.js"
+  },
+  "peerDependencies": {
+    "@nocobase/server": "2.2.21",
+    "@nocobase/client": "2.2.21"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

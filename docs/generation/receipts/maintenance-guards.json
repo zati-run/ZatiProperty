@@ -1,0 +1,47 @@
+{
+  "evidence": "live-Loom-MCP",
+  "checks": [
+    {
+      "case": "unpermitted-vendor",
+      "passed": true,
+      "error": "Loom tool error: {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"statusCode\\\":422,\\\"body\\\":{\\\"errors\\\":[{\\\"message\\\":\\\"ZP_MAINTENANCE_VENDOR_PROPERTY_PERMISSION\\\"}]}}\"}], \"isError\": true}",
+      "unchanged": true
+    },
+    {
+      "case": "nested-unpermitted-vendor",
+      "passed": true,
+      "error": "Loom tool error: {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"statusCode\\\":422,\\\"body\\\":{\\\"errors\\\":[{\\\"message\\\":\\\"ZP_MAINTENANCE_VENDOR_PROPERTY_PERMISSION\\\"}]}}\"}], \"isError\": true}",
+      "unchanged": true
+    },
+    {
+      "case": "forged-approval",
+      "passed": true,
+      "error": "Loom tool error: {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"statusCode\\\":422,\\\"body\\\":{\\\"errors\\\":[{\\\"message\\\":\\\"ZP_MAINTENANCE_APPROVAL_PROTECTED\\\"}]}}\"}], \"isError\": true}",
+      "unchanged": true
+    },
+    {
+      "case": "approval-gate",
+      "passed": true,
+      "error": "Loom tool error: {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"statusCode\\\":422,\\\"body\\\":{\\\"errors\\\":[{\\\"message\\\":\\\"ZP_MAINTENANCE_OWNER_APPROVAL_UNAVAILABLE\\\"}]}}\"}], \"isError\": true}",
+      "unchanged": true
+    },
+    {
+      "case": "immutable-property-context",
+      "passed": true,
+      "error": "Loom tool error: {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"statusCode\\\":422,\\\"body\\\":{\\\"errors\\\":[{\\\"message\\\":\\\"ZP_MAINTENANCE_CONTEXT_IMMUTABLE\\\"}]}}\"}], \"isError\": true}",
+      "unchanged": true
+    },
+    {
+      "case": "immutable-parent-unit-context",
+      "passed": true,
+      "error": "Loom tool error: {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"statusCode\\\":422,\\\"body\\\":{\\\"errors\\\":[{\\\"message\\\":\\\"ZP_MAINTENANCE_HIERARCHY_IMMUTABLE\\\"}]}}\"}], \"isError\": true}",
+      "unchanged": true
+    },
+    {
+      "case": "expired-vendor",
+      "passed": true,
+      "error": "Loom tool error: {\"content\": [{\"type\": \"text\", \"text\": \"{\\\"statusCode\\\":422,\\\"body\\\":{\\\"errors\\\":[{\\\"message\\\":\\\"ZP_MAINTENANCE_VENDOR_INSURANCE\\\"}]}}\"}], \"isError\": true}",
+      "unchanged": true
+    }
+  ]
+}

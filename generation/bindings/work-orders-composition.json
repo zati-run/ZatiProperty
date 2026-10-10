@@ -1,0 +1,143 @@
+{
+  "data": {
+    "target": {
+      "uid": "1mt7j9jc0ds"
+    },
+    "mode": "append",
+    "blocks": [
+      {
+        "key": "orders",
+        "type": "table",
+        "uid": "cat74t2hy9g",
+        "actionsColumnUid": "elhqk73blq8",
+        "fields": [
+          {
+            "key": "title",
+            "uid": "n73wyytnvdm",
+            "fieldPath": "title",
+            "wrapperUid": "n73wyytnvdm",
+            "fieldUid": "12i2gbnfuiw",
+            "innerFieldUid": "12i2gbnfuiw"
+          },
+          {
+            "key": "property",
+            "uid": "tf1pp9pmswv",
+            "fieldPath": "property",
+            "wrapperUid": "tf1pp9pmswv",
+            "fieldUid": "ok4hub79xd6",
+            "innerFieldUid": "ok4hub79xd6"
+          },
+          {
+            "key": "unit",
+            "uid": "hrlbddr4a5i",
+            "fieldPath": "unit",
+            "wrapperUid": "hrlbddr4a5i",
+            "fieldUid": "r7dcyxglzez",
+            "innerFieldUid": "r7dcyxglzez"
+          },
+          {
+            "key": "tenancy",
+            "uid": "q24zb5ttf6m",
+            "fieldPath": "tenancy",
+            "wrapperUid": "q24zb5ttf6m",
+            "fieldUid": "ncipz4b9tdj",
+            "innerFieldUid": "ncipz4b9tdj"
+          },
+          {
+            "key": "vendor",
+            "uid": "zwg9b2l0iva",
+            "fieldPath": "vendor",
+            "wrapperUid": "zwg9b2l0iva",
+            "fieldUid": "ffg7bahvxjt",
+            "innerFieldUid": "ffg7bahvxjt"
+          },
+          {
+            "key": "state",
+            "uid": "a3mm865tenu",
+            "fieldPath": "state",
+            "wrapperUid": "a3mm865tenu",
+            "fieldUid": "osvld4pezvo",
+            "innerFieldUid": "osvld4pezvo"
+          }
+        ],
+        "actions": [
+          {
+            "key": "filterDefault",
+            "type": "filter",
+            "scope": "block",
+            "uid": "bge9s8e8d5k",
+            "parentUid": "cat74t2hy9g"
+          },
+          {
+            "key": "refreshDefault",
+            "type": "refresh",
+            "scope": "block",
+            "uid": "djg6c41xzi5",
+            "parentUid": "cat74t2hy9g"
+          },
+          {
+            "key": "bulkDeleteDefault",
+            "type": "bulkDelete",
+            "scope": "block",
+            "uid": "rcwokcnmzk4",
+            "parentUid": "cat74t2hy9g"
+          },
+          {
+            "key": "addNewDefault",
+            "type": "addNew",
+            "scope": "block",
+            "uid": "lr8vc7qf7ad",
+            "parentUid": "cat74t2hy9g"
+          }
+        ],
+        "recordActions": [
+          {
+            "key": "view",
+            "type": "view",
+            "scope": "record",
+            "uid": "2c52fvq5mjb",
+            "parentUid": "elhqk73blq8",
+            "popupPageUid": "5klnhdjgwwk",
+            "popupTabUid": "2awfew3rqgg",
+            "popupGridUid": "dvcoaxdtiil"
+          },
+          {
+            "key": "edit",
+            "type": "edit",
+            "scope": "record",
+            "uid": "hza50zzp685",
+            "parentUid": "elhqk73blq8",
+            "popupPageUid": "197hqrj4ihg",
+            "popupTabUid": "imt592dm6oz",
+            "popupGridUid": "s6s2vgu3q91"
+          },
+          {
+            "key": "deleteDefault",
+            "type": "delete",
+            "scope": "record",
+            "uid": "r8n3mg6s42v",
+            "parentUid": "elhqk73blq8"
+          }
+        ]
+      }
+    ],
+    "layout": {
+      "uid": "1mt7j9jc0ds",
+      "rows": {
+        "autoRow1": [
+          [
+            "cat74t2hy9g"
+          ]
+        ]
+      },
+      "sizes": {
+        "autoRow1": [
+          24
+        ]
+      },
+      "rowOrder": [
+        "autoRow1"
+      ]
+    }
+  }
+}
