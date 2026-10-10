@@ -1,0 +1,7 @@
+# Independent review of configured lifecycle availability evidence
+
+Accepted receipt candidate c1e2454e75fd2362e5466769300ead8070177aca and desired source df85af18fcd270303d74563d25df4f4822cb7978 for bounded source/evidence integration. Reviewed2026-10-10 in an isolated DGX worktree; no runtime mutations or independent browser replay.
+
+The three desired availableWhen rules match the recorded native configurations: draft-only activation/amendment and active-only ending. Observed changed keys contain only availableWhen; context/action pins and attachment remain recorded unchanged. JSON evidence supports draft/ended visibility, reload, dirty-edit cancellation, zero domain writes, no page errors and bounded narrow layouts. Active-state ending, hamburger navigation, pending-command native behavior and whole lifecycle are explicitly not newly claimed. Separate companion source/native-component tests remain the authority for pending/inflight custody.
+
+Independently ran both lifecycle availability tests against the reviewed0.2.0 companion policy: two passed. Range diff-check passed. Reviewed sanitized JSON and visually inspected the narrow ended explanation/refresh and amendment controls screenshots; these support the bounded presentation claim. Existing duplicate optional labels and minor-unit UX limits are accurately retained. This review does not upgrade the observer evidence into independent live business-command acceptance. No blocking source/evidence finding.
