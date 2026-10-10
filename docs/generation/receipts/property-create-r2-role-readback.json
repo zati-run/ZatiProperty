@@ -1,0 +1,42 @@
+[
+  {
+    "actor": "zp_property_manager.1",
+    "property6Readable": true,
+    "createFormAvailable": true
+  },
+  {
+    "actor": "zp_property_manager.2",
+    "property6Readable": false,
+    "createFormAvailable": true
+  },
+  {
+    "actor": "zp_owner.1",
+    "property6Readable": false,
+    "createFormAvailable": false
+  },
+  {
+    "actor": "zp_owner.2",
+    "property6Readable": false,
+    "createFormAvailable": false
+  },
+  {
+    "actor": "zp_tenant.1",
+    "property6Readable": false,
+    "createFormAvailable": false
+  },
+  {
+    "actor": "zp_tenant.2",
+    "property6Readable": false,
+    "createFormAvailable": false
+  },
+  {
+    "actor": "zp_vendor.1",
+    "property6Readable": false,
+    "createFormAvailable": false
+  },
+  {
+    "actor": "zp_vendor.2",
+    "property6Readable": false,
+    "createFormAvailable": false
+  }
+]
