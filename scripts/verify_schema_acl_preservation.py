@@ -28,6 +28,20 @@ def tool(c,stem):
  if len(matches)!=1:raise RuntimeError('Missing or ambiguous discovered operation: '+stem)
  return matches[0]
 def call(c,stem,args=None):return unwrap(c.call(tool(c,stem),args or {}))
+def checked_role(client):
+ value=call(client,'roles_check')
+ # This native action adds top-level dataSources metadata. Do not broaden
+ # generic response unwrapping for unrelated tools or error envelopes.
+ if isinstance(value,dict) and set(value)=={'data','meta'}:
+  if not isinstance(value['meta'],dict) or set(value['meta'])!={'dataSources'} or not isinstance(value['meta']['dataSources'],dict):
+   raise RuntimeError('Unqualified roles_check metadata envelope')
+  value=value['data']
+ if not isinstance(value,dict) or type(value.get('allowAll')) is not bool:
+  raise RuntimeError('Unqualified roles_check authority response')
+ role=value.get('role');roles=value.get('roles')
+ if not isinstance(role,str) or not role or not isinstance(roles,list) or roles!=[role]:
+  raise RuntimeError('Singular effective role not qualified')
+ return value
 def denied(c,stem,args,code):
  try:call(c,stem,args)
  except RuntimeError as error:
@@ -43,7 +57,7 @@ class Acceptance:
  def __init__(self,client):
   self.c=client;manifest=load_manifest();self.roles=Apply(client,{},manifest,None)
  def capture(self):
-  effective=call(self.c,'roles_check')
+  effective=checked_role(self.c)
   if effective.get('allowAll') is not True:raise RuntimeError('Constructor effective role not qualified')
   inspect=call(self.c,'loom_schema_authoring_inspect',TARGET)
   fields=call(self.c,'collections_fields_list',{'collectionName':TARGET['collection'],'filter':{'name':TARGET['name']},'paginate':False})
@@ -53,14 +67,14 @@ class Acceptance:
   return {'target':TARGET,'inspect':inspect,'field':fields[0] if fields else None,'foreignKey':fk,'belongsTo':belongs,'roles':{r:role_snapshot(self.roles.snapshot(r)) for r in [ROLE,*PORTALS]}}
  def negatives(self,before,manager,scoped=None):
   if self.capture()!=before:raise RuntimeError('Baseline drift')
-  role=call(manager,'roles_check')
+  role=checked_role(manager)
   if role.get('role')!=ROLE or role.get('allowAll') is not False:raise RuntimeError('Manager bridge not qualified')
   cases=[denied(manager,'loom_schema_authoring_inspect',TARGET,'CONSTRUCTOR_REQUIRED')]
   stale='0'*64 if before['inspect']['aclDigest']!='0'*64 else '1'*64
   cases.append(denied(manager,'loom_schema_authoring_create_has_many',{'requestBody':{**TARGET,'expectedAclDigest':stale}},'CONSTRUCTOR_REQUIRED'))
   cases.append(denied(self.c,'loom_schema_authoring_create_has_many',{'requestBody':{**TARGET,'expectedAclDigest':stale}},'ACL_BASELINE_CHANGED'))
   if scoped:
-   role=call(scoped,'roles_check')
+   role=checked_role(scoped)
    if role.get('allowAll') is not False:raise RuntimeError('Scoped constructor fixture not qualified')
    cases.append(denied(scoped,'loom_schema_authoring_inspect',TARGET,'CONSTRUCTOR_REQUIRED'))
   if self.capture()!=before:raise RuntimeError('Negative checks changed baseline')
