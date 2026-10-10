@@ -6,7 +6,7 @@ const vm = require('node:vm');
 const invariants = require('../dist/server/invariants');
 const source = fs.readFileSync(require.resolve('../dist/server/index'), 'utf8');
 const mod = { exports: {} };
-vm.runInNewContext('(function(require,module,exports){' + source + '\n})', {})(name => name === '@nocobase/server' ? { Plugin: class {} } : invariants, mod, mod.exports);
+vm.runInNewContext('(function(require,module,exports){' + source + '\n})', {})(name => name === '@nocobase/server' ? { Plugin: class {} } : name === './intake-native' ? { register() {} } : invariants, mod, mod.exports);
 const Plugin = mod.exports;
 const tx = { LOCK: { UPDATE: 'UPDATE' } };
 const records = () => ({ zp_properties: { 1: { id: 1 }, 9: { id: 9 } }, zp_units: { 2: { id: 2, propertyId: 1 } }, zp_tenancies: { 3: { id: 3, unitId: 2 } }, zp_maintenance_requests: { 4: { id: 4, propertyId: 1, unitId: 2, tenancyId: 3 } }, zp_vendors: { 5: { id: 5, active: true, insuranceExpiresAt: '2099-01-01', licenseExpiresAt: '2099-01-01' } }, zp_vendor_properties: { 7: { id: 7, vendorId: 5, propertyId: 1 } }, zp_work_orders: {} });

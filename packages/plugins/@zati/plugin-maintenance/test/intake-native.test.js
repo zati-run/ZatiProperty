@@ -42,3 +42,10 @@ test('safe response preserves terminal proof but strips unknown exception detail
  const c={};native.writeError(c,Object.assign(Error('credential-secret'),{code:'UNKNOWN'}));assert.equal(c.status,503);assert.ok(!JSON.stringify(c.body).includes('credential-secret'));
  native.writeError(c,Object.assign(Error('Select a valid context'),{code:'CONTEXT_MISMATCH',status:422,terminalProof:{outcome:'rejected'}}));assert.equal(c.status,422);assert.equal(c.body.terminalProof.outcome,'rejected');
 });
+
+test('actual plugin load registers the protected command adapter, not an unwired helper',async()=>{
+ const fs=require('node:fs'),vm=require('node:vm'),module={exports:{}},calls=[];
+ const source=fs.readFileSync(require.resolve('../dist/server/index'),'utf8');
+ vm.runInNewContext('(function(require,module,exports){'+source+String.fromCharCode(10)+'})',{})(name=>name==='@nocobase/server'?{Plugin:class{}}:name==='./intake-native'?{register:plugin=>calls.push(plugin)}:require('../dist/server/invariants'),module,module.exports);
+ const plugin=new module.exports();plugin.db={on(){}};await plugin.load();assert.deepEqual(calls,[plugin]);
+});

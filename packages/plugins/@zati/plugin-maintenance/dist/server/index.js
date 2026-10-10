@@ -6,6 +6,7 @@ const criticalFields = [...contextFields, 'requestId', 'vendorId', 'state', 'app
 const plain = model => model?.get({ plain: true });
 class MaintenancePlugin extends Plugin {
   async load() {
+    require('./intake-native').register(this);
     const requireTransaction = options => { if (!options?.transaction) deny('TRANSACTION_REQUIRED'); return options.transaction; };
     const read = async (name, id, options) => {
       if (!present(id)) return null;
@@ -28,6 +29,7 @@ class MaintenancePlugin extends Plugin {
       if (before && !model.isNewRecord) {
         previous = await read(name, values.id, options);
         if (!previous) deny('RECORD_MISSING');
+        if (order && values.requestSnapshot !== previous.requestSnapshot) deny('IMMUTABLE_REQUEST_SNAPSHOT');
         for (const key of order ? criticalFields : contextFields) {
           if (!sameId(model.previous(key), previous[key])) deny('STALE_UPDATE');
         }
