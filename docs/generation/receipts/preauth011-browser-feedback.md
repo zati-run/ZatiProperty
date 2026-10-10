@@ -8,7 +8,7 @@ The coordinator captured these browser results; this reviewer independently read
 the complete JSON and visually inspected both screenshots. This is a review of
 recorded browser evidence, not an independent rerun or runtime package attestation.
 
-Normal synthetic sign-in reached the maintenance request page without a stale
+The tested delayed synthetic sign-in (approximately one second before login) reached the maintenance request page without a stale
 pre-authentication notification. Both before/after notification lists are empty.
 The actual server still returned401 for auth:check, aiEmployees:listByUser and
 aiConversations:unreadCounts during preauthentication; the companion did not turn
@@ -22,10 +22,16 @@ requests during that fault are recorded separately in the JSON. The test confirm
 authenticated error feedback is not hidden by the preauthentication policy.
 
 Reviewed images:
-- [Normal completed sign-in](screenshots/preauth011-normal.png)
+- [Delayed completed sign-in](screenshots/preauth011-normal.png)
 - [Synthetic authenticated error visible](screenshots/preauth011-postauth-fault.png)
 
-Acceptance is limited to sign-in notification behavior. It establishes no other
+This is a bounded delayed-sign-in pass, not complete sign-in acceptance. A later
+coordinator fast-sign-in run reproduced a stale Unauthenticated notification with
+three preauthentication401s and no page errors. The fast-sign-in race remains
+blocked and is assigned for a reusable Loom fix. Original JSON/screenshots are
+preserved as historical evidence; they do not disprove that race.
+
+This evidence establishes no other
 app workflow, permission, persistence, accessibility or production acceptance.
 No app metadata, domain records or external communication were changed by this
 review. Package installation/source identity remains in the coordinator's separate
