@@ -1,7 +1,7 @@
 {
   "version": 1,
   "requiredDomainVersion": "0.1.4",
-  "requiredCompanionVersion": "0.1.9",
+  "requiredCompanionVersion": "0.2.0",
   "forms": [
     {
       "key": "amend-draft-tenancy",
@@ -86,6 +86,13 @@
           "/parties/*/partyRole": "Tenant role",
           "/parties/*/effectiveFrom": "Party effective from",
           "/parties/*/effectiveTo": "First date outside party membership (exclusive)"
+        },
+        "availableWhen": {
+          "recordField": "leaseState",
+          "values": [
+            "draft"
+          ],
+          "message": "Only draft tenancies can be amended."
         }
       }
     }

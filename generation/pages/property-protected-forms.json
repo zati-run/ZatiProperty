@@ -1,7 +1,7 @@
 {
   "version": 1,
   "requiredDomainVersion": "0.1.4",
-  "requiredCompanionVersion": "0.1.9",
+  "requiredCompanionVersion": "0.2.0",
   "forms": [
     {
       "key": "create-property",
@@ -181,6 +181,13 @@
             "endDate",
             "version"
           ]
+        },
+        "availableWhen": {
+          "recordField": "leaseState",
+          "values": [
+            "draft"
+          ],
+          "message": "Only draft tenancies can be activated."
         }
       }
     },
@@ -234,6 +241,13 @@
             "endDate",
             "version"
           ]
+        },
+        "availableWhen": {
+          "recordField": "leaseState",
+          "values": [
+            "active"
+          ],
+          "message": "Only active tenancies can be ended."
         }
       }
     }

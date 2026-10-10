@@ -13,7 +13,7 @@ class Fixture(Forms):
  def placement_proof(self,grid,config):return {'kind':'qualified-popup','gridUid':grid,'collection':'zp_tenancies'}
  def read(self,stem,args):
   self.calls.append((stem,args))
-  if stem=='pm_get':return {'version':'0.1.6' if args['filterByTk']=='@loom/plugin-action-form' else '0.1.4','enabled':True,'installed':True,'isCompatible':True}
+  if stem=='pm_get':return {'version':'0.2.0' if args['filterByTk']=='@loom/plugin-action-form' else '0.1.4','enabled':True,'installed':True,'isCompatible':True}
   if stem=='loom_action_forms_describe':return {'packageVersion':'0.1.4','commandContract':'idempotent-terminal-v1','schemaDigest':'b'*64,'implementationDigest':'c'*64,'schema':{'required':['requestId'],'properties':{'requestId':{'format':'uuid'}}},'prefillContract':{'contract':'scoped-proposal-v1','parameter':'tenancyId','schemaDigest':('d' if not self.drift else 'e')*64}}
   raise AssertionError(stem)
 class Tests(unittest.TestCase):
