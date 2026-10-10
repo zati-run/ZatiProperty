@@ -1,0 +1,21 @@
+{
+  "checks": 32,
+  "unchangedProtectedState": true,
+  "auditHealth": {
+    "valid": true,
+    "sequence": 25
+  },
+  "commands": [
+    {
+      "requestId": "f07557ae-80c8-4801-98af-96c4105ad1fb",
+      "action": "activateTenancy",
+      "eventId": 24
+    },
+    {
+      "requestId": "df9402dd-039f-4f7a-b8b5-66b4b390957d",
+      "action": "endTenancy",
+      "eventId": 25
+    }
+  ],
+  "matchingOutboxCount": 2
+}
