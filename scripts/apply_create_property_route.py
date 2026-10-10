@@ -1,21 +1,27 @@
 #!/usr/bin/env python3
 """Grant only the focused protected create-property route after native form readback."""
-import argparse,json,pathlib,os
+import argparse,json,pathlib,os,jsonschema
 from loom_mcp import Loom
 from apply_property_ui import Apply,Journal,ROLE,PORTALS,page_binding,data,load_manifest
 from apply_protected_forms import Forms,sync_write
 from property_ui_journal import sha
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 ROLES=[ROLE,*PORTALS]
+def route_id(value):
+ if isinstance(value,bool) or not isinstance(value,(int,str)):raise RuntimeError('Route ID must be a positive safe integer')
+ if isinstance(value,str) and (not value.isascii() or not value.isdigit() or value.startswith('0')):raise RuntimeError('Route ID must be canonical')
+ number=int(value)
+ if not 1<=number<=9007199254740991:raise RuntimeError('Route ID exceeds native safe integer range')
+ return number
 def wanted_routes(before,binding):
- ids={str(row['id']) for row in before['routes']}
- return sorted(ids|{str(binding['menuRouteId']),str(binding['tabRouteId'])})
+ ids={route_id(row['id']) for row in before['routes']}
+ return sorted(ids|{route_id(binding['menuRouteId']),route_id(binding['tabRouteId'])})
 def verify_roles(before,after,wanted):
  for role in ROLES:
   if role!=ROLE:
    if after[role]!=before[role]:raise RuntimeError('Portal role changed')
   else:
-   if {str(row['id']) for row in after[role]['routes']}!=set(wanted):raise RuntimeError('Manager route readback mismatch')
+   if {str(row['id']) for row in after[role]['routes']}!={str(value) for value in wanted}:raise RuntimeError('Manager route readback mismatch')
    if {k:v for k,v in after[role].items() if k!='routes'}!={k:v for k,v in before[role].items() if k!='routes'}:raise RuntimeError('Manager authority changed')
 class FocusedRoute:
  def __init__(self,client):self.c=client;self.api=Apply(client,{},load_manifest(),None);self.forms=Forms(client)
@@ -42,7 +48,13 @@ class FocusedRoute:
   def verify(_):
    if self.gate(qualified)!=baseline['gate']:raise RuntimeError('Form changed during route grant')
    after=self.snapshots();verify_roles(baseline['roles'],after,wanted);return {'roles':after,'gate':baseline['gate'],'managerOnly':True}
-  return Journal(pathlib.Path(journal)).run('focused-create-property-route',self.c,self.api.tool('loom_native_roles_desktop_routes_set_'),{'roleName':ROLE,'requestBody':wanted},verify)
+  tool=self.api.tool('loom_native_roles_desktop_routes_set_')
+  descriptors=[item for item in self.c.tools if item['name']==tool]
+  if len(descriptors)!=1 or not isinstance(descriptors[0].get('inputSchema'),dict):raise RuntimeError('Native route schema unavailable')
+  payload={'roleName':ROLE,'requestBody':wanted}
+  jsonschema.Draft202012Validator.check_schema(descriptors[0]['inputSchema'])
+  jsonschema.Draft202012Validator(descriptors[0]['inputSchema']).validate(payload)
+  return Journal(pathlib.Path(journal)).run('focused-create-property-route',self.c,tool,payload,verify)
 def main():
  p=argparse.ArgumentParser();p.add_argument('phase',choices=['capture','apply']);p.add_argument('--qualification',required=True);p.add_argument('--baseline',required=True);p.add_argument('--journal',required=True);a=p.parse_args()
  api=FocusedRoute(Loom());qualified=json.loads(pathlib.Path(a.qualification).read_text());path=pathlib.Path(a.baseline)
