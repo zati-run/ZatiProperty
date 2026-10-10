@@ -1,0 +1,9 @@
+# Reviewed reusable Loom companions installed
+
+Synthetic NocoBase Community Edition2.2.21. All package writes used Loom MCP upload, never direct native package installation. Both one-shot uploads returned package-version confirmation, then their immediate readback was fenced because the advertised native tool catalog changed. The coordinator refreshed the owned bridge/catalog and read current package state; neither upload was replayed. Original intent/response/failure journals remain private and intact.
+
+Schema-preservation0.1.6 source0aefb4f was independently reviewed and integrated with receipt77235f1. Archive SHA2562ae30884662a3f1da8b7708837e5e56fe1b9076df6e775ac0cd10de751865407. Nine installed files match the reviewed archive. The fixed observation tool compares native permission decisions before/during/after rollback; this installation receipt does not claim that live observed-preview or concurrent HTTP acceptance ran.
+
+Action-form0.2.0 source7b919f2 was independently reviewed (57 source tests plus actual React/AntD mounted custody tests using isolated transport) and integrated with receipt75a1c7d. Archive SHA256e736495816e6af44cc4069d071fec2ed3e7af7bd8c2f9e89e4cedd3a3d7893c7. Eleven installed files match the archive. State-appropriate configured native forms and live refresh interactions still require their own acceptance.
+
+Current bridge source75a1c7dd1fa557af8b146f4415042fefe3f6c3e7, catalog SHA2560c3d62ec98ec9b0b729f1fc522d1bfdeecc1b9e48bb92b32dfb214b23995c401:258 native plus25 supplemental tools. App authoring remains enabled on the qualified native MCP surface. [Schema package evidence](schema016-package-reconciliation.json) and [action form evidence](action020-package-reconciliation.json) report enabled/installed/compatible state and exact installed file hashes; package presence alone is not application acceptance.

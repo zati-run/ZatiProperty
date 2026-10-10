@@ -1,0 +1,55 @@
+{
+  "packageName": "@loom/plugin-action-form",
+  "version": "0.2.0",
+  "enabled": true,
+  "installed": true,
+  "compatible": true,
+  "nativeFiles": [
+    {
+      "file": "dist/server/availability.js",
+      "sha256": "4fc79163e1b2f816bca9f90ab1d2cbc6dec6f761291a876a3adf887e85b61289"
+    },
+    {
+      "file": "dist/externalVersion.js",
+      "sha256": "d060ecdd9b513ceb6a88c1dd67f8f0d8ccae66b46b71816938386d1ae14512e1"
+    },
+    {
+      "file": "dist/client/index.js",
+      "sha256": "1d62eda4d92268aabc5ec3433cd4d577ec7fb2bcb1c0e1ddda27399cad697399"
+    },
+    {
+      "file": "dist/server/index.js",
+      "sha256": "aed5171504c221ea827a207bc317b1c1bedb518e542b512f30fa9a13e81f1c27"
+    },
+    {
+      "file": "dist/server/migration.js",
+      "sha256": "9da7c601bf976ba5f0796ef2b20d98ac0a0d199cf4622c7d354a178782f0a2b3"
+    },
+    {
+      "file": "dist/server/policy.js",
+      "sha256": "6b187ace0d85e7a0c9728a6ed3cd87209e49ef9405f28fd94e173250b2e497ae"
+    },
+    {
+      "file": "dist/server/prefill.js",
+      "sha256": "11c42daecee48dd949a44467b061907c1f37404fc9d24ecf8a5d33450355f3f7"
+    },
+    {
+      "file": "dist/server/service.js",
+      "sha256": "378bedff212571b3985c050c2047ab22e1a9d663d349982c109c8a87b0b3b498"
+    },
+    {
+      "file": "dist/swagger/index.json",
+      "sha256": "062bd7d194f8d74f2b1b4bb0075a545b857c8a763b4e6cbb04adc6df91a20cd2"
+    },
+    {
+      "file": "package.json",
+      "sha256": "3c1dcd681b743af0d23778678ba806567022f11fcecc3bb417eaf5e2322dba65"
+    },
+    {
+      "file": "README.md",
+      "sha256": "036ffdf004aa97cc7cb63d45ccd20d5937fa81cb682f7c4682475ae37cb7d710"
+    }
+  ],
+  "uploadRetried": false,
+  "bridgeSource": "75a1c7dd1fa557af8b146f4415042fefe3f6c3e7"
+}

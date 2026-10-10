@@ -1,0 +1,47 @@
+{
+  "packageName": "@loom/plugin-schema-acl-preservation",
+  "version": "0.1.6",
+  "enabled": true,
+  "installed": true,
+  "compatible": true,
+  "nativeFiles": [
+    {
+      "file": "dist/externalVersion.js",
+      "sha256": "206080449eea5ba2e0dc976e1bb034cb2796132c7857d3ab508c0782ed339175"
+    },
+    {
+      "file": "dist/server/guard.js",
+      "sha256": "7573472b6609022a7f58254a8c9ee1dd8f442e204709517228aec324a15501b8"
+    },
+    {
+      "file": "dist/client/index.js",
+      "sha256": "d854dc34187dd5c62902bbca6a9e8e21d593b7c3026e457e86a758a78031689f"
+    },
+    {
+      "file": "dist/server/index.js",
+      "sha256": "ee9c037672d5c9bb573b78b1e2e27026077b34546482aeefbb374036f6bf128a"
+    },
+    {
+      "file": "dist/server/owned-field.js",
+      "sha256": "54e9889bf4d222108a1ec71b01956972b3fa923ec03b216ca6d84e1daec5bb25"
+    },
+    {
+      "file": "dist/server/service.js",
+      "sha256": "0f133a6b42edf2f323662a3cbc655d219838fe38c3c8804be90e25dadcdec5f2"
+    },
+    {
+      "file": "dist/swagger/index.json",
+      "sha256": "3e277fbafaea7dbd3d8601c6c4eb38da55876dba6680afe43b21c9fe442ff003"
+    },
+    {
+      "file": "package.json",
+      "sha256": "b9b77c57b80f0f3cabc7bc40d3328c70aa5998124c579a2526489badecfe252c"
+    },
+    {
+      "file": "README.md",
+      "sha256": "f0bb837b632555d179317d0cce56d98351245bb2293d3d4dbdd67a11e9517cb1"
+    }
+  ],
+  "uploadRetried": false,
+  "bridgeSource": "77235f13a39d0928b8df293123fdb61cfab198f1"
+}
