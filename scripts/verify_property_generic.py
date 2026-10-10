@@ -29,7 +29,7 @@ def cases(audit):
       ("update",{"resource":"zp_tenancies","filterByTk":4,"values":{"leaseState":"active"}},"direct"),
       ("update",{"resource":"zp_tenancies","filter":{"id":{"$in":[4,5]}},"values":{"leaseState":"active"}},"bulk-filter"),
       ("update",{"resource":"zp_tenancies","filterByTk":4,"values":{"parties":[{"displayName":"Synthetic forbidden nested party","partyRole":"occupant"}]},"updateAssociationValues":["parties"]},"nested"),
-      ("create",{"resource":"zp_tenancies.terms","sourceId":4,"values":{"currency":"NZD","rentMinor":1,"revision":999}},"association")]
+      ("create",{"resource":"zp_tenancies.terms","sourceId":4,"values":{"effectiveFrom":"2035-01-01","effectiveTo":"2035-12-31","currency":"NZD","rentMinor":1,"depositMinor":0,"rentFrequency":"monthly","dueDay":1,"prorationPolicy":"actual-calendar-days","revision":999}},"association")]
     for resource,field,value in [("zp_domain_events","eventHash","f"*64),("zp_domain_outbox","status","delivered"),("zp_domain_commands","resultJSON","{}"),("zp_audit_heads","headHash","f"*64)]:
         if not audit[resource]:raise RuntimeError("Protected fixture missing")
         result.append(("update",{"resource":resource,"filterByTk":audit[resource][-1]["id"],"values":{field:value}},resource))

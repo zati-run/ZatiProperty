@@ -1,0 +1,32 @@
+{
+  "status": "blocked",
+  "observedAt": "2026-10-10T12:15:47.171395+00:00",
+  "checks": [
+    {
+      "label": "root-direct",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "root-bulk-filter",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "root-nested",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "stopped",
+      "status": "blocked",
+      "errorType": "RuntimeError"
+    }
+  ]
+}

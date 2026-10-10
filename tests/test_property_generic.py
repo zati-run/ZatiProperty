@@ -26,5 +26,14 @@ class Tests(unittest.TestCase):
   self.assertEqual(cases[4][1]["values"],{"eventHash":"f"*64})
  def test_unknown_transport_is_not_acceptance(self):
   self.assertFalse(g.denial(self.error(500,None,"list.filter is not a function"),"root"))
+ def test_association_probe_has_complete_valid_term(self):
+  import subprocess
+  values=g.cases({name:[{"id":1}] for name in g.base.AUDIT})[3][1]["values"].copy()
+  self.assertEqual(values.pop("revision"),999)
+  draft=g.base.draft(3,2,"SYNTHETIC");draft["term"]=values
+  module=ROOT/"packages/plugins/@zati/plugin-property-tenancy/dist/server/domain.js"
+  script="const d=require(process.argv[1]);let s='';process.stdin.on('data',x=>s+=x);process.stdin.on('end',()=>{try{d.tenancyInput(JSON.parse(s));process.stdout.write('valid')}catch(e){process.stderr.write(e.code);process.exitCode=1}})"
+  result=subprocess.run(["node","-e",script,str(module)],input=json.dumps(draft),text=True,capture_output=True)
+  self.assertEqual(result.returncode,0,result.stderr);self.assertEqual(result.stdout,"valid")
 if __name__=="__main__":unittest.main()
 
