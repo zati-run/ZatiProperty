@@ -56,14 +56,20 @@ Cross-role checks are required even though one install serves one company.
 
 The owner authorized synthetic development implementation and an isolated DGX
 installation. The `zp-dev` target runs NocoBase CE 2.2.21 and qualified Loom native
-MCP authoring. Seven maintenance-context collections, two native pages, four scoped
-roles and eight synthetic accounts have been generated. See the receipts for exact
-versions, identifiers and separate verification results.
+MCP authoring. The bounded maintenance journey has independently reviewed local
+integration and native role, persistence and rendered evidence; see receipt015,
+the final manager journey and feedback receipts. Association-read guard0.1.3
+resolved the previously recorded maintenance disclosure within the tested scope.
 
-The representative maintenance journey is still under verification. Association
-read disclosure ZP-ACL-001 blocks portal acceptance; see receipt 005. Complete RFC
-acceptance, accounting, external integrations and production are not established.
-Historical preparation-only statements are not current runtime evidence.
+Property/tenancy generation is in progress: eleven additional collections, twelve
+additive fields and the protected domain plugin0.1.0 have native readback. This is
+not property/tenancy acceptance. Native action forms cannot render with generic
+create denied; a reusable Loom action-form capability is being implemented.
+Command reconciliation, full role/workflow/concurrency and rendered checks remain
+open. See receipt016 for the bounded installed-state evidence.
+
+Complete RFC acceptance, accounting, external integrations and production are not
+established. Historical preparation-only statements are not current runtime evidence.
 
 ## Design contract
 

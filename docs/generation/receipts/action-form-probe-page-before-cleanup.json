@@ -1,0 +1,599 @@
+{
+  "data": {
+    "target": {
+      "locator": {
+        "pageSchemaUid": "zp-action-form-probe-20261010"
+      },
+      "uid": "zp-action-form-probe-20261010-page",
+      "kind": "page"
+    },
+    "tree": {
+      "parentId": "zp-action-form-probe-20261010",
+      "subKey": "page",
+      "subType": "object",
+      "use": "RootPageModel",
+      "props": {
+        "routeId": 391335900807168,
+        "title": "Temporary action form qualification",
+        "enableTabs": false,
+        "displayTitle": true,
+        "icon": "ExperimentOutlined",
+        "enableHeader": true
+      },
+      "stepParams": {
+        "pageSettings": {
+          "general": {
+            "title": "Temporary action form qualification",
+            "displayTitle": true,
+            "enableTabs": false,
+            "icon": "ExperimentOutlined",
+            "enableHeader": true
+          }
+        }
+      },
+      "parent": "zp-action-form-probe-20261010",
+      "uid": "zp-action-form-probe-20261010-page",
+      "subModels": {
+        "tabs": [
+          {
+            "uid": "8n8oyjgz7o4",
+            "use": "RootPageTabModel",
+            "props": {
+              "route": {
+                "createdAt": "2026-10-10T10:18:18.084Z",
+                "updatedAt": "2026-10-10T10:18:18.134Z",
+                "id": 391335900807169,
+                "parentId": 391335900807168,
+                "title": "Untitled",
+                "tooltip": null,
+                "icon": null,
+                "schemaUid": "8n8oyjgz7o4",
+                "menuSchemaUid": null,
+                "tabSchemaName": "rmjle7mw3hm",
+                "type": "tabs",
+                "options": {
+                  "flowRegistry": {}
+                },
+                "sort": 1791627498062911,
+                "hideInMenu": null,
+                "enableTabs": null,
+                "enableHeader": null,
+                "displayTitle": null,
+                "hidden": true,
+                "createdById": null,
+                "updatedById": null,
+                "children": []
+              },
+              "title": "Untitled",
+              "icon": null
+            },
+            "decoratorProps": {},
+            "flowRegistry": {},
+            "stepParams": {
+              "pageTabSettings": {
+                "tab": {
+                  "title": "Untitled",
+                  "icon": null
+                }
+              }
+            },
+            "subModels": {
+              "grid": {
+                "parentId": "8n8oyjgz7o4",
+                "subKey": "grid",
+                "subType": "object",
+                "use": "BlockGridModel",
+                "props": {
+                  "rows": {
+                    "autoRow1": [
+                      [
+                        "erun55i7pf6"
+                      ]
+                    ]
+                  },
+                  "sizes": {
+                    "autoRow1": [
+                      24
+                    ]
+                  },
+                  "rowOrder": [
+                    "autoRow1"
+                  ]
+                },
+                "stepParams": {
+                  "gridSettings": {
+                    "grid": {
+                      "rows": {
+                        "autoRow1": [
+                          [
+                            "erun55i7pf6"
+                          ]
+                        ]
+                      },
+                      "sizes": {
+                        "autoRow1": [
+                          24
+                        ]
+                      },
+                      "rowOrder": [
+                        "autoRow1"
+                      ]
+                    }
+                  }
+                },
+                "uid": "3u3gte6414q",
+                "subModels": {
+                  "items": [
+                    {
+                      "parentId": "3u3gte6414q",
+                      "subKey": "items",
+                      "subType": "array",
+                      "use": "CreateFormModel",
+                      "props": {},
+                      "decoratorProps": {},
+                      "stepParams": {
+                        "resourceSettings": {
+                          "init": {
+                            "dataSourceKey": "main",
+                            "collectionName": "zp_tenancies"
+                          }
+                        }
+                      },
+                      "uid": "erun55i7pf6",
+                      "subModels": {
+                        "grid": {
+                          "use": "FormGridModel",
+                          "subKey": "grid",
+                          "subType": "object",
+                          "stepParams": {
+                            "gridSettings": {
+                              "grid": {
+                                "rows": {
+                                  "row1": [
+                                    [
+                                      "5rco8tyo3rh"
+                                    ]
+                                  ]
+                                },
+                                "sizes": {
+                                  "row1": [
+                                    24
+                                  ]
+                                },
+                                "rowOrder": [
+                                  "row1"
+                                ]
+                              }
+                            }
+                          },
+                          "props": {
+                            "rows": {
+                              "row1": [
+                                [
+                                  "5rco8tyo3rh"
+                                ]
+                              ]
+                            },
+                            "sizes": {
+                              "row1": [
+                                24
+                              ]
+                            },
+                            "rowOrder": [
+                              "row1"
+                            ]
+                          },
+                          "uid": "sl3d9zz79zn",
+                          "subModels": {
+                            "items": [
+                              {
+                                "parentId": "sl3d9zz79zn",
+                                "subKey": "items",
+                                "subType": "array",
+                                "use": "FormItemModel",
+                                "props": {},
+                                "stepParams": {
+                                  "fieldSettings": {
+                                    "init": {
+                                      "dataSourceKey": "main",
+                                      "collectionName": "zp_tenancies",
+                                      "fieldPath": "code"
+                                    }
+                                  }
+                                },
+                                "uid": "5rco8tyo3rh",
+                                "subModels": {
+                                  "field": {
+                                    "use": "InputFieldModel",
+                                    "props": {},
+                                    "stepParams": {
+                                      "fieldSettings": {
+                                        "init": {
+                                          "dataSourceKey": "main",
+                                          "collectionName": "zp_tenancies",
+                                          "fieldPath": "code"
+                                        }
+                                      }
+                                    },
+                                    "subKey": "field",
+                                    "subType": "object",
+                                    "uid": "be5kl2b1kmk",
+                                    "parent": "5rco8tyo3rh",
+                                    "parentId": "5rco8tyo3rh",
+                                    "sortIndex": 1,
+                                    "popup": {
+                                      "mode": "local"
+                                    }
+                                  }
+                                },
+                                "parent": "sl3d9zz79zn",
+                                "sortIndex": 1,
+                                "popup": {
+                                  "mode": "local"
+                                }
+                              }
+                            ]
+                          },
+                          "parent": "erun55i7pf6",
+                          "parentId": "erun55i7pf6",
+                          "sortIndex": 1,
+                          "popup": {
+                            "mode": "local"
+                          }
+                        },
+                        "actions": [
+                          {
+                            "parentId": "erun55i7pf6",
+                            "subKey": "actions",
+                            "subType": "array",
+                            "use": "JSFormActionModel",
+                            "props": {
+                              "title": "Validate only",
+                              "icon": "JavaScriptOutlined",
+                              "htmlType": "button"
+                            },
+                            "decoratorProps": {},
+                            "stepParams": {
+                              "buttonSettings": {
+                                "general": {
+                                  "title": "Validate only",
+                                  "icon": "JavaScriptOutlined"
+                                }
+                              },
+                              "clickSettings": {
+                                "runJs": {
+                                  "version": "v2",
+                                  "code": "ctx.message.info(\"Diagnostic only: no request sent\");"
+                                }
+                              }
+                            },
+                            "flowRegistry": {},
+                            "uid": "bo3pbawn9n8",
+                            "parent": "erun55i7pf6",
+                            "sortIndex": 1,
+                            "popup": {
+                              "mode": "local"
+                            }
+                          }
+                        ]
+                      },
+                      "parent": "3u3gte6414q",
+                      "sortIndex": 1,
+                      "popup": {
+                        "mode": "local"
+                      }
+                    }
+                  ]
+                },
+                "parent": "8n8oyjgz7o4",
+                "sortIndex": 1,
+                "popup": {
+                  "mode": "local"
+                }
+              }
+            },
+            "popup": {
+              "mode": "local"
+            }
+          }
+        ]
+      },
+      "popup": {
+        "mode": "local"
+      }
+    },
+    "nodeMap": {
+      "zp-action-form-probe-20261010-page": {
+        "uid": "zp-action-form-probe-20261010-page",
+        "use": "RootPageModel",
+        "props": {
+          "routeId": 391335900807168,
+          "title": "Temporary action form qualification",
+          "enableTabs": false,
+          "displayTitle": true,
+          "icon": "ExperimentOutlined",
+          "enableHeader": true
+        },
+        "stepParams": {
+          "pageSettings": {
+            "general": {
+              "title": "Temporary action form qualification",
+              "displayTitle": true,
+              "enableTabs": false,
+              "icon": "ExperimentOutlined",
+              "enableHeader": true
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "8n8oyjgz7o4": {
+        "uid": "8n8oyjgz7o4",
+        "use": "RootPageTabModel",
+        "props": {
+          "route": {
+            "createdAt": "2026-10-10T10:18:18.084Z",
+            "updatedAt": "2026-10-10T10:18:18.134Z",
+            "id": 391335900807169,
+            "parentId": 391335900807168,
+            "title": "Untitled",
+            "tooltip": null,
+            "icon": null,
+            "schemaUid": "8n8oyjgz7o4",
+            "menuSchemaUid": null,
+            "tabSchemaName": "rmjle7mw3hm",
+            "type": "tabs",
+            "options": {
+              "flowRegistry": {}
+            },
+            "sort": 1791627498062911,
+            "hideInMenu": null,
+            "enableTabs": null,
+            "enableHeader": null,
+            "displayTitle": null,
+            "hidden": true,
+            "createdById": null,
+            "updatedById": null,
+            "children": []
+          },
+          "title": "Untitled",
+          "icon": null
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "pageTabSettings": {
+            "tab": {
+              "title": "Untitled",
+              "icon": null
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "3u3gte6414q": {
+        "uid": "3u3gte6414q",
+        "use": "BlockGridModel",
+        "props": {
+          "rows": {
+            "autoRow1": [
+              [
+                "erun55i7pf6"
+              ]
+            ]
+          },
+          "sizes": {
+            "autoRow1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "autoRow1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "autoRow1": [
+                  [
+                    "erun55i7pf6"
+                  ]
+                ]
+              },
+              "sizes": {
+                "autoRow1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "autoRow1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "erun55i7pf6": {
+        "uid": "erun55i7pf6",
+        "use": "CreateFormModel",
+        "props": {},
+        "decoratorProps": {},
+        "stepParams": {
+          "resourceSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "zp_tenancies"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "sl3d9zz79zn": {
+        "uid": "sl3d9zz79zn",
+        "use": "FormGridModel",
+        "props": {
+          "rows": {
+            "row1": [
+              [
+                "5rco8tyo3rh"
+              ]
+            ]
+          },
+          "sizes": {
+            "row1": [
+              24
+            ]
+          },
+          "rowOrder": [
+            "row1"
+          ]
+        },
+        "stepParams": {
+          "gridSettings": {
+            "grid": {
+              "rows": {
+                "row1": [
+                  [
+                    "5rco8tyo3rh"
+                  ]
+                ]
+              },
+              "sizes": {
+                "row1": [
+                  24
+                ]
+              },
+              "rowOrder": [
+                "row1"
+              ]
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "5rco8tyo3rh": {
+        "uid": "5rco8tyo3rh",
+        "use": "FormItemModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "zp_tenancies",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "be5kl2b1kmk": {
+        "uid": "be5kl2b1kmk",
+        "use": "InputFieldModel",
+        "props": {},
+        "stepParams": {
+          "fieldSettings": {
+            "init": {
+              "dataSourceKey": "main",
+              "collectionName": "zp_tenancies",
+              "fieldPath": "code"
+            }
+          }
+        },
+        "popup": {
+          "mode": "local"
+        }
+      },
+      "bo3pbawn9n8": {
+        "uid": "bo3pbawn9n8",
+        "use": "JSFormActionModel",
+        "props": {
+          "title": "Validate only",
+          "icon": "JavaScriptOutlined",
+          "htmlType": "button"
+        },
+        "decoratorProps": {},
+        "stepParams": {
+          "buttonSettings": {
+            "general": {
+              "title": "Validate only",
+              "icon": "JavaScriptOutlined"
+            }
+          },
+          "clickSettings": {
+            "runJs": {
+              "version": "v2",
+              "code": "ctx.message.info(\"Diagnostic only: no request sent\");"
+            }
+          }
+        },
+        "flowRegistry": {},
+        "popup": {
+          "mode": "local"
+        }
+      }
+    },
+    "pageRoute": {
+      "createdAt": "2026-10-10T10:18:18.062Z",
+      "updatedAt": "2026-10-10T10:18:18.139Z",
+      "id": 391335900807168,
+      "parentId": null,
+      "title": "Temporary action form qualification",
+      "tooltip": null,
+      "icon": "ExperimentOutlined",
+      "schemaUid": "zp-action-form-probe-20261010",
+      "menuSchemaUid": "dxri7k0mwm8",
+      "tabSchemaName": null,
+      "type": "flowPage",
+      "options": {
+        "flowSurfaceMenuBindable": true
+      },
+      "sort": 1791627498062007,
+      "hideInMenu": false,
+      "enableTabs": false,
+      "enableHeader": true,
+      "displayTitle": true,
+      "hidden": null,
+      "createdById": null,
+      "updatedById": null,
+      "children": [
+        {
+          "createdAt": "2026-10-10T10:18:18.084Z",
+          "updatedAt": "2026-10-10T10:18:18.134Z",
+          "id": 391335900807169,
+          "parentId": 391335900807168,
+          "title": "Untitled",
+          "tooltip": null,
+          "icon": null,
+          "schemaUid": "8n8oyjgz7o4",
+          "menuSchemaUid": null,
+          "tabSchemaName": "rmjle7mw3hm",
+          "type": "tabs",
+          "options": {
+            "flowRegistry": {}
+          },
+          "sort": 1791627498062911,
+          "hideInMenu": null,
+          "enableTabs": null,
+          "enableHeader": null,
+          "displayTitle": null,
+          "hidden": true,
+          "createdById": null,
+          "updatedById": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "target": "zp-dev",
+  "observedAt": "2026-10-10T10:30:57.726460+00:00",
+  "sourceRevision": "6f49583b7ccef7933e4819256cffab60112a744d",
+  "independentlyReviewedSourceRevision": "4947b7a840da94fa6344f79a5751f9ba89422275",
+  "pluginVersion": "0.1.0",
+  "files": [
+    {
+      "file": "package.json",
+      "sha256": "68549bd5b6fad89a7401a55249fd3b6e4156c01a0f56a9683ce6c0d98132cafe",
+      "matches": true
+    },
+    {
+      "file": "dist/server/index.js",
+      "sha256": "9660f0eef996206500d3c06ea850ed502cb139a32e05eac1277196ed75c6c649",
+      "matches": true
+    },
+    {
+      "file": "dist/server/service.js",
+      "sha256": "4213c4e5a008ba7d8ff7c0ee430362142c6af3a4fb28c25d933e7b7f3a8f8646",
+      "matches": true
+    },
+    {
+      "file": "dist/server/domain.js",
+      "sha256": "58850677dcf5b3a5b06ee05fb000964af06ec380fd6ee6e641480b783a8388f3",
+      "matches": true
+    },
+    {
+      "file": "dist/client/index.js",
+      "sha256": "751f99b2495b55ca64072d61ac1aec4688387ca235e4e6b6575084fd2befc44f",
+      "matches": true
+    },
+    {
+      "file": "dist/externalVersion.js",
+      "sha256": "7b00a95467ecadb7b6ee0627af4efd53fe5910732459287871d93c19380fa36b",
+      "matches": true
+    },
+    {
+      "file": "dist/swagger/index.json",
+      "sha256": "c3079c2d8649f5c6df88b190708f66bba25edc2f7deaf3f44e02848a731ada19",
+      "matches": true
+    }
+  ]
+}

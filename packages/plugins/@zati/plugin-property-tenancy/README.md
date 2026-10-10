@@ -1,16 +1,18 @@
-# Protected property and tenancy actions — source candidate
+# Protected property and tenancy actions — development qualification
 
-This package is a proposed NocoBase CE 2.2.21 domain service for the first property/
-tenancy increment. It is **not installed or accepted**. Collection metadata is
+This package is a NocoBase CE 2.2.21 domain service for the first property/
+tenancy increment. Version0.1.1 is installed in synthetic development; native
+workflow and rendered acceptance remain pending. See the generation receipts. Collection metadata is
 owned by the generation contract and must be created through Loom. The package
 does not create collections, post money, send messages, or operate a dispatcher.
 
 ## Construction and authority
 
-The fixed resource is `zpPropertyTenancy`, with thirteen actions:
+The fixed resource is `zpPropertyTenancy`, with fourteen actions:
 createDraftTenancy, updateDraftTenancy, activateTenancy, endTenancy,
 createOwnershipSet, setOwnershipInterests, approveOwnershipSet, auditHealth,
-createProperty, createBuilding, createUnit, createOwnerContact, authorizeTenantAccount.
+createProperty, createBuilding, createUnit, createOwnerContact, authorizeTenantAccount,
+reconcileCommand.
 Every action requires a native action grant, one effective role, an authenticated
 actor, and that actor's assignment on the property's managerUserId. New property
 creation binds managerUserId to the actor. authorizeTenantAccount is the explicit
@@ -111,7 +113,7 @@ action schemas and role grants, actual transaction locks/rollback, simultaneous
 native activations, bulk/nested bypass negatives, complete ownership approval,
 audit/outbox readback and tamper rejection, persistence/reload, co-tenant privacy,
 and rendered manager/tenant journeys. Keep maintenance context and its historical
-IDs unchanged. No runtime changes were made by this source package work.
+IDs unchanged. Installation evidence is separate from these source checks.
 
 ## Command recovery contract (0.1.1)
 

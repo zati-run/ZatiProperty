@@ -1,0 +1,26 @@
+{
+  "observedAt": "2026-10-10T10:25:32.037326+00:00",
+  "sourceRevision": "6f49583b7ccef7933e4819256cffab60112a744d",
+  "pluginVersion": "0.1.0",
+  "case": "constructor generic audit create denied",
+  "error": "DOMAIN_ACTION_REQUIRED",
+  "before": {
+    "data": [],
+    "meta": {
+      "count": 0,
+      "page": 1,
+      "pageSize": 10,
+      "totalPage": 0
+    }
+  },
+  "after": {
+    "data": [],
+    "meta": {
+      "count": 0,
+      "page": 1,
+      "pageSize": 10,
+      "totalPage": 0
+    }
+  },
+  "passed": true
+}

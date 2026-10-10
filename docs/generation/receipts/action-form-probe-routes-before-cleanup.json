@@ -1,0 +1,190 @@
+{
+  "data": [
+    {
+      "createdAt": "2026-10-10T08:37:04.664Z",
+      "updatedAt": "2026-10-10T08:37:04.700Z",
+      "id": 391323161067520,
+      "parentId": null,
+      "title": "Maintenance requests",
+      "tooltip": null,
+      "icon": "ToolOutlined",
+      "schemaUid": "zp-maintenance",
+      "menuSchemaUid": "ravif471lhc",
+      "tabSchemaName": null,
+      "type": "flowPage",
+      "options": {
+        "flowSurfaceMenuBindable": true
+      },
+      "sort": 1791621424663378,
+      "hideInMenu": false,
+      "enableTabs": false,
+      "enableHeader": true,
+      "displayTitle": true,
+      "hidden": null,
+      "createdById": null,
+      "updatedById": null,
+      "rolesDesktopRoutes": {
+        "createdAt": "2026-10-10T08:49:05.709Z",
+        "updatedAt": "2026-10-10T08:49:05.709Z",
+        "desktopRouteId": 391323161067520,
+        "roleName": "zp_property_manager"
+      },
+      "_pivot_": null
+    },
+    {
+      "createdAt": "2026-10-10T08:37:04.674Z",
+      "updatedAt": "2026-10-10T08:37:04.696Z",
+      "id": 391323161067521,
+      "parentId": 391323161067520,
+      "title": "Untitled",
+      "tooltip": null,
+      "icon": null,
+      "schemaUid": "5vmyqd1zv0o",
+      "menuSchemaUid": null,
+      "tabSchemaName": "n3k5l7mto0d",
+      "type": "tabs",
+      "options": {
+        "flowRegistry": {}
+      },
+      "sort": 1791621424663418,
+      "hideInMenu": null,
+      "enableTabs": null,
+      "enableHeader": null,
+      "displayTitle": null,
+      "hidden": true,
+      "createdById": null,
+      "updatedById": null,
+      "rolesDesktopRoutes": {
+        "createdAt": "2026-10-10T08:49:05.709Z",
+        "updatedAt": "2026-10-10T08:49:05.709Z",
+        "desktopRouteId": 391323161067521,
+        "roleName": "zp_property_manager"
+      },
+      "_pivot_": null
+    },
+    {
+      "createdAt": "2026-10-10T08:37:04.811Z",
+      "updatedAt": "2026-10-10T08:37:04.835Z",
+      "id": 391323161067522,
+      "parentId": null,
+      "title": "Work orders",
+      "tooltip": null,
+      "icon": "SolutionOutlined",
+      "schemaUid": "zp-work-orders",
+      "menuSchemaUid": "gyqlli4yki2",
+      "tabSchemaName": null,
+      "type": "flowPage",
+      "options": {
+        "flowSurfaceMenuBindable": true
+      },
+      "sort": 1791621424811280,
+      "hideInMenu": false,
+      "enableTabs": false,
+      "enableHeader": true,
+      "displayTitle": true,
+      "hidden": null,
+      "createdById": null,
+      "updatedById": null,
+      "rolesDesktopRoutes": {
+        "createdAt": "2026-10-10T08:49:05.709Z",
+        "updatedAt": "2026-10-10T08:49:05.709Z",
+        "desktopRouteId": 391323161067522,
+        "roleName": "zp_property_manager"
+      },
+      "_pivot_": null
+    },
+    {
+      "createdAt": "2026-10-10T08:37:04.819Z",
+      "updatedAt": "2026-10-10T08:37:04.832Z",
+      "id": 391323161067523,
+      "parentId": 391323161067522,
+      "title": "Untitled",
+      "tooltip": null,
+      "icon": null,
+      "schemaUid": "feq2x29h2pk",
+      "menuSchemaUid": null,
+      "tabSchemaName": "0o0cwv56e47",
+      "type": "tabs",
+      "options": {
+        "flowRegistry": {}
+      },
+      "sort": 1791621424811156,
+      "hideInMenu": null,
+      "enableTabs": null,
+      "enableHeader": null,
+      "displayTitle": null,
+      "hidden": true,
+      "createdById": null,
+      "updatedById": null,
+      "rolesDesktopRoutes": {
+        "createdAt": "2026-10-10T08:49:05.709Z",
+        "updatedAt": "2026-10-10T08:49:05.709Z",
+        "desktopRouteId": 391323161067523,
+        "roleName": "zp_property_manager"
+      },
+      "_pivot_": null
+    },
+    {
+      "createdAt": "2026-10-10T10:18:18.062Z",
+      "updatedAt": "2026-10-10T10:18:18.139Z",
+      "id": 391335900807168,
+      "parentId": null,
+      "title": "Temporary action form qualification",
+      "tooltip": null,
+      "icon": "ExperimentOutlined",
+      "schemaUid": "zp-action-form-probe-20261010",
+      "menuSchemaUid": "dxri7k0mwm8",
+      "tabSchemaName": null,
+      "type": "flowPage",
+      "options": {
+        "flowSurfaceMenuBindable": true
+      },
+      "sort": 1791627498062007,
+      "hideInMenu": false,
+      "enableTabs": false,
+      "enableHeader": true,
+      "displayTitle": true,
+      "hidden": null,
+      "createdById": null,
+      "updatedById": null,
+      "rolesDesktopRoutes": {
+        "createdAt": "2026-10-10T10:18:57.244Z",
+        "updatedAt": "2026-10-10T10:18:57.244Z",
+        "desktopRouteId": 391335900807168,
+        "roleName": "zp_property_manager"
+      },
+      "_pivot_": null
+    },
+    {
+      "createdAt": "2026-10-10T10:18:18.084Z",
+      "updatedAt": "2026-10-10T10:18:18.134Z",
+      "id": 391335900807169,
+      "parentId": 391335900807168,
+      "title": "Untitled",
+      "tooltip": null,
+      "icon": null,
+      "schemaUid": "8n8oyjgz7o4",
+      "menuSchemaUid": null,
+      "tabSchemaName": "rmjle7mw3hm",
+      "type": "tabs",
+      "options": {
+        "flowRegistry": {}
+      },
+      "sort": 1791627498062911,
+      "hideInMenu": null,
+      "enableTabs": null,
+      "enableHeader": null,
+      "displayTitle": null,
+      "hidden": true,
+      "createdById": null,
+      "updatedById": null,
+      "rolesDesktopRoutes": {
+        "createdAt": "2026-10-10T10:18:57.244Z",
+        "updatedAt": "2026-10-10T10:18:57.244Z",
+        "desktopRouteId": 391335900807169,
+        "roleName": "zp_property_manager"
+      },
+      "_pivot_": null
+    }
+  ]
+}

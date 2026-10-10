@@ -1,0 +1,91 @@
+{
+  "at": "2026-10-10T10:42:00.505376+00:00",
+  "role": "root",
+  "probe": "unknown constructor-owned command read-only reconciliation",
+  "result": {
+    "data": {
+      "data": {
+        "status": "not_observed",
+        "requestId": "af6580fb-6aad-4b87-a6a9-aaf3bd48e807",
+        "retryAuthorized": false
+      }
+    }
+  },
+  "before": {
+    "zp_audit_heads": {
+      "data": [],
+      "meta": {
+        "count": 0,
+        "page": 1,
+        "pageSize": 10,
+        "totalPage": 0
+      }
+    },
+    "zp_domain_events": {
+      "data": [],
+      "meta": {
+        "count": 0,
+        "page": 1,
+        "pageSize": 10,
+        "totalPage": 0
+      }
+    },
+    "zp_domain_commands": {
+      "data": [],
+      "meta": {
+        "count": 0,
+        "page": 1,
+        "pageSize": 10,
+        "totalPage": 0
+      }
+    },
+    "zp_domain_outbox": {
+      "data": [],
+      "meta": {
+        "count": 0,
+        "page": 1,
+        "pageSize": 10,
+        "totalPage": 0
+      }
+    }
+  },
+  "after": {
+    "zp_audit_heads": {
+      "data": [],
+      "meta": {
+        "count": 0,
+        "page": 1,
+        "pageSize": 10,
+        "totalPage": 0
+      }
+    },
+    "zp_domain_events": {
+      "data": [],
+      "meta": {
+        "count": 0,
+        "page": 1,
+        "pageSize": 10,
+        "totalPage": 0
+      }
+    },
+    "zp_domain_commands": {
+      "data": [],
+      "meta": {
+        "count": 0,
+        "page": 1,
+        "pageSize": 10,
+        "totalPage": 0
+      }
+    },
+    "zp_domain_outbox": {
+      "data": [],
+      "meta": {
+        "count": 0,
+        "page": 1,
+        "pageSize": 10,
+        "totalPage": 0
+      }
+    }
+  },
+  "unchanged": true
+}

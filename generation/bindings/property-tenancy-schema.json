@@ -1,0 +1,30 @@
+{
+  "specDigest": "e767b528bfc0269688d91d22785a96e9436f28484376b8ad1af21c310267c0a7",
+  "collections": {
+    "zp_portfolios": "y5ebk01ynwl",
+    "zp_buildings": "2ikbmsd35y7",
+    "zp_owner_contacts": "u6waifjaueg",
+    "zp_ownership_sets": "vrr5y5okzkf",
+    "zp_property_interests": "9mf4tg8mwqn",
+    "zp_tenancy_parties": "enclsqg1y9j",
+    "zp_tenancy_terms": "4tkj6qbn66g",
+    "zp_domain_events": "uszxwosvkvj",
+    "zp_audit_heads": "akqnfe7rh2l",
+    "zp_domain_outbox": "l0ttfzrrbt8",
+    "zp_tenant_account_permissions": "u3d8jdejui5"
+  },
+  "fields": {
+    "zp_properties.portfolio": "6ezzy6bpir7",
+    "zp_properties.buildings": "womhycmw25m",
+    "zp_properties.ownershipSets": "ymds6hsdk2v",
+    "zp_units.building": "cnf3uvblw0n",
+    "zp_tenancies.leaseState": "3djla2fxhab",
+    "zp_tenancies.startDate": "lvy8bqg93rh",
+    "zp_tenancies.endDate": "w85vsvqfai1",
+    "zp_tenancies.version": "yfuz2ut48ex",
+    "zp_tenancies.parties": "zu1gkkmcjg6",
+    "zp_tenancies.terms": "ue9lbrydw5l",
+    "zp_ownership_sets.interests": "g4mrtulkstd",
+    "zp_tenancies.draftRevision": "ef2oghk4133"
+  }
+}

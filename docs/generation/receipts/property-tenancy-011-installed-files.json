@@ -1,0 +1,49 @@
+{
+  "sourceRevision": "bd549b1e5e9622fd3d2c20647c3e57a5db6228b5",
+  "reviewedRevision": "e4b83e1a4db3bbd8d8e468223cc52756041c8aa9",
+  "observedAt": "2026-10-10T10:40:24.101981+00:00",
+  "files": [
+    {
+      "file": "dist/client/index.js",
+      "sha256": "751f99b2495b55ca64072d61ac1aec4688387ca235e4e6b6575084fd2befc44f",
+      "matches": true
+    },
+    {
+      "file": "dist/externalVersion.js",
+      "sha256": "7b00a95467ecadb7b6ee0627af4efd53fe5910732459287871d93c19380fa36b",
+      "matches": true
+    },
+    {
+      "file": "dist/server/domain.js",
+      "sha256": "58850677dcf5b3a5b06ee05fb000964af06ec380fd6ee6e641480b783a8388f3",
+      "matches": true
+    },
+    {
+      "file": "dist/server/errors.js",
+      "sha256": "eaa8975e2c445d847d4f1bb9d86e6d9f24a297a76a72c90eaa0a1172e20f5457",
+      "matches": true
+    },
+    {
+      "file": "dist/server/index.js",
+      "sha256": "2b7cb85548fb76bf2036485e0194d38157a7ca9bf07b4567805a783a170357cb",
+      "matches": true
+    },
+    {
+      "file": "dist/server/service.js",
+      "sha256": "1446cf58db534a541f694d54c4ff1a0f2c249aa78066d1789abb43710352c297",
+      "matches": true
+    },
+    {
+      "file": "dist/swagger/index.json",
+      "sha256": "c0c993fffdad5906fcb6572ca05dafd719b8cf53d98403a5bab2c3763320ac17",
+      "matches": true
+    },
+    {
+      "file": "package.json",
+      "sha256": "60396773eb8bb92cc7b68824a623f9ef78cd696c0942ea7e38c00651eb905968",
+      "matches": true
+    }
+  ],
+  "allMatch": true,
+  "nativeDomainTools": 14
+}

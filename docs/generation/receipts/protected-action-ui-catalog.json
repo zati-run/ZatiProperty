@@ -1,0 +1,537 @@
+{
+  "key": "js",
+  "label": "JS action",
+  "use": "JSFormActionModel",
+  "kind": "action",
+  "scope": "form",
+  "scene": "form",
+  "createSupported": true,
+  "configureOptions": {
+    "title": {
+      "type": "string",
+      "description": "Button title",
+      "example": "Run"
+    },
+    "tooltip": {
+      "type": "string",
+      "description": "Tooltip"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Icon",
+      "example": "PlusOutlined"
+    },
+    "iconOnly": {
+      "type": "boolean",
+      "description": "Whether to render only the icon without visible button text",
+      "example": true
+    },
+    "type": {
+      "type": "string",
+      "description": "Button type",
+      "example": "primary"
+    },
+    "color": {
+      "type": "string",
+      "description": "Color"
+    },
+    "htmlType": {
+      "type": "string",
+      "description": "HTML button type",
+      "example": "submit"
+    },
+    "position": {
+      "type": "string",
+      "description": "Position"
+    },
+    "danger": {
+      "type": "boolean",
+      "description": "Whether this is a danger button",
+      "example": false
+    },
+    "code": {
+      "type": "string",
+      "description": "JS code",
+      "example": "return value?.toUpperCase?.() || value;"
+    },
+    "version": {
+      "type": "string",
+      "description": "JS code version",
+      "example": "v2"
+    },
+    "linkageRules": {
+      "type": "array",
+      "description": "Raw canonical linkage-rules payload. The API normalizes condition-only rules to include `actions: []`; for AI/CLI authoring, prefer `getReactionMeta` + `setActionLinkageRules` instead of guessing this configure key directly.",
+      "example": [],
+      "supportsFlowContext": true
+    }
+  },
+  "editableDomains": [
+    "props",
+    "decoratorProps",
+    "stepParams",
+    "flowRegistry"
+  ],
+  "settingsSchema": {
+    "props": {
+      "type": "object",
+      "properties": {
+        "title": {},
+        "tooltip": {},
+        "icon": {},
+        "iconOnly": {},
+        "type": {},
+        "htmlType": {},
+        "position": {},
+        "danger": {},
+        "color": {}
+      },
+      "additionalProperties": false,
+      "x-allowedKeys": [
+        "title",
+        "tooltip",
+        "icon",
+        "iconOnly",
+        "type",
+        "htmlType",
+        "position",
+        "danger",
+        "color"
+      ],
+      "x-wildcard": false,
+      "x-mergeStrategy": "deep"
+    },
+    "decoratorProps": {
+      "type": "object",
+      "properties": {
+        "labelWidth": {},
+        "labelWrap": {}
+      },
+      "additionalProperties": false,
+      "x-allowedKeys": [
+        "labelWidth",
+        "labelWrap"
+      ],
+      "x-wildcard": false,
+      "x-mergeStrategy": "deep"
+    },
+    "stepParams": {
+      "type": "object",
+      "properties": {
+        "buttonSettings": {
+          "type": "object",
+          "properties": {
+            "general": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "tooltip": {
+                  "type": "string"
+                },
+                "icon": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "iconOnly": {
+                  "type": "boolean"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "danger": {
+                  "type": "boolean"
+                },
+                "color": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "linkageRules": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "array",
+                  "x-flowSurfaceFormat": "linkage-rules"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "clickSettings": {
+          "type": "object",
+          "properties": {
+            "runJs": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "x-allowedKeys": [
+        "buttonSettings",
+        "clickSettings"
+      ],
+      "x-wildcard": false,
+      "x-mergeStrategy": "deep",
+      "x-groups": {
+        "buttonSettings": {
+          "allowedPaths": [
+            "general.title",
+            "general.tooltip",
+            "general.icon",
+            "general.iconOnly",
+            "general.type",
+            "general.danger",
+            "general.color",
+            "linkageRules.value"
+          ],
+          "clearable": false,
+          "mergeStrategy": "deep",
+          "eventBindingSteps": [
+            "general",
+            "linkageRules"
+          ],
+          "pathSchemas": {
+            "general.title": {
+              "type": "string"
+            },
+            "general.tooltip": {
+              "type": "string"
+            },
+            "general.icon": {
+              "type": "string",
+              "nullable": true
+            },
+            "general.iconOnly": {
+              "type": "boolean"
+            },
+            "general.type": {
+              "type": "string"
+            },
+            "general.danger": {
+              "type": "boolean"
+            },
+            "general.color": {
+              "type": "string"
+            },
+            "linkageRules.value": {
+              "type": "array",
+              "x-flowSurfaceFormat": "linkage-rules"
+            }
+          }
+        },
+        "clickSettings": {
+          "allowedPaths": [
+            "runJs.code",
+            "runJs.version"
+          ],
+          "clearable": false,
+          "mergeStrategy": "deep",
+          "eventBindingSteps": [
+            "runJs"
+          ],
+          "pathSchemas": {
+            "runJs.code": {
+              "type": "string"
+            },
+            "runJs.version": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "flowRegistry": {
+      "type": "object",
+      "additionalProperties": true,
+      "x-allowedKeys": [
+        "*"
+      ],
+      "x-wildcard": true,
+      "x-mergeStrategy": "deep"
+    }
+  },
+  "settingsContract": {
+    "props": {
+      "allowedKeys": [
+        "title",
+        "tooltip",
+        "icon",
+        "iconOnly",
+        "type",
+        "htmlType",
+        "position",
+        "danger",
+        "color"
+      ],
+      "mergeStrategy": "deep",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "title": {},
+          "tooltip": {},
+          "icon": {},
+          "iconOnly": {},
+          "type": {},
+          "htmlType": {},
+          "position": {},
+          "danger": {},
+          "color": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "decoratorProps": {
+      "allowedKeys": [
+        "labelWidth",
+        "labelWrap"
+      ],
+      "mergeStrategy": "deep",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "labelWidth": {},
+          "labelWrap": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "stepParams": {
+      "allowedKeys": [
+        "buttonSettings",
+        "clickSettings"
+      ],
+      "mergeStrategy": "deep",
+      "groups": {
+        "buttonSettings": {
+          "allowedPaths": [
+            "general.title",
+            "general.tooltip",
+            "general.icon",
+            "general.iconOnly",
+            "general.type",
+            "general.danger",
+            "general.color",
+            "linkageRules.value"
+          ],
+          "mergeStrategy": "deep",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "general": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "tooltip": {
+                    "type": "string"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "iconOnly": {
+                    "type": "boolean"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "danger": {
+                    "type": "boolean"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "linkageRules": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "x-flowSurfaceFormat": "linkage-rules"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "eventBindingSteps": [
+            "general",
+            "linkageRules"
+          ],
+          "pathSchemas": {
+            "general.title": {
+              "type": "string"
+            },
+            "general.tooltip": {
+              "type": "string"
+            },
+            "general.icon": {
+              "type": "string",
+              "nullable": true
+            },
+            "general.iconOnly": {
+              "type": "boolean"
+            },
+            "general.type": {
+              "type": "string"
+            },
+            "general.danger": {
+              "type": "boolean"
+            },
+            "general.color": {
+              "type": "string"
+            },
+            "linkageRules.value": {
+              "type": "array",
+              "x-flowSurfaceFormat": "linkage-rules"
+            }
+          }
+        },
+        "clickSettings": {
+          "allowedPaths": [
+            "runJs.code",
+            "runJs.version"
+          ],
+          "mergeStrategy": "deep",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "runJs": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "eventBindingSteps": [
+            "runJs"
+          ],
+          "pathSchemas": {
+            "runJs.code": {
+              "type": "string"
+            },
+            "runJs.version": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "schema": {
+        "type": "object",
+        "properties": {
+          "buttonSettings": {
+            "type": "object",
+            "properties": {
+              "general": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "tooltip": {
+                    "type": "string"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "iconOnly": {
+                    "type": "boolean"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "danger": {
+                    "type": "boolean"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "linkageRules": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "x-flowSurfaceFormat": "linkage-rules"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "clickSettings": {
+            "type": "object",
+            "properties": {
+              "runJs": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "flowRegistry": {
+      "allowedKeys": [
+        "*"
+      ],
+      "wildcard": true,
+      "mergeStrategy": "deep",
+      "schema": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  },
+  "eventCapabilities": {
+    "direct": [
+      "click",
+      "beforeRender"
+    ],
+    "object": [
+      "click"
+    ]
+  }
+}
