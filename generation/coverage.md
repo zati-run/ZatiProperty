@@ -165,4 +165,13 @@ The bounded property-to-building create/read path is generated in [receipt031](.
 
 ## Standalone unit subset
 
-[Receipt036](../docs/generation/receipts/036-standalone-unit-native-journey.md) records focused Portfolio Add unit generation, one persisted null-building unit,48 role/read checks, native prepare/submit tamper denials with unchanged protected snapshots and1365/390 reloads. This covers the optional-building unit path only; independent generated-change review and broader E3 remain open.
+[Receipt036](../docs/generation/receipts/036-standalone-unit-native-journey.md) records focused Portfolio Add unit generation, one persisted null-building unit,48 role/read checks, native prepare/submit tamper denials with unchanged protected snapshots and1365/390 reloads. This covers the optional-building unit path only; the independent generated-change review is recorded in [standalone-unit-native-independent](../docs/generation/receipts/standalone-unit-native-independent.md). Broader E3 remains open.
+
+
+## Closeout checkpoint — 2026-10-10
+
+| Requirement subset | Status | Evidence / open gate |
+| --- | --- | --- |
+| ZP-6.1.optional-building-unit | verified | Receipt036 plus independent desktop/narrow review; one synthetic unit saved under property6 with buildingId null; role/tamper/reload checks passed. |
+| ZP-8.1.request-intake-and-job-conversion | blocked | Protected source candidate independently accepted (31 tests); no native collections, role overlays, forms or business journey generated. Generic field helper c00099e was rejected because ACL drift can persist before detection. Implement atomic Loom field/ACL handling first; qualify attachment privacy. |
+| ZP-6.1.building-unit-reverse-association | planned | Loom observer and app overlap harness are source-integrated; schema-observation0.1.7 is not installed and live concurrent preview/positive relationship creation remain pending. |
