@@ -1,0 +1,3 @@
+# Lifecycle availability desired-state review
+
+Root independently approves exactdf85af18fcd270303d74563d25df4f4822cb7978. Reviewed the three existing lifecycle forms: activation and draft amendment require draft state; ending requires active state. All read the already scoped leaseState from zp_tenancies. Existing domain action, bindings, prefill, readback and authority tuples are unchanged. Companion qualification pins become0.2.0. Two tests against the actual companion availability policy pass independently. Native configuration and rendered behavior require subsequent evidence; this is bounded desired-state approval only.
