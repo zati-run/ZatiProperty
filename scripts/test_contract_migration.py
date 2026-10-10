@@ -19,4 +19,19 @@ class Tests(unittest.TestCase):
   with patch.object(m,'read',return_value={'changed':True}),patch.object(m,'dispatch_once') as dispatch:
    with self.assertRaisesRegex(RuntimeError,'drift'):m.apply(None,{'arguments':{'uid':'form1'},'before':{}},'unused')
    dispatch.assert_not_called()
+ def test_actual_get_shape_uses_native_surface_history(self):
+  form={'uid':'form1','type':'LoomActionFormModel','nodeHash':'a'*64,'config':{'x':1},'configDigest':'b'*64}
+  tree={'uid':'form1','stepParams':{'loomActionForm':{'owner':'@loom/plugin-action-form','config':form['config'],'contractHistory':[{'proof':1}]}}}
+  with patch.object(m,'read',return_value=form),patch.object(m.Forms,'read',return_value={'tree':tree}):
+   after=m.observe(None,'form1')
+  self.assertEqual(after,{'form':form,'contractHistory':[{'proof':1}]})
+ def test_surface_identity_or_config_mismatch_denied(self):
+  form={'config':{'x':1}}
+  for tree in [{'uid':'other'},{'uid':'form1','stepParams':{'loomActionForm':{'owner':'@loom/plugin-action-form','config':{'x':2}}}}]:
+   with patch.object(m,'read',return_value=form),patch.object(m.Forms,'read',return_value={'tree':tree}):
+    with self.assertRaises(RuntimeError):m.observe(None,'form1')
+ def test_history_requires_exact_pin_pair(self):
+  config={key:key for key in m.PINS};args={'config':config,'expectedConfigDigest':'a'*64,'expectedOldPins':{'old':1},'compatibilityProof':{'reviewDigest':'b'*64,'reason':'reviewed'}}
+  entry={'configDigest':'a'*64,'oldPins':{'old':1},'newPins':config,'reviewDigest':'b'*64,'reason':'reviewed'}
+  after={'form':{'config':config},'contractHistory':[entry]};self.assertTrue(m.verified({'arguments':args},after));entry['oldPins']={'wrong':1};self.assertFalse(m.verified({'arguments':args},after))
 if __name__=='__main__':unittest.main()

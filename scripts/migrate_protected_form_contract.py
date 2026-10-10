@@ -19,19 +19,36 @@ def candidate(client,uid,review_digest):
  for key in ('packageVersion','implementationDigest'):config[key]=describe[key]
  args={'uid':uid,'expectedNodeHash':before['nodeHash'],'expectedConfigDigest':sha(old),'expectedOldPins':{key:old[key] for key in PINS},'config':config,'compatibilityProof':{'reviewDigest':review_digest,'reason':'equivalent-command-schema-response-envelope-correction'}}
  return {'before':before,'arguments':args,'oldIntentPolicy':'reconcile-only; old prepare and submit remain fenced'}
+def observe(client,uid):
+ form=read(client,uid)
+ tree=Forms(client).read('flow_surfaces_get',{'uid':uid}).get('tree')
+ if not isinstance(tree,dict) or tree.get('uid')!=uid:raise RuntimeError('Native model tree identity unavailable')
+ settings=tree.get('stepParams',{}).get('loomActionForm',{})
+ if settings.get('owner')!='@loom/plugin-action-form' or settings.get('config')!=form.get('config'):raise RuntimeError('Native form and surface readback disagree')
+ return {'form':form,'contractHistory':settings.get('contractHistory',[])}
+def verified(plan,after):
+ args=plan['arguments']
+ if after['form']['config']!=args['config']:return False
+ history=after['contractHistory']
+ if not isinstance(history,list) or not history:return False
+ entry=history[-1]
+ return entry.get('configDigest')==args['expectedConfigDigest'] and entry.get('oldPins')==args['expectedOldPins'] and entry.get('newPins')=={key:args['config'][key] for key in PINS} and entry.get('reviewDigest')==args['compatibilityProof']['reviewDigest'] and entry.get('reason')==args['compatibilityProof']['reason']
 def apply(client,plan,journal):
  args=plan['arguments'];uid=args['uid']
  if read(client,uid)!=plan['before']:raise RuntimeError('Form drift before migration')
- def verify(after):
-  if after['config']!=args['config']:return False
-  history=after['node']['stepParams']['loomActionForm'].get('contractHistory',[])
-  return bool(history) and history[-1]['configDigest']==args['expectedConfigDigest'] and history[-1]['reviewDigest']==args['compatibilityProof']['reviewDigest']
- return dispatch_once(client,tool(client,'migrate_contract'),{'requestBody':args},pathlib.Path(journal),plan['before'],lambda:read(client,uid),verify)
+ return dispatch_once(client,tool(client,'migrate_contract'),{'requestBody':args},pathlib.Path(journal),plan['before'],lambda:observe(client,uid),lambda after:verified(plan,after))
 def main():
- p=argparse.ArgumentParser();p.add_argument('phase',choices=['prepare','apply']);p.add_argument('--runtime',required=True);p.add_argument('--uid');p.add_argument('--review-digest');p.add_argument('--plan',required=True);p.add_argument('--plan-digest');p.add_argument('--journal');a=p.parse_args();client=Loom(a.runtime);path=pathlib.Path(a.plan)
+ p=argparse.ArgumentParser();p.add_argument('phase',choices=['prepare','apply','verify']);p.add_argument('--runtime',required=True);p.add_argument('--uid');p.add_argument('--review-digest');p.add_argument('--plan',required=True);p.add_argument('--plan-digest');p.add_argument('--journal');p.add_argument('--receipt');a=p.parse_args();client=Loom(a.runtime);path=pathlib.Path(a.plan)
  if a.phase=='prepare':sync_write(path,candidate(client,a.uid,a.review_digest),True)
  else:
   plan=json.loads(path.read_text())
-  if sha(plan)!=a.plan_digest or not a.journal:raise RuntimeError('Reviewed plan digest and new journal required')
-  apply(client,plan,a.journal)
+  if sha(plan)!=a.plan_digest:raise RuntimeError('Reviewed plan digest required')
+  if a.phase=='verify':
+   if not a.receipt:raise RuntimeError('New read-only receipt required')
+   after=observe(client,plan['arguments']['uid'])
+   if not verified(plan,after):raise RuntimeError('Native migration history mismatch')
+   sync_write(pathlib.Path(a.receipt),{'state':'native-readback-verified-no-replay','planDigest':sha(plan),'after':after},True)
+  else:
+   if not a.journal:raise RuntimeError('New journal required')
+   apply(client,plan,a.journal)
 if __name__=='__main__':main()
