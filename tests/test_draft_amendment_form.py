@@ -1,4 +1,4 @@
-import copy,json,pathlib,sys,tempfile,unittest
+import copy,json,pathlib,sys,tempfile,unittest,os,subprocess
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 from apply_protected_forms import Forms,IMMUTABLE
 ROOT=pathlib.Path(__file__).resolve().parents[1]
@@ -34,4 +34,26 @@ class Tests(unittest.TestCase):
    intent=pathlib.Path(directory)/'intent.json'
    with self.assertRaisesRegex(RuntimeError,'prefill qualification changed'):f.apply(q,intent)
    self.assertFalse(intent.exists())
+class ActualPolicy(unittest.TestCase):
+ def test_desired_amendment_normalizes_with_actual_companion_policy_and_domain_swagger(self):
+  source=os.environ.get('LOOM_ACTION_FORM_SERVER_DIR')
+  self.assertTrue(source,'LOOM_ACTION_FORM_SERVER_DIR must name the independently reviewed companion source')
+  script=r"""
+const assert=require('node:assert/strict'),path=require('node:path');
+const p=require(path.join(process.env.LOOM_ACTION_FORM_SERVER_DIR,'policy.js'));
+const prefill=require(path.join(process.env.LOOM_ACTION_FORM_SERVER_DIR,'prefill.js'));
+const desired=require('./generation/pages/tenancy-draft-amendment-form.json'),config=structuredClone(desired.forms[0].config);
+const spec=require('./packages/plugins/@zati/plugin-property-tenancy/dist/swagger/index.json');
+const schema=spec.paths['/zpPropertyTenancy:updateDraftTenancy'].post.requestBody.content['application/json'].schema;
+const read=prefill.contract(spec,'zpPropertyTenancy','updateDraftTenancy','reconcileCommand','draftTenancyProposal');
+Object.assign(config,{schemaDigest:p.hash(schema),implementationDigest:'a'.repeat(64),packageVersion:'0.1.4'});
+config.prefill.schemaDigest=read.schemaDigest;
+const fields={zp_tenancies:['id','version','code','leaseState','draftRevision'],zp_tenant_account_permissions:['id','userId','displayName']};
+const metadata=(name,names)=>{assert.ok(fields[name]);for(const field of names)assert.ok(fields[name].includes(field));return {model:{primaryKeyAttribute:'id'}};};
+p.normalizeConfig(config,schema,metadata);prefill.normalize(config,schema);
+const bad=structuredClone(config);bad.readback.idPath=bad.readback.resultIdField;delete bad.readback.resultIdField;
+assert.throws(()=>p.normalizeConfig(bad,schema,metadata),/INVALID_SHAPE/);
+"""
+  result=subprocess.run(['node','-e',script],cwd=ROOT,capture_output=True,text=True)
+  self.assertEqual(result.returncode,0,result.stderr)
 if __name__=='__main__':unittest.main()

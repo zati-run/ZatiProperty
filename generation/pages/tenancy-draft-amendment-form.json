@@ -50,14 +50,14 @@
         },
         "readback": {
           "collection": "zp_tenancies",
-          "idPath": "id",
           "fields": [
             "id",
             "code",
             "leaseState",
             "version",
             "draftRevision"
-          ]
+          ],
+          "resultIdField": "id"
         },
         "title": "Amend draft tenancy (save a new revision)",
         "submitLabel": "Save draft revision",
