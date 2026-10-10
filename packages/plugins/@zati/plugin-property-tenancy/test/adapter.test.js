@@ -1,14 +1,14 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs'),path=require('node:path');
 const base=path.join(__dirname,'../dist');
-async function load(can=()=>true,ServiceOverride=null) {
+async function load(can=()=>true,ServiceOverride=null,dbOverride={}) {
  const hooks=new Map();const snippets=[];let resource,snippet;
  const Plugin=class {};
  const module={exports:{}};
  const source=fs.readFileSync(path.join(base,'server/index.js'),'utf8');
  vm.runInNewContext(source,{module,exports:module.exports,WeakSet,Object,Array,require:name=>name==='@nocobase/server'?{Plugin}:name==='./service'&&ServiceOverride?{...require(path.join(base,'server',name)),Service:ServiceOverride}:require(path.join(base,'server',name))});
  const p=new module.exports();
- p.db={on:(name,fn)=>{const old=hooks.get(name);hooks.set(name,old? (...args)=>{old(...args);return fn(...args);}:fn);},getModel:()=>null};
+ p.db={on:(name,fn)=>{const old=hooks.get(name);hooks.set(name,old? (...args)=>{old(...args);return fn(...args);}:fn);},getModel:()=>null,...dbOverride};
  p.app={resourcer:{define:value=>resource=value},acl:{can,registerSnippet:value=>{snippet=value;snippets.push(value);}}};
  await p.load();return {hooks,resource,snippet,snippets};
 }
@@ -110,4 +110,20 @@ test('scoped custom-action permission cannot be treated as unrestricted draft pr
  const {resource}=await load(()=>({params:{filter:{tenancyId:1}}}),Never);
  const ctx={state:{currentUser:{id:10},currentRoles:['manager']},action:{params:{tenancyId:3,values:{}}},throw(status,message){const e=Error(message);e.status=status;throw e;}};
  await assert.rejects(resource.actions.draftTenancyProposal(ctx,async()=>{}),e=>e.status===403);
+});
+
+test('native transaction adapter missing rows and models retain typed domain failures',async()=>{
+ for(const [getModel,expected] of [[()=>({findByPk:async()=>null}),'NOT_FOUND'],[()=>null,'SCHEMA_UNAVAILABLE']]) {
+  class Capture {
+   constructor(store){this.store=store;}
+   async execute(){return this.store.transaction(async tx=>{
+    await assert.rejects(tx.update('zp_tenancies',1,{}),e=>e.code===expected&&!(e instanceof ReferenceError));
+    return {verified:expected};
+   });}
+  }
+  const {resource}=await load(()=>true,Capture,{getModel,sequelize:{transaction:async fn=>fn({LOCK:{UPDATE:'UPDATE'}})}});
+  const ctx={state:{currentUser:{id:10},currentRoles:['manager']},action:{params:{values:{}}},throw(status,message){throw Error(status+':'+message);}};
+  await resource.actions.updateDraftTenancy(ctx,async()=>{});
+  assert.equal(ctx.body.data.verified,expected);
+ }
 });

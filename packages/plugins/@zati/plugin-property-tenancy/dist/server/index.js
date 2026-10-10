@@ -2,6 +2,7 @@
 const {Plugin}=require('@nocobase/server');
 const {Service,ACTIONS,ZERO}=require('./service');
 const {safeFailure,denyHook}=require('./errors');
+const {deny}=require('./domain');
 const PROTECTED=['zp_tenancies','zp_tenancy_terms','zp_tenancy_parties','zp_ownership_sets','zp_property_interests','zp_domain_events','zp_audit_heads','zp_domain_outbox','zp_properties','zp_units','zp_buildings','zp_owner_contacts','zp_tenant_account_permissions','zp_domain_commands'];
 const plain=row=>row ? (typeof row.toJSON==='function'?row.toJSON():row) : null;
 class PropertyTenancyPlugin extends Plugin {
