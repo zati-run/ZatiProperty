@@ -1,0 +1,177 @@
+{
+  "summary": {
+    "checks": 24,
+    "fullBaselineUnchanged": true,
+    "targetFieldAbsent": true
+  },
+  "results": [
+    {
+      "role": "zp_property_manager.1",
+      "check": "inspect",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_property_manager.1",
+      "check": "create-denial",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_property_manager.1",
+      "check": "building",
+      "status": 200,
+      "classification": "allowed",
+      "passed": true
+    },
+    {
+      "role": "zp_property_manager.2",
+      "check": "inspect",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_property_manager.2",
+      "check": "create-denial",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_property_manager.2",
+      "check": "building",
+      "status": 200,
+      "classification": "scoped-null",
+      "passed": true
+    },
+    {
+      "role": "zp_owner.1",
+      "check": "inspect",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_owner.1",
+      "check": "create-denial",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_owner.1",
+      "check": "building",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_owner.2",
+      "check": "inspect",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_owner.2",
+      "check": "create-denial",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_owner.2",
+      "check": "building",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_tenant.1",
+      "check": "inspect",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_tenant.1",
+      "check": "create-denial",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_tenant.1",
+      "check": "building",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_tenant.2",
+      "check": "inspect",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_tenant.2",
+      "check": "create-denial",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_tenant.2",
+      "check": "building",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_vendor.1",
+      "check": "inspect",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_vendor.1",
+      "check": "create-denial",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_vendor.1",
+      "check": "building",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_vendor.2",
+      "check": "inspect",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_vendor.2",
+      "check": "create-denial",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    },
+    {
+      "role": "zp_vendor.2",
+      "check": "building",
+      "status": 403,
+      "classification": "native-denial",
+      "passed": true
+    }
+  ]
+}
