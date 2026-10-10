@@ -161,8 +161,8 @@ class MigrationFaults(unittest.TestCase):
         self.command_manifest()
         path=self.root/'generation/collections/property-hierarchy.json'
         spec=json.loads((self.root/'generation/collections/property-tenancy-commands.json').read_text())
-        spec['preserveFields']=[{'collection':'zp_existing','field':{'name':'parent','allowNull':False}}]
-        self.client.rows['zp_existing']['fields']=[{'name':'parent','allowNull':True,'key':'existing-key'}]
+        spec['preserveFields']=[{'collection':'existing','field':{'name':'parent','allowNull':False}}]
+        self.native.rows['existing']['fields']=[{'name':'parent','allowNull':True,'key':'existing-key'}]
         path.write_text(json.dumps(spec))
         with self.assertRaises(RuntimeError):self.run_migration('--hierarchy','--apply')
         self.assertEqual(self.writes(),[])
