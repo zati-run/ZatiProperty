@@ -1,0 +1,22 @@
+{
+  "name": "@zati/plugin-property-tenancy",
+  "version": "0.1.0",
+  "displayName": "ZatiProperty protected property and tenancy actions",
+  "description": "Transactional tenancy occupancy, ownership approval, immutable revisions and audit/outbox. Source candidate; runtime qualification required.",
+  "main": "dist/server/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 test/*.test.js"
+  },
+  "peerDependencies": {
+    "@nocobase/server": "2.2.21",
+    "@nocobase/client": "2.2.21"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

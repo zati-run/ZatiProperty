@@ -1,0 +1,683 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ZatiProperty protected domain actions",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/zpPropertyTenancy:createDraftTenancy": {
+      "post": {
+        "operationId": "zpPropertyTenancy_createDraftTenancy",
+        "summary": "Protected createDraftTenancy",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "unitId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "code": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "nullable": true
+                  },
+                  "term": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "effectiveFrom": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "effectiveTo": {
+                        "type": "string",
+                        "format": "date",
+                        "nullable": true
+                      },
+                      "currency": {
+                        "type": "string",
+                        "pattern": "^[A-Z]{3}$"
+                      },
+                      "rentMinor": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2147483647
+                      },
+                      "depositMinor": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2147483647
+                      },
+                      "rentFrequency": {
+                        "type": "string",
+                        "enum": [
+                          "weekly",
+                          "fortnightly",
+                          "monthly",
+                          "quarterly",
+                          "annually"
+                        ]
+                      },
+                      "dueDay": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 31
+                      },
+                      "prorationPolicy": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 64
+                      }
+                    },
+                    "required": [
+                      "effectiveFrom",
+                      "currency",
+                      "rentMinor",
+                      "depositMinor",
+                      "rentFrequency",
+                      "dueDay",
+                      "prorationPolicy"
+                    ]
+                  },
+                  "parties": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 20,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "displayName": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200
+                        },
+                        "userId": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "partyRole": {
+                          "type": "string",
+                          "enum": [
+                            "primary",
+                            "cotenant",
+                            "guarantor",
+                            "occupant"
+                          ]
+                        },
+                        "effectiveFrom": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "effectiveTo": {
+                          "type": "string",
+                          "format": "date",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "displayName",
+                        "partyRole",
+                        "effectiveFrom"
+                      ]
+                    }
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  }
+                },
+                "required": [
+                  "unitId",
+                  "code",
+                  "startDate",
+                  "term",
+                  "parties",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Role or property scope denied"
+          },
+          "409": {
+            "description": "Invariant, version or persistence failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:updateDraftTenancy": {
+      "post": {
+        "operationId": "zpPropertyTenancy_updateDraftTenancy",
+        "summary": "Protected updateDraftTenancy",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "tenancyId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "nullable": true
+                  },
+                  "adoptLegacy": {
+                    "type": "boolean"
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "nullable": true
+                  },
+                  "term": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "effectiveFrom": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "effectiveTo": {
+                        "type": "string",
+                        "format": "date",
+                        "nullable": true
+                      },
+                      "currency": {
+                        "type": "string",
+                        "pattern": "^[A-Z]{3}$"
+                      },
+                      "rentMinor": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2147483647
+                      },
+                      "depositMinor": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 2147483647
+                      },
+                      "rentFrequency": {
+                        "type": "string",
+                        "enum": [
+                          "weekly",
+                          "fortnightly",
+                          "monthly",
+                          "quarterly",
+                          "annually"
+                        ]
+                      },
+                      "dueDay": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 31
+                      },
+                      "prorationPolicy": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 64
+                      }
+                    },
+                    "required": [
+                      "effectiveFrom",
+                      "currency",
+                      "rentMinor",
+                      "depositMinor",
+                      "rentFrequency",
+                      "dueDay",
+                      "prorationPolicy"
+                    ]
+                  },
+                  "parties": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 20,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "displayName": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200
+                        },
+                        "userId": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "partyRole": {
+                          "type": "string",
+                          "enum": [
+                            "primary",
+                            "cotenant",
+                            "guarantor",
+                            "occupant"
+                          ]
+                        },
+                        "effectiveFrom": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "effectiveTo": {
+                          "type": "string",
+                          "format": "date",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "displayName",
+                        "partyRole",
+                        "effectiveFrom"
+                      ]
+                    }
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  }
+                },
+                "required": [
+                  "tenancyId",
+                  "expectedVersion",
+                  "startDate",
+                  "term",
+                  "parties",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Role or property scope denied"
+          },
+          "409": {
+            "description": "Invariant, version or persistence failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:activateTenancy": {
+      "post": {
+        "operationId": "zpPropertyTenancy_activateTenancy",
+        "summary": "Protected activateTenancy",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "tenancyId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "nullable": true
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  }
+                },
+                "required": [
+                  "tenancyId",
+                  "expectedVersion",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Role or property scope denied"
+          },
+          "409": {
+            "description": "Invariant, version or persistence failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:endTenancy": {
+      "post": {
+        "operationId": "zpPropertyTenancy_endTenancy",
+        "summary": "Protected endTenancy",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "tenancyId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "nullable": true
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  }
+                },
+                "required": [
+                  "tenancyId",
+                  "expectedVersion",
+                  "endDate",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Role or property scope denied"
+          },
+          "409": {
+            "description": "Invariant, version or persistence failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:createOwnershipSet": {
+      "post": {
+        "operationId": "zpPropertyTenancy_createOwnershipSet",
+        "summary": "Protected createOwnershipSet",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "propertyId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "effectiveFrom": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "effectiveTo": {
+                    "type": "string",
+                    "format": "date",
+                    "nullable": true
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  }
+                },
+                "required": [
+                  "propertyId",
+                  "effectiveFrom",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Role or property scope denied"
+          },
+          "409": {
+            "description": "Invariant, version or persistence failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:setOwnershipInterests": {
+      "post": {
+        "operationId": "zpPropertyTenancy_setOwnershipInterests",
+        "summary": "Protected setOwnershipInterests",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "ownershipSetId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "nullable": true
+                  },
+                  "interests": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 20,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "ownerContactId": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "shareBasisPoints": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10000
+                        }
+                      },
+                      "required": [
+                        "ownerContactId",
+                        "shareBasisPoints"
+                      ]
+                    }
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  }
+                },
+                "required": [
+                  "ownershipSetId",
+                  "expectedVersion",
+                  "interests",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Role or property scope denied"
+          },
+          "409": {
+            "description": "Invariant, version or persistence failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:approveOwnershipSet": {
+      "post": {
+        "operationId": "zpPropertyTenancy_approveOwnershipSet",
+        "summary": "Protected approveOwnershipSet",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "ownershipSetId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "nullable": true
+                  },
+                  "completeSet": {
+                    "type": "boolean",
+                    "enum": [
+                      true
+                    ]
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  }
+                },
+                "required": [
+                  "ownershipSetId",
+                  "expectedVersion",
+                  "completeSet",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Role or property scope denied"
+          },
+          "409": {
+            "description": "Invariant, version or persistence failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:auditHealth": {
+      "post": {
+        "operationId": "zpPropertyTenancy_auditHealth",
+        "summary": "Protected auditHealth",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "propertyId": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "propertyId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Role or property scope denied"
+          },
+          "409": {
+            "description": "Invariant, version or persistence failure; reconcile before retry"
+          }
+        }
+      }
+    }
+  }
+}

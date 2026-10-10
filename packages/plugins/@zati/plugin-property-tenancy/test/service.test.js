@@ -1,0 +1,132 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict');
+const {Service,ZERO}=require('../dist/server/service');
+const d=require('../dist/server/domain');
+function fixture() {
+ let rows={zp_properties:[{id:1,managerUserId:10},{id:2,managerUserId:20}],zp_units:[{id:1,propertyId:1},{id:2,propertyId:2}],users:[{id:30}],zp_owner_contacts:[{id:1,managerUserId:10},{id:2,managerUserId:10},{id:3,managerUserId:20}],zp_audit_heads:[{id:1,headSequence:0,headHash:ZERO}]};
+ let queue=Promise.resolve(),fail=null;
+ const store={transaction:async cb=>{
+   let release;const prior=queue;queue=new Promise(r=>release=r);await prior;
+   const copy=structuredClone(rows);
+   const table=name=>copy[name]||(copy[name]=[]);
+   const tx={
+     head:async()=>table('zp_audit_heads')[0],
+     get:async(name,id)=>table(name).find(r=>d.same(r.id,id)),
+     list:async(name,where,limit)=>table(name).filter(r=>Object.entries(where).every(([k,v])=>d.same(r[k],v))).slice(0,limit),
+     create:async(name,value)=>{if(fail===name)throw Error('simulated storage failure');const row={...value,id:Math.max(0,...table(name).map(r=>r.id))+1};table(name).push(row);return row;},
+     update:async(name,id,value)=>{const r=table(name).find(r=>d.same(r.id,id));Object.assign(r,value);return r;}
+   };
+   try{const result=await cb(tx);rows=copy;return result;}finally{release();}
+ }};
+ return {service:new Service(store),get rows(){return rows;},fail:name=>fail=name};
+}
+const draft=()=>({unitId:1,code:'T-1',startDate:'2030-01-01',endDate:'2031-01-01',term:{effectiveFrom:'2030-01-01',effectiveTo:'2031-01-01',currency:'USD',rentMinor:100000,depositMinor:50000,rentFrequency:'monthly',dueDay:1,prorationPolicy:'calendar-days'},parties:[{displayName:'Synthetic tenant',userId:30,partyRole:'primary',effectiveFrom:'2030-01-01',effectiveTo:'2031-01-01'}],reason:'Synthetic validation'});
+test('draft persists immutable proposal revision and atomic audit/outbox without posting',async()=>{
+ const f=fixture(),r=await f.service.execute('createDraftTenancy',draft(),10);
+ assert.equal(r.leaseState,'draft');assert.equal(f.rows.zp_tenancies[0].status,'open');
+ assert.equal(f.rows.zp_tenancy_terms[0].revision,1);assert.equal(f.rows.zp_domain_outbox.length,1);
+ assert.ok(!f.rows.journal_lines);
+ assert.equal(d.verifyEvents(f.rows.zp_domain_events,f.rows.zp_audit_heads[0]).sequence,1);
+ assert.ok(!f.rows.zp_domain_events[0].canonicalPayload.includes('Synthetic tenant'));
+});
+test('foreign manager and extra nested payload denied without changes',async()=>{
+ const f=fixture();await assert.rejects(f.service.execute('createDraftTenancy',draft(),20),/PROPERTY_SCOPE/);
+ await assert.rejects(f.service.execute('createDraftTenancy',{...draft(),unit:{propertyId:2}},10),/UNKNOWN_INPUT/);
+ assert.equal(f.rows.zp_domain_events,undefined);
+});
+test('activation and end preserve status, proposal history, and chain',async()=>{
+ const f=fixture();await f.service.execute('createDraftTenancy',draft(),10);
+ await f.service.execute('activateTenancy',{tenancyId:1,expectedVersion:0,reason:'Activate'},10);
+ await f.service.execute('endTenancy',{tenancyId:1,expectedVersion:1,endDate:'2030-06-01',reason:'End'},10);
+ assert.equal(f.rows.zp_tenancies[0].leaseState,'ended');assert.equal(f.rows.zp_tenancies[0].status,'open');
+ assert.equal(f.rows.zp_tenancy_terms[0].effectiveTo,'2031-01-01');
+ assert.equal(d.verifyEvents(f.rows.zp_domain_events,f.rows.zp_audit_heads[0]).sequence,3);
+});
+test('draft edits append proposal versions and stale writes rollback',async()=>{
+ const f=fixture();await f.service.execute('createDraftTenancy',draft(),10);
+ const {unitId,code,...input}=draft();
+ await f.service.execute('updateDraftTenancy',{...input,tenancyId:1,expectedVersion:0},10);
+ assert.deepEqual(f.rows.zp_tenancy_terms.map(r=>r.revision),[1,2]);
+ await assert.rejects(f.service.execute('activateTenancy',{tenancyId:1,expectedVersion:0,reason:'Stale'},10),/STALE_VERSION/);
+ assert.equal(f.rows.zp_domain_events.length,2);
+});
+test('serialized concurrent activations produce one winner and no partial loser',async()=>{
+ const f=fixture();await f.service.execute('createDraftTenancy',draft(),10);
+ await f.service.execute('createDraftTenancy',{...draft(),code:'T-2'},10);
+ const results=await Promise.allSettled([1,2].map(tenancyId=>f.service.execute('activateTenancy',{tenancyId,expectedVersion:0,reason:'Activate'},10)));
+ assert.equal(results.filter(r=>r.status==='fulfilled').length,1);
+ assert.match(results.find(r=>r.status==='rejected').reason.message,/OCCUPANCY_OVERLAP/);
+ assert.equal(f.rows.zp_domain_events.length,3);
+});
+test('outbox failure rolls back tenancy and audit in same transaction',async()=>{
+ const f=fixture();f.fail('zp_domain_outbox');
+ await assert.rejects(f.service.execute('createDraftTenancy',draft(),10),/storage failure/);
+ assert.equal(f.rows.zp_tenancies,undefined);assert.equal(f.rows.zp_domain_events,undefined);
+ assert.equal(f.rows.zp_audit_heads[0].headSequence,0);
+});
+test('ownership complete set revisions sum exactly and approval is immutable',async()=>{
+ const f=fixture();await f.service.execute('createOwnershipSet',{propertyId:1,effectiveFrom:'2030-01-01',reason:'Draft'},10);
+ await assert.rejects(f.service.execute('setOwnershipInterests',{ownershipSetId:1,expectedVersion:0,interests:[{ownerContactId:1,shareBasisPoints:9999}],reason:'Bad'},10),/OWNERSHIP_TOTAL/);
+ await f.service.execute('setOwnershipInterests',{ownershipSetId:1,expectedVersion:0,interests:[{ownerContactId:1,shareBasisPoints:6000},{ownerContactId:2,shareBasisPoints:4000}],reason:'Complete'},10);
+ await f.service.execute('approveOwnershipSet',{ownershipSetId:1,expectedVersion:1,completeSet:true,reason:'Approve'},10);
+ await assert.rejects(f.service.execute('setOwnershipInterests',{ownershipSetId:1,expectedVersion:2,interests:[{ownerContactId:1,shareBasisPoints:10000}],reason:'Overwrite'},10),/OWNERSHIP_IMMUTABLE/);
+ assert.equal(f.rows.zp_property_interests.length,2);assert.equal(f.rows.zp_domain_events.length,3);
+});
+test('audit tamper, reorder and missing tail fail independent chain verification',async()=>{
+ const f=fixture();await f.service.execute('createDraftTenancy',draft(),10);
+ assert.throws(()=>d.verifyEvents([] ,f.rows.zp_audit_heads[0]),/AUDIT_HEAD/);
+ const rows=structuredClone(f.rows.zp_domain_events);rows[0].canonicalPayload='{}';
+ assert.throws(()=>d.verifyEvents(rows,f.rows.zp_audit_heads[0]),/AUDIT_CHAIN/);
+});
+test('date, money, primary party and interval bounds reject malformed inputs',()=>{
+ for(const change of [{startDate:'2030-02-30'},{endDate:'2029-01-01'},{parties:[]}])assert.throws(()=>d.tenancyInput({...draft(),...change}));
+ const value=draft();value.term.rentMinor=1.5;assert.throws(()=>d.tenancyInput(value),/INVALID_INTEGER/);
+ assert.equal(d.overlaps(['2030-01-01','2030-02-01'],['2030-02-01',null]),false);
+});
+test('legacy tenancy needs explicit complete adoption and preserves primary identity',async()=>{
+ const f=fixture();f.rows.zp_tenancies=[{id:1,unitId:1,code:'LEGACY',status:'open',tenantUserId:30,leaseState:null,version:null}];
+ await assert.rejects(f.service.execute('activateTenancy',{tenancyId:1,expectedVersion:null,reason:'Guess'},10),/NOT_DRAFT/);
+ const {unitId,code,...input}=draft();
+ await assert.rejects(f.service.execute('updateDraftTenancy',{...input,tenancyId:1,expectedVersion:null},10),/NOT_DRAFT/);
+ await f.service.execute('updateDraftTenancy',{...input,tenancyId:1,expectedVersion:null,adoptLegacy:true},10);
+ assert.equal(f.rows.zp_tenancies[0].tenantUserId,30);
+ assert.equal(f.rows.zp_tenancies[0].version,1);
+ const changed=structuredClone(input);changed.parties[0].userId=99;
+ await assert.rejects(f.service.execute('updateDraftTenancy',{...changed,tenancyId:1,expectedVersion:1},10),/PRIMARY_IDENTITY_IMMUTABLE/);
+});
+test('unqualified legacy occupancy blocks activation rather than silently treating unit vacant',async()=>{
+ const f=fixture();f.rows.zp_tenancies=[{id:1,unitId:1,code:'LEGACY',leaseState:null}];
+ await f.service.execute('createDraftTenancy',draft(),10);
+ await assert.rejects(f.service.execute('activateTenancy',{tenancyId:2,expectedVersion:0,reason:'Activate'},10),/LEGACY_OCCUPANCY_UNQUALIFIED/);
+ assert.equal(f.rows.zp_domain_events.length,1);
+});
+test('ended historical occupancy prevents backdated overlapping activation',async()=>{
+ const f=fixture();await f.service.execute('createDraftTenancy',draft(),10);
+ await f.service.execute('activateTenancy',{tenancyId:1,expectedVersion:0,reason:'Activate'},10);
+ await f.service.execute('endTenancy',{tenancyId:1,expectedVersion:1,endDate:'2030-06-01',reason:'End'},10);
+ await f.service.execute('createDraftTenancy',{...draft(),code:'T-2'},10);
+ await assert.rejects(f.service.execute('activateTenancy',{tenancyId:2,expectedVersion:0,reason:'Backdate'},10),/OCCUPANCY_OVERLAP/);
+});
+test('foreign owner linkage and missing complete-set confirmation denied atomically',async()=>{
+ const f=fixture();await f.service.execute('createOwnershipSet',{propertyId:1,effectiveFrom:'2030-01-01',reason:'Draft'},10);
+ await assert.rejects(f.service.execute('setOwnershipInterests',{ownershipSetId:1,expectedVersion:0,interests:[{ownerContactId:3,shareBasisPoints:10000}],reason:'Foreign'},10),/OWNER_SCOPE/);
+ await assert.rejects(f.service.execute('approveOwnershipSet',{ownershipSetId:1,expectedVersion:0,reason:'Implicit'},10),/COMPLETE_SET_CONFIRMATION/);
+ assert.equal(f.rows.zp_property_interests,undefined);assert.equal(f.rows.zp_domain_events.length,1);
+});
+test('simultaneous overlapping ownership approvals have one winner',async()=>{
+ const f=fixture();
+ for(let i=1;i<=2;i++){
+  await f.service.execute('createOwnershipSet',{propertyId:1,effectiveFrom:'2030-01-01',reason:'Draft'},10);
+  await f.service.execute('setOwnershipInterests',{ownershipSetId:i,expectedVersion:0,interests:[{ownerContactId:1,shareBasisPoints:10000}],reason:'Complete'},10);
+ }
+ const results=await Promise.allSettled([1,2].map(ownershipSetId=>f.service.execute('approveOwnershipSet',{ownershipSetId,expectedVersion:1,completeSet:true,reason:'Approve'},10)));
+ assert.equal(results.filter(r=>r.status==='fulfilled').length,1);
+ assert.match(results.find(r=>r.status==='rejected').reason.message,/OWNERSHIP_OVERLAP/);
+ assert.equal(f.rows.zp_domain_events.length,5);
+});
+test('unsupported per-room leasing and over-limit monetary values fail closed',async()=>{
+ const f=fixture();f.rows.zp_properties[0].perRoomLeasing=true;
+ await assert.rejects(f.service.execute('createDraftTenancy',draft(),10),/PER_ROOM_UNSUPPORTED/);
+ const input=draft();input.term.rentMinor=2147483648;
+ assert.throws(()=>d.tenancyInput(input),/INVALID_INTEGER/);
+});
