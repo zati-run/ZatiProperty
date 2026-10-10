@@ -34,6 +34,32 @@ def canonical_resource(resource):
             'actions':action_clean(resource.get('actions',[]))}
 
 
+def page_binding(surface,desired,empty=False):
+    value=data(surface);page=value.get('pageRoute',{});tree=value.get('tree',{})
+    if page.get('schemaUid')!=desired['pageSchemaUid'] or tree.get('uid')!=desired['pageUid'] or tree.get('use')!='RootPageModel':raise RuntimeError('Page identity mismatch')
+    for key in ['title','icon','enableHeader']:
+        if page.get(key)!=desired.get(key) or tree.get('props',{}).get(key)!=desired.get(key):raise RuntimeError('Page presentation mismatch')
+    tabs=tree.get('subModels',{}).get('tabs',[]);children=page.get('children',[])
+    if len(tabs)!=1 or len(children)!=1:raise RuntimeError('Expected single native tab')
+    tab=tabs[0];route=tab.get('props',{}).get('route',{});grid=tab.get('subModels',{}).get('grid',{})
+    if tab.get('use')!='RootPageTabModel' or route.get('parentId')!=page.get('id') or route.get('schemaUid')!=tab.get('uid') or children[0].get('id')!=route.get('id') or grid.get('use')!='BlockGridModel' or grid.get('parentId')!=tab.get('uid'):raise RuntimeError('Page relation mismatch')
+    if route.get('title')!='Untitled' or route.get('hidden') is not True or route.get('type')!='tabs':raise RuntimeError('Unexpected default tab')
+    if empty and grid.get('subModels'):raise RuntimeError('Owned grid is not empty')
+    binding={'pageSchemaUid':desired['pageSchemaUid'],'pageUid':tree['uid'],'gridUid':grid.get('uid'),'menuRouteId':page.get('id'),'tabRouteId':route.get('id'),'tabUid':tab.get('uid')}
+    if not all(binding.values()):raise RuntimeError('Incomplete native binding')
+    return binding
+
+def atomic_receipt(path,value):
+    import tempfile
+    fd,temp=tempfile.mkstemp(prefix='.reconcile-',dir=path.parent)
+    try:
+        with os.fdopen(fd,'w') as f:json.dump(value,f,sort_keys=True);f.flush();os.fsync(f.fileno())
+        os.link(temp,path) # exclusive publication: never overwrite another observation
+        directory=os.open(path.parent,os.O_RDONLY)
+        try:os.fsync(directory)
+        finally:os.close(directory)
+    finally:os.unlink(temp)
+
 class Journal:
     def __init__(self,path):
         self.path=path;self.path.mkdir(mode=0o700,exist_ok=True);self.before={}
@@ -125,8 +151,39 @@ class Apply:
                 if self.snapshot(portal)!=self.baseline['roles'][portal]:raise RuntimeError('Portal changed')
             return after
         return self.journal.run('manager-domain-snippet',self.c,self.tool('loom_native_roles_update_'),{'filterByTk':ROLE,'requestBody':{'snippets':wanted}},verify)
-    def pages(self):
+    def reconcile_page(self,key):
+        if key not in ['portfolio','tenancies']:raise RuntimeError('Unknown owned page')
+        desired=json.loads((ROOT/f'generation/pages/{key}.json').read_text())
+        path=self.journal.path/('page-'+key+'.json')
+        original=json.loads(path.read_text())
+        expected={'requestBody':desired['page']}
+        if original.get('tool')!=self.tool('loom_native_flow_surfaces_create_page_') or original.get('arguments')!=expected or original.get('beforeHash')!=digest(self.baseline):raise RuntimeError('Pending intent ownership mismatch')
+        if original.get('state')!='pending-or-unknown':raise RuntimeError('Expected pending create intent')
+        if (self.journal.path/('compose-'+key+'.json')).exists():raise RuntimeError('Compose intent requires separate reconciliation')
+        surface=self.read('loom_native_flow_surfaces_get_',{'pageSchemaUid':desired['page']['pageSchemaUid']})
+        result={'binding':page_binding(surface,desired['page'],True),'surface':surface}
+        atomic_receipt(self.journal.path/('page-'+key+'-reconciled.json'),{'originalHash':digest(original),'beforeHash':digest(self.baseline),'arguments':expected,'after':result})
+        return result
+
+    def resume_created(self,key,desired):
+        path=self.journal.path/('page-'+key+'.json')
+        original=json.loads(path.read_text())
+        if original.get('tool')!=self.tool('loom_native_flow_surfaces_create_page_') or original.get('arguments')!={'requestBody':desired['page']} or original.get('beforeHash')!=digest(self.baseline):raise RuntimeError('Create journal mismatch')
+        observed=self.journal.path/('page-'+key+'-reconciled.json')
+        if observed.exists():
+            receipt=json.loads(observed.read_text())
+            if receipt.get('originalHash')!=digest(original) or receipt.get('beforeHash')!=digest(self.baseline) or receipt.get('arguments')!=original['arguments']:raise RuntimeError('Reconciliation receipt mismatch')
+        elif original.get('state')=='verified':receipt=original
+        else:raise RuntimeError('Pending create requires explicit read-only reconciliation')
+        surface=self.read('loom_native_flow_surfaces_get_',{'pageSchemaUid':desired['page']['pageSchemaUid']})
+        binding=page_binding(surface,desired['page'],True)
+        if binding!=receipt.get('after',{}).get('binding'):raise RuntimeError('Observed binding changed')
+        return {'binding':binding,'surface':surface}
+
+    def pages(self,resume=False):
         results={}
+        for key in ['portfolio','tenancies']:
+            if (self.journal.path/('compose-'+key+'.json')).exists():raise RuntimeError('Prior compose intent/result requires separate reconciliation')
         all_routes=data(self.read('loom_native_desktop_routes_list_accessible_',{'tree':True}))
         def schema_uids(value):
             if isinstance(value,dict):
@@ -136,13 +193,17 @@ class Apply:
         occupied=schema_uids(all_routes)
         for key in ['portfolio','tenancies']:
             desired=json.loads((ROOT/f'generation/pages/{key}.json').read_text())
-            if desired['page']['pageSchemaUid'] in occupied:raise RuntimeError('Unowned page collision; read state before retry')
-            def verify(response):
-                binding=data(response)
-                if not all(binding.get(k) for k in ['pageSchemaUid','gridUid','menuRouteId','tabRouteId']):raise RuntimeError('Unexpected page binding')
-                surface=self.read('loom_native_flow_surfaces_get_',{'pageSchemaUid':binding['pageSchemaUid']})
-                return {'binding':binding,'surface':surface}
-            created=self.journal.run('page-'+key,self.c,self.tool('loom_native_flow_surfaces_create_page_'),{'requestBody':desired['page']},verify)
+            pending=(self.journal.path/('page-'+key+'.json')).exists()
+            if (self.journal.path/('compose-'+key+'.json')).exists():raise RuntimeError('Prior compose intent/result requires separate reconciliation')
+            if pending:
+                if not resume:raise RuntimeError('Prior create requires explicit resume')
+                created=self.resume_created(key,desired)
+            else:
+                if desired['page']['pageSchemaUid'] in occupied:raise RuntimeError('Unowned page collision')
+                def verify(response):
+                    surface=self.read('loom_native_flow_surfaces_get_',{'pageSchemaUid':desired['page']['pageSchemaUid']})
+                    return {'binding':page_binding(surface,desired['page'],True),'surface':surface}
+                created=self.journal.run('page-'+key,self.c,self.tool('loom_native_flow_surfaces_create_page_'),{'requestBody':desired['page']},verify)
             binding=created['binding']
             before=data(self.read('loom_native_flow_surfaces_get_',{'uid':binding['gridUid']}))
             if before['tree'].get('subModels',{}).get('items'):raise RuntimeError('New target grid not empty')
@@ -214,6 +275,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--capture',action='store_true');p.add_argument('--baseline');p.add_argument('--checkpoint',required=True)
     p.add_argument('--phase',choices=['permissions','snippet','pages','cleanup','routes'])
+    p.add_argument('--reconcile-page',choices=['portfolio','tenancies']);p.add_argument('--resume-pages',action='store_true')
     p.add_argument('--qualified-manager-snippet');p.add_argument('--approved-page-digest')
     args=p.parse_args();client=Loom();runtime=Path(os.environ['ZP_RUNTIME_DIR'])
     manifest=json.loads((ROOT/'generation/roles/property-tenancy.json').read_text())
@@ -234,10 +296,14 @@ def main():
     baseline=json.loads(baseline_path.read_text())
     if digest(baseline)!=args.baseline or baseline['manifestDigest']!=digest(manifest):raise RuntimeError('Reviewed baseline digest required')
     api.baseline=baseline;api.journal.before=baseline;api.guard()
+    if args.reconcile_page:
+        if args.phase or args.resume_pages:raise RuntimeError('Reconciliation is read-only')
+        api.reconcile_page(args.reconcile_page);print(json.dumps({'reconciled':args.reconcile_page,'appAcceptance':False}));return
+    if args.resume_pages and args.phase!='pages':raise RuntimeError('Resume requires pages phase')
     if not args.phase:
         if (runtime/'property-ui-pages-result.json').exists(): print(json.dumps({'pageDigest':digest(api.owned_pages())}))
         _,missing=api.scopes();print(json.dumps({'newScopes':missing,'permissionWrites':1,'snippetWrites':1,'pageCreates':2,'pageComposes':2,'routeWrites':1,'cleanup':'native node inspection required before grants'}));return
-    result=api.permissions() if args.phase=='permissions' else api.snippet(args.qualified_manager_snippet) if args.phase=='snippet' else api.pages() if args.phase=='pages' else api.cleanup() if args.phase=='cleanup' else api.routes(args.approved_page_digest)
+    result=api.permissions() if args.phase=='permissions' else api.snippet(args.qualified_manager_snippet) if args.phase=='snippet' else api.pages(resume=args.resume_pages) if args.phase=='pages' else api.cleanup() if args.phase=='cleanup' else api.routes(args.approved_page_digest)
     print(json.dumps({'phase':args.phase,'returned':True,'appAcceptance':False}))
     # Full results stay private; source receipts must be sanitized after review.
     output=runtime/('property-ui-'+args.phase+'-result.json')
