@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "requiredDomainVersion": "0.1.4",
+  "requiredCompanionVersion": "0.1.8",
+  "forms": [
+    {
+      "key": "create-building",
+      "uid": "zp_create_building_form_v1",
+      "placement": "property.details-grid",
+      "config": {
+        "actionPackage": "@zati/plugin-property-tenancy",
+        "resource": "zpPropertyTenancy",
+        "action": "createBuilding",
+        "reconcileAction": "reconcileCommand",
+        "commandContract": "idempotent-terminal-v1",
+        "qualification": {
+          "reviewed": true,
+          "evidenceRef": "generation/proposals/hierarchy-task-forms.md"
+        },
+        "context": {
+          "collection": "zp_properties",
+          "recordPath": "popup.record"
+        },
+        "bindings": {
+          "propertyId": {
+            "recordField": "id"
+          }
+        },
+        "title": "Add a building to this property",
+        "submitLabel": "Save building",
+        "labels": {
+          "/name": "Building name",
+          "/reasonCode": "Reason for this change"
+        },
+        "readback": {
+          "collection": "zp_buildings",
+          "resultIdField": "id",
+          "fields": [
+            "id",
+            "name",
+            "propertyId"
+          ]
+        }
+      }
+    },
+    {
+      "key": "create-unit",
+      "uid": "zp_create_unit_form_v1",
+      "placement": "building.details-grid",
+      "config": {
+        "actionPackage": "@zati/plugin-property-tenancy",
+        "resource": "zpPropertyTenancy",
+        "action": "createUnit",
+        "reconcileAction": "reconcileCommand",
+        "commandContract": "idempotent-terminal-v1",
+        "qualification": {
+          "reviewed": true,
+          "evidenceRef": "generation/proposals/hierarchy-task-forms.md"
+        },
+        "context": {
+          "collection": "zp_buildings",
+          "recordPath": "popup.record"
+        },
+        "bindings": {
+          "propertyId": {
+            "recordField": "propertyId"
+          },
+          "buildingId": {
+            "recordField": "id"
+          }
+        },
+        "title": "Add a unit to this building",
+        "submitLabel": "Save unit",
+        "labels": {
+          "/name": "Unit reference",
+          "/reasonCode": "Reason for this change"
+        },
+        "readback": {
+          "collection": "zp_units",
+          "resultIdField": "id",
+          "fields": [
+            "id",
+            "name",
+            "propertyId",
+            "buildingId"
+          ]
+        }
+      }
+    }
+  ]
+}
