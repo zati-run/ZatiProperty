@@ -2,6 +2,11 @@ import sys,pathlib,unittest,copy
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 import schema_scoped_fixture as f
 class FixtureSafety(unittest.TestCase):
+ def test_account_intent_never_collides_with_private_credentials(self):
+  self.assertEqual(f.journal_path('/fixture','account').name,'create-account.json')
+  for step in ['role','permissions','bind','remove-member']:
+   self.assertEqual(f.journal_path('/fixture',step).name,step+'.json')
+
  def baseline(self):
   return {f.ACL_TABLES[0]:[{'id':1,'roleName':'manager','dataSourceKey':'main','name':'properties'}],f.ACL_TABLES[1]:[{'id':2,'rolesResourceId':1,'name':'view','fields':['id']}],f.ACL_TABLES[2]:[{'id':3,'scope':{'ownerId':'current'}}]}
  def test_native_inventory_envelope(self):

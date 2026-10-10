@@ -49,6 +49,8 @@ def verify_permissions(rows):
   expected=['id'] if resource['name']!='loomSchemaAuthoring' else []
   if any(a.get('fields')!=expected for a in actions):return False
  return True
+def journal_path(path,step):
+ return pathlib.Path(path)/('create-account.json' if step=='account' else step+'.json')
 def run(c,path,step):
  if checked_role(c).get('allowAll') is not True:raise RuntimeError('Root constructor required')
  path=pathlib.Path(path);path.mkdir(mode=0o700,parents=True,exist_ok=True)
@@ -112,7 +114,7 @@ def run(c,path,step):
    names=sorted(r['name'] for r in native_list(call(c,'users_roles_list',{'userId':uid,'pageSize':50})))
    if ROLE not in names or (step=='remove-member' and names!=[ROLE]):return False
   return True
- result=dispatch_once(c,tool(c,stem),args,path/(step+'.json'),{'existingRoles':current,'fixture':role_snapshot(api.snapshot(ROLE)) if matches else None,'account':existing_account,'acl':acl_rows(c),'userIds':sorted(u['id'] for u in users)},read_after,verify)
+ result=dispatch_once(c,tool(c,stem),args,journal_path(path,step),{'existingRoles':current,'fixture':role_snapshot(api.snapshot(ROLE)) if matches else None,'account':existing_account,'acl':acl_rows(c),'userIds':sorted(u['id'] for u in users)},read_after,verify)
  # Fresh application baseline is separately required after fixture completion.
  return {'verifiedStep':step,'nextRequiresFreshBaseline':True,'appAcceptance':False}
 if __name__=='__main__':
