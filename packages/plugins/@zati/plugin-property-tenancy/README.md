@@ -156,3 +156,7 @@ and failed fencing cannot authorize correction or automatic replay.
 Source tests cover rollback, same-key collision, duplicate and late rejection,
 concurrent committed winner, and fence failure. Native concurrent transaction
 behavior, error serialization and rendered correction remain qualification gates.
+
+## Read-only draft amendment preparation (0.1.4 candidate)
+
+GET draftTenancyProposal returns the manager-owned draft's current complete proposal revision, version and canonical proposal digest. It requires explicit read and updateDraftTenancy authority, denies unsupported scoped custom-action params, and never initializes audit heads or writes command/audit/outbox/business records. Its whitelist excludes internal child IDs and private fields. Only existing drafts are eligible; active/ended/legacy records fail closed. updateDraftTenancy remains the sole amendment writer. The typed Loom prefill and rendered journey are not yet implemented or accepted; see the E3 draft-amendment proposal. Existing party/owner account restrictions remain unchanged.

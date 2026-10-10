@@ -1,6 +1,6 @@
 {
   "name": "@zati/plugin-property-tenancy",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "displayName": "ZatiProperty protected property and tenancy actions",
   "description": "Transactional tenancy occupancy, ownership approval, immutable revisions and audit/outbox. Source candidate; runtime qualification required.",
   "main": "dist/server/index.js",

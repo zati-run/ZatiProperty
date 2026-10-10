@@ -18,7 +18,7 @@ function deliver(row) {
  error.terminalProof={outcome:'rejected',requestId:row.requestId,requestDigest:row.requestDigest};
  throw error;
 }
-const ACTIONS=['createDraftTenancy','updateDraftTenancy','activateTenancy','endTenancy','createOwnershipSet','setOwnershipInterests','approveOwnershipSet','auditHealth','createProperty','createBuilding','createUnit','createOwnerContact','authorizeTenantAccount','reconcileCommand'];
+const ACTIONS=['createDraftTenancy','updateDraftTenancy','activateTenancy','endTenancy','createOwnershipSet','setOwnershipInterests','approveOwnershipSet','auditHealth','createProperty','createBuilding','createUnit','createOwnerContact','authorizeTenantAccount','reconcileCommand','draftTenancyProposal'];
 const ZERO='0'.repeat(64);
 function commandKey(actor,action,requestId) {
   if(typeof requestId!=='string'||! /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(requestId))d.deny('INVALID_REQUEST_ID');
@@ -30,9 +30,29 @@ class Service {
     if(!ACTIONS.includes(action))d.deny('UNKNOWN_ACTION');
     actor=d.id(actor);
     if(action==='authorizeTenantAccount'&&!authority.constructor)d.deny('CONSTRUCTOR_REQUIRED');
+    if(action==='draftTenancyProposal'){
+      d.keys(input,['tenancyId']);
+      return this.store.transaction(async tx=>{
+        const row=await tx.get('zp_tenancies',d.id(input.tenancyId));
+        if(!row)d.deny('NOT_FOUND');
+        await this.unit(tx,row.unitId,actor);
+        if(row.leaseState!=='draft'||row.version==null||!row.draftRevision)d.deny('NOT_DRAFT');
+        d.integer(row.version,0,2147483647);d.integer(row.draftRevision,1,2147483647);
+        const terms=await tx.list('zp_tenancy_terms',{tenancyId:row.id,revision:row.draftRevision},2);
+        const parties=await tx.list('zp_tenancy_parties',{tenancyId:row.id,revision:row.draftRevision},21);
+        if(terms.length!==1)d.deny('INVALID_TERMS');
+        const pick=(v,keys)=>Object.fromEntries(keys.filter(k=>v[k]!==undefined).map(k=>[k,v[k]]));
+        const values={startDate:row.startDate,endDate:row.endDate||null,
+          term:pick(terms[0],['effectiveFrom','effectiveTo','currency','rentMinor','depositMinor','rentFrequency','dueDay','prorationPolicy']),
+          parties:parties.map(p=>pick(p,['displayName','userId','partyRole','effectiveFrom','effectiveTo']))};
+        d.tenancyInput(values);
+        const envelope={proposalVersion:1,tenancyId:String(row.id),expectedVersion:row.version,revision:row.draftRevision,values};
+        return {...envelope,proposalDigest:d.hash(d.canonical(envelope))};
+      });
+    }
     if(action==='reconcileCommand'){
       d.keys(input,['action','requestId']);
-      if(!ACTIONS.includes(input.action)||['auditHealth','reconcileCommand'].includes(input.action))d.deny('UNKNOWN_ACTION');
+      if(!ACTIONS.includes(input.action)||['auditHealth','reconcileCommand','draftTenancyProposal'].includes(input.action))d.deny('UNKNOWN_ACTION');
       const found=await this.store.lookupCommand(commandKey(actor,input.action,input.requestId));
       if(found.length>1)d.deny('COMMAND_CORRUPT');
       if(!found.length)return {status:'not_observed',requestId:input.requestId,retryAuthorized:false};

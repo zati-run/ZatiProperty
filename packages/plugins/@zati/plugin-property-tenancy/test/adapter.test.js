@@ -15,11 +15,11 @@ async function load(can=()=>true,ServiceOverride=null) {
 test('native resource defines only fixed typed actions and explicit ACL snippet',async()=>{
  const {resource,snippet}=await load();
  assert.equal(resource.name,'zpPropertyTenancy');
- assert.equal(resource.only.length,14);assert.equal(Object.keys(resource.actions).length,14);
+ assert.equal(resource.only.length,15);assert.equal(Object.keys(resource.actions).length,15);
  assert.equal(snippet.actions.length,2);assert.deepEqual(Array.from(snippet.actions),['zpPropertyTenancy:authorizeTenantAccount','zpPropertyTenancy:reconcileCommand']);
  const spec=require('../dist/swagger/index.json');
  for(const name of resource.only) {
-   if(name==='reconcileCommand'){assert.ok(spec.paths['/zpPropertyTenancy:'+name].get);continue;}
+   if(['reconcileCommand','draftTenancyProposal'].includes(name)){assert.ok(spec.paths['/zpPropertyTenancy:'+name].get);continue;}
    const body=spec.paths['/zpPropertyTenancy:'+name].post.requestBody;
    assert.equal(body.required,true);
    assert.equal(body.content['application/json'].schema.additionalProperties,false);
@@ -93,4 +93,21 @@ test('restricted native authoring authority cannot authorize accounts',async()=>
 test('constructor authoring capability still requires explicit action ACL',async()=>{
  const p=await constructorProbe('constructor',({resource})=>resource==='flowSurfaces'?{params:{}}:false);
  await assert.rejects(p.invoke(),e=>e.status===403&&e.message==='DOMAIN_ACTION_DENIED');assert.equal(p.calls.length,0);
+});
+
+test('draft prefill read requires original amendment ACL and native GET query ignores empty values',async()=>{
+ const seen=[];class Capture {async execute(action,input,actor){seen.push({action,input,actor});return {proposalVersion:1};}}
+ const denied=await load(({action})=>action==='draftTenancyProposal',Capture);
+ const ctx={state:{currentUser:{id:10},currentRoles:['manager']},action:{params:{tenancyId:'3',values:{}}},throw(status,message){const e=Error(message);e.status=status;throw e;}};
+ await assert.rejects(denied.resource.actions.draftTenancyProposal(ctx,async()=>{}),e=>e.status===403);assert.equal(seen.length,0);
+ const allowed=await load(()=>({params:{}}),Capture);
+ await allowed.resource.actions.draftTenancyProposal(ctx,async()=>{});
+ assert.equal(seen.length,1);assert.equal(seen[0].input.tenancyId,'3');assert.equal(Object.keys(seen[0].input).length,1);assert.equal(ctx.body.data.proposalVersion,1);
+});
+
+test('scoped custom-action permission cannot be treated as unrestricted draft prefill access',async()=>{
+ class Never {async execute(){throw Error('Must not dispatch');}}
+ const {resource}=await load(()=>({params:{filter:{tenancyId:1}}}),Never);
+ const ctx={state:{currentUser:{id:10},currentRoles:['manager']},action:{params:{tenancyId:3,values:{}}},throw(status,message){const e=Error(message);e.status=status;throw e;}};
+ await assert.rejects(resource.actions.draftTenancyProposal(ctx,async()=>{}),e=>e.status===403);
 });

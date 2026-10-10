@@ -59,6 +59,10 @@ class PropertyTenancyPlugin extends Plugin {
         const acl=ctx.acl||this.app.acl;
         if(!actor||!Array.isArray(roles)||roles.length!==1||typeof roles[0]!=='string'||!acl.can({roles,resource:'zpPropertyTenancy',action}))ctx.throw(403,'DOMAIN_ACTION_DENIED');
         if(action==='reconcileCommand'&&!acl.can({roles,resource:'zpPropertyTenancy',action:ctx.action.params.commandAction}))ctx.throw(403,'DOMAIN_ACTION_DENIED');
+        if(action==='draftTenancyProposal')for(const required of ['draftTenancyProposal','updateDraftTenancy']) {
+          const permission=acl.can({roles,resource:'zpPropertyTenancy',action:required});
+          if(!permission||(permission.params&&Object.keys(permission.params).length))ctx.throw(403,'DOMAIN_ACTION_DENIED');
+        }
         try {
           let constructor=false;
           if(action==='authorizeTenantAccount') {
@@ -67,7 +71,7 @@ class PropertyTenancyPlugin extends Plugin {
             const authoring=acl.can({roles,resource:'flowSurfaces',action:'updateSettings'});
             constructor=!!authoring&&(!authoring.params||Object.keys(authoring.params).length===0);
           }
-          const values=action==='reconcileCommand'?{action:ctx.action.params.commandAction,requestId:ctx.action.params.requestId}:ctx.action.params.values||{};
+          const values=action==='draftTenancyProposal'?{tenancyId:ctx.action.params.tenancyId}:action==='reconcileCommand'?{action:ctx.action.params.commandAction,requestId:ctx.action.params.requestId}:ctx.action.params.values||{};
           ctx.body={data:await service.execute(action,values,actor,{constructor})};
         } catch(error) {
           // Only bounded domain codes; never echo SQL, values, credentials or PII.
