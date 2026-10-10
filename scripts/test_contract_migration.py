@@ -26,10 +26,14 @@ class Tests(unittest.TestCase):
    after=m.observe(None,'form1')
   self.assertEqual(after,{'form':form,'contractHistory':[{'proof':1}]})
  def test_surface_identity_or_config_mismatch_denied(self):
-  form={'config':{'x':1}}
+  form={'uid':'form1','type':'LoomActionFormModel','config':{'x':1}}
   for tree in [{'uid':'other'},{'uid':'form1','stepParams':{'loomActionForm':{'owner':'@loom/plugin-action-form','config':{'x':2}}}}]:
    with patch.object(m,'read',return_value=form),patch.object(m.Forms,'read',return_value={'tree':tree}):
     with self.assertRaises(RuntimeError):m.observe(None,'form1')
+ def test_wrong_form_identity_denied(self):
+  for form in [{'uid':'other','type':'LoomActionFormModel'},{'uid':'form1','type':'BlockGridModel'}]:
+   with patch.object(m,'read',return_value=form):
+    with self.assertRaisesRegex(RuntimeError,'form identity'):m.observe(None,'form1')
  def test_history_requires_exact_pin_pair(self):
   config={key:key for key in m.PINS};args={'config':config,'expectedConfigDigest':'a'*64,'expectedOldPins':{'old':1},'compatibilityProof':{'reviewDigest':'b'*64,'reason':'reviewed'}}
   entry={'configDigest':'a'*64,'oldPins':{'old':1},'newPins':config,'reviewDigest':'b'*64,'reason':'reviewed'}

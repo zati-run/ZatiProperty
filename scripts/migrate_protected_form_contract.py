@@ -21,6 +21,7 @@ def candidate(client,uid,review_digest):
  return {'before':before,'arguments':args,'oldIntentPolicy':'reconcile-only; old prepare and submit remain fenced'}
 def observe(client,uid):
  form=read(client,uid)
+ if form.get('uid')!=uid or form.get('type')!='LoomActionFormModel':raise RuntimeError('Native form identity unavailable')
  tree=Forms(client).read('flow_surfaces_get',{'uid':uid}).get('tree')
  if not isinstance(tree,dict) or tree.get('uid')!=uid:raise RuntimeError('Native model tree identity unavailable')
  settings=tree.get('stepParams',{}).get('loomActionForm',{})
