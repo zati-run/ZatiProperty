@@ -76,7 +76,7 @@ async function constructorProbe(role,can) {
 }
 test('stored role allowAll null does not block effective unrestricted constructor',async()=>{
  const p=await constructorProbe('custom-constructor',({resource})=>resource==='flowSurfaces'?{params:{}}:true);
- await p.invoke();assert.equal(p.ctx.body.data.ok,true);assert.equal(p.calls[0].authority.constructor,true);
+ await p.invoke();assert.equal(p.ctx.body.ok,true);assert.equal(p.calls[0].authority.constructor,true);
 });
 test('named root without native authoring authority is denied',async()=>{
  const p=await constructorProbe('root',({resource})=>resource==='zpPropertyTenancy');
@@ -102,7 +102,7 @@ test('draft prefill read requires original amendment ACL and native GET query ig
  await assert.rejects(denied.resource.actions.draftTenancyProposal(ctx,async()=>{}),e=>e.status===403);assert.equal(seen.length,0);
  const allowed=await load(()=>({params:{}}),Capture);
  await allowed.resource.actions.draftTenancyProposal(ctx,async()=>{});
- assert.equal(seen.length,1);assert.equal(seen[0].input.tenancyId,'3');assert.equal(Object.keys(seen[0].input).length,1);assert.equal(ctx.body.data.proposalVersion,1);
+ assert.equal(seen.length,1);assert.equal(seen[0].input.tenancyId,'3');assert.equal(Object.keys(seen[0].input).length,1);assert.equal(ctx.body.proposalVersion,1);
 });
 
 test('scoped custom-action permission cannot be treated as unrestricted draft prefill access',async()=>{
@@ -124,6 +124,28 @@ test('native transaction adapter missing rows and models retain typed domain fai
   const {resource}=await load(()=>true,Capture,{getModel,sequelize:{transaction:async fn=>fn({LOCK:{UPDATE:'UPDATE'}})}});
   const ctx={state:{currentUser:{id:10},currentRoles:['manager']},action:{params:{values:{}}},throw(status,message){throw Error(status+':'+message);}};
   await resource.actions.updateDraftTenancy(ctx,async()=>{});
-  assert.equal(ctx.body.data.verified,expected);
+  assert.equal(ctx.body.verified,expected);
+ }
+});
+
+test('pinned native middleware wraps every domain result exactly once',{skip:!process.env.ZP_NATIVE_DATA_WRAPPING},async()=>{
+ const filename=process.env.ZP_NATIVE_DATA_WRAPPING;
+ const source=fs.readFileSync(filename);
+ assert.equal(require('node:crypto').createHash('sha256').update(source).digest('hex'),'1387f3c0884b40d154544824e3cf3d6d255f98e75f0641a7d31103a8effa4cd7');
+ const {dataWrapping}=require(filename);
+ const results=[
+  ['createProperty',{id:5,propertyId:5,state:'created',version:0}],
+  ['reconcileCommand',{receiptVersion:1,actorId:'2',commandAction:'createProperty',status:'committed',outcome:'committed',requestId:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',requestDigest:'a'.repeat(64),result:{id:5}}],
+  ['reconcileCommand',{receiptVersion:1,actorId:'2',commandAction:'createProperty',status:'rejected',outcome:'rejected',requestId:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',requestDigest:'a'.repeat(64),code:'INVALID_TEXT',message:'Invalid text'}],
+  ['reconcileCommand',{status:'not_observed',requestId:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',retryAuthorized:false}],
+  ['draftTenancyProposal',{proposalVersion:1,tenancyId:'4',expectedVersion:0,revision:1,values:{},proposalDigest:'a'.repeat(64)}],
+  ['auditHealth',{verified:true,sequence:0}]
+ ];
+ for(const [action,result] of results){
+  const {resource}=await load(()=>true,class {async execute(){return result;}});
+  const ctx={state:{currentUser:{id:2},currentRole:'manager'},acl:{can:()=>true},action:{actionName:action,params:{values:{},tenancyId:'4',commandAction:'createProperty',requestId:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'}},throw(status,message){throw new Error(status+':'+message);}};
+  await dataWrapping()(ctx,()=>resource.actions[action](ctx,async()=>{}));
+  assert.deepEqual(ctx.body,{data:result});
+  assert.deepEqual(ctx.body.data,result);
  }
 });

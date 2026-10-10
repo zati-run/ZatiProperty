@@ -73,7 +73,7 @@ class PropertyTenancyPlugin extends Plugin {
             constructor=!!authoring&&(!authoring.params||Object.keys(authoring.params).length===0);
           }
           const values=action==='draftTenancyProposal'?{tenancyId:ctx.action.params.tenancyId}:action==='reconcileCommand'?{action:ctx.action.params.commandAction,requestId:ctx.action.params.requestId}:ctx.action.params.values||{};
-          ctx.body={data:await service.execute(action,values,actor,{constructor})};
+          ctx.body=await service.execute(action,values,actor,{constructor});
         } catch(error) {
           // Only bounded domain codes; never echo SQL, values, credentials or PII.
           const failure=safeFailure(error);
