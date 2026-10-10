@@ -1179,56 +1179,65 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "additionalProperties": false,
                   "properties": {
-                    "receiptVersion": {
-                      "type": "integer",
-                      "enum": [
-                        1
-                      ]
-                    },
-                    "actorId": {
-                      "type": "string"
-                    },
-                    "commandAction": {
-                      "type": "string"
-                    },
-                    "requestId": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "requestDigest": {
-                      "type": "string",
-                      "pattern": "^[a-f0-9]{64}$"
-                    },
-                    "status": {
-                      "type": "string",
-                      "enum": [
-                        "committed",
-                        "rejected",
-                        "not_observed"
-                      ]
-                    },
-                    "outcome": {
-                      "type": "string",
-                      "enum": [
-                        "committed",
-                        "rejected"
-                      ]
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "result": {
-                      "type": "object"
-                    },
-                    "retryAuthorized": {
-                      "type": "boolean",
-                      "enum": [
-                        false
-                      ]
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "receiptVersion": {
+                          "type": "integer",
+                          "enum": [
+                            1
+                          ]
+                        },
+                        "actorId": {
+                          "type": "string"
+                        },
+                        "commandAction": {
+                          "type": "string"
+                        },
+                        "requestId": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "requestDigest": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "committed",
+                            "rejected",
+                            "not_observed"
+                          ]
+                        },
+                        "outcome": {
+                          "type": "string",
+                          "enum": [
+                            "committed",
+                            "rejected"
+                          ]
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        },
+                        "result": {
+                          "type": "object"
+                        },
+                        "retryAuthorized": {
+                          "type": "boolean",
+                          "enum": [
+                            false
+                          ]
+                        }
+                      }
                     }
                   }
                 }

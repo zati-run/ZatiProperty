@@ -149,3 +149,30 @@ test('pinned native middleware wraps every domain result exactly once',{skip:!pr
   assert.deepEqual(ctx.body.data,result);
  }
 });
+
+test('reconciliation Swagger declares one native transport envelope',()=>{
+ const spec=require('../dist/swagger/index.json');
+ const response=spec.paths['/zpPropertyTenancy:reconcileCommand'].get.responses['200'].content['application/json'].schema;
+ assert.deepEqual(response.required,['data']);
+ assert.deepEqual(Object.keys(response.properties),['data']);
+ assert.equal(response.properties.data.type,'object');
+ assert.ok(response.properties.data.properties.requestId);
+});
+test('actual action-form dispatcher consumes single native envelopes',{skip:!process.env.ZP_NATIVE_DATA_WRAPPING||!process.env.ZP_ACTION_FORM_SERVER},async()=>{
+ const filename=process.env.ZP_ACTION_FORM_SERVER, nativeRequire=require('node:module').createRequire(filename),mod={exports:{}};
+ const sandbox={module:mod,exports:mod.exports,Buffer,setTimeout,clearTimeout,require:name=>name==='@nocobase/server'?{Plugin:class {}}:nativeRequire(name)};
+ vm.runInNewContext(fs.readFileSync(filename,'utf8'),sandbox,{filename});
+ const {dataWrapping}=require(process.env.ZP_NATIVE_DATA_WRAPPING);
+ const nativeCtx={state:{currentUser:{id:2},currentRoles:['manager']},get:()=> 'Bearer synthetic'};
+ const app={resourcer:{options:{}},callback:()=>()=>{}};
+ const requestId='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
+ for(const result of [{id:5,propertyId:5,state:'created',version:0},{receiptVersion:1,actorId:'2',commandAction:'createProperty',status:'committed',outcome:'committed',requestId,requestDigest:'a'.repeat(64),result:{id:5}}]){
+  const terminal=Object.hasOwn(result,'receiptVersion');
+  const {resource}=await load(()=>true,class {async execute(){return result;}});
+  const ctx={state:{currentUser:{id:2},currentRole:'manager'},acl:{can:()=>true},action:{actionName:terminal?'reconcileCommand':'createProperty',params:{values:{},commandAction:'createProperty',requestId}},throw(status,message){throw new Error(status+':'+message);}};
+  await dataWrapping()(ctx,()=>resource.actions[ctx.action.actionName](ctx,async()=>{}));
+  const dispatch=mod.exports.nativeDispatch(app,async()=>({statusCode:200,payload:JSON.stringify(ctx.body)}));
+  const actual=await dispatch(nativeCtx,{method:terminal?'GET':'POST',resource:'zpPropertyTenancy',action:ctx.action.actionName,...(terminal?{responseContract:'idempotent-terminal-v1',query:{commandAction:'createProperty',requestId}}:{})});
+  assert.deepEqual(JSON.parse(JSON.stringify(actual)),result);
+ }
+});
