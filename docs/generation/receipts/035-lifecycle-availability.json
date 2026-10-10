@@ -1,0 +1,257 @@
+{
+  "verifiedAt": "2026-10-10T16:12:54.107637+00:00",
+  "environment": "synthetic NocoBase Community Edition 2.2.21",
+  "companionVersion": "0.2.0",
+  "source": "df85af18fcd270303d74563d25df4f4822cb7978",
+  "forms": [
+    {
+      "key": "activate-tenancy",
+      "uid": "zp_tenancy_activate_form_v1",
+      "attached": true,
+      "nodeHash": "d89c15f2df62061194bd811e56aaf821d6b519a816a7d46e0bfccb1fd9d3a7d8",
+      "changedConfigKeys": [
+        "availableWhen"
+      ],
+      "availableWhen": {
+        "message": "Only draft tenancies can be activated.",
+        "recordField": "leaseState",
+        "values": [
+          "draft"
+        ]
+      },
+      "domainVersion": "0.1.4",
+      "nativeMatch": true,
+      "oneShotAuthoringJournalPreserved": true
+    },
+    {
+      "key": "end-tenancy",
+      "uid": "zp_tenancy_end_form_v1",
+      "attached": true,
+      "nodeHash": "5368a0f68819d65ade74abe50a1bdf43d3807c2f5962ad83656c3150567b8d21",
+      "changedConfigKeys": [
+        "availableWhen"
+      ],
+      "availableWhen": {
+        "message": "Only active tenancies can be ended.",
+        "recordField": "leaseState",
+        "values": [
+          "active"
+        ]
+      },
+      "domainVersion": "0.1.4",
+      "nativeMatch": true,
+      "oneShotAuthoringJournalPreserved": true
+    },
+    {
+      "key": "amend-draft-tenancy",
+      "uid": "zp_tenancy_amend_draft_command",
+      "attached": true,
+      "nodeHash": "4710bcb1c0f1a89335a1c20681ad51d5530d2d87673bb819c4d281f5760eb249",
+      "changedConfigKeys": [
+        "availableWhen"
+      ],
+      "availableWhen": {
+        "message": "Only draft tenancies can be amended.",
+        "recordField": "leaseState",
+        "values": [
+          "draft"
+        ]
+      },
+      "domainVersion": "0.1.4",
+      "nativeMatch": true,
+      "oneShotAuthoringJournalPreserved": true
+    }
+  ],
+  "browser": {
+    "desktopLifecycle": {
+      "domainWrites": 0,
+      "pageErrors": [],
+      "resolve": [
+        {
+          "uid": "zp_tenancy_activate_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only draft tenancies can be activated."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_end_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only active tenancies can be ended."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_end_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only active tenancies can be ended."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_activate_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only draft tenancies can be activated."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_activate_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": true,
+            "message": "Only draft tenancies can be activated."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_end_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only active tenancies can be ended."
+          },
+          "status": 200
+        }
+      ],
+      "endedActionsUnavailable": true,
+      "refreshReopenedManually": false,
+      "endedRefreshPersisted": true,
+      "draftActivateAvailableEndUnavailable": true,
+      "horizontalOverflow": false,
+      "notifications": []
+    },
+    "desktopAmendment": {
+      "domainWrites": 0,
+      "pageErrors": [],
+      "resolve": [
+        {
+          "uid": "zp_tenancy_amend_draft_command",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only draft tenancies can be amended."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_amend_draft_command",
+          "contextAvailable": true,
+          "availability": {
+            "available": true,
+            "message": "Only draft tenancies can be amended."
+          },
+          "status": 200
+        }
+      ],
+      "endedAmendUnavailable": true,
+      "draftAmendAvailable": true,
+      "dirtyRefreshCancelPreservesEdit": true,
+      "horizontalOverflow": false,
+      "notifications": []
+    },
+    "narrowLifecycle": {
+      "domainWrites": 0,
+      "pageErrors": [],
+      "resolve": [
+        {
+          "uid": "zp_tenancy_end_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only active tenancies can be ended."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_activate_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only draft tenancies can be activated."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_activate_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only draft tenancies can be activated."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_end_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only active tenancies can be ended."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_activate_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": true,
+            "message": "Only draft tenancies can be activated."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_end_form_v1",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only active tenancies can be ended."
+          },
+          "status": 200
+        }
+      ],
+      "endedActionsUnavailable": true,
+      "refreshReopenedManually": false,
+      "endedRefreshPersisted": true,
+      "draftActivateAvailableEndUnavailable": true,
+      "horizontalOverflow": false,
+      "notifications": []
+    },
+    "narrowAmendment": {
+      "domainWrites": 0,
+      "pageErrors": [],
+      "resolve": [
+        {
+          "uid": "zp_tenancy_amend_draft_command",
+          "contextAvailable": true,
+          "availability": {
+            "available": false,
+            "message": "Only draft tenancies can be amended."
+          },
+          "status": 200
+        },
+        {
+          "uid": "zp_tenancy_amend_draft_command",
+          "contextAvailable": true,
+          "availability": {
+            "available": true,
+            "message": "Only draft tenancies can be amended."
+          },
+          "status": 200
+        }
+      ],
+      "endedAmendUnavailable": true,
+      "draftAmendAvailable": true,
+      "dirtyRefreshCancelPreservesEdit": true,
+      "horizontalOverflow": false,
+      "notifications": []
+    }
+  }
+}
