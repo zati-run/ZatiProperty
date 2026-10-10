@@ -111,3 +111,15 @@ All review, merge and landed tasks remain. Merge acceptance now explicitly requi
   "verifierDigest": "sha256:51c4345938f48b95e6e01d279f04456621e4ea616199b251070a07825f16eeb1"
 }
 ```
+
+## Bounded maintenance landing update — 2026-10-10T10:07:32.909926+00:00
+
+E1/E2 tasks are checked only for the independently reviewed synthetic maintenance slice: desktop/narrow context, eligible assignment, save/reload, native persistence, permission negatives and sampled desktop error/empty recovery. Coordinator reports clean local integration of app c8ab743ec590b8e0acbecbf56c5bcb1e825d39cf and Loom ec4b6408d4376e5a3cf881dd2ffb28342140e1e7; no publication. E3–E9 and broad RFC groups remain planned. This status follow-up awaits independent review before integration.
+
+Pinned DGX command: python3 <pinned-plan-skill>/scripts/validate_plan.py docs/plan.md --wazi-dir <qualified-wazi> --wazi <qualified-wazi-binary> --validator <qualified-wazi-contract> --plan-id zatiproperty:implementation --authority-id zatiproperty:repository --revision implementation-r5. Initial invocation outside a Git directory failed before validation; rerun from the app worktree passed.
+
+Result:54tasks; schemaValid=true, semanticValid=true, readerCompatible=true, valid=true, authorityAuthenticated=false. Source digest cde399e250871f8a76abd2230673ac3529788f7179b5e57a2e22e6475abd9e50; contract digest7582512f122d2f2a9c4461facc7541c9887053f137260d6ebe9c6dea611d039d; reader digest0b1292cbe93af31531647f3e2ae28c37f12decbe89023192729e010d6d7e6d67. Local conformance only, not additional runtime acceptance.
+
+## Reviewed consistency correction — implementation-r6
+
+Removed resolved T2.1/T2.2 blocker annotations, corrected authored revision and T1.0 session date, and explicitly labeled retained checkpoints historical/superseded. Repeated the pinned command above with revision implementation-r6 from the app worktree:54tasks, schema/semantic/reader all true, valid=true, authorityAuthenticated=false. Exact source digest8cc181a7877b32e0171ebf3a65f5902acd6dfdcd2163bd046be35ca74357dda3; contract and reader digests unchanged. The r5 result remains historical, not current-byte conformance.

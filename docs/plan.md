@@ -1,9 +1,9 @@
 # ZatiProperty implementation delivery plan
 
-Status: implementation plan; pinned Wazi conformance required on these exact bytes before dispatch. No task below claims live acceptance.
+Status: implementation in progress. E1/E2 record bounded synthetic maintenance acceptance and independently reviewed local integration; remaining RFC delivery tasks remain planned. Pinned Wazi conformance must match these exact bytes.
 Plan ID: zatiproperty:implementation
 Authority ID: zatiproperty:repository
-Authored revision: implementation-r4
+Authored revision: implementation-r6
 
 ## Scope and authority
 
@@ -23,23 +23,23 @@ Each epic is one coherent reviewable local integration batch; reusable Loom chan
 fidelity: executable
 Acceptance: RFC sections 1, 2, 3, 4; the pinned target, licenses, packages, role, complete MCP catalog and bounded authoring operations are recorded and uncertain writes reconcile by readback.
 
-- [x] T1.0 Qualify authorized DGX capacity, isolated installation scope and bounded Loom bootstrap repair  Owner: coordinator  Est: bounded by qualification  kind: agent stage: preflight  verifies: [E1]  acc: [development provisioning scope, isolated storage, resource capacity, ownership, bootstrap boundary and initial missing Loom capability are recorded]  completed: 2026 10 11  evidence: docs/generation/receipts/001-runtime.md, docs/generation/receipts/002-loom-independent-review.md
-- [ ] T1.1 Qualify the authorized development installation, CE package licenses, actor role, exact tool schemas and app-authoring authority; repair missing Loom capabilities as reusable MCP product work  Owner: implementation  Est: bounded by qualification  kind: agent stage: implement  verifies: [E1]  blocked-by: [T1.0]  acc: [the pinned target, licenses, packages, role, complete MCP catalog and bounded authoring operations are recorded and uncertain writes reconcile by readback]
-- [ ] T1.2 Verify E1 changed behavior  Owner: verification  Est: bounded by qualification  kind: agent stage: verify  verifies: [E1]  blocked-by: [T1.1]  acc: [E1 scoped source checks and applicable live readback, persistence, role allow/deny, workflow and rendered browser acceptance pass with sanitized receipts]
-- [ ] T1.3 Independently review E1 exact candidate  Owner: independent-reviewer  Est: bounded by qualification  kind: agent stage: review  verifies: [E1]  blocked-by: [T1.2]  acc: [independent reviewer identity, base/head revisions and domain review where required are recorded with no unresolved accepted blockers]
-- [ ] T1.4 Locally integrate E1 reviewed candidate  Owner: coordinator  Est: bounded by qualification  kind: agent stage: merge  verifies: [E1]  blocked-by: [T1.3]  acc: [exact independently approved candidate passes required checks and local repository integration records the authorized target and landed commit without external publication]
-- [ ] T1.5 Verify E1 landed source and app state  Owner: verification  Est: bounded by qualification  kind: agent stage: verify-landed  verifies: [E1]  blocked-by: [T1.4]  acc: [landed revision and generated-state bindings match reviewed scope and affected acceptance passes with explicit unverified gates]
+- [x] T1.0 Qualify authorized DGX capacity, isolated installation scope and bounded Loom bootstrap repair  Owner: coordinator  Est: bounded by qualification  kind: agent stage: preflight  verifies: [E1]  acc: [development provisioning scope, isolated storage, resource capacity, ownership, bootstrap boundary and initial missing Loom capability are recorded]  completed: 2026 10 10  evidence: docs/generation/receipts/001-runtime.md, docs/generation/receipts/002-loom-independent-review.md
+- [x] T1.1 Qualify the authorized development installation, CE package licenses, actor role, exact tool schemas and app-authoring authority; repair missing Loom capabilities as reusable MCP product work  Owner: implementation  Est: bounded by qualification  kind: agent stage: implement  verifies: [E1]  blocked-by: [T1.0]  acc: [the pinned target, licenses, packages, role, complete MCP catalog and bounded authoring operations are recorded and uncertain writes reconcile by readback]
+- [x] T1.2 Verify E1 changed behavior  Owner: verification  Est: bounded by qualification  kind: agent stage: verify  verifies: [E1]  blocked-by: [T1.1]  acc: [E1 scoped source checks and applicable live readback, persistence, role allow/deny, workflow and rendered browser acceptance pass with sanitized receipts]
+- [x] T1.3 Independently review E1 exact candidate  Owner: independent-reviewer  Est: bounded by qualification  kind: agent stage: review  verifies: [E1]  blocked-by: [T1.2]  acc: [independent reviewer identity, base/head revisions and domain review where required are recorded with no unresolved accepted blockers]
+- [x] T1.4 Locally integrate E1 reviewed candidate  Owner: coordinator  Est: bounded by qualification  kind: agent stage: merge  verifies: [E1]  blocked-by: [T1.3]  acc: [exact independently approved candidate passes required checks and local repository integration records the authorized target and landed commit without external publication]
+- [x] T1.5 Verify E1 landed source and app state  Owner: verification  Est: bounded by qualification  kind: agent stage: verify-landed  verifies: [E1]  blocked-by: [T1.4]  acc: [landed revision and generated-state bindings match reviewed scope and affected acceptance passes with explicit unverified gates]
 
 ### E2 -- Maintenance representative journey
 fidelity: executable
 Acceptance: RFC sections 8.1, 8.2, 8.4, 11, 13; a manager opens a synthetic request, sees correct property and tenancy context, assigns only a permitted vendor and observes persisted status after reload.
 
-- [ ] T2.0 Qualify E2 prerequisites and capability mapping  Owner: coordinator  Est: bounded by qualification  kind: agent stage: preflight  verifies: [E2]  blocked-by: [T1.5]  acc: [RFC coverage, native capability mapping, ownership and safe synthetic batch scope are recorded]
-- [ ] T2.1 Generate minimal property, unit, tenancy and vendor context with manager maintenance queue and assignment flow  Owner: implementation  Est: bounded by qualification  kind: agent stage: implement  verifies: [E2]  blocked-by: [T2.0]  acc: [a manager opens a synthetic request, sees correct property and tenancy context, assigns only a permitted vendor and observes persisted status after reload]  blocked: Final rendered context, eligible vendor chooser and complete representative-journey acceptance remain pending
-- [ ] T2.2 Verify E2 changed behavior  Owner: verification  Est: bounded by qualification  kind: agent stage: verify  verifies: [E2]  blocked-by: [T2.1]  acc: [E2 scoped source checks and applicable live readback, persistence, role allow/deny, workflow and rendered browser acceptance pass with sanitized receipts]  blocked: Representative journey final rendered and interaction review remains pending
-- [ ] T2.3 Independently review E2 exact candidate  Owner: independent-reviewer  Est: bounded by qualification  kind: agent stage: review  verifies: [E2]  blocked-by: [T2.2]  acc: [independent reviewer identity, base/head revisions and domain review where required are recorded with no unresolved accepted blockers]
-- [ ] T2.4 Locally integrate E2 reviewed candidate  Owner: coordinator  Est: bounded by qualification  kind: agent stage: merge  verifies: [E2]  blocked-by: [T2.3]  acc: [exact independently approved candidate passes required checks and local repository integration records the authorized target and landed commit without external publication]
-- [ ] T2.5 Verify E2 landed source and app state  Owner: verification  Est: bounded by qualification  kind: agent stage: verify-landed  verifies: [E2]  blocked-by: [T2.4]  acc: [landed revision and generated-state bindings match reviewed scope and affected acceptance passes with explicit unverified gates]
+- [x] T2.0 Qualify E2 prerequisites and capability mapping  Owner: coordinator  Est: bounded by qualification  kind: agent stage: preflight  verifies: [E2]  blocked-by: [T1.5]  acc: [RFC coverage, native capability mapping, ownership and safe synthetic batch scope are recorded]
+- [x] T2.1 Generate minimal property, unit, tenancy and vendor context with manager maintenance queue and assignment flow  Owner: implementation  Est: bounded by qualification  kind: agent stage: implement  verifies: [E2]  blocked-by: [T2.0]  acc: [a manager opens a synthetic request, sees correct property and tenancy context, assigns only a permitted vendor and observes persisted status after reload]
+- [x] T2.2 Verify E2 changed behavior  Owner: verification  Est: bounded by qualification  kind: agent stage: verify  verifies: [E2]  blocked-by: [T2.1]  acc: [E2 scoped source checks and applicable live readback, persistence, role allow/deny, workflow and rendered browser acceptance pass with sanitized receipts]
+- [x] T2.3 Independently review E2 exact candidate  Owner: independent-reviewer  Est: bounded by qualification  kind: agent stage: review  verifies: [E2]  blocked-by: [T2.2]  acc: [independent reviewer identity, base/head revisions and domain review where required are recorded with no unresolved accepted blockers]
+- [x] T2.4 Locally integrate E2 reviewed candidate  Owner: coordinator  Est: bounded by qualification  kind: agent stage: merge  verifies: [E2]  blocked-by: [T2.3]  acc: [exact independently approved candidate passes required checks and local repository integration records the authorized target and landed commit without external publication]
+- [x] T2.5 Verify E2 landed source and app state  Owner: verification  Est: bounded by qualification  kind: agent stage: verify-landed  verifies: [E2]  blocked-by: [T2.4]  acc: [landed revision and generated-state bindings match reviewed scope and affected acceptance passes with explicit unverified gates]
 
 ### E3 -- Property and tenancy operations
 fidelity: executable
@@ -140,12 +140,18 @@ Receipts belong under docs/generation/receipts/. Each completed coverage row nam
 
 - 2026-10-11: Established nine coherent outcome batches and 54 explicit stage tasks; all app outcomes remain planned pending primary coordinator qualification. This is embedded implementation planning, not a separate plan-only merge.
 
-## Implementation checkpoint — 2026-10-11
+## Historical implementation checkpoint — superseded
+
+This retained snapshot was originally labeled 2026-10-11 using the task-directory date; actual session date was 2026-10-10 UTC. The blockers below describe historical observations and are superseded by the final journey and current acceptance summary.
 
 Seven native collections, two pages, four scoped application roles and eight synthetic accounts have been generated through Loom. Maintenance plugin 0.1.2 is loaded; manager assignment/save/reload and bounded scalar access checks have partial live evidence. Native bindings and receipts are preserved in Git. These facts do not close T2.1 or T2.2: property/unit/tenancy context is absent in the sampled manager UI, the vendor chooser offers an expired fixture, and ZP-ACL-001 exposes ungranted appended relations. Generic association guard 0.1.0 has independent source review but live AG-001 strips native primary/generated foreign keys; qualification remains blocked. Accounting, full portals, leasing, reporting, automation and remaining RFC scope stay planned.
 
 The coordinator is using authorized synthetic development generation to qualify dependency interfaces before release gates; this does not waive E1 independent review/merge/landed gates or authorize downstream stable delivery. See coverage's bounded generated subrows and receipts 004, 005, 007-manager-browser-journey, 008, 009 and 010. No production or consequential operation is accepted.
 
-## Access qualification checkpoint — 2026-10-11
+## Historical access qualification checkpoint — superseded
 
-Generic association guard 0.1.2 resolves ZP-ACL-001 and AG-001 on the tested maintenance surface: 95 security GETs, 112 scalar/context/mapping GETs and eight same-row/date-selector GETs pass. Explicit manager context and linked-work endpoints remain available with safe projection. Six native selector constructor/CAS negative cases pass with unchanged scope. Loom head b0df5b15b57ee94e836e412633b80509154d4dc0 has independent source review and passing bounded checks. See receipts 011, 012 and 013. This supersedes the earlier open technical read blockers in the preceding checkpoint; final rendered full-journey acceptance and all later RFC scope remain open.
+This retained pre-final-journey snapshot also used the task-directory date 2026-10-11 rather than the actual session date 2026-10-10 UTC. Guard0.1.3 and final browser receipts supersede its version and pending journey statements.
+
+Generic association guard 0.1.2 resolved ZP-ACL-001 and AG-001 on the then-tested maintenance surface: 91 security GETs, 112 scalar/context/mapping GETs and eight same-row/date-selector GETs pass. Explicit manager context and linked-work endpoints remain available with safe projection. Six native selector constructor/CAS negative cases pass with unchanged scope. Loom head b0df5b15b57ee94e836e412633b80509154d4dc0 has independent source review and passing bounded checks. See receipts 011, 012 and 013. This supersedes the earlier open technical read blockers in the preceding checkpoint; final rendered full-journey acceptance and all later RFC scope remain open.
+
+E1/E2 completion evidence: [final journey](generation/receipts/manager-final-journey.md), [feedback](generation/receipts/maintenance-feedback-acceptance.md), [access regression](generation/receipts/012-maintenance-access-and-selector-regression.md), and coordinator local landing receipt015. E3–E9 remain planned, including future broader role/UI/error/loading and all financial/service acceptance. Independent review of this plan status update remains required before follow-up integration.
