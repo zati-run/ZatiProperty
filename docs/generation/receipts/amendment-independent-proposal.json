@@ -1,0 +1,30 @@
+{
+  "proposalVersion": 1,
+  "tenancyId": "4",
+  "expectedVersion": 2,
+  "revision": 3,
+  "values": {
+    "startDate": "2035-01-01",
+    "endDate": "2035-12-31",
+    "term": {
+      "effectiveFrom": "2035-01-01",
+      "effectiveTo": "2035-12-31",
+      "currency": "NZD",
+      "rentMinor": 160000,
+      "depositMinor": 300000,
+      "rentFrequency": "monthly",
+      "dueDay": 1,
+      "prorationPolicy": "actual-calendar-days"
+    },
+    "parties": [
+      {
+        "displayName": "Synthetic permitted tenant revised",
+        "userId": 6,
+        "partyRole": "primary",
+        "effectiveFrom": "2035-01-01",
+        "effectiveTo": "2035-12-31"
+      }
+    ]
+  },
+  "proposalDigest": "12547ee5fbd8bdad34b22d1c0e6271abe8b0a58104fdfbd18bcc79c7637b5198"
+}

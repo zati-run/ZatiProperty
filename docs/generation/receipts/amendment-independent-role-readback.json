@@ -1,0 +1,130 @@
+[
+  {
+    "role": "zp_property_manager.1",
+    "operation": "resolve",
+    "allowed": true,
+    "status": 200,
+    "classification": "allowed",
+    "passed": true
+  },
+  {
+    "role": "zp_property_manager.1",
+    "operation": "proposal",
+    "allowed": true,
+    "status": 200,
+    "classification": "allowed",
+    "passed": true
+  },
+  {
+    "role": "zp_property_manager.2",
+    "operation": "resolve",
+    "allowed": false,
+    "status": 200,
+    "classification": "scoped-context-unavailable",
+    "passed": true
+  },
+  {
+    "role": "zp_property_manager.2",
+    "operation": "proposal",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_owner.1",
+    "operation": "resolve",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_owner.1",
+    "operation": "proposal",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_owner.2",
+    "operation": "resolve",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_owner.2",
+    "operation": "proposal",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_tenant.1",
+    "operation": "resolve",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_tenant.1",
+    "operation": "proposal",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_tenant.2",
+    "operation": "resolve",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_tenant.2",
+    "operation": "proposal",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_vendor.1",
+    "operation": "resolve",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_vendor.1",
+    "operation": "proposal",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_vendor.2",
+    "operation": "resolve",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  },
+  {
+    "role": "zp_vendor.2",
+    "operation": "proposal",
+    "allowed": false,
+    "status": 403,
+    "classification": "native-denial",
+    "passed": true
+  }
+]

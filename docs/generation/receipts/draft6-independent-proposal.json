@@ -1,0 +1,30 @@
+{
+  "proposalVersion": 1,
+  "tenancyId": "6",
+  "expectedVersion": 0,
+  "revision": 1,
+  "values": {
+    "startDate": "2042-01-01",
+    "endDate": "2043-01-01",
+    "term": {
+      "effectiveFrom": "2042-01-01",
+      "effectiveTo": "2043-01-01",
+      "currency": "USD",
+      "rentMinor": 150000,
+      "depositMinor": 300000,
+      "rentFrequency": "monthly",
+      "dueDay": 1,
+      "prorationPolicy": "actual-calendar-days"
+    },
+    "parties": [
+      {
+        "displayName": "Synthetic draft browser tenant",
+        "userId": 6,
+        "partyRole": "primary",
+        "effectiveFrom": "2042-01-01",
+        "effectiveTo": "2043-01-01"
+      }
+    ]
+  },
+  "proposalDigest": "44c67f2b432f0d401ec00a0c99a1f8a4ab0aa090901b069d01717e523186f4d5"
+}
