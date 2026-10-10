@@ -1,0 +1,19 @@
+{
+  "package": "@loom/plugin-action-form",
+  "version": "0.1.5",
+  "sourceRevision": "313bac7098734c7a12fd626bcbc9a2f60de7fd73",
+  "archiveSHA256": "fb7f3de36db544ba363f63a39ee493cd9bc1f8a57c707dba402b8dcc383e1b1b",
+  "fileCount": 8,
+  "deployedFilesMatchArchive": true,
+  "files": {
+    "dist/externalVersion.js": "d060ecdd9b513ceb6a88c1dd67f8f0d8ccae66b46b71816938386d1ae14512e1",
+    "dist/client/index.js": "62c23e1b1b3ff932f88d60b01789380a7031cc14d3d6af946dbc42cd5e3afb1f",
+    "dist/server/index.js": "5486c3e218d5338081ffe7522c46bfabc7ebfea0010ef0939a960c830d6b7737",
+    "dist/server/policy.js": "91f51854cfddf0d6b5f08f12f15dfd3aed925b1cd2f2e14434a6df29850e7ede",
+    "dist/server/service.js": "620d604403e2b2c76cc608bbc568ce6afc219603dc522e35eea2112104c85cd3",
+    "dist/swagger/index.json": "8d991044a4e9474db52b141d8bdc965939074cac81cba6bd4cfd345ebefe7122",
+    "package.json": "995fe08761262b70a97bbc8fb1aeab698235b1a9b1d0f5b9a94fd375df40f7ff",
+    "README.md": "60189476b4a31af3cf5dc637905f57fae583fe35da922e6ec382f4fadfb9fb46"
+  },
+  "qualification": "read-only deployed file attestation; not by itself runtime acceptance"
+}
