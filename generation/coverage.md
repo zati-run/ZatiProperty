@@ -1,6 +1,6 @@
 # RFC implementation coverage
 
-Status: partial live development generation. The bounded representative manager maintenance journey is verified and locally integrated (receipt 015); broader maintenance and RFC acceptance remain open. Protected property creation has bounded browser, reload and role verification (receipts 020–021). Draft amendment has a saved browser journey (receipt 022), with bounded independent reload and role verification in receipt 024; stale-version and full lifecycle checks remain open. Broader property and tenancy acceptance remains open.
+Status: partial live development generation. The bounded representative manager maintenance journey is verified and locally integrated (receipt 015); broader maintenance and RFC acceptance remain open. Protected property creation has bounded browser, reload and role verification (receipts 020–021). Draft amendment has a saved browser journey (receipt 022), with bounded independent reload and role verification in receipt 024; stale-version and full lifecycle checks remain open. Broader property and tenancy acceptance remains open. Latest receipt030 qualifies rollback-only schema preservation and resolves the tested preauth0.1.4 sign-in race; persistent hierarchy authoring and effective ACL acceptance remain open.
 
 Authority: the owner now authorizes synthetic development app generation and reusable Loom repairs. Historical workflow-only scope is superseded for this session. Production and consequential operations remain unauthorized.
 
@@ -154,3 +154,7 @@ Multiple owner/co-tenant portal membership changes currently fail closed pending
 qualified scope migration. This is an open requirement, not an approved deferral.
 
 Schema hierarchy continuation remains blocked by the native rollback metadata invariant in [receipt 025](../docs/generation/receipts/025-schema-preview-metadata-blocker.md). The target relationship was not created; observed persistent state and role policies match the baseline.
+
+## Latest bounded qualification
+
+Receipt030 records schema0.1.5 successful rollback-only preview with complete baseline/metadata preservation; positive persistent authoring and effective ACL acceptance remain open. Preauth0.1.4 resolves the tested delayed-anonymous-response sign-in race with retained session/reload and preserved authenticated failure handling. Earlier failures remain historical. App957b2c6 and Loom9863d052 are locally integrated source, not whole E3 acceptance.

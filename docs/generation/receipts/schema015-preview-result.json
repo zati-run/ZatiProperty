@@ -1,0 +1,13 @@
+{
+  "baselineDigest": "36cf51dc26ae2df63e699e3ef0a82eb84db31c3c01db6d4ed6da1723cdc65976",
+  "fullBaselineUnchanged": true,
+  "metadataUnchanged": true,
+  "response": {
+    "aclDigest": "4e8d71b6815286e449bc2645ca19d92ca1700d5d6b2df004634247b0044c7d8c",
+    "effectiveAclAcceptance": false,
+    "fieldAbsent": true,
+    "nativeAcceptance": false,
+    "relatedStateDigest": "608411ad3ebedbc7565f5fb9215f29d61c2ff223ec5171ed76c8d105f815ed7a",
+    "rolledBack": true
+  }
+}

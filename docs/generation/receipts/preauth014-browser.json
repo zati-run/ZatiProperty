@@ -1,0 +1,21 @@
+{
+  "authenticatedAfterFault": false,
+  "heldAnonymousPostResponses": 1,
+  "originalAnonymousStatus": 401,
+  "afterDelayed": [],
+  "authenticatedAfterDelayed": true,
+  "authenticatedAfterReload": true,
+  "afterReload": [],
+  "pageErrors": [],
+  "authenticatedBrowserOnlyFaults": 1,
+  "afterFault": [
+    "Unauthenticated. Please sign in to continue."
+  ],
+  "noDomainWrites": true,
+  "verifiedAt": "2026-10-10T15:25:40.718606+00:00",
+  "pluginVersion": "0.1.4",
+  "source": "98a9546",
+  "archiveSha256": "c670c120cf801edc1557ca03e1dc8f41c938118d6dac6cc9821fc6f9caa1d692",
+  "environment": "synthetic NocoBase Community Edition 2.2.21",
+  "actor": "synthetic property manager"
+}
