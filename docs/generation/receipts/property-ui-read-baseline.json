@@ -1,0 +1,1227 @@
+{
+  "status": "captured-not-applied",
+  "manifestHash": "5ab03d314256d31c9269fbba344f52b334c486d8c5c82d317f1c28dc6f9347ee",
+  "baselineHash": "a433f048ba8e9fadc350d11dfa8098a96d14d7a1a2c9f8419f749df955c275dc",
+  "baseline": {
+    "zp_property_manager": {
+      "role": {
+        "data": {
+          "createdAt": "2026-10-10T08:47:31.015Z",
+          "updatedAt": "2026-10-10T08:49:04.106Z",
+          "name": "zp_property_manager",
+          "title": "Property manager",
+          "description": "ZatiProperty synthetic maintenance role",
+          "strategy": {
+            "actions": []
+          },
+          "default": false,
+          "hidden": false,
+          "allowConfigure": false,
+          "allowNewMenu": false,
+          "snippets": [],
+          "allowNewMobileMenu": false,
+          "allowNewAiEmployee": false
+        }
+      },
+      "resources": {
+        "zp_properties": {
+          "data": {
+            "id": 391324673114114,
+            "createdAt": "2026-10-10T08:49:05.583Z",
+            "updatedAt": "2026-10-10T08:49:05.583Z",
+            "dataSourceKey": "main",
+            "roleName": "zp_property_manager",
+            "name": "zp_properties",
+            "usingActionsConfig": true,
+            "actions": [
+              {
+                "id": 391331091316736,
+                "createdAt": "2026-10-10T09:40:05.550Z",
+                "updatedAt": "2026-10-10T10:18:00.131Z",
+                "name": "view",
+                "fields": [
+                  "address",
+                  "buildings",
+                  "id",
+                  "name",
+                  "ownershipSets",
+                  "portfolio",
+                  "portfolioId"
+                ],
+                "scopeId": 391324475981824,
+                "rolesResourceId": 391324673114114
+              }
+            ]
+          }
+        },
+        "zp_units": {
+          "data": {
+            "id": 391324673114116,
+            "createdAt": "2026-10-10T08:49:05.591Z",
+            "updatedAt": "2026-10-10T08:49:05.591Z",
+            "dataSourceKey": "main",
+            "roleName": "zp_property_manager",
+            "name": "zp_units",
+            "usingActionsConfig": true,
+            "actions": [
+              {
+                "id": 391331091316737,
+                "createdAt": "2026-10-10T09:40:05.555Z",
+                "updatedAt": "2026-10-10T10:18:00.438Z",
+                "name": "view",
+                "fields": [
+                  "building",
+                  "buildingId",
+                  "id",
+                  "name",
+                  "propertyId"
+                ],
+                "scopeId": 391324671016960,
+                "rolesResourceId": 391324673114116
+              }
+            ]
+          }
+        },
+        "zp_tenancies": {
+          "data": {
+            "id": 391324673114118,
+            "createdAt": "2026-10-10T08:49:05.597Z",
+            "updatedAt": "2026-10-10T08:49:05.597Z",
+            "dataSourceKey": "main",
+            "roleName": "zp_property_manager",
+            "name": "zp_tenancies",
+            "usingActionsConfig": true,
+            "actions": [
+              {
+                "id": 391331091316738,
+                "createdAt": "2026-10-10T09:40:05.558Z",
+                "updatedAt": "2026-10-10T10:18:02.691Z",
+                "name": "view",
+                "fields": [
+                  "code",
+                  "draftRevision",
+                  "endDate",
+                  "id",
+                  "leaseState",
+                  "parties",
+                  "startDate",
+                  "status",
+                  "terms",
+                  "unitId",
+                  "version"
+                ],
+                "scopeId": 391324671016961,
+                "rolesResourceId": 391324673114118
+              }
+            ]
+          }
+        },
+        "zp_portfolios": {
+          "data": null
+        },
+        "zp_buildings": {
+          "data": null
+        },
+        "zp_owner_contacts": {
+          "data": null
+        },
+        "zp_ownership_sets": {
+          "data": null
+        },
+        "zp_property_interests": {
+          "data": null
+        },
+        "zp_tenancy_parties": {
+          "data": null
+        },
+        "zp_tenancy_terms": {
+          "data": null
+        },
+        "zp_tenant_account_permissions": {
+          "data": null
+        }
+      }
+    },
+    "zp_owner": {
+      "role": {
+        "data": {
+          "createdAt": "2026-10-10T08:49:05.870Z",
+          "updatedAt": "2026-10-10T08:51:25.761Z",
+          "name": "zp_owner",
+          "title": "Owner",
+          "description": "ZatiProperty synthetic maintenance role",
+          "strategy": {
+            "actions": []
+          },
+          "default": false,
+          "hidden": false,
+          "allowConfigure": false,
+          "allowNewMenu": false,
+          "snippets": [],
+          "allowNewMobileMenu": false,
+          "allowNewAiEmployee": false
+        }
+      },
+      "resources": {
+        "zp_properties": {
+          "data": {
+            "id": 391324968812548,
+            "createdAt": "2026-10-10T08:51:26.695Z",
+            "updatedAt": "2026-10-10T08:51:26.695Z",
+            "dataSourceKey": "main",
+            "roleName": "zp_owner",
+            "name": "zp_properties",
+            "usingActionsConfig": true,
+            "actions": [
+              {
+                "id": 391324968812549,
+                "createdAt": "2026-10-10T08:51:26.696Z",
+                "updatedAt": "2026-10-10T10:18:00.130Z",
+                "name": "view",
+                "fields": [
+                  "address",
+                  "buildings",
+                  "id",
+                  "name",
+                  "ownershipSets",
+                  "portfolio",
+                  "portfolioId"
+                ],
+                "scopeId": 391324968812544,
+                "rolesResourceId": 391324968812548
+              }
+            ]
+          }
+        },
+        "zp_units": {
+          "data": {
+            "id": 391324968812550,
+            "createdAt": "2026-10-10T08:51:26.697Z",
+            "updatedAt": "2026-10-10T08:51:26.697Z",
+            "dataSourceKey": "main",
+            "roleName": "zp_owner",
+            "name": "zp_units",
+            "usingActionsConfig": true,
+            "actions": [
+              {
+                "id": 391324968812551,
+                "createdAt": "2026-10-10T08:51:26.698Z",
+                "updatedAt": "2026-10-10T10:18:00.436Z",
+                "name": "view",
+                "fields": [
+                  "building",
+                  "buildingId",
+                  "id",
+                  "name",
+                  "propertyId"
+                ],
+                "scopeId": 391324968812545,
+                "rolesResourceId": 391324968812550
+              }
+            ]
+          }
+        },
+        "zp_tenancies": {
+          "data": null
+        },
+        "zp_portfolios": {
+          "data": null
+        },
+        "zp_buildings": {
+          "data": null
+        },
+        "zp_owner_contacts": {
+          "data": null
+        },
+        "zp_ownership_sets": {
+          "data": null
+        },
+        "zp_property_interests": {
+          "data": null
+        },
+        "zp_tenancy_parties": {
+          "data": null
+        },
+        "zp_tenancy_terms": {
+          "data": null
+        },
+        "zp_tenant_account_permissions": {
+          "data": null
+        }
+      }
+    },
+    "zp_tenant": {
+      "role": {
+        "data": {
+          "createdAt": "2026-10-10T08:51:26.890Z",
+          "updatedAt": "2026-10-10T08:51:27.023Z",
+          "name": "zp_tenant",
+          "title": "Tenant",
+          "description": "ZatiProperty synthetic maintenance role",
+          "strategy": {
+            "actions": []
+          },
+          "default": false,
+          "hidden": false,
+          "allowConfigure": false,
+          "allowNewMenu": false,
+          "snippets": [],
+          "allowNewMobileMenu": false,
+          "allowNewAiEmployee": false
+        }
+      },
+      "resources": {
+        "zp_properties": {
+          "data": null
+        },
+        "zp_units": {
+          "data": null
+        },
+        "zp_tenancies": {
+          "data": {
+            "id": 391324970909699,
+            "createdAt": "2026-10-10T08:51:27.763Z",
+            "updatedAt": "2026-10-10T08:51:27.763Z",
+            "dataSourceKey": "main",
+            "roleName": "zp_tenant",
+            "name": "zp_tenancies",
+            "usingActionsConfig": true,
+            "actions": [
+              {
+                "id": 391324970909700,
+                "createdAt": "2026-10-10T08:51:27.765Z",
+                "updatedAt": "2026-10-10T10:18:02.689Z",
+                "name": "view",
+                "fields": [
+                  "code",
+                  "draftRevision",
+                  "endDate",
+                  "id",
+                  "leaseState",
+                  "parties",
+                  "startDate",
+                  "status",
+                  "terms",
+                  "unitId",
+                  "version"
+                ],
+                "scopeId": 391324970909696,
+                "rolesResourceId": 391324970909699
+              }
+            ]
+          }
+        },
+        "zp_portfolios": {
+          "data": null
+        },
+        "zp_buildings": {
+          "data": null
+        },
+        "zp_owner_contacts": {
+          "data": null
+        },
+        "zp_ownership_sets": {
+          "data": null
+        },
+        "zp_property_interests": {
+          "data": null
+        },
+        "zp_tenancy_parties": {
+          "data": null
+        },
+        "zp_tenancy_terms": {
+          "data": null
+        },
+        "zp_tenant_account_permissions": {
+          "data": null
+        }
+      }
+    },
+    "zp_vendor": {
+      "role": {
+        "data": {
+          "createdAt": "2026-10-10T08:51:27.956Z",
+          "updatedAt": "2026-10-10T08:51:28.085Z",
+          "name": "zp_vendor",
+          "title": "Vendor",
+          "description": "ZatiProperty synthetic maintenance role",
+          "strategy": {
+            "actions": []
+          },
+          "default": false,
+          "hidden": false,
+          "allowConfigure": false,
+          "allowNewMenu": false,
+          "snippets": [],
+          "allowNewMobileMenu": false,
+          "allowNewAiEmployee": false
+        }
+      },
+      "resources": {
+        "zp_properties": {
+          "data": null
+        },
+        "zp_units": {
+          "data": null
+        },
+        "zp_tenancies": {
+          "data": null
+        },
+        "zp_portfolios": {
+          "data": null
+        },
+        "zp_buildings": {
+          "data": null
+        },
+        "zp_owner_contacts": {
+          "data": null
+        },
+        "zp_ownership_sets": {
+          "data": null
+        },
+        "zp_property_interests": {
+          "data": null
+        },
+        "zp_tenancy_parties": {
+          "data": null
+        },
+        "zp_tenancy_terms": {
+          "data": null
+        },
+        "zp_tenant_account_permissions": {
+          "data": null
+        }
+      }
+    }
+  },
+  "overlay": {
+    "format": "zatiproperty.read-overlay.v1",
+    "status": "review-candidate-not-applied",
+    "role": "zp_property_manager",
+    "preserve": {
+      "nonViewActions": "exactly",
+      "existingViewFields": "union",
+      "existingViewScope": "require-equal",
+      "portalRoles": "unchanged",
+      "globalStrategy": "unchanged",
+      "routeGrants": "add-only-after-ui-verification"
+    },
+    "requires": [
+      "account permission displayName field installed and reviewed",
+      "association guard independently qualifies each added relation hop"
+    ],
+    "resources": [
+      {
+        "name": "zp_properties",
+        "scope": {
+          "managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "name",
+          "address",
+          "portfolioId",
+          "portfolio",
+          "buildings",
+          "ownershipSets"
+        ]
+      },
+      {
+        "name": "zp_units",
+        "scope": {
+          "property.managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "name",
+          "propertyId",
+          "property",
+          "buildingId",
+          "building"
+        ]
+      },
+      {
+        "name": "zp_tenancies",
+        "scope": {
+          "unit.property.managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "code",
+          "unitId",
+          "unit",
+          "status",
+          "leaseState",
+          "startDate",
+          "endDate",
+          "version",
+          "draftRevision",
+          "parties",
+          "terms"
+        ]
+      },
+      {
+        "name": "zp_portfolios",
+        "scope": {
+          "managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "name",
+          "code",
+          "description"
+        ]
+      },
+      {
+        "name": "zp_buildings",
+        "scope": {
+          "property.managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "name",
+          "propertyId",
+          "property"
+        ]
+      },
+      {
+        "name": "zp_owner_contacts",
+        "scope": {
+          "managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "displayName"
+        ]
+      },
+      {
+        "name": "zp_ownership_sets",
+        "scope": {
+          "property.managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "propertyId",
+          "property",
+          "effectiveFrom",
+          "effectiveTo",
+          "state",
+          "version",
+          "interestsRevision",
+          "interests"
+        ]
+      },
+      {
+        "name": "zp_property_interests",
+        "scope": {
+          "ownershipSet.property.managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "ownershipSetId",
+          "ownershipSet",
+          "ownerContactId",
+          "ownerContact",
+          "shareBasisPoints",
+          "revision"
+        ]
+      },
+      {
+        "name": "zp_tenancy_parties",
+        "scope": {
+          "tenancy.unit.property.managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "tenancyId",
+          "tenancy",
+          "displayName",
+          "partyRole",
+          "effectiveFrom",
+          "effectiveTo",
+          "revision"
+        ]
+      },
+      {
+        "name": "zp_tenancy_terms",
+        "scope": {
+          "tenancy.unit.property.managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "tenancyId",
+          "tenancy",
+          "effectiveFrom",
+          "effectiveTo",
+          "currency",
+          "rentMinor",
+          "depositMinor",
+          "rentFrequency",
+          "dueDay",
+          "prorationPolicy",
+          "revision"
+        ]
+      },
+      {
+        "name": "zp_tenant_account_permissions",
+        "scope": {
+          "managerUserId": {
+            "$eq": "{{ ctx.state.currentUser.id }}"
+          }
+        },
+        "addViewFields": [
+          "id",
+          "userId",
+          "displayName"
+        ]
+      }
+    ],
+    "excludedResources": [
+      "users",
+      "zp_domain_events",
+      "zp_audit_heads",
+      "zp_domain_outbox"
+    ],
+    "noGenericWrites": true
+  },
+  "pages": {
+    "portfolio": {
+      "format": "zatiproperty.page-plan.v1",
+      "status": "review-candidate-not-applied",
+      "page": {
+        "title": "Portfolio",
+        "icon": "HomeOutlined",
+        "pageSchemaUid": "zp-portfolio",
+        "pageUid": "zp-portfolio-page",
+        "enableHeader": true
+      },
+      "compose": {
+        "mode": "append",
+        "blocks": [
+          {
+            "key": "properties",
+            "type": "table",
+            "resource": {
+              "dataSourceKey": "main",
+              "collectionName": "zp_properties"
+            },
+            "settings": {
+              "title": "Properties",
+              "pageSize": 20,
+              "density": "middle",
+              "enableRowSelection": false,
+              "quickEdit": false,
+              "dragSort": false
+            },
+            "fields": [
+              "name",
+              "address",
+              "portfolio"
+            ],
+            "actions": [
+              "filter",
+              "refresh"
+            ],
+            "recordActions": [
+              {
+                "type": "view",
+                "settings": {
+                  "title": "Property"
+                },
+                "popup": {
+                  "title": "Property",
+                  "mode": "drawer",
+                  "blocks": [
+                    {
+                      "key": "property-summary",
+                      "type": "details",
+                      "resource": {
+                        "binding": "currentRecord"
+                      },
+                      "settings": {
+                        "title": "Property context",
+                        "layout": "vertical",
+                        "labelWrap": true
+                      },
+                      "fields": [
+                        "name",
+                        "address",
+                        "portfolio"
+                      ],
+                      "actions": [],
+                      "recordActions": []
+                    },
+                    {
+                      "key": "units",
+                      "type": "table",
+                      "resource": {
+                        "dataSourceKey": "main",
+                        "collectionName": "zp_units"
+                      },
+                      "settings": {
+                        "title": "Units",
+                        "pageSize": 20,
+                        "density": "middle",
+                        "enableRowSelection": false,
+                        "quickEdit": false,
+                        "dragSort": false,
+                        "dataScope": {
+                          "logic": "$and",
+                          "items": [
+                            {
+                              "path": "propertyId",
+                              "operator": "$eq",
+                              "value": "{{ ctx.record.id }}"
+                            }
+                          ]
+                        }
+                      },
+                      "fields": [
+                        "name",
+                        "building"
+                      ],
+                      "actions": [
+                        "filter",
+                        "refresh"
+                      ],
+                      "recordActions": [
+                        {
+                          "type": "view",
+                          "settings": {
+                            "title": "Unit"
+                          },
+                          "popup": {
+                            "title": "Unit",
+                            "mode": "drawer",
+                            "blocks": [
+                              {
+                                "key": "unit-summary",
+                                "type": "details",
+                                "resource": {
+                                  "binding": "currentRecord"
+                                },
+                                "settings": {
+                                  "title": "Unit context",
+                                  "layout": "vertical",
+                                  "labelWrap": true
+                                },
+                                "fields": [
+                                  "name",
+                                  "property",
+                                  "building"
+                                ],
+                                "actions": [],
+                                "recordActions": []
+                              },
+                              {
+                                "key": "tenancies",
+                                "type": "table",
+                                "resource": {
+                                  "dataSourceKey": "main",
+                                  "collectionName": "zp_tenancies"
+                                },
+                                "settings": {
+                                  "title": "Tenancies",
+                                  "pageSize": 20,
+                                  "density": "middle",
+                                  "enableRowSelection": false,
+                                  "quickEdit": false,
+                                  "dragSort": false,
+                                  "dataScope": {
+                                    "logic": "$and",
+                                    "items": [
+                                      {
+                                        "path": "unitId",
+                                        "operator": "$eq",
+                                        "value": "{{ ctx.record.id }}"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "fields": [
+                                  "code",
+                                  "leaseState",
+                                  "startDate",
+                                  "endDate"
+                                ],
+                                "actions": [
+                                  "filter",
+                                  "refresh"
+                                ],
+                                "recordActions": [
+                                  {
+                                    "type": "view",
+                                    "settings": {
+                                      "title": "Tenancy"
+                                    },
+                                    "popup": {
+                                      "title": "Tenancy",
+                                      "mode": "drawer",
+                                      "blocks": [
+                                        {
+                                          "key": "tenancy-summary",
+                                          "type": "details",
+                                          "resource": {
+                                            "binding": "currentRecord"
+                                          },
+                                          "settings": {
+                                            "title": "Tenancy summary",
+                                            "layout": "vertical",
+                                            "labelWrap": true
+                                          },
+                                          "fields": [
+                                            "code",
+                                            "unit",
+                                            "leaseState",
+                                            "startDate",
+                                            "endDate",
+                                            "version",
+                                            "draftRevision"
+                                          ],
+                                          "actions": [],
+                                          "recordActions": []
+                                        },
+                                        {
+                                          "key": "terms-history",
+                                          "type": "table",
+                                          "resource": {
+                                            "dataSourceKey": "main",
+                                            "collectionName": "zp_tenancy_terms"
+                                          },
+                                          "settings": {
+                                            "title": "Terms history",
+                                            "pageSize": 20,
+                                            "density": "middle",
+                                            "enableRowSelection": false,
+                                            "quickEdit": false,
+                                            "dragSort": false,
+                                            "dataScope": {
+                                              "logic": "$and",
+                                              "items": [
+                                                {
+                                                  "path": "tenancyId",
+                                                  "operator": "$eq",
+                                                  "value": "{{ ctx.record.id }}"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "fields": [
+                                            "revision",
+                                            "effectiveFrom",
+                                            "effectiveTo",
+                                            "currency",
+                                            "rentFrequency",
+                                            "dueDay",
+                                            "prorationPolicy"
+                                          ],
+                                          "actions": [
+                                            "filter",
+                                            "refresh"
+                                          ],
+                                          "recordActions": []
+                                        },
+                                        {
+                                          "key": "parties-history",
+                                          "type": "table",
+                                          "resource": {
+                                            "dataSourceKey": "main",
+                                            "collectionName": "zp_tenancy_parties"
+                                          },
+                                          "settings": {
+                                            "title": "Party history",
+                                            "pageSize": 20,
+                                            "density": "middle",
+                                            "enableRowSelection": false,
+                                            "quickEdit": false,
+                                            "dragSort": false,
+                                            "dataScope": {
+                                              "logic": "$and",
+                                              "items": [
+                                                {
+                                                  "path": "tenancyId",
+                                                  "operator": "$eq",
+                                                  "value": "{{ ctx.record.id }}"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "fields": [
+                                            "displayName",
+                                            "partyRole",
+                                            "revision",
+                                            "effectiveFrom",
+                                            "effectiveTo"
+                                          ],
+                                          "actions": [
+                                            "filter",
+                                            "refresh"
+                                          ],
+                                          "recordActions": []
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "defaults": {
+          "collections": {
+            "zp_properties": {
+              "fieldGroups": [
+                {
+                  "title": "Context",
+                  "fields": [
+                    "name",
+                    "address",
+                    "portfolio"
+                  ]
+                }
+              ]
+            },
+            "zp_units": {
+              "fieldGroups": [
+                {
+                  "title": "Context",
+                  "fields": [
+                    "name",
+                    "property",
+                    "building"
+                  ]
+                }
+              ]
+            },
+            "zp_tenancies": {
+              "fieldGroups": [
+                {
+                  "title": "Context",
+                  "fields": [
+                    "code",
+                    "unit",
+                    "leaseState",
+                    "startDate",
+                    "endDate",
+                    "version",
+                    "draftRevision"
+                  ]
+                }
+              ]
+            },
+            "zp_tenancy_terms": {
+              "fieldGroups": [
+                {
+                  "title": "Context",
+                  "fields": [
+                    "effectiveFrom",
+                    "effectiveTo",
+                    "currency",
+                    "rentFrequency",
+                    "dueDay",
+                    "prorationPolicy",
+                    "revision"
+                  ]
+                }
+              ]
+            },
+            "zp_tenancy_parties": {
+              "fieldGroups": [
+                {
+                  "title": "Context",
+                  "fields": [
+                    "displayName",
+                    "partyRole",
+                    "effectiveFrom",
+                    "effectiveTo",
+                    "revision"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      "safety": {
+        "stripGeneratedActionsExcept": [
+          "ViewActionModel",
+          "FilterActionModel",
+          "RefreshActionModel"
+        ],
+        "noRoleGrantBeforeReadback": true,
+        "readOnly": true,
+        "requiresPopupCurrentRecordQualification": true
+      }
+    },
+    "tenancies": {
+      "format": "zatiproperty.page-plan.v1",
+      "status": "review-candidate-not-applied",
+      "page": {
+        "title": "Tenancies",
+        "icon": "TeamOutlined",
+        "pageSchemaUid": "zp-tenancies",
+        "pageUid": "zp-tenancies-page",
+        "enableHeader": true
+      },
+      "compose": {
+        "mode": "append",
+        "blocks": [
+          {
+            "key": "all-tenancies",
+            "type": "table",
+            "resource": {
+              "dataSourceKey": "main",
+              "collectionName": "zp_tenancies"
+            },
+            "settings": {
+              "title": "Tenancies",
+              "pageSize": 20,
+              "density": "middle",
+              "enableRowSelection": false,
+              "quickEdit": false,
+              "dragSort": false
+            },
+            "fields": [
+              "code",
+              "unit",
+              "leaseState",
+              "startDate",
+              "endDate"
+            ],
+            "actions": [
+              "filter",
+              "refresh"
+            ],
+            "recordActions": [
+              {
+                "type": "view",
+                "settings": {
+                  "title": "Tenancy"
+                },
+                "popup": {
+                  "title": "Tenancy",
+                  "mode": "drawer",
+                  "blocks": [
+                    {
+                      "key": "tenancy-summary",
+                      "type": "details",
+                      "resource": {
+                        "binding": "currentRecord"
+                      },
+                      "settings": {
+                        "title": "Tenancy summary",
+                        "layout": "vertical",
+                        "labelWrap": true
+                      },
+                      "fields": [
+                        "code",
+                        "unit",
+                        "leaseState",
+                        "startDate",
+                        "endDate",
+                        "version",
+                        "draftRevision"
+                      ],
+                      "actions": [],
+                      "recordActions": []
+                    },
+                    {
+                      "key": "terms-history",
+                      "type": "table",
+                      "resource": {
+                        "dataSourceKey": "main",
+                        "collectionName": "zp_tenancy_terms"
+                      },
+                      "settings": {
+                        "title": "Terms history",
+                        "pageSize": 20,
+                        "density": "middle",
+                        "enableRowSelection": false,
+                        "quickEdit": false,
+                        "dragSort": false,
+                        "dataScope": {
+                          "logic": "$and",
+                          "items": [
+                            {
+                              "path": "tenancyId",
+                              "operator": "$eq",
+                              "value": "{{ ctx.record.id }}"
+                            }
+                          ]
+                        }
+                      },
+                      "fields": [
+                        "revision",
+                        "effectiveFrom",
+                        "effectiveTo",
+                        "currency",
+                        "rentFrequency",
+                        "dueDay",
+                        "prorationPolicy"
+                      ],
+                      "actions": [
+                        "filter",
+                        "refresh"
+                      ],
+                      "recordActions": []
+                    },
+                    {
+                      "key": "parties-history",
+                      "type": "table",
+                      "resource": {
+                        "dataSourceKey": "main",
+                        "collectionName": "zp_tenancy_parties"
+                      },
+                      "settings": {
+                        "title": "Party history",
+                        "pageSize": 20,
+                        "density": "middle",
+                        "enableRowSelection": false,
+                        "quickEdit": false,
+                        "dragSort": false,
+                        "dataScope": {
+                          "logic": "$and",
+                          "items": [
+                            {
+                              "path": "tenancyId",
+                              "operator": "$eq",
+                              "value": "{{ ctx.record.id }}"
+                            }
+                          ]
+                        }
+                      },
+                      "fields": [
+                        "displayName",
+                        "partyRole",
+                        "revision",
+                        "effectiveFrom",
+                        "effectiveTo"
+                      ],
+                      "actions": [
+                        "filter",
+                        "refresh"
+                      ],
+                      "recordActions": []
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "defaults": {
+          "collections": {
+            "zp_properties": {
+              "fieldGroups": [
+                {
+                  "title": "Context",
+                  "fields": [
+                    "name",
+                    "address",
+                    "portfolio"
+                  ]
+                }
+              ]
+            },
+            "zp_units": {
+              "fieldGroups": [
+                {
+                  "title": "Context",
+                  "fields": [
+                    "name",
+                    "property",
+                    "building"
+                  ]
+                }
+              ]
+            },
+            "zp_tenancies": {
+              "fieldGroups": [
+                {
+                  "title": "Context",
+                  "fields": [
+                    "code",
+                    "unit",
+                    "leaseState",
+                    "startDate",
+                    "endDate",
+                    "version",
+                    "draftRevision"
+                  ]
+                }
+              ]
+            },
+            "zp_tenancy_terms": {
+              "fieldGroups": [
+                {
+                  "title": "Context",
+                  "fields": [
+                    "effectiveFrom",
+                    "effectiveTo",
+                    "currency",
+                    "rentFrequency",
+                    "dueDay",
+                    "prorationPolicy",
+                    "revision"
+                  ]
+                }
+              ]
+            },
+            "zp_tenancy_parties": {
+              "fieldGroups": [
+                {
+                  "title": "Context",
+                  "fields": [
+                    "displayName",
+                    "partyRole",
+                    "effectiveFrom",
+                    "effectiveTo",
+                    "revision"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      "safety": {
+        "stripGeneratedActionsExcept": [
+          "ViewActionModel",
+          "FilterActionModel",
+          "RefreshActionModel"
+        ],
+        "noRoleGrantBeforeReadback": true,
+        "readOnly": true,
+        "requiresPopupCurrentRecordQualification": true
+      }
+    }
+  }
+}

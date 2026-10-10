@@ -1,0 +1,32 @@
+# E3 read/navigation preparation
+
+Review candidate only; no role or page writes applied. Parent plan E3 owns delivery. Source base6f49583. Uses repository Loom/design skills and design references patterns/review. The actual CRUD-denied create-form probe blocks protected action forms; this read slice does not substitute generic writes or claim full tenancy workflow acceptance.
+
+## Native journey
+
+Preserve Maintenance requests and Work orders. Add Portfolio and Tenancies as focused staff destinations. Portfolio shows property name/address/portfolio, with View opening a vertically labelled property summary and scoped Units table. Unit View shows its property/building context and scoped tenancy history. Tenancy View shows lifecycle/date/version context, terms history and party history. Tenancies offers the same detail journey directly. Tables use medium density,20rows, no row selection, quick edit or drag sorting. Native filters/refresh remain available. Property/unit/tenancy names lead each table; hidden IDs supply bindings.
+
+Money is intentionally not shown as an unformatted integer in this first read surface. Contract amount fields are manager-readable for the pending typed action form, which must format currency/minor units deliberately. History tables are labelled history, not current terms; they do not flatten multiple revisions into a current record. Empty states retain native filter/reset behavior; custom empty guidance, narrow layouts and rendered interaction remain acceptance checks. Protected lifecycle buttons will be added through the reusable Loom companion once reviewed, not through native CRUD forms.
+
+## Read overlay and native contracts
+
+`generation/roles/property-tenancy.json` applies only to zp_property_manager. Add view fields by union with native current readback; preserve every non-view action exactly, all portal roles, global strategies and existing route grants. Existing view scope must resolve to the exact same expected server current-user filter before applying; do not silently replace scope IDs. For new resources create one bounded native scope and grant view only. No generic users or audit/head/outbox access. Account choices expose only id,userId,displayName on the manager-scoped permission table; displayName requires the command worker schema addition. Owner contacts expose id/displayName only.
+
+Pinned live flowSurfaces compose supports nested view popup blocks, table dataScope FilterGroup with flow context, relation fields and hasMany subforms; native table catalog confirms dataScope, pageSize, density, quickEdit and enableRowSelection. Manifests use read-only tables/details, not subforms. Popup tables bind current parent `ctx.record.id` through propertyId/unitId/tenancyId. This mapping requires actual context metadata and real request qualification before route visibility. Missing parent values must never produce an unfiltered contextual child list; if native removes unresolved values, stop and implement a bounded context requirement through Loom.
+
+Compose auto-completes partial actions/recordActions with generic edit/delete/addNew/submit. Before any manager navigation grant, walk native generated tree, remove exact generated mutation actions through removeNode, and read back every nested popup. Permit only intended View/Filter/Refresh controls; names in manifest safety are an initial review allowlist, actual model uses require catalog confirmation. Do not rely on denied roles merely hiding generated controls.
+
+## Preparation scripts and apply sequence
+
+`prepare_property_ui.py` is read-only. It snapshots role/resource settings for manager and all portals, plus manifests/pages, and emits hashes. Existing output is never overwritten. `property_ui_journal.py` supplies exclusive fsynced pending intent, one Loom dispatch, required native verification and atomic verified receipt; existing journals fence replay regardless of status. Timeout/failed readback leaves pending intent for manual native reconciliation. No unattended apply entry point is provided while action-form and context gates are open.
+
+After independent review/coordinator scheduling: refresh snapshot; resolve each native scope and compare filters; validate all intended fields exist; build an additive action payload preserving existing non-view actions. Journal scope creation and role apply independently. Capture all portals and manager before/after; abort unexpected changes. Create one page at a time using createPage, compose only on verified-empty owned grid, remove generated mutation actions, verify native tree, then add exact route IDs with roles.desktopRoutes:add. Never use routes:set. Read each page back after reload; associate receipts with exact source and catalog digest. Uncertain page creation must be reconciled by intended schema UID before another create.
+
+## Required security and rendered checks
+
+- Manager1/2 each sees only their properties, units, buildings, portfolio, tenancies, ownership sets/interests, terms/parties and permitted account choices. Same-manager unrelated property remains visible on global pages but absent from the contextual child table.
+- Direct GET/list and nested append/association routes enforce every relation hop: property→portfolio/buildings/ownershipSets, unit→property/building, tenancy→unit/parties/terms, ownershipSet→property/interests, interest→ownerContact/ownershipSet, term/party→tenancy. Foreign leaf records and mixed-parent spoofing must be denied/omitted consistently.
+- Query denied fields, filters, sorting, deep appends and association counts for users, hidden account managerUserId/mappingKey, contact email/phone/userId, audit payload/head/outbox. Account chooser has no users traversal or generic user enumeration.
+- Re-run baseline owner/tenant/vendor direct and nested denial suite unchanged; compare native resource permission snapshots. New manager fields must not leak via another role or fallback union/member role.
+- Manager generic create/update/destroy and bulk/nested writes remain denied for every protected collection. Existing maintenance update field/scope grants match before exactly.
+- Browser desktop+narrow: Portfolio→property→unit→tenancy, correct parent context, readable history, keyboard View/filter, empty/error recovery, reload persistence and no unintended mutation request. Native denied roles receive no new route grants. No role-rendering or full action-form acceptance is claimed by preparation checks.

@@ -1,0 +1,242 @@
+{
+  "format": "zatiproperty.page-plan.v1",
+  "status": "review-candidate-not-applied",
+  "page": {
+    "title": "Tenancies",
+    "icon": "TeamOutlined",
+    "pageSchemaUid": "zp-tenancies",
+    "pageUid": "zp-tenancies-page",
+    "enableHeader": true
+  },
+  "compose": {
+    "mode": "append",
+    "blocks": [
+      {
+        "key": "all-tenancies",
+        "type": "table",
+        "resource": {
+          "dataSourceKey": "main",
+          "collectionName": "zp_tenancies"
+        },
+        "settings": {
+          "title": "Tenancies",
+          "pageSize": 20,
+          "density": "middle",
+          "enableRowSelection": false,
+          "quickEdit": false,
+          "dragSort": false
+        },
+        "fields": [
+          "code",
+          "unit",
+          "leaseState",
+          "startDate",
+          "endDate"
+        ],
+        "actions": [
+          "filter",
+          "refresh"
+        ],
+        "recordActions": [
+          {
+            "type": "view",
+            "settings": {
+              "title": "Tenancy"
+            },
+            "popup": {
+              "title": "Tenancy",
+              "mode": "drawer",
+              "blocks": [
+                {
+                  "key": "tenancy-summary",
+                  "type": "details",
+                  "resource": {
+                    "binding": "currentRecord"
+                  },
+                  "settings": {
+                    "title": "Tenancy summary",
+                    "layout": "vertical",
+                    "labelWrap": true
+                  },
+                  "fields": [
+                    "code",
+                    "unit",
+                    "leaseState",
+                    "startDate",
+                    "endDate",
+                    "version",
+                    "draftRevision"
+                  ],
+                  "actions": [],
+                  "recordActions": []
+                },
+                {
+                  "key": "terms-history",
+                  "type": "table",
+                  "resource": {
+                    "dataSourceKey": "main",
+                    "collectionName": "zp_tenancy_terms"
+                  },
+                  "settings": {
+                    "title": "Terms history",
+                    "pageSize": 20,
+                    "density": "middle",
+                    "enableRowSelection": false,
+                    "quickEdit": false,
+                    "dragSort": false,
+                    "dataScope": {
+                      "logic": "$and",
+                      "items": [
+                        {
+                          "path": "tenancyId",
+                          "operator": "$eq",
+                          "value": "{{ ctx.record.id }}"
+                        }
+                      ]
+                    }
+                  },
+                  "fields": [
+                    "revision",
+                    "effectiveFrom",
+                    "effectiveTo",
+                    "currency",
+                    "rentFrequency",
+                    "dueDay",
+                    "prorationPolicy"
+                  ],
+                  "actions": [
+                    "filter",
+                    "refresh"
+                  ],
+                  "recordActions": []
+                },
+                {
+                  "key": "parties-history",
+                  "type": "table",
+                  "resource": {
+                    "dataSourceKey": "main",
+                    "collectionName": "zp_tenancy_parties"
+                  },
+                  "settings": {
+                    "title": "Party history",
+                    "pageSize": 20,
+                    "density": "middle",
+                    "enableRowSelection": false,
+                    "quickEdit": false,
+                    "dragSort": false,
+                    "dataScope": {
+                      "logic": "$and",
+                      "items": [
+                        {
+                          "path": "tenancyId",
+                          "operator": "$eq",
+                          "value": "{{ ctx.record.id }}"
+                        }
+                      ]
+                    }
+                  },
+                  "fields": [
+                    "displayName",
+                    "partyRole",
+                    "revision",
+                    "effectiveFrom",
+                    "effectiveTo"
+                  ],
+                  "actions": [
+                    "filter",
+                    "refresh"
+                  ],
+                  "recordActions": []
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "defaults": {
+      "collections": {
+        "zp_properties": {
+          "fieldGroups": [
+            {
+              "title": "Context",
+              "fields": [
+                "name",
+                "address",
+                "portfolio"
+              ]
+            }
+          ]
+        },
+        "zp_units": {
+          "fieldGroups": [
+            {
+              "title": "Context",
+              "fields": [
+                "name",
+                "property",
+                "building"
+              ]
+            }
+          ]
+        },
+        "zp_tenancies": {
+          "fieldGroups": [
+            {
+              "title": "Context",
+              "fields": [
+                "code",
+                "unit",
+                "leaseState",
+                "startDate",
+                "endDate",
+                "version",
+                "draftRevision"
+              ]
+            }
+          ]
+        },
+        "zp_tenancy_terms": {
+          "fieldGroups": [
+            {
+              "title": "Context",
+              "fields": [
+                "effectiveFrom",
+                "effectiveTo",
+                "currency",
+                "rentFrequency",
+                "dueDay",
+                "prorationPolicy",
+                "revision"
+              ]
+            }
+          ]
+        },
+        "zp_tenancy_parties": {
+          "fieldGroups": [
+            {
+              "title": "Context",
+              "fields": [
+                "displayName",
+                "partyRole",
+                "effectiveFrom",
+                "effectiveTo",
+                "revision"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "safety": {
+    "stripGeneratedActionsExcept": [
+      "ViewActionModel",
+      "FilterActionModel",
+      "RefreshActionModel"
+    ],
+    "noRoleGrantBeforeReadback": true,
+    "readOnly": true,
+    "requiresPopupCurrentRecordQualification": true
+  }
+}

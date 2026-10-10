@@ -1,0 +1,210 @@
+{
+  "format": "zatiproperty.read-overlay.v1",
+  "status": "review-candidate-not-applied",
+  "role": "zp_property_manager",
+  "preserve": {
+    "nonViewActions": "exactly",
+    "existingViewFields": "union",
+    "existingViewScope": "require-equal",
+    "portalRoles": "unchanged",
+    "globalStrategy": "unchanged",
+    "routeGrants": "add-only-after-ui-verification"
+  },
+  "requires": [
+    "account permission displayName field installed and reviewed",
+    "association guard independently qualifies each added relation hop"
+  ],
+  "resources": [
+    {
+      "name": "zp_properties",
+      "scope": {
+        "managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "name",
+        "address",
+        "portfolioId",
+        "portfolio",
+        "buildings",
+        "ownershipSets"
+      ]
+    },
+    {
+      "name": "zp_units",
+      "scope": {
+        "property.managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "name",
+        "propertyId",
+        "property",
+        "buildingId",
+        "building"
+      ]
+    },
+    {
+      "name": "zp_tenancies",
+      "scope": {
+        "unit.property.managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "code",
+        "unitId",
+        "unit",
+        "status",
+        "leaseState",
+        "startDate",
+        "endDate",
+        "version",
+        "draftRevision",
+        "parties",
+        "terms"
+      ]
+    },
+    {
+      "name": "zp_portfolios",
+      "scope": {
+        "managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "name",
+        "code",
+        "description"
+      ]
+    },
+    {
+      "name": "zp_buildings",
+      "scope": {
+        "property.managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "name",
+        "propertyId",
+        "property"
+      ]
+    },
+    {
+      "name": "zp_owner_contacts",
+      "scope": {
+        "managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "displayName"
+      ]
+    },
+    {
+      "name": "zp_ownership_sets",
+      "scope": {
+        "property.managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "propertyId",
+        "property",
+        "effectiveFrom",
+        "effectiveTo",
+        "state",
+        "version",
+        "interestsRevision",
+        "interests"
+      ]
+    },
+    {
+      "name": "zp_property_interests",
+      "scope": {
+        "ownershipSet.property.managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "ownershipSetId",
+        "ownershipSet",
+        "ownerContactId",
+        "ownerContact",
+        "shareBasisPoints",
+        "revision"
+      ]
+    },
+    {
+      "name": "zp_tenancy_parties",
+      "scope": {
+        "tenancy.unit.property.managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "tenancyId",
+        "tenancy",
+        "displayName",
+        "partyRole",
+        "effectiveFrom",
+        "effectiveTo",
+        "revision"
+      ]
+    },
+    {
+      "name": "zp_tenancy_terms",
+      "scope": {
+        "tenancy.unit.property.managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "tenancyId",
+        "tenancy",
+        "effectiveFrom",
+        "effectiveTo",
+        "currency",
+        "rentMinor",
+        "depositMinor",
+        "rentFrequency",
+        "dueDay",
+        "prorationPolicy",
+        "revision"
+      ]
+    },
+    {
+      "name": "zp_tenant_account_permissions",
+      "scope": {
+        "managerUserId": {
+          "$eq": "{{ ctx.state.currentUser.id }}"
+        }
+      },
+      "addViewFields": [
+        "id",
+        "userId",
+        "displayName"
+      ]
+    }
+  ],
+  "excludedResources": [
+    "users",
+    "zp_domain_events",
+    "zp_audit_heads",
+    "zp_domain_outbox"
+  ],
+  "noGenericWrites": true
+}
