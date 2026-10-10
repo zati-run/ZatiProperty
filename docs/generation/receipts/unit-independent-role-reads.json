@@ -1,0 +1,354 @@
+{
+  "observedAt": "2026-10-10T15:52:15.215302+00:00",
+  "checks": [
+    {
+      "actor": "zp_owner.1",
+      "case": "unit-get",
+      "status": 200,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "unit-filter-list",
+      "status": 200,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "associated-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "property-append",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "building-property",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "form-resolve",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "unit-get",
+      "status": 200,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "unit-filter-list",
+      "status": 200,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "associated-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "property-append",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "building-property",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "form-resolve",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "unit-get",
+      "status": 200,
+      "observedIds": [
+        5
+      ],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "unit-filter-list",
+      "status": 200,
+      "observedIds": [
+        5
+      ],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "associated-list",
+      "status": 200,
+      "observedIds": [
+        5
+      ],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "property-append",
+      "status": 200,
+      "observedIds": [
+        5
+      ],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "building-property",
+      "status": 200,
+      "observedIds": [
+        5
+      ],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "form-resolve",
+      "status": 200,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "unit-get",
+      "status": 200,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "unit-filter-list",
+      "status": 200,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "associated-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "property-append",
+      "status": 200,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "building-property",
+      "status": 200,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "form-resolve",
+      "status": 200,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "unit-get",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "unit-filter-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "associated-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "property-append",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "building-property",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "form-resolve",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "unit-get",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "unit-filter-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "associated-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "property-append",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "building-property",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "form-resolve",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "unit-get",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "unit-filter-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "associated-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "property-append",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "building-property",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "form-resolve",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "unit-get",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "unit-filter-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "associated-list",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "property-append",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "building-property",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "form-resolve",
+      "status": 403,
+      "observedIds": [],
+      "passed": true
+    }
+  ],
+  "passed": 48,
+  "total": 48,
+  "noBusinessWrites": true
+}
