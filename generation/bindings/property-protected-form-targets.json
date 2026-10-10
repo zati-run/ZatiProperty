@@ -8,5 +8,15 @@
     "gridUid": "6uqz7o0bcfb",
     "contextCollection": "zp_tenancies",
     "source": "native-readback"
+  },
+  "manager-property-create-grid": {
+    "pageSchemaUid": "zp-create-property",
+    "pageUid": "zp-create-property-page",
+    "gridUid": "4et051d8ooj",
+    "menuRouteId": 391351831429120,
+    "tabRouteId": 391351831429121,
+    "tabUid": "07yzp8v77yr",
+    "contextCollection": null,
+    "source": "native-readback"
   }
 }
