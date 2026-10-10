@@ -111,21 +111,26 @@ def role_client(root,q,alias,role,graph,port):
     finally:bridges.PORT=old
 
 class Qualification:
-    def __init__(self,root,run_id):
+    def __init__(self,root,run_id,resume=False):
         self.root=root;self.run_id=run_id;self.events=[]
         self.path=root.runtime/("property-command-verification-"+run_id)
-        self.path.mkdir(mode=0o700,exist_ok=False)
+        if resume:
+            if not self.path.is_dir():raise RuntimeError("Resume journal absent")
+            self.events=[json.loads(p.read_text()) for p in sorted(self.path.glob("[0-9][0-9][0-9]-result.json"))]
+        else:self.path.mkdir(mode=0o700,exist_ok=False)
     def audit(self):
         fields={"zp_domain_events":["id","sequence","eventHash"],"zp_domain_outbox":["id","eventId","status"],"zp_domain_commands":["id","commandKey","actorId","action","requestId","eventId"],"zp_audit_heads":["id","headSequence","headHash"]}
         return {name:read_rows(self.root,name,fields[name]) for name in AUDIT}
     def record(self,event):
         self.events.append(event);durable(self.path/(str(len(self.events)).zfill(3)+"-result.json"),event)
-    def command(self,client,actor,action,values,label,expected_error=None,replay=None):
-        values={**values,"requestId":replay or str(uuid.uuid4())};before=self.audit()
+    def command(self,client,actor,action,values,label,expected_error=None,replay=None,request_id=None):
+        values={**values,"requestId":replay or request_id or str(uuid.uuid4())};before=self.audit()
         durable(self.path/(label+"-intent.json"),{"actor":actor,"action":action,"values":values,"before":before})
         result=None;error=None
         try:result=call(client,action,values)
-        except Exception as exc:error=str(exc)
+        except Exception as exc:
+            error=str(exc)
+            durable(self.path/(label+"-error-private.json"),{"error":error})
         after=self.audit()
         if error:
             # Never classify a transport failure as a successful deny.
@@ -168,23 +173,27 @@ class Qualification:
 def draft(unit,user,code):
     return {"unitId":unit,"code":code,"startDate":"2035-01-01","endDate":"2035-12-31","term":{"effectiveFrom":"2035-01-01","effectiveTo":"2035-12-31","currency":"NZD","rentMinor":150000,"depositMinor":300000,"rentFrequency":"monthly","dueDay":1,"prorationPolicy":"actual-calendar-days"},"parties":[{"displayName":"Synthetic permitted tenant","userId":user,"partyRole":"primary","effectiveFrom":"2035-01-01","effectiveTo":"2035-12-31"}],"reasonCode":"initial-setup"}
 
-def run(root,q):
+def run(root,q,checkpoint=None):
     accounts=json.loads((root.runtime/"maintenance-test-accounts.json").read_text());tenant=accounts["zp_tenant.1"]["id"];manager=accounts["zp_property_manager.1"]["id"]
     with role_client(root,q,"property_manager_primary","zp_property_manager","1",18462) as m:
         schema_gate(m)
-        existing=read_rows(root,"zp_properties",["id"],{"managerUserId":manager})
-        if not existing:raise AssertionError("Existing synthetic manager property required for read-only audit baseline")
-        before=q.audit();health=call(m,"auditHealth",{"propertyId":existing[0]["id"]});assert before==q.audit()
-        q.record({"label":"pre-mutation-audit-health","status":"readonly","initialAuditCounts":{k:len(v) for k,v in before.items()},"result":health})
-        prop,pid=q.command(m,"manager1","createProperty",{"name":"Command qualification "+q.run_id,"reasonCode":"initial-setup"},"create-property")
-        property_id=prop["id"]
-        q.command(m,"manager1","createProperty",{"name":"Command qualification "+q.run_id,"reasonCode":"initial-setup"},"replay-property",replay=pid)
-        q.command(m,"manager1","createProperty",{"name":"Changed collision","reasonCode":"initial-setup"},"collision-property",expected_error="REQUEST_ID_COLLISION",replay=pid)
-        building,_=q.command(m,"manager1","createBuilding",{"propertyId":property_id,"name":"Synthetic Building","reasonCode":"initial-setup"},"create-building")
-        unit,_=q.command(m,"manager1","createUnit",{"propertyId":property_id,"buildingId":building["id"],"name":"Synthetic Unit","reasonCode":"initial-setup"},"create-unit")
-        owner,_=q.command(m,"manager1","createOwnerContact",{"propertyId":property_id,"displayName":"Synthetic owner contact","reasonCode":"initial-setup"},"create-owner-contact")
+        if checkpoint:
+            prop=checkpoint["create-property"];pid=checkpoint["propertyRequestId"]
+            property_id=prop["id"];building=checkpoint["create-building"];unit=checkpoint["create-unit"];owner=checkpoint["create-owner-contact"]
+        else:
+            existing=read_rows(root,"zp_properties",["id"],{"managerUserId":manager})
+            if not existing:raise AssertionError("Existing synthetic manager property required for read-only audit baseline")
+            before=q.audit();health=call(m,"auditHealth",{"propertyId":existing[0]["id"]});assert before==q.audit()
+            q.record({"label":"pre-mutation-audit-health","status":"readonly","initialAuditCounts":{k:len(v) for k,v in before.items()},"result":health})
+            prop,pid=q.command(m,"manager1","createProperty",{"name":"Command qualification "+q.run_id,"reasonCode":"initial-setup"},"create-property")
+            property_id=prop["id"]
+            q.command(m,"manager1","createProperty",{"name":"Command qualification "+q.run_id,"reasonCode":"initial-setup"},"replay-property",replay=pid)
+            q.command(m,"manager1","createProperty",{"name":"Changed collision","reasonCode":"initial-setup"},"collision-property",expected_error="REQUEST_ID_COLLISION",replay=pid)
+            building,_=q.command(m,"manager1","createBuilding",{"propertyId":property_id,"name":"Synthetic Building","reasonCode":"initial-setup"},"create-building")
+            unit,_=q.command(m,"manager1","createUnit",{"propertyId":property_id,"buildingId":building["id"],"name":"Synthetic Unit","reasonCode":"initial-setup"},"create-unit")
+            owner,_=q.command(m,"manager1","createOwnerContact",{"propertyId":property_id,"displayName":"Synthetic owner contact","reasonCode":"initial-setup"},"create-owner-contact")
         mappings=read_rows(root,"zp_tenant_account_permissions",["id","managerUserId","userId"],{"managerUserId":manager,"userId":tenant})
-        if not mappings:q.command(root,"constructor","authorizeTenantAccount",{"propertyId":property_id,"managerUserId":manager,"userId":tenant,"displayName":"Synthetic tenant","reasonCode":"account-authorized"},"authorize-account")
+        if not mappings:q.command(root,"constructor","authorizeTenantAccount",{"propertyId":property_id,"managerUserId":manager,"userId":tenant,"displayName":"Synthetic tenant","reasonCode":"account-authorized"},"authorize-account-resume" if checkpoint else "authorize-account",request_id=checkpoint["accountRequestId"] if checkpoint else None)
         elif len(mappings)!=1:raise AssertionError("Ambiguous account mapping")
         q.command(m,"manager1","authorizeTenantAccount",{"propertyId":property_id,"managerUserId":manager,"userId":tenant,"displayName":"Synthetic tenant","reasonCode":"account-authorized"},"deny-manager-account-authority",expected_error="DOMAIN_ACTION_DENIED")
         bad=draft(unit["id"],accounts["zp_tenant.2"]["id"],"ZP-Q-DENY")
@@ -213,14 +222,42 @@ def run(root,q):
         q.command(foreign,"manager2","createBuilding",{"propertyId":property_id,"name":"Forbidden building","reasonCode":"initial-setup"},"deny-foreign-property",expected_error="PROPERTY_SCOPE")
         before=q.audit();observed=call(foreign,"reconcileCommand",{"action":"createProperty","requestId":pid});assert observed["status"]=="not_observed" and before==q.audit();q.record({"label":"cross-actor-reconciliation","status":"isolated-readonly"})
 
+def resume_checkpoint(root,q):
+    labels=["create-property","create-building","create-unit","create-owner-contact"]
+    result={}
+    for label in labels:
+        found=[e for e in q.events if e.get("label")==label and e.get("status")=="committed"]
+        if len(found)!=1:raise RuntimeError("Incomplete or ambiguous checkpoint: "+label)
+        result[label]=found[0]["result"]
+    prior=json.loads((q.path/"authorize-account-intent.json").read_text())
+    if prior["action"]!="authorizeTenantAccount":raise RuntimeError("Wrong checkpoint action")
+    if q.audit()!=prior["before"]:raise RuntimeError("Protected state changed since interrupted request; review before resuming")
+    observed=call(root,"reconcileCommand",{"action":"authorizeTenantAccount","requestId":prior["values"]["requestId"]})
+    if observed.get("status")!="not_observed":raise RuntimeError("Authorization outcome changed; reconcile manually, never replay")
+    account=json.loads((root.runtime/"maintenance-test-accounts.json").read_text())["zp_property_manager.1"]
+    specifications=[
+      ("zp_properties",result["create-property"]["id"],{"managerUserId":account["id"]}),
+      ("zp_buildings",result["create-building"]["id"],{"propertyId":result["create-property"]["id"]}),
+      ("zp_units",result["create-unit"]["id"],{"propertyId":result["create-property"]["id"],"buildingId":result["create-building"]["id"]}),
+      ("zp_owner_contacts",result["create-owner-contact"]["id"],{"managerUserId":account["id"]})]
+    for name,identity,expected in specifications:
+        rows=read_rows(root,name,["id",*expected],{"id":identity})
+        if len(rows)!=1 or any(str(rows[0].get(k))!=str(v) for k,v in expected.items()):raise RuntimeError("Context identity drift: "+name)
+    result["accountRequestId"]=prior["values"]["requestId"]
+    result["propertyRequestId"]=next(e["requestId"] for e in q.events if e.get("label")=="create-property")
+    q.record({"label":"explicit-resume-authorize-checkpoint","status":"native-reconciled-before-explicit-resume","accountRequestId":result["accountRequestId"],"contextsUnchanged":True})
+    return result
+
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument("--execute",action="store_true");p.add_argument("--run-id",default=datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ"));p.add_argument("--receipt",type=pathlib.Path);args=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument("--execute",action="store_true");p.add_argument("--resume-authorize",action="store_true",help="Explicit coordinator-approved resume of the saved account authorization step only");p.add_argument("--run-id",default=datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ"));p.add_argument("--receipt",type=pathlib.Path);args=p.parse_args()
     if not re.fullmatch(r"[A-Za-z0-9-]{1,60}",args.run_id):p.error("invalid run ID")
     root=Loom();schemas=schema_gate(root)
     if not args.execute:print(json.dumps({"status":"schema-qualified-no-writes","tools":{k:v["name"] for k,v in schemas.items()}}));return
     if not args.receipt or args.receipt.exists():p.error("new receipt path required")
-    q=Qualification(root,args.run_id)
-    try:run(root,q);status="passed"
+    q=Qualification(root,args.run_id,resume=args.resume_authorize)
+    try:
+        checkpoint=resume_checkpoint(root,q) if args.resume_authorize else None
+        run(root,q,checkpoint);status="passed"
     except Exception as exc:status="blocked";q.record({"label":"run-stopped","status":"blocked","errorType":type(exc).__name__});raise
     finally:
         args.receipt.parent.mkdir(parents=True,exist_ok=True);args.receipt.write_text(json.dumps({"runId":args.run_id,"status":locals().get("status","blocked"),"observedAt":datetime.datetime.now(datetime.timezone.utc).isoformat(),"tools":{k:v["name"] for k,v in schemas.items()},"checks":q.events},indent=2)+"\n")
