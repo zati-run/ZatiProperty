@@ -1,0 +1,21 @@
+{
+  "httpStatus": 200,
+  "response": {
+    "data": {
+      "status": "verified",
+      "requestId": "011551fa-95f8-4362-8287-1ad506aede25",
+      "result": {
+        "id": 2,
+        "propertyId": 6,
+        "state": "created",
+        "version": 0
+      },
+      "record": {
+        "id": 2,
+        "name": "Synthetic building browser 20261010-R1",
+        "propertyId": 6
+      }
+    }
+  },
+  "writes": 1
+}

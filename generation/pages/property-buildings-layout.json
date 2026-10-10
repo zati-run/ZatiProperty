@@ -1,0 +1,49 @@
+{
+  "requestBody": {
+    "target": {
+      "uid": "xy18xhzkxu5"
+    },
+    "rows": {
+      "row1": [
+        [
+          "kinzc6ybxgn"
+        ]
+      ],
+      "row2": [
+        [
+          "xqtu1wlrvue"
+        ]
+      ],
+      "laf_zp_create_building_form_v1": [
+        [
+          "zp_create_building_form_v1"
+        ]
+      ],
+      "appendRow1": [
+        [
+          "wmyvf5lq9g0"
+        ]
+      ]
+    },
+    "sizes": {
+      "row1": [
+        24
+      ],
+      "row2": [
+        24
+      ],
+      "laf_zp_create_building_form_v1": [
+        24
+      ],
+      "appendRow1": [
+        24
+      ]
+    },
+    "rowOrder": [
+      "row1",
+      "appendRow1",
+      "row2",
+      "laf_zp_create_building_form_v1"
+    ]
+  }
+}

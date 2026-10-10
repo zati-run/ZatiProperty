@@ -1,0 +1,45 @@
+{
+  "format": "Project desired-state postconditions, not a single native tool input",
+  "settings": [
+    {
+      "target": {
+        "uid": "wmyvf5lq9g0"
+      },
+      "stepParams": {
+        "cardSettings": {
+          "titleDescription": {
+            "title": "Buildings"
+          }
+        }
+      }
+    },
+    {
+      "target": {
+        "uid": "gj6styncxpo"
+      },
+      "stepParams": {
+        "cardSettings": {
+          "titleDescription": {
+            "title": "Building context"
+          }
+        }
+      }
+    }
+  ],
+  "removedGeneratedActions": [
+    "4wuvg6m9wh8",
+    "w80hfwl4o42",
+    "415oezrw9ug",
+    "cfgf1gi2y5s",
+    "cxsb3rq3i6q"
+  ],
+  "retainedActions": [
+    "ViewActionModel",
+    "FilterActionModel",
+    "RefreshActionModel"
+  ],
+  "buildingDetailsGrid": "d3vkb0wzty8",
+  "buildingDetails": "gj6styncxpo",
+  "buildingView": "q79kp0urhq1",
+  "buildingTable": "wmyvf5lq9g0"
+}
