@@ -17,4 +17,3 @@ class Hierarchy(unittest.TestCase):
   for name in ["portfolio","tenancies"]:walk(json.loads((ROOT/("generation/pages/"+name+".json")).read_text()))
   self.assertEqual(len(found),6)
 if __name__=="__main__":unittest.main()
-
