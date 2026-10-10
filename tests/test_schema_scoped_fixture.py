@@ -42,8 +42,10 @@ class FixtureSafety(unittest.TestCase):
   rows={k:[] for k in f.ACL_TABLES}
   for i,r in enumerate(f.permissions()['resources']):
    rows[f.ACL_TABLES[0]].append({'id':i,'roleName':f.ROLE,'name':r['name'],'dataSourceKey':'main','usingActionsConfig':True})
-   rows[f.ACL_TABLES[1]] += [dict(a,id=100+len(rows[f.ACL_TABLES[1]])+j,rolesResourceId=i) for j,a in enumerate(r['actions'])]
+   rows[f.ACL_TABLES[1]] += [dict({'fields':[],**a},id=100+len(rows[f.ACL_TABLES[1]])+j,rolesResourceId=i) for j,a in enumerate(r['actions'])]
   self.assertTrue(f.verify_permissions(rows))
+  null=copy.deepcopy(rows);null[f.ACL_TABLES[1]][0]['fields']=None
+  self.assertFalse(f.verify_permissions(null))
   for table in f.ACL_TABLES[:2]:
    duplicate=copy.deepcopy(rows);duplicate[table].append(copy.deepcopy(duplicate[table][0]))
    self.assertFalse(f.verify_permissions(duplicate))

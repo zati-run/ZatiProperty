@@ -45,7 +45,8 @@ def verify_permissions(rows):
   actions=[a for a in rows[ACL_TABLES[1]] if a['rolesResourceId']==resource['id']]
   if len(actions)!=len(RESOURCE_ACTIONS[resource['name']]) or len({a['id'] for a in actions})!=len(actions) or {a['name'] for a in actions}!=set(RESOURCE_ACTIONS[resource['name']]):return False
   if any(a.get('scopeId') is not None for a in actions):return False
-  expected=['id'] if resource['name']!='loomSchemaAuthoring' else None
+  # Pinned native data-sources-roles-resources-actions fields array defaults [].
+  expected=['id'] if resource['name']!='loomSchemaAuthoring' else []
   if any(a.get('fields')!=expected for a in actions):return False
  return True
 def run(c,path,step):
