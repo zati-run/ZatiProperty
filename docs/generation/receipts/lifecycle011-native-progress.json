@@ -1,0 +1,24 @@
+{
+  "environment": "synthetic NocoBase CE2.2.21 development",
+  "package": "@loom/plugin-package-lifecycle",
+  "version": "0.1.1",
+  "nativeReadback": {
+    "enabled": true,
+    "installed": true,
+    "isCompatible": true
+  },
+  "uploadResponse": {
+    "enabled": true,
+    "installationAcceptance": false,
+    "installed": true,
+    "isCompatible": true,
+    "packageName": "@loom/plugin-package-lifecycle",
+    "verification": "package-version",
+    "version": "0.1.1"
+  },
+  "catalogSha256": "dfc4d813ad75f79810db1a39a0d5b50e37a5807ed42d6e278088e9dff862d33c",
+  "nativeToolCount": 251,
+  "runtimeSource": "2772878",
+  "recoveryAttempt": "inspect only;409PACKAGE_CACHE_PATH_UNSAFE; no eviction or schema write",
+  "acceptance": "package/catalog qualification only; staged recovery remains blocked"
+}
