@@ -153,8 +153,8 @@ All construction used Loom native MCP in the same synthetic CE2.2.21 target.
 Multiple owner/co-tenant portal membership changes currently fail closed pending
 qualified scope migration. This is an open requirement, not an approved deferral.
 
-Schema hierarchy continuation remains blocked by the native rollback metadata invariant in [receipt 025](../docs/generation/receipts/025-schema-preview-metadata-blocker.md). The target relationship was not created; observed persistent state and role policies match the baseline.
+The historical rollback metadata blocker in [receipt025](../docs/generation/receipts/025-schema-preview-metadata-blocker.md) is resolved for the bounded rollback preview in [receipt030](../docs/generation/receipts/030-latest-native-qualification.md). The target relationship remains absent; positive persistent authoring, scoped/effective ACL and reload gates remain open.
 
 ## Latest bounded qualification
 
-Receipt030 records schema0.1.5 successful rollback-only preview with complete baseline/metadata preservation; positive persistent authoring and effective ACL acceptance remain open. Preauth0.1.4 resolves the tested delayed-anonymous-response sign-in race with retained session/reload and preserved authenticated failure handling. Earlier failures remain historical. App957b2c6 and Loom9863d052 are locally integrated source, not whole E3 acceptance.
+[Receipt030](../docs/generation/receipts/030-latest-native-qualification.md) records schema0.1.5 successful rollback-only preview with complete baseline/metadata preservation; positive persistent authoring and effective ACL acceptance remain open. Preauth0.1.4 resolves the tested delayed-anonymous-response sign-in race with retained session/reload and preserved authenticated failure handling. Earlier failures remain historical. App957b2c6 and Loom9863d052 are locally integrated source, not whole E3 acceptance.
