@@ -36,6 +36,7 @@ def main():
     manifest["resources"]={r["name"]:{"fields":r["addViewFields"],"scope":r["scope"]} for r in manifest["resources"]}
     manifest["resources"]["zp_tenant_account_permissions"]={"fields":["id","userId","displayName"],"scope":{"managerUserId":{"$eq":"{{ ctx.state.currentUser.id }}"}}}
     journal=Journal(runtime/"property-hierarchy-owner-restore-journal")
+    journal.before={"baseline":before,"observed":observed}
     app=Apply(client,{"roles":observed},manifest,journal)
     app.guard()
     resources=payload_for(before["roles"][ROLE],observed[ROLE])
