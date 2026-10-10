@@ -7,7 +7,7 @@ from loom_mcp import Loom
 
 WATCH=["zp_ownership_sets","zp_property_interests","zp_tenancies","zp_tenancy_terms","zp_tenancy_parties"]
 def snapshot(root,q):
-    return {"audit":q.audit(),"rows":{name:v.read_rows(root,name) for name in WATCH}}
+    return {"audit":{name:v.read_rows(root,name) for name in v.AUDIT},"rows":{name:v.read_rows(root,name) for name in WATCH}}
 def denied_generic(root,q,client,actor,operation,args,label):
     before=snapshot(root,q);name=v.tool(client,"loom_native_resource_"+operation+"_")
     jsonschema.validate(args,client.by_name[name]["inputSchema"])
@@ -22,7 +22,7 @@ def denied_generic(root,q,client,actor,operation,args,label):
             raise RuntimeError("Unexpected generic denial; inspect private journal")
     else:raise AssertionError("Generic write unexpectedly succeeded; stop and reconcile")
     if snapshot(root,q)!=before:raise AssertionError("Denied generic write changed state")
-    q.record({"label":label,"status":"denied-unchanged","actor":actor,"boundary":code})
+    q.record({"label":label,"status":"denied-unchanged","actor":actor,"boundary":code,"snapshotDigest":v.hashlib.sha256(json.dumps(before,sort_keys=True,separators=(",",":")).encode()).hexdigest()})
 
 def run(root,q):
     properties=v.read_rows(root,"zp_properties",filter={"id":4})
@@ -60,7 +60,7 @@ def run(root,q):
             ("update",{"resource":"zp_tenancies","filterByTk":4,"values":{"parties":[{"displayName":"Synthetic forbidden nested party","partyRole":"occupant"}]},"updateAssociationValues":["parties"]},"nested"),
             ("create",{"resource":"zp_tenancies.terms","sourceId":4,"values":{"currency":"NZD","rentMinor":1,"revision":999}},"association")]
         audit=q.audit()
-        for resource,field,value in [("zp_domain_events","reasonCode","correction"),("zp_domain_outbox","status","delivered"),("zp_domain_commands","resultJSON","{}"),("zp_audit_heads","headHash","f"*64)]:
+        for resource,field,value in [("zp_domain_events","eventHash","f"*64),("zp_domain_outbox","status","delivered"),("zp_domain_commands","resultJSON","{}"),("zp_audit_heads","headHash","f"*64)]:
             row=audit[resource][-1]
             cases.append(("update",{"resource":resource,"filterByTk":row["id"],"values":{field:value}},resource))
         for actor,client in [("root",root),("manager",manager)]:

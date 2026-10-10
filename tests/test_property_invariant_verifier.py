@@ -29,6 +29,22 @@ class Safety(unittest.TestCase):
   with patch.object(s.v,"read_rows",side_effect=lambda root,name:[{"id":1}]) as r:
    result=s.snapshot(None,Q())
    self.assertEqual(set(result["rows"]),set(s.WATCH))
-   self.assertEqual(result["audit"],{"head":11})
+   self.assertEqual(set(result["audit"]),set(s.v.AUDIT))
+   self.assertEqual(result["audit"]["zp_domain_commands"],[{"id":1}])
    self.assertIn("zp_property_interests",result["rows"])
+ def test_changed_command_payload_is_detected(self):
+  with tempfile.TemporaryDirectory() as d:
+   class Q:
+    path=pathlib.Path(d)
+    def record(self,x):pass
+   before={"audit":{"zp_domain_commands":[{"id":1,"resultJSON":"original"}]}}
+   after={"audit":{"zp_domain_commands":[{"id":1,"resultJSON":"tampered"}]}}
+   with patch.object(s,"snapshot",side_effect=[before,after]),patch.object(s.v,"expected_failure",return_value=True):
+    with self.assertRaisesRegex(AssertionError,"changed state"):s.denied_generic(None,Q(),self.client(RuntimeError("denied")),"root","update",{},"probe")
+ def test_complete_audit_snapshot_uses_no_field_projection(self):
+  class Q:
+   def audit(self):raise AssertionError("Projected audit must not be used")
+  with patch.object(s.v,"read_rows",return_value=[]) as read:
+   s.snapshot(None,Q())
+   for name in s.v.AUDIT:self.assertIn(((None,name),{}),[(c.args,c.kwargs) for c in read.call_args_list])
 if __name__=="__main__":unittest.main()
