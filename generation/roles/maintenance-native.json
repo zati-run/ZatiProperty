@@ -66,7 +66,8 @@
             "trade",
             "active",
             "insuranceExpiresAt",
-            "licenseExpiresAt"
+            "licenseExpiresAt",
+            "propertyPermissions"
           ],
           "updateFields": []
         },
@@ -88,7 +89,8 @@
             "tenancyId",
             "property",
             "unit",
-            "tenancy"
+            "tenancy",
+            "workOrders"
           ],
           "updateFields": [
             "title",
@@ -114,7 +116,10 @@
             "property",
             "unit",
             "tenancy",
-            "request"
+            "request",
+            "propertyId",
+            "unitId",
+            "tenancyId"
           ],
           "updateFields": [
             "state",
@@ -122,6 +127,20 @@
             "vendor",
             "priority"
           ]
+        },
+        {
+          "name": "zp_vendor_properties",
+          "scope": {
+            "property.managerUserId": {
+              "$eq": "{{ ctx.state.currentUser.id }}"
+            }
+          },
+          "viewFields": [
+            "id",
+            "vendorId",
+            "propertyId"
+          ],
+          "updateFields": []
         }
       ]
     },
@@ -301,7 +320,7 @@
     "Related record popup/appends need separate role-specific read tests before exposing native relation blocks.",
     "No root/admin/member role may remain on fixture users. Default system role behavior is verified per account without changing global defaults.",
     "Manager assignment uses vendorId only; nested association payloads must be denied by domain guards.",
-    "zp_vendor_properties join records are constructor-owned; no application role receives join-resource grants.",
-    "Manager context relation view additions require ZP-ACL-001 server-side target scope/field guard before applying; existing scalar grants do not safely authorize relation serialization."
+    "Manager context relation view additions require ZP-ACL-001 server-side target scope/field guard before applying; existing scalar grants do not safely authorize relation serialization.",
+    "Vendor-property mappings remain constructor-owned for writes. Manager has only scoped view of id/vendorId/propertyId for native per-property vendor filtering; all portal roles have no join-resource grant."
   ]
 }

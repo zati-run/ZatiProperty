@@ -1,7 +1,7 @@
 # Maintenance client entry repair
 
 Target: `zp-dev`, synthetic development only, NocoBase CE 2.2.21.
-Loom source includes commits `bd32fea` (authoring-only bootstrap) and `f0cc2a1`
+Loom source includes commits `bd32fea` (authoring-only bootstrap) and `bde529de0f969a5d81b2c18df67c6d34eaf8ee90`
 (plugin update selector binding), based on `5ed932583ef550edb4446f0b4d9ad7c5f3a470ae`.
 
 A fresh browser failed to load because enabled maintenance plugin 0.1.1 had no

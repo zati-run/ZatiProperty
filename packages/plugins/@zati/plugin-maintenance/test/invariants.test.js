@@ -32,7 +32,7 @@ test('requires New creation and valid directed lifecycle; closed records immutab
   check({ ...order, state: 'new' }, { ...order, state: 'quote' });
   check({ ...order, state: 'quote' }, { ...order, state: 'progress' });
   assert.throws(() => check({ ...order, state: 'new' }, { ...order, state: 'progress' }), /STATE_TRANSITION/);
-  assert.throws(() => check({ ...order, state: 'progress' }, { ...order, state: 'complete' }), /OWNER_APPROVAL_UNAVAILABLE/);
+  assert.throws(() => check({ ...order, state: 'progress' }, { ...order, state: 'complete' }), { code: 'ZP_MAINTENANCE_OWNER_APPROVAL_UNAVAILABLE', message: /Owner approval is required.*No changes were saved/ });
   check({ ...order, state: 'closed' }, order);
   check({ ...order, state: 'closed' }, { ...order, state: 'quote' });
   assert.throws(() => check({ ...order, state: 'closed' }, { ...order, state: 'closed' }), /CLOSED_IMMUTABLE/);

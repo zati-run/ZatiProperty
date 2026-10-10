@@ -1,0 +1,67 @@
+{
+  "target": "zp-dev",
+  "loomSourceRevision": "ec4b6408d4376e5a3cf881dd2ffb28342140e1e7",
+  "kind": "read-only installed file identity; functional receipts remain separate",
+  "files": [
+    {
+      "package": "@loom/plugin-association-guard",
+      "file": "package.json",
+      "sha256": "77a9652d7b74a92eb46fde5ad6eeaa934d09504cb2f9fec2ea2b6387644e10f8",
+      "matchesReviewedSource": true
+    },
+    {
+      "package": "@loom/plugin-association-guard",
+      "file": "dist/server/index.js",
+      "sha256": "1cf1fef223f803cef3b807f0b4595a1a1fe2a15d003110938b5d873307ca9e44",
+      "matchesReviewedSource": true
+    },
+    {
+      "package": "@loom/plugin-association-guard",
+      "file": "dist/server/guard.js",
+      "sha256": "76e8a9323a33b4919d7ef7fddc602fa3f1b25f3a445671e50a54b096b06cb854",
+      "matchesReviewedSource": true
+    },
+    {
+      "package": "@loom/plugin-association-guard",
+      "file": "dist/client/index.js",
+      "sha256": "3322effcd2d81010048c876d4001fc5394b49da159db2fafe420729e8dfcb7f7",
+      "matchesReviewedSource": true
+    },
+    {
+      "package": "@loom/plugin-association-guard",
+      "file": "dist/externalVersion.js",
+      "sha256": "7b877dd2d9a9276e59d837b0d8e46c0301b2a7e896b319405434c03245a55149",
+      "matchesReviewedSource": true
+    },
+    {
+      "package": "@loom/plugin-record-select-scope",
+      "file": "package.json",
+      "sha256": "39779a567f14a0074fc11970af6f29416e8f9a509f4e25620ecf27ef9f59761d",
+      "matchesReviewedSource": true
+    },
+    {
+      "package": "@loom/plugin-record-select-scope",
+      "file": "dist/server/index.js",
+      "sha256": "5b084993b1292ab34ae1b31d2374d8cadb1a368ba09707d632f3fb3598ac622d",
+      "matchesReviewedSource": true
+    },
+    {
+      "package": "@loom/plugin-record-select-scope",
+      "file": "dist/server/policy.js",
+      "sha256": "6cd0fb6e34ed0c51b7b900150e95297e00a61d10cb5f1f7c7632f100aa65a5ee",
+      "matchesReviewedSource": true
+    },
+    {
+      "package": "@loom/plugin-record-select-scope",
+      "file": "dist/client/index.js",
+      "sha256": "19b928d5c98b84ec7b24cae608050b655f3a50d9253746c8ebb26256056981a3",
+      "matchesReviewedSource": true
+    },
+    {
+      "package": "@loom/plugin-record-select-scope",
+      "file": "dist/externalVersion.js",
+      "sha256": "8222b8169ee86f25cdccd84d340340060ae3f0cff55e2ea9d344d7c332733b71",
+      "matchesReviewedSource": true
+    }
+  ]
+}

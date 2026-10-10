@@ -1,6 +1,6 @@
 # Maintenance role read verification
 
-Date: 2026-10-11. Target alias: zp-dev. Evidence class: live role-authenticated native GET.
+Date: 2026-10-10. Target alias: zp-dev. Evidence class: live role-authenticated native GET.
 Source base: `7084a5d0039227992179247463212a33ac8affd7`. Tested uncommitted artifact digests:
 
 | Artifact | SHA-256 |

@@ -1,6 +1,6 @@
 # Plan conformance receipt
 
-Date: 2026-10-11. Evidence class: local source and plan-contract verification on DGX.
+Date: 2026-10-10. Evidence class: local source and plan-contract verification on DGX.
 Actor: coverage_plan. No application writes were made by this lane.
 Source base revision: `7084a5d0039227992179247463212a33ac8affd7`.
 The two authored files were uncommitted; their exact digests below identify tested bytes.
@@ -48,3 +48,66 @@ All commands exited 0. The verifier fixture command qualified the same verifier 
 The 54 tasks cover nine coherent batches with independent review, merge and landed verification rows. All app outcomes remain planned; no status was advanced by this receipt. Wazi conformance establishes portable plan syntax and semantics, not authenticated execution authority. Native state readback, role allow/deny, persistence, rendered journeys, workflow behavior, provider checks and production acceptance are outside this receipt. No native IDs, MCP catalog, runtime version or actor role are qualified here.
 
 Any subsequent plan edit invalidates this exact-byte conformance claim until the full gate runs again. Independent review and integration of these artifacts remain coordinator gates.
+
+## Implementation-r2 checkpoint conformance
+
+After recording actual generated subsets and blocking acceptance findings, the same full pinned gate was rerun with `--revision implementation-r2`; it exited 0. T1.0 alone is completed against provisioning evidence. Full maintenance acceptance remains open; no missing RFC scope was silently deferred. This result supersedes the initial source digest for current plan bytes.
+
+```json
+{
+  "authorityAuthenticated": false,
+  "contractDigest": "sha256:7582512f122d2f2a9c4461facc7541c9887053f137260d6ebe9c6dea611d039d",
+  "contractVersion": "0.0.1",
+  "readerCompatible": true,
+  "readerDigest": "sha256:0b1292cbe93af31531647f3e2ae28c37f12decbe89023192729e010d6d7e6d67",
+  "repairDigest": "sha256:cb1d027be4357ad15e940d97eacfedbab0164c289f61346c81a037d77183cdee",
+  "schemaValid": true,
+  "semanticValid": true,
+  "sourceDigest": "sha256:f11780036626c16fc114ef0c9d4630780acd31cf4a18c2ebd1980597f8eead83",
+  "taskCount": 54,
+  "valid": true,
+  "verifierDigest": "sha256:51c4345938f48b95e6e01d279f04456621e4ea616199b251070a07825f16eeb1"
+}
+```
+
+## Implementation-r3 access checkpoint
+
+Same full pinned gate exited 0 after updating resolved bounded read-security findings and preserving final rendered-journey blockers. Current exact-byte result:
+
+```json
+{
+  "authorityAuthenticated": false,
+  "contractDigest": "sha256:7582512f122d2f2a9c4461facc7541c9887053f137260d6ebe9c6dea611d039d",
+  "contractVersion": "0.0.1",
+  "readerCompatible": true,
+  "readerDigest": "sha256:0b1292cbe93af31531647f3e2ae28c37f12decbe89023192729e010d6d7e6d67",
+  "repairDigest": "sha256:cb1d027be4357ad15e940d97eacfedbab0164c289f61346c81a037d77183cdee",
+  "schemaValid": true,
+  "semanticValid": true,
+  "sourceDigest": "sha256:47e22f582ca7a0e86cddc3f0871627f8adc77bb1411d0b89179c5ad00764dc42",
+  "taskCount": 54,
+  "valid": true,
+  "verifierDigest": "sha256:51c4345938f48b95e6e01d279f04456621e4ea616199b251070a07825f16eeb1"
+}
+```
+
+## Implementation-r4 local integration boundary
+
+All review, merge and landed tasks remain. Merge acceptance now explicitly requires authorized local repository integration, not external GitHub publication. Same pinned gate exited 0:
+
+```json
+{
+  "authorityAuthenticated": false,
+  "contractDigest": "sha256:7582512f122d2f2a9c4461facc7541c9887053f137260d6ebe9c6dea611d039d",
+  "contractVersion": "0.0.1",
+  "readerCompatible": true,
+  "readerDigest": "sha256:0b1292cbe93af31531647f3e2ae28c37f12decbe89023192729e010d6d7e6d67",
+  "repairDigest": "sha256:cb1d027be4357ad15e940d97eacfedbab0164c289f61346c81a037d77183cdee",
+  "schemaValid": true,
+  "semanticValid": true,
+  "sourceDigest": "sha256:1516a8a48af67d6031576d3837e75c5459a1edef2cdb47d9ecd1de1c879679f7",
+  "taskCount": 54,
+  "valid": true,
+  "verifierDigest": "sha256:51c4345938f48b95e6e01d279f04456621e4ea616199b251070a07825f16eeb1"
+}
+```

@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "requestCount": 8,
+  "mixedMapPrecondition": "confirmed via Loom native readback",
+  "results": [
+    {
+      "account": "zp_property_manager.1",
+      "scope": "own",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 2,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "own",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 1,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "foreign",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "foreign",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "own",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 2,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "own",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 2,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "foreign",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "foreign",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true
+    }
+  ]
+}

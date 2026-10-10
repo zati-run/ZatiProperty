@@ -1,0 +1,25 @@
+{
+  "projectHead": "353e38c92b8ea823eb218049828451fab85c9309",
+  "loomHead": "ec4b6408d4376e5a3cf881dd2ffb28342140e1e7",
+  "catalogDigest": "513a437bfebb384f55f527dc86ed6e77a8393c436770109376da50dbdf92e435",
+  "nativeTools": 225,
+  "supplementalTools": 25,
+  "appVersion": "2.2.21",
+  "files": {
+    "scripts/maintenance_manager_live.mjs": "2b006dfb7dea5f46176b353e0817711c15f475096b421c5c2346c3fb316c1468",
+    "scripts/reset_maintenance_browser_fixture.py": "0e220748450c0e94f7b950f7562ccd2f876bb31a3a015f2787515af1d937c879",
+    "generation/roles/maintenance-native.json": "986ff26d3b1cfc42871f23fd3975aad857427e31ef3aab58a0c3f67fa1c2c302",
+    "docs/generation/receipts/screenshots/maintenance-manager-1365.json": "646726c9780581c14a3c72b4e4f6ae15de3879ac7b6a988382a7328690ff51dd",
+    "docs/generation/receipts/screenshots/maintenance-manager-390.json": "c061d14844f6b5f49282bc2c6d44f6650890ab9c42a95751f5c92454ddb26b9e",
+    "docs/generation/receipts/screenshots/maintenance-manager-saved-reload-1365.png": "4922380d7073a712ff7b2494130babd5b94ba9705095217b7efe0b3367276144",
+    "docs/generation/receipts/screenshots/maintenance-manager-saved-reload-390.png": "d939bf162631306266e8fac1b2210b58823c7a382b7bcc3acaeed597a1ca3c53",
+    "docs/generation/receipts/manager-final-native-readbacks.json": "ad2db1912645f99c4bdd33bab6874fc2eb02d634be9c7437d49623b9d1a14267",
+    "scripts/maintenance_negative_browser.mjs": "cd8e1875995e43e5cde549ab428f86158c3a434394ee9037cdcbef287a609ccf",
+    "docs/generation/receipts/screenshots/maintenance-denied-transition.json": "25c93f1e3dea755a6005c25a40df0efec2b7a09fc8cbd149a93a0a13cadbc4ec",
+    "docs/generation/receipts/screenshots/maintenance-denied-transition-1365.png": "272a1a581b6e969843973713dd311fcde99c1c784c655aeb3f061b6041ee2e8d",
+    "docs/generation/receipts/screenshots/maintenance-filtered-empty.json": "12154d4a90579af2c6dc1ce8fe15c77f41b6f8e66aaae2f9455fa04c756e2787",
+    "docs/generation/receipts/screenshots/maintenance-filtered-empty-1365.png": "1ce2c3b2406adc7baf2a56f332d4665852595d79258d22fb41c0586f55cc7556"
+  },
+  "postRunHardening": "Added all-context assertion after recorded runs; both existing reports have all three true. No acceptance rerun claimed for this assertion-only change.",
+  "feedbackPostRunHardening": "Added exact-message and preserved-vendor assertions after the recorded run; captured message and screenshot establish current values. No redundant rerun claimed."
+}

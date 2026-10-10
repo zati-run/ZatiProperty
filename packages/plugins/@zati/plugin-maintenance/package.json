@@ -1,6 +1,6 @@
 {
   "name": "@zati/plugin-maintenance",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "displayName": "ZatiProperty maintenance invariants",
   "description": "Protected maintenance context, assignment and lifecycle rules. Financial transitions fail closed.",
   "main": "dist/server/index.js",

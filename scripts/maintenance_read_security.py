@@ -60,7 +60,7 @@ def run():
         token=signed['data']['token']
         own=bindings['1']['zp_work_orders'];foreign=bindings['2']['zp_work_orders']
         allowed=next(r['viewFields'] for r in spec['resources'] if r['name']=='zp_work_orders')
-        def probe(label,path,params,*,empty=False,required=False,allowed_relations=None,required_relations=None):
+        def probe(label,path,params,*,empty=False,required=False,allowed_relations=None,required_relations=None,expected_list=None,expected_relation_lists=None):
             query=urllib.parse.urlencode(params)
             request=urllib.request.Request(base+'/'+path+('?' + query if query else ''),
                 headers={'Authorization':'Bearer '+token,'X-Role':role,'Accept':'application/json'},method='GET')
@@ -74,6 +74,13 @@ def run():
             if status>=500:findings.append('server-error')
             if required and (status!=200 or not isinstance(value,dict) or value.get('id')!=own):
                 findings.append('required-own-record-unavailable')
+            if expected_list is not None:
+                if status!=200 or not isinstance(value,list) or {row.get('id') for row in value if isinstance(row,dict)}!=set(expected_list):
+                    findings.append('required-related-list-unavailable')
+            for relation, wanted_ids in (expected_relation_lists or {}).items():
+                linked=value.get(relation) if isinstance(value,dict) else None
+                if status!=200 or not isinstance(linked,list) or {row.get('id') for row in linked if isinstance(row,dict)}!=set(wanted_ids):
+                    findings.append('required-linked-records-unavailable:'+relation)
             for relation in required_relations or []:
                 if not isinstance(value,dict) or not isinstance(value.get(relation),dict):
                     findings.append('required-context-unavailable:'+relation)
@@ -98,7 +105,7 @@ def run():
             probe('foreign-appends-'+str(index),'zp_work_orders:get',{'filterByTk':foreign,'appends':append},empty=True)
         for label,field in [('scalars','id,state,approvalGranted,approvalRequired,propertyId,tenancyId,requestId,vendorId'),
                             ('nested','id,state,property.managerUserId,property.ownerUserId,tenancy.tenantUserId,vendor.userId,request.description')]:
-            probe('own-fields-'+label,'zp_work_orders:get',{'filterByTk':own,'fields':field},required=True,
+            probe('own-fields-'+label,'zp_work_orders:get',{'filterByTk':own,'fields':field},
                   allowed_relations=set(allowed)&RELATIONS)
             probe('foreign-fields-'+label,'zp_work_orders:get',{'filterByTk':foreign,'fields':field},empty=True)
         for relation in ['property','unit','tenancy','request','vendor']:
@@ -118,6 +125,15 @@ def run():
             probe('manager-request-context','zp_maintenance_requests:get',
                   {'filterByTk':own,'appends':'property,unit,tenancy'},required=True,
                   allowed_relations=['property','unit','tenancy'],required_relations=['property','unit','tenancy'])
+            probe('manager-request-linked-work-appends','zp_maintenance_requests:get',
+                  {'filterByTk':own,'appends':'workOrders'},required=True,allowed_relations=['workOrders'],
+                  expected_relation_lists={'workOrders':[saved]})
+            probe('manager-request-linked-work-endpoint',f'zp_maintenance_requests/{own}/workOrders:list',
+                  {},expected_list=[saved])
+            other_request=bindings['2']['zp_maintenance_requests']
+            probe('manager-foreign-request-linked-work-endpoint',f'zp_maintenance_requests/{other_request}/workOrders:list',{},empty=True)
+            probe('manager-foreign-request-linked-work-appends','zp_maintenance_requests:get',
+                  {'filterByTk':other_request,'appends':'workOrders'},empty=True)
             own=saved
             for collection in ['zp_properties','zp_units','zp_tenancies','zp_maintenance_requests','zp_vendors']:
                 saved=own

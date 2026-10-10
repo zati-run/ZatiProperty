@@ -1,0 +1,12 @@
+{
+  "observedAt": "2026-10-10T10:02:17.605Z",
+  "status": 422,
+  "message": "Owner approval is required before work can progress. Approval is not available yet; keep this job in Quote. No changes were saved.",
+  "formPreserved": "Progress",
+  "nativeReadback": {
+    "receipt": "manager-final-native-readbacks.json",
+    "stage": "helpful-denied-ui-after",
+    "state": "quote",
+    "vendorId": 1
+  }
+}

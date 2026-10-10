@@ -1,0 +1,74 @@
+{
+  "before": {
+    "uid": "61obq4tpmpu",
+    "hash": "1f47ef9ad4aa561585e303cb8eb2ab056b53aa4116251be6046712cd3d62e693",
+    "model": "RecordSelectFieldModel",
+    "scope": null
+  },
+  "after": {
+    "uid": "61obq4tpmpu",
+    "hash": "301a2afaebbcdcaf5a4ccc03ec60959b4371dd96a44c0fde7946918c257123ee",
+    "model": "RecordSelectFieldModel",
+    "scope": {
+      "filter": {
+        "logic": "$and",
+        "items": [
+          {
+            "path": "active",
+            "operator": "$eq",
+            "value": true
+          },
+          {
+            "path": "insuranceExpiresAt",
+            "operator": "$dateNotBefore",
+            "value": {
+              "type": "today"
+            }
+          },
+          {
+            "path": "licenseExpiresAt",
+            "operator": "$dateNotBefore",
+            "value": {
+              "type": "today"
+            }
+          },
+          {
+            "path": "propertyPermissions.propertyId",
+            "operator": "$eq",
+            "value": "{{ ctx.record.propertyId }}"
+          }
+        ]
+      }
+    }
+  },
+  "predicates": [
+    {
+      "field": "active",
+      "operator": "eq",
+      "value": {
+        "literal": true
+      }
+    },
+    {
+      "field": "insuranceExpiresAt",
+      "operator": "notExpired",
+      "value": {
+        "today": true
+      }
+    },
+    {
+      "field": "licenseExpiresAt",
+      "operator": "notExpired",
+      "value": {
+        "today": true
+      }
+    },
+    {
+      "field": "propertyPermissions.propertyId",
+      "operator": "eq",
+      "value": {
+        "currentRecordField": "propertyId"
+      }
+    }
+  ]
+}

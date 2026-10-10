@@ -1,20 +1,47 @@
 #!/usr/bin/env python3
-"""First native page composition; refuse replay and preserve every returned UID."""
-import json,pathlib
+"""Initial composition only. Never replay uncertain writes or apply final refinements."""
+import json, os, pathlib
 from loom_mcp import Loom
-root=pathlib.Path(__file__).resolve().parents[1];c=Loom()
-pages=json.loads((root/'generation/bindings/pages.json').read_text())
-context=['property','unit','tenancy']
-defaults={'collections':{'zp_work_orders':{'fieldGroups':[{'title':'Work and context','fields':['title','request',*context,'priority']},{'title':'Assignment','fields':['vendor','state']},{'title':'Approval','fields':['estimatedAmount','currency','approvalRequired','approvalGranted']}]}}}
-requests={'key':'requests','type':'table','resource':{'dataSourceKey':'main','collectionName':'zp_maintenance_requests'},'fields':['title','property','unit','tenancy','priority','status'],'recordActions':[{'type':'view','popup':{'title':'Maintenance request','blocks':[{'key':'requestContext','type':'details','resource':{'binding':'currentRecord'},'fields':['title','description',*context,'priority','permissionToEnter','status',{'fieldPath':'workOrders','fieldType':'subTable','fields':['title','vendor','state']}]}]}}]}
-orders={'key':'orders','type':'table','resource':{'dataSourceKey':'main','collectionName':'zp_work_orders'},'fields':['title','property','unit','tenancy','vendor','state'],'recordActions':[{'type':'view','popup':{'title':'Work order','blocks':[{'key':'workContext','type':'details','resource':{'binding':'currentRecord'},'fields':['title','request',*context,'vendor','state','approvalRequired','approvalGranted']}]}},{'type':'edit','popup':{'title':'Assign vendor','blocks':[{'key':'assignmentContext','type':'details','resource':{'binding':'currentRecord'},'fields':['title',*context]},{'key':'assignment','type':'editForm','resource':{'binding':'currentRecord'},'fields':['vendor','state']}]}}]}
-for key,block in [('maintenance',requests),('work-orders',orders)]:
- receipt=root/f'generation/bindings/{key}-composition.json'
- if receipt.exists():raise RuntimeError('existing composition: reconcile; do not replay '+key)
- args={'requestBody':{'target':{'uid':pages[key]['data']['gridUid']},'mode':'append','blocks':[block],'defaults':defaults}}
- (root/f'generation/pages/{key}.json').write_text(json.dumps(args,indent=2)+'\n')
- result=c.call('loom_native_flow_surfaces_compose_fcc21dedb4accf41',args)
- receipt.write_text(json.dumps(result,indent=2)+'\n');print(key,json.dumps(result)[:2500])
- readback=c.call('loom_native_flow_surfaces_get_5ce19daccb56cc79',{'pageSchemaUid':pages[key]['data']['pageSchemaUid']})
- (c.runtime/f'{key}-composed-readback.json').write_text(json.dumps(readback,indent=2))
- print('native tree readback',key,len(readback['data'].get('nodeMap',{})))
+
+
+def compose_once(client, args, receipt, journal):
+    if receipt.exists() or journal.exists():
+        raise RuntimeError('Prior composition or attempt exists; reconcile native state before any new write')
+    uid = args['requestBody']['target']['uid']
+    before = client.call('loom_native_flow_surfaces_get_5ce19daccb56cc79', {'uid': uid})
+    tree = before['data']['tree']
+    if tree.get('subModels', {}).get('items'):
+        raise RuntimeError('Target grid is not empty; refusing append')
+    # Exclusive, durable intent precedes dispatch. Any later failure leaves a replay fence.
+    with journal.open('x') as handle:
+        json.dump({'state': 'pending-or-unknown', 'target': uid, 'request': args}, handle)
+        handle.flush()
+        os.fsync(handle.fileno())
+    directory_fd = os.open(journal.parent, os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        os.fsync(directory_fd)
+    finally:
+        os.close(directory_fd)
+    result = client.call('loom_native_flow_surfaces_compose_fcc21dedb4accf41', args)
+    readback = client.call('loom_native_flow_surfaces_get_5ce19daccb56cc79', {'uid': uid})
+    temp = receipt.with_suffix('.json.pending')
+    with temp.open('x') as handle:
+        json.dump({'result': result, 'readback': readback}, handle, indent=2)
+        handle.flush()
+        os.fsync(handle.fileno())
+    temp.replace(receipt)
+    return readback
+
+
+def main():
+    root = pathlib.Path(__file__).resolve().parents[1]
+    client = Loom()
+    for key in ['maintenance', 'work-orders']:
+        args = json.loads((root / f'generation/pages/{key}.json').read_text())
+        compose_once(client, args, root / f'generation/bindings/{key}-composition.json',
+                     client.runtime / f'{key}-composition-attempt.json')
+        print(key + ': initial native composition read back; final overlay remains required')
+
+
+if __name__ == '__main__':
+    main()

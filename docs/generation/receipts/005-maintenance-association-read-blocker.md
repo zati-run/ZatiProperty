@@ -1,6 +1,6 @@
 # Blocking maintenance association disclosure
 
-Date: 2026-10-11. Target alias: zp-dev. Native baseline: NocoBase 2.2.21.
+Date: 2026-10-10. Target alias: zp-dev. Native baseline: NocoBase 2.2.21.
 Source base: `7084a5d0039227992179247463212a33ac8affd7`; current uncommitted generation state.
 Evidence: live authenticated native GET, synthetic accounts and fixture records only.
 Status: **blocked — association append permissions do not protect related fields.**
@@ -350,3 +350,17 @@ status and collection counts are evidence; credentials and domain values are omi
 The reusable read-only regression script `scripts/maintenance_read_security.py` exercised 89 authenticated GET requests: flat and nested appends, scalar and dotted field projections, own/foreign relation resource endpoints, baseline own reads, and five manager context-resource reads. Baseline result: 68 passed, 21 failed; portal acceptance remains blocked. Existing scalar read acceptance is preserved only in its bounded form. The expanded suite also detects nested identity exposure through the manager's permitted vendor association and its property-permission relation. A passing guard regression must protect the target collection's field and row boundaries even for an allowed parent association.
 
 Proposed desired-state manager view grants add property/unit/tenancy to maintenance requests and property/unit/tenancy/request to work orders. These support the required context display but must not be applied until the reusable association guard passes independent review and qualification. Write fields remain unchanged.
+
+## Guard 0.1.1 live domain regression
+
+After Loom installation of the independently reviewed 0.1.1 guard and explicit manager context view grants, the expanded suite passed **91 of 91 authenticated GET requests**. Both positive manager-context requests return the required related objects, sanitized by target permissions. Scalar own reads remain available; foreign rows, ungranted appends, nested relations and protected field projections disclose no unauthorized data. Native keys are restored, addressing AG-001 for these observed domain reads.
+
+The first run reported eight harness failures because deliberate forbidden-field projections were required to return HTTP 200. The agreed guard design rejects these with HTTP 403. The harness was corrected to accept fail-closed denial for these adversarial projections while keeping separate own-record and manager-context tests strictly positive. The second run passed every case. No application state or grants were changed by the verifier.
+
+HTTP outcome counts: `{"200": 18, "403": 73}`. Sanitized response keys/types and per-case outcomes are in [maintenance-read-security.json](maintenance-read-security.json). Script SHA-256: `31c9fe7c94fa356717d822b70d96caf4fb50489e2c042355fe3f81813333468b`.
+
+**Bounded disposition:** ZP-ACL-001 is remediated for this tested native maintenance GET/LIST/association surface. Portal acceptance remains blocked pending complete native metadata/menu compatibility, rendered role journeys and other required gates. A separately observed guard rejection of system role-route metadata is outside these 91 domain requests and remains open. This result does not qualify all runtime actions, exports, reports, union roles or production. Historical failing evidence above is retained.
+
+## Final bounded 0.1.2 disposition
+
+See [012-maintenance-access-and-selector-regression](012-maintenance-access-and-selector-regression.md): the latest guard and reviewed manager scopes pass 91 security GETs, 32 scalar resource cases and eight mixed-mapping/dynamic-date selector GETs. This closes ZP-ACL-001 and AG-001 for the tested maintenance read surface. Complete portal/UI/product acceptance remains separately gated. Historical failures above are retained.

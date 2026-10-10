@@ -1,0 +1,36 @@
+{
+  "target": "zp-dev",
+  "observedAt": "2026-10-10T10:02:26.587061+00:00",
+  "sourceBaseRevision": "353e38c92b8ea823eb218049828451fab85c9309",
+  "sourceState": "reviewed working delta; exact file hashes below",
+  "pluginVersion": "0.1.3",
+  "archiveSha256": "21d80cc1d3c4eee6c61cc4e01a91c4752720c1536fa6c41e3381747352ed2021",
+  "kind": "read-only installed file identity; functional browser evidence separate",
+  "files": [
+    {
+      "file": "package.json",
+      "sha256": "06656e13b11cab585723071f29d6af06d6fdadb125d3361515ac4c4bcd62c5a1",
+      "matchesReviewedSource": true
+    },
+    {
+      "file": "dist/server/invariants.js",
+      "sha256": "94a13875fde427173433303c2a5a84fa06392929097173e5c0d8cd920750aff8",
+      "matchesReviewedSource": true
+    },
+    {
+      "file": "dist/server/index.js",
+      "sha256": "690f08239d26b278eddc3c6bfa0a106542a737dda90baa18824f6ef0bc2e15db",
+      "matchesReviewedSource": true
+    },
+    {
+      "file": "dist/externalVersion.js",
+      "sha256": "7b00a95467ecadb7b6ee0627af4efd53fe5910732459287871d93c19380fa36b",
+      "matchesReviewedSource": true
+    },
+    {
+      "file": "dist/client/index.js",
+      "sha256": "751f99b2495b55ca64072d61ac1aec4688387ca235e4e6b6575084fd2befc44f",
+      "matchesReviewedSource": true
+    }
+  ]
+}

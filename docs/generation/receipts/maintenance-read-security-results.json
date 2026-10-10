@@ -1,0 +1,1038 @@
+{
+  "status": "passed",
+  "requestCount": 95,
+  "passedCount": 95,
+  "failedCount": 0,
+  "results": [
+    {
+      "account": "zp_property_manager.1",
+      "case": "own-appends-0",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "id": "int",
+          "priority": "str",
+          "requestId": "int",
+          "state": "str",
+          "title": "str",
+          "vendorId": "int",
+          "request": {
+            "id": "int",
+            "title": "str",
+            "description": "str",
+            "priority": "str",
+            "status": "str",
+            "propertyId": "int",
+            "unitId": "int",
+            "tenancyId": "int"
+          },
+          "property": {
+            "id": "int",
+            "name": "str",
+            "address": "str"
+          },
+          "unit": {
+            "id": "int",
+            "name": "str",
+            "propertyId": "int"
+          },
+          "tenancy": {
+            "id": "int",
+            "code": "str",
+            "status": "str",
+            "unitId": "int"
+          },
+          "vendor": {
+            "id": "int",
+            "name": "str",
+            "trade": "str",
+            "active": "bool",
+            "insuranceExpiresAt": "str",
+            "licenseExpiresAt": "str"
+          }
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "foreign-appends-0",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": "NoneType"
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "own-appends-1",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "foreign-appends-1",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "own-appends-2",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "foreign-appends-2",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "own-fields-scalars",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "foreign-fields-scalars",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "own-fields-nested",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "foreign-fields-nested",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association-own-property",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "address": "str",
+          "id": "int",
+          "name": "str"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association-foreign-property",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association-own-unit",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "id": "int",
+          "name": "str",
+          "propertyId": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association-foreign-unit",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association-own-tenancy",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "code": "str",
+          "id": "int",
+          "status": "str",
+          "unitId": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association-foreign-tenancy",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association-own-request",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "description": "str",
+          "id": "int",
+          "priority": "str",
+          "propertyId": "int",
+          "status": "str",
+          "tenancyId": "int",
+          "title": "str",
+          "unitId": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association-foreign-request",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association-own-vendor",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "active": "bool",
+          "id": "int",
+          "insuranceExpiresAt": "str",
+          "licenseExpiresAt": "str",
+          "name": "str",
+          "trade": "str"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association-foreign-vendor",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "baseline-own",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "id": "int",
+          "priority": "str",
+          "requestId": "int",
+          "state": "str",
+          "title": "str",
+          "vendorId": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-work-order-context",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "id": "int",
+          "priority": "str",
+          "requestId": "int",
+          "state": "str",
+          "title": "str",
+          "vendorId": "int",
+          "request": {
+            "id": "int",
+            "title": "str",
+            "description": "str",
+            "priority": "str",
+            "status": "str",
+            "propertyId": "int",
+            "unitId": "int",
+            "tenancyId": "int"
+          },
+          "property": {
+            "id": "int",
+            "name": "str",
+            "address": "str"
+          },
+          "unit": {
+            "id": "int",
+            "name": "str",
+            "propertyId": "int"
+          },
+          "tenancy": {
+            "id": "int",
+            "code": "str",
+            "status": "str",
+            "unitId": "int"
+          },
+          "vendor": {
+            "id": "int",
+            "name": "str",
+            "trade": "str",
+            "active": "bool",
+            "insuranceExpiresAt": "str",
+            "licenseExpiresAt": "str"
+          }
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-request-context",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "description": "str",
+          "id": "int",
+          "priority": "str",
+          "propertyId": "int",
+          "status": "str",
+          "tenancyId": "int",
+          "title": "str",
+          "unitId": "int",
+          "property": {
+            "id": "int",
+            "name": "str",
+            "address": "str"
+          },
+          "unit": {
+            "id": "int",
+            "name": "str",
+            "propertyId": "int"
+          },
+          "tenancy": {
+            "id": "int",
+            "code": "str",
+            "status": "str",
+            "unitId": "int"
+          }
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-request-linked-work-appends",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "description": "str",
+          "id": "int",
+          "priority": "str",
+          "propertyId": "int",
+          "status": "str",
+          "tenancyId": "int",
+          "title": "str",
+          "unitId": "int",
+          "workOrders": {
+            "count": 1,
+            "items": [
+              {
+                "id": "int",
+                "title": "str",
+                "state": "str",
+                "priority": "str",
+                "requestId": "int",
+                "vendorId": "int"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-request-linked-work-endpoint",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "count": 1,
+          "items": [
+            {
+              "id": "int",
+              "priority": "str",
+              "requestId": "int",
+              "state": "str",
+              "title": "str",
+              "vendorId": "int"
+            }
+          ]
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-foreign-request-linked-work-endpoint",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-foreign-request-linked-work-appends",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": "NoneType"
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-context-zp_properties",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "address": "str",
+          "id": "int",
+          "name": "str"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-context-zp_units",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "id": "int",
+          "name": "str",
+          "propertyId": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-context-zp_tenancies",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "code": "str",
+          "id": "int",
+          "status": "str",
+          "unitId": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-context-zp_maintenance_requests",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "description": "str",
+          "id": "int",
+          "priority": "str",
+          "propertyId": "int",
+          "status": "str",
+          "tenancyId": "int",
+          "title": "str",
+          "unitId": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "manager-context-zp_vendors",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "active": "bool",
+          "id": "int",
+          "insuranceExpiresAt": "str",
+          "licenseExpiresAt": "str",
+          "name": "str",
+          "trade": "str"
+        }
+      }
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "own-appends-0",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "foreign-appends-0",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "own-appends-1",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "foreign-appends-1",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "own-appends-2",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "foreign-appends-2",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "own-fields-scalars",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "foreign-fields-scalars",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "own-fields-nested",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "foreign-fields-nested",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "association-own-property",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "association-foreign-property",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "association-own-unit",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "association-foreign-unit",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "association-own-tenancy",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "association-foreign-tenancy",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "association-own-request",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "association-foreign-request",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "association-own-vendor",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "association-foreign-vendor",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "baseline-own",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "id": "int",
+          "priority": "str",
+          "state": "str",
+          "title": "str"
+        }
+      }
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "own-appends-0",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "foreign-appends-0",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "own-appends-1",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "foreign-appends-1",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "own-appends-2",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "foreign-appends-2",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "own-fields-scalars",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "foreign-fields-scalars",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "own-fields-nested",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "foreign-fields-nested",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "association-own-property",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "association-foreign-property",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "association-own-unit",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "association-foreign-unit",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "association-own-tenancy",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "association-foreign-tenancy",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "association-own-request",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "association-foreign-request",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "association-own-vendor",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "association-foreign-vendor",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "baseline-own",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "id": "int",
+          "priority": "str",
+          "state": "str",
+          "title": "str"
+        }
+      }
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "own-appends-0",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "foreign-appends-0",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "own-appends-1",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "foreign-appends-1",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "own-appends-2",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "foreign-appends-2",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "own-fields-scalars",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "foreign-fields-scalars",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "own-fields-nested",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "foreign-fields-nested",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "association-own-property",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "association-foreign-property",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "association-own-unit",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "association-foreign-unit",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "association-own-tenancy",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "association-foreign-tenancy",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "association-own-request",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "association-foreign-request",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "association-own-vendor",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "association-foreign-vendor",
+      "httpStatus": 403,
+      "passed": true,
+      "findings": [],
+      "responseShape": {}
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "baseline-own",
+      "httpStatus": 200,
+      "passed": true,
+      "findings": [],
+      "responseShape": {
+        "data": {
+          "id": "int",
+          "priority": "str",
+          "state": "str",
+          "title": "str"
+        }
+      }
+    }
+  ],
+  "scope": "maintenance scalar/projection/append/association GET; no writes or reports"
+}

@@ -1,5 +1,5 @@
 {
-  "status": "prepared-unapplied",
+  "status": "generated; observed IDs and verification are recorded separately in bindings and receipts",
   "namespace": "zp.demo.maintenance",
   "accounts": [
     {
@@ -183,5 +183,49 @@
       "deny": "foreign vendor; inactive/expired vendor; cross-property references; progress/complete/closed without approvals; protected approvalRequired/approvalGranted writes"
     }
   ],
-  "verificationBoundary": "Direct native GET may verify reads. Writes use role-specific Loom credentials/instances or native end-user browser interactions, never root as a portal identity. Auth tokens and passwords stay in private runtime files."
+  "verificationBoundary": "Direct native GET may verify reads. Writes use role-specific Loom credentials/instances or native end-user browser interactions, never root as a portal identity. Auth tokens and passwords stay in private runtime files.",
+  "additionalEligibilityFixtures": [
+    {
+      "key": "expiredVendor",
+      "collection": "zp_vendors",
+      "values": {
+        "name": "Expired synthetic vendor",
+        "active": true,
+        "insuranceExpiresAt": "2000-01-01",
+        "licenseExpiresAt": "2099-12-31"
+      },
+      "propertyPermission": "$company-demo-1.property",
+      "purpose": "Reject expired vendor despite same-property mapping"
+    },
+    {
+      "key": "sameManagerProperty",
+      "collection": "zp_properties",
+      "values": {
+        "name": "Synthetic manager-one second property",
+        "managerUserId": "$user.zp_property_manager.1",
+        "ownerUserId": "$user.zp_owner.1"
+      }
+    },
+    {
+      "key": "otherPropertyVendor",
+      "collection": "zp_vendors",
+      "values": {
+        "name": "Synthetic second-property vendor",
+        "active": true,
+        "insuranceExpiresAt": "2099-12-31",
+        "licenseExpiresAt": "2099-12-31"
+      },
+      "propertyPermission": "$sameManagerProperty",
+      "purpose": "Exclude same-manager vendor assigned only to a different property"
+    },
+    {
+      "key": "mixedScopePermission",
+      "collection": "zp_vendor_properties",
+      "values": {
+        "vendorId": "$company-demo-1.vendor",
+        "propertyId": "$company-demo-2.property"
+      },
+      "purpose": "Prove filter equality and target role scope must match the same mapping row"
+    }
+  ]
 }

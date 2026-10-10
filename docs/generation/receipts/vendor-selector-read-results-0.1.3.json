@@ -1,0 +1,567 @@
+{
+  "status": "passed",
+  "requestCount": 24,
+  "mixedMapPrecondition": "confirmed via Loom native readback",
+  "results": [
+    {
+      "account": "zp_property_manager.1",
+      "scope": "own",
+      "queryStyle": "dotted",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 2,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 2,
+          "items": [
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            },
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "NoneType"
+            }
+          ]
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "own",
+      "queryStyle": "dotted",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 1,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 1,
+          "items": [
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            }
+          ]
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "own",
+      "queryStyle": "native-nested",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 2,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 2,
+          "items": [
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            },
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "NoneType"
+            }
+          ]
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "own",
+      "queryStyle": "native-nested",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 1,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 1,
+          "items": [
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            }
+          ]
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "foreign",
+      "queryStyle": "dotted",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 0,
+          "items": []
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "foreign",
+      "queryStyle": "dotted",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 0,
+          "items": []
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "foreign",
+      "queryStyle": "native-nested",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 0,
+          "items": []
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "foreign",
+      "queryStyle": "native-nested",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 0,
+          "items": []
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "unresolved",
+      "queryStyle": "dotted",
+      "dynamicToday": false,
+      "httpStatus": 403,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "unresolved",
+      "queryStyle": "dotted",
+      "dynamicToday": true,
+      "httpStatus": 403,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "unresolved",
+      "queryStyle": "native-nested",
+      "dynamicToday": false,
+      "httpStatus": 403,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.1",
+      "scope": "unresolved",
+      "queryStyle": "native-nested",
+      "dynamicToday": true,
+      "httpStatus": 403,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "own",
+      "queryStyle": "dotted",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 2,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 2,
+          "items": [
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            },
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            }
+          ]
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "own",
+      "queryStyle": "dotted",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 2,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 2,
+          "items": [
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            },
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            }
+          ]
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "own",
+      "queryStyle": "native-nested",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 2,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 2,
+          "items": [
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            },
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            }
+          ]
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "own",
+      "queryStyle": "native-nested",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 2,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 2,
+          "items": [
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            },
+            {
+              "active": "bool",
+              "id": "int",
+              "insuranceExpiresAt": "str",
+              "licenseExpiresAt": "str",
+              "name": "str",
+              "trade": "str"
+            }
+          ]
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "foreign",
+      "queryStyle": "dotted",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 0,
+          "items": []
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "foreign",
+      "queryStyle": "dotted",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 0,
+          "items": []
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "foreign",
+      "queryStyle": "native-nested",
+      "dynamicToday": false,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 0,
+          "items": []
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "foreign",
+      "queryStyle": "native-nested",
+      "dynamicToday": true,
+      "httpStatus": 200,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {
+        "data": {
+          "count": 0,
+          "items": []
+        },
+        "meta": {
+          "count": "int",
+          "page": "int",
+          "pageSize": "int",
+          "totalPage": "int"
+        }
+      }
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "unresolved",
+      "queryStyle": "dotted",
+      "dynamicToday": false,
+      "httpStatus": 403,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "unresolved",
+      "queryStyle": "dotted",
+      "dynamicToday": true,
+      "httpStatus": 403,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "unresolved",
+      "queryStyle": "native-nested",
+      "dynamicToday": false,
+      "httpStatus": 403,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {}
+    },
+    {
+      "account": "zp_property_manager.2",
+      "scope": "unresolved",
+      "queryStyle": "native-nested",
+      "dynamicToday": true,
+      "httpStatus": 403,
+      "recordCount": 0,
+      "expectedFixtureVendorsPresent": true,
+      "passed": true,
+      "responseShape": {}
+    }
+  ]
+}

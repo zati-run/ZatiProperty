@@ -189,6 +189,19 @@ def verify_reads(manifest, runtime, binding_path):
     candidates = [t['name'] for t in client.tools if t['name'].startswith('loom_native_auth_sign_in_')]
     if len(candidates) != 1:
         raise RuntimeError('Missing or ambiguous Loom sign-in capability')
+    shared_vendor = False
+    eligibility_file = ROOT / 'generation/bindings/eligibility-fixtures.json'
+    if eligibility_file.exists():
+        rows_ = json.loads(eligibility_file.read_text()).get('records',[])
+        mixed = [row for row in rows_ if row.get('key')=='mixedScopePermission' and row.get('state')=='observed']
+        if mixed:
+            read_tools = [t['name'] for t in client.tools if t['name'].startswith('loom_native_resource_get_')]
+            if len(read_tools)!=1 or len(mixed)!=1:
+                raise RuntimeError('Ambiguous mixed-scope fixture qualification')
+            mapping=data(client.call(read_tools[0],{'resource':'zp_vendor_properties','filterByTk':mixed[0]['id']}))
+            shared_vendor = mapping.get('vendorId')==bindings['1']['zp_vendors'] and mapping.get('propertyId')==bindings['2']['zp_properties']
+            if not shared_vendor:
+                raise RuntimeError('Mixed-scope fixture differs from declared read-sharing precondition')
     results = []
     join_denials = []
     for key, account in accounts.items():
@@ -226,24 +239,39 @@ def verify_reads(manifest, runtime, binding_path):
             if forbidden.intersection(record):
                 raise RuntimeError('Protected field exposure')
             status, result = get(collection,'get',{'filterByTk':foreign_id})
-            if status not in (403,404) and not (status == 200 and not data(result)):
+            shared = shared_vendor and key=='zp_property_manager.2' and collection=='zp_vendors'
+            if shared:
+                visible=data(result) if result else None
+                if status!=200 or not isinstance(visible,dict) or visible.get('id')!=foreign_id or forbidden.intersection(visible):
+                    raise RuntimeError('Explicit shared vendor read or field isolation failed')
+            elif status not in (403,404) and not (status == 200 and not data(result)):
                 raise RuntimeError('Foreign-record read was not denied')
             foreign_get_status = status
             status, result = get(collection,'list',{'filter':json.dumps({'id':foreign_id})})
-            if status not in (403,404) and not (status == 200 and data(result) == []):
+            if shared:
+                visible=data(result) if result else None
+                if status!=200 or not isinstance(visible,list) or len(visible)!=1 or visible[0].get('id')!=foreign_id or forbidden.intersection(visible[0]):
+                    raise RuntimeError('Explicit shared vendor list or field isolation failed')
+            elif status not in (403,404) and not (status == 200 and data(result) == []):
                 raise RuntimeError('Foreign-record filtered list was not denied')
             results.append({'account':key,'resource':collection,'ownGet':'pass',
-                            'foreignGet':'denied','foreignList':'denied','protectedFields':'absent',
+                            'foreignGet':'explicit-shared-vendor-allowed' if shared else 'denied','foreignList':'explicit-shared-vendor-allowed' if shared else 'denied','protectedFields':'absent',
                             'ownGetHttp':200,'foreignGetHttp':foreign_get_status,'foreignListHttp':status})
             private_write(runtime / 'maintenance-role-read-results.json',
                           {'evidence':'role-authenticated-native-GET','status':'partial','results':results})
         status, result = get('zp_vendor_properties','list')
-        if status not in (403,404):
-            raise RuntimeError('Constructor-owned vendor permission rows exposed')
-        join_denials.append({'account':key,'resource':'zp_vendor_properties','httpStatus':status})
+        if role == 'zp_property_manager':
+            if status != 200 or not isinstance(data(result),list):
+                raise RuntimeError('Scoped manager vendor mapping read unavailable')
+            foreign_id=bindings[foreign]['zp_vendor_properties']
+            if any(row.get('id')==foreign_id for row in data(result)):
+                raise RuntimeError('Foreign vendor mapping row exposed')
+        elif status not in (403,404):
+            raise RuntimeError('Constructor-owned vendor permission rows exposed to portal')
+        join_denials.append({'account':key,'resource':'zp_vendor_properties','httpStatus':status,'expected':'scoped-manager-read' if role=='zp_property_manager' else 'denied'})
         # No tokens or complete raw responses are persisted.
         del token
-    output = {'evidence':'role-authenticated-native-GET','results':results,'constructorJoinDenials':join_denials,
+    output = {'evidence':'role-authenticated-native-GET','results':results,'constructorJoinChecks':join_denials,
               'writes':'not tested; use role-bound Loom instance or native end-user UI',
               'appendsAndReports':'not tested by this bounded GET suite'}
     private_write(runtime / 'maintenance-role-read-results.json', output)

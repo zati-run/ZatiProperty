@@ -1,10 +1,10 @@
 # RFC implementation coverage
 
-Status: planning baseline. No row proves generated or verified app behavior.
+Status: partial live development generation; representative maintenance acceptance remains blocked.
 
 Authority: the owner now authorizes synthetic development app generation and reusable Loom repairs. Historical workflow-only scope is superseded for this session. Production and consequential operations remain unauthorized.
 
-Each row inherits: endpoint/catalog/schema/package/role = pending qualification; native IDs = none observed by this lane; evidence = pending. These fields must be replaced or linked to sanitized receipts before marking generated or verified. A missing required operation becomes blocked with an exact Loom repair dependency; it is never silently deferred.
+Broad RFC rows retain planned status until their whole scope is qualified. Bounded implementation subrows below link observed native bindings and receipts; other rows inherit pending endpoint/catalog/package/role and native-ID qualification. A missing required operation becomes blocked with an exact Loom repair dependency; it is never silently deferred.
 
 | Requirement | RFC scope | Intended resources / ownership | Status | Delivery | Evidence / gap |
 | --- | --- | --- | --- | --- | --- |
@@ -112,3 +112,26 @@ Screening decisions, notices, payment execution, bank transfers, tax filing, syn
 ## Required receipt fields
 
 For each changed row record exact source revision and target alias; discovered MCP operation and schema/catalog identity; NocoBase and package versions; actor role; logical and native IDs; before/after state; successful and denied checks; persistence and workflow checks; rendered journey evidence; uncertain effects and recovery; plugin gap justification; independent review and landed source evidence. Keep provider and production checks separate.
+
+## Bounded implementation checkpoint — 2026-10-10
+
+The rows below cover only the first maintenance slice. They do not complete the broad RFC groups above. Target alias `zp-dev`, NocoBase CE 2.2.21; construction through Loom native MCP. Runtime and tool identities are recorded in receipts 001, 002-loom-independent-review and 008. The bounded native read surface passes under guard 0.1.3; this does not establish full application or portal acceptance.
+
+| Requirement subset | Native resources / ownership | Status | Evidence / open gate |
+| --- | --- | --- | --- |
+| ZP-4.2.dev-runtime | Isolated synthetic NocoBase/PostgreSQL development runtime | verified | [001-runtime](../docs/generation/receipts/001-runtime.md); provisioning-only evidence, not production |
+| ZP-11.1.maintenance-context | Seven zp_* collections including constructor-owned vendor-property mapping | generated | [collections bindings](bindings/collections.json); native identifiers/readback; broader domain model planned |
+| ZP-8.1.maintenance-pages | Two native manager request/work-order pages and linked-work refinement | generated | [page bindings](bindings/pages.json), [linked refinement](bindings/linked-work-refinement.json); [final sampled journey](../docs/generation/receipts/manager-final-journey.md) passes desktop and narrow |
+| ZP-13.1.maintenance-roles | Four scoped application roles and eight synthetic accounts | generated | [role desired state](roles/maintenance-native.json), [fixture bindings](bindings/fixtures.json); permissions not fully accepted |
+| ZP-13.1.scalar-read-baseline | Eight accounts, 30 scoped resource cases | verified | [004 scalar receipt](../docs/generation/receipts/004-maintenance-role-reads.md): historical bounded baseline before association guard; current guard regression must requalify |
+| ZP-13.1.association-isolation | Bounded maintenance native GET/LIST/association scopes | verified | [012 regression](../docs/generation/receipts/012-maintenance-access-and-selector-regression.md): 95 security GETs and broader role tests pass under guard 0.1.2; full portal product acceptance remains planned |
+| ZP-8.2.assignment-persistence | Manager assigns vendor, saves Quote and reloads | verified | [Final sampled journey](../docs/generation/receipts/manager-final-journey.md): independent desktop/narrow clean baselines, eligible assignment, save, reload, separate native readback |
+| ZP-8.2.context-and-eligibility | Visible property/unit/tenancy context and permitted compliant vendor chooser | verified | [Rendered picker qualification](../docs/generation/receipts/record-select-browser-qualification.md): desktop and narrow native chooser returns only the permitted eligible vendor; fresh desktop/narrow save/reload also passes in the final journey receipt |
+| ZP-8.2.server-invariants | Maintenance plugin 0.1.3 guards, native client entry and approval recovery feedback | generated | [007 initial guard](../docs/generation/receipts/007-maintenance-guard.md), [008 client repair](../docs/generation/receipts/008-maintenance-client-repair.md); domain negatives have bounded evidence, not whole maintenance acceptance |
+| ZP-13.1.nested-vendor-identity | Manager nested vendor user-binding negative | verified | [009 negative](../docs/generation/receipts/009-nested-vendor-identity.md); ignored attempted identity change, no restoration needed |
+
+Remaining numbered RFC scope stays planned; only RFC 2.3 non-goals and 15.2 deliberately deferred scope retain deferred status. No missing bridge capability is treated as an approved product deferral. Trust accounting and ledger functionality are not generated by this slice.
+
+### Latest access checkpoint
+
+Guard 0.1.3 closes ZP-ACL-001/AG-001 for the tested maintenance native reads and supports the native chooser nested-filter shape. [012](../docs/generation/receipts/012-maintenance-access-and-selector-regression.md) records 215 authenticated GETs across security, scalar and selector suites; [013](../docs/generation/receipts/013-selector-authority.md) records six constructor/CAS denial cases. Manager context relations and linked work are explicitly granted and protected; native per-property active/unexpired vendor filtering passes with mixed-scope mapping fixtures. The guard 0.1.3 receipts record 95 security GETs and 24 selector cases separately. Desktop and narrow rendered context and picker checks pass in the browser qualification receipt. [The final fresh assignment/save/reload journey](../docs/generation/receipts/manager-final-journey.md) passes on desktop and narrow screens. Filtered-empty recovery and the blocked approval transition now have native UI evidence; local integration remains a separate gate.

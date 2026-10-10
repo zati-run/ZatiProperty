@@ -1,0 +1,212 @@
+[
+  {
+    "collection": "zp_maintenance_requests",
+    "field": "priority",
+    "before": {
+      "type": "string",
+      "title": "priority",
+      "x-component": "Select",
+      "enum": [
+        {
+          "label": "Low",
+          "value": "low"
+        },
+        {
+          "label": "Medium",
+          "value": "medium"
+        },
+        {
+          "label": "High",
+          "value": "high"
+        },
+        {
+          "label": "Urgent",
+          "value": "urgent"
+        }
+      ]
+    },
+    "after": {
+      "type": "string",
+      "title": "Priority",
+      "x-component": "Select",
+      "enum": [
+        {
+          "label": "Low",
+          "value": "low"
+        },
+        {
+          "label": "Medium",
+          "value": "medium"
+        },
+        {
+          "label": "High",
+          "value": "high"
+        },
+        {
+          "label": "Urgent",
+          "value": "urgent"
+        }
+      ]
+    }
+  },
+  {
+    "collection": "zp_maintenance_requests",
+    "field": "status",
+    "before": {
+      "type": "string",
+      "title": "status",
+      "x-component": "Select",
+      "enum": [
+        {
+          "label": "Open",
+          "value": "open"
+        },
+        {
+          "label": "Triaged",
+          "value": "triaged"
+        },
+        {
+          "label": "Closed",
+          "value": "closed"
+        }
+      ]
+    },
+    "after": {
+      "type": "string",
+      "title": "Status",
+      "x-component": "Select",
+      "enum": [
+        {
+          "label": "Open",
+          "value": "open"
+        },
+        {
+          "label": "Triaged",
+          "value": "triaged"
+        },
+        {
+          "label": "Closed",
+          "value": "closed"
+        }
+      ]
+    }
+  },
+  {
+    "collection": "zp_work_orders",
+    "field": "state",
+    "before": {
+      "type": "string",
+      "title": "state",
+      "x-component": "Select",
+      "enum": [
+        {
+          "label": "New job",
+          "value": "new",
+          "color": "blue"
+        },
+        {
+          "label": "Quote",
+          "value": "quote",
+          "color": "orange"
+        },
+        {
+          "label": "Progress",
+          "value": "progress",
+          "color": "processing"
+        },
+        {
+          "label": "Complete",
+          "value": "complete",
+          "color": "green"
+        },
+        {
+          "label": "Closed",
+          "value": "closed",
+          "color": "default"
+        }
+      ]
+    },
+    "after": {
+      "type": "string",
+      "title": "Status",
+      "x-component": "Select",
+      "enum": [
+        {
+          "label": "New job",
+          "value": "new",
+          "color": "blue"
+        },
+        {
+          "label": "Quote",
+          "value": "quote",
+          "color": "orange"
+        },
+        {
+          "label": "Progress",
+          "value": "progress",
+          "color": "processing"
+        },
+        {
+          "label": "Complete",
+          "value": "complete",
+          "color": "green"
+        },
+        {
+          "label": "Closed",
+          "value": "closed",
+          "color": "default"
+        }
+      ]
+    }
+  },
+  {
+    "collection": "zp_work_orders",
+    "field": "priority",
+    "before": {
+      "type": "string",
+      "title": "priority",
+      "x-component": "Select",
+      "enum": [
+        {
+          "label": "Low",
+          "value": "low"
+        },
+        {
+          "label": "Medium",
+          "value": "medium"
+        },
+        {
+          "label": "High",
+          "value": "high"
+        },
+        {
+          "label": "Urgent",
+          "value": "urgent"
+        }
+      ]
+    },
+    "after": {
+      "type": "string",
+      "title": "Priority",
+      "x-component": "Select",
+      "enum": [
+        {
+          "label": "Low",
+          "value": "low"
+        },
+        {
+          "label": "Medium",
+          "value": "medium"
+        },
+        {
+          "label": "High",
+          "value": "high"
+        },
+        {
+          "label": "Urgent",
+          "value": "urgent"
+        }
+      ]
+    }
+  }
+]

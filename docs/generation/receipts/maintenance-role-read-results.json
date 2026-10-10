@@ -1,0 +1,409 @@
+{
+  "evidence": "role-authenticated-native-GET",
+  "results": [
+    {
+      "account": "zp_property_manager.1",
+      "resource": "zp_properties",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.1",
+      "resource": "zp_units",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.1",
+      "resource": "zp_tenancies",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.1",
+      "resource": "zp_vendors",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.1",
+      "resource": "zp_maintenance_requests",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.1",
+      "resource": "zp_work_orders",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.1",
+      "resource": "zp_vendor_properties",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.2",
+      "resource": "zp_properties",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.2",
+      "resource": "zp_units",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.2",
+      "resource": "zp_tenancies",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.2",
+      "resource": "zp_vendors",
+      "ownGet": "pass",
+      "foreignGet": "explicit-shared-vendor-allowed",
+      "foreignList": "explicit-shared-vendor-allowed",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.2",
+      "resource": "zp_maintenance_requests",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.2",
+      "resource": "zp_work_orders",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_property_manager.2",
+      "resource": "zp_vendor_properties",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_owner.1",
+      "resource": "zp_properties",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_owner.1",
+      "resource": "zp_units",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_owner.1",
+      "resource": "zp_maintenance_requests",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_owner.1",
+      "resource": "zp_work_orders",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_owner.2",
+      "resource": "zp_properties",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_owner.2",
+      "resource": "zp_units",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_owner.2",
+      "resource": "zp_maintenance_requests",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_owner.2",
+      "resource": "zp_work_orders",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_tenant.1",
+      "resource": "zp_tenancies",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_tenant.1",
+      "resource": "zp_maintenance_requests",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_tenant.1",
+      "resource": "zp_work_orders",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_tenant.2",
+      "resource": "zp_tenancies",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_tenant.2",
+      "resource": "zp_maintenance_requests",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_tenant.2",
+      "resource": "zp_work_orders",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_vendor.1",
+      "resource": "zp_vendors",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_vendor.1",
+      "resource": "zp_work_orders",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_vendor.2",
+      "resource": "zp_vendors",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    },
+    {
+      "account": "zp_vendor.2",
+      "resource": "zp_work_orders",
+      "ownGet": "pass",
+      "foreignGet": "denied",
+      "foreignList": "denied",
+      "protectedFields": "absent",
+      "ownGetHttp": 200,
+      "foreignGetHttp": 200,
+      "foreignListHttp": 200
+    }
+  ],
+  "constructorJoinChecks": [
+    {
+      "account": "zp_property_manager.1",
+      "resource": "zp_vendor_properties",
+      "httpStatus": 200,
+      "expected": "scoped-manager-read"
+    },
+    {
+      "account": "zp_property_manager.2",
+      "resource": "zp_vendor_properties",
+      "httpStatus": 200,
+      "expected": "scoped-manager-read"
+    },
+    {
+      "account": "zp_owner.1",
+      "resource": "zp_vendor_properties",
+      "httpStatus": 403,
+      "expected": "denied"
+    },
+    {
+      "account": "zp_owner.2",
+      "resource": "zp_vendor_properties",
+      "httpStatus": 403,
+      "expected": "denied"
+    },
+    {
+      "account": "zp_tenant.1",
+      "resource": "zp_vendor_properties",
+      "httpStatus": 403,
+      "expected": "denied"
+    },
+    {
+      "account": "zp_tenant.2",
+      "resource": "zp_vendor_properties",
+      "httpStatus": 403,
+      "expected": "denied"
+    },
+    {
+      "account": "zp_vendor.1",
+      "resource": "zp_vendor_properties",
+      "httpStatus": 403,
+      "expected": "denied"
+    },
+    {
+      "account": "zp_vendor.2",
+      "resource": "zp_vendor_properties",
+      "httpStatus": 403,
+      "expected": "denied"
+    }
+  ],
+  "writes": "not tested; use role-bound Loom instance or native end-user UI",
+  "appendsAndReports": "not tested by this bounded GET suite"
+}

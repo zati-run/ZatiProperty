@@ -1,0 +1,29 @@
+{
+  "purpose": "Same-manager different property and same-vendor mixed-scope mapping isolation",
+  "records": [
+    {
+      "key": "sameManagerProperty",
+      "resource": "zp_properties",
+      "state": "observed",
+      "id": 3
+    },
+    {
+      "key": "otherPropertyVendor",
+      "resource": "zp_vendors",
+      "state": "observed",
+      "id": 4
+    },
+    {
+      "key": "otherPropertyPermission",
+      "resource": "zp_vendor_properties",
+      "state": "observed",
+      "id": 4
+    },
+    {
+      "key": "mixedScopePermission",
+      "resource": "zp_vendor_properties",
+      "state": "observed",
+      "id": 5
+    }
+  ]
+}

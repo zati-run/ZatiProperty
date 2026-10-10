@@ -1,0 +1,174 @@
+[
+  {
+    "observedAt": "2026-10-10T09:51:10.101619+00:00",
+    "stage": "desktop-baseline",
+    "before": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "quote",
+      "vendorId": 1,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "mutation": "Loom resource_update",
+    "after": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "new",
+      "vendorId": null,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "transportError": null
+  },
+  {
+    "observedAt": "2026-10-10T09:51:40.735778+00:00",
+    "stage": "desktop-post-save",
+    "before": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "quote",
+      "vendorId": 1,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "mutation": "none"
+  },
+  {
+    "observedAt": "2026-10-10T09:51:55.661408+00:00",
+    "stage": "narrow-baseline",
+    "before": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "quote",
+      "vendorId": 1,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "mutation": "Loom resource_update",
+    "after": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "new",
+      "vendorId": null,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "transportError": null
+  },
+  {
+    "observedAt": "2026-10-10T09:53:07.914668+00:00",
+    "stage": "narrow-interaction-failure-readback",
+    "before": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "new",
+      "vendorId": null,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "mutation": "none"
+  },
+  {
+    "observedAt": "2026-10-10T09:54:12.025770+00:00",
+    "stage": "narrow-native-control-readback",
+    "before": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "new",
+      "vendorId": null,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "mutation": "none"
+  },
+  {
+    "observedAt": "2026-10-10T09:54:42.280315+00:00",
+    "stage": "narrow-post-save",
+    "before": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "quote",
+      "vendorId": 1,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "mutation": "none"
+  },
+  {
+    "observedAt": "2026-10-10T09:58:01.948831+00:00",
+    "stage": "denied-ui-before",
+    "before": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "quote",
+      "vendorId": 1,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "mutation": "none"
+  },
+  {
+    "observedAt": "2026-10-10T09:59:23.949166+00:00",
+    "stage": "denied-ui-after",
+    "before": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "quote",
+      "vendorId": 1,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "mutation": "none"
+  },
+  {
+    "observedAt": "2026-10-10T10:02:12.968675+00:00",
+    "stage": "helpful-denied-ui-before",
+    "before": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "quote",
+      "vendorId": 1,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "mutation": "none"
+  },
+  {
+    "observedAt": "2026-10-10T10:02:37.323136+00:00",
+    "stage": "helpful-denied-ui-after",
+    "before": {
+      "id": 1,
+      "title": "Inspect kitchen tap",
+      "state": "quote",
+      "vendorId": 1,
+      "requestId": 1,
+      "propertyId": 1,
+      "unitId": 1,
+      "tenancyId": 1
+    },
+    "mutation": "none"
+  }
+]

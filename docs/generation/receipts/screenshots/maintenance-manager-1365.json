@@ -1,26 +1,37 @@
 {
-  "observedAt": "2026-10-10T09:08:31.195Z",
+  "observedAt": "2026-10-10T09:51:31.927Z",
   "width": 1365,
   "checks": [
     {
       "context": [
         {
           "text": "Demo Property 1",
-          "visible": false
+          "visible": true
         },
         {
           "text": "Unit 1",
-          "visible": false
+          "visible": true
         },
         {
           "text": "DEMO-T1",
-          "visible": false
+          "visible": true
         }
       ]
     },
     {
-      "freshSession": "Quote and Demo Vendor 1 visible",
-      "keyboard": "native View activated with Enter"
+      "livePickerHTTP": 200,
+      "eligibleNames": [
+        "Demo Vendor 1"
+      ]
+    },
+    {
+      "vendorOptions": "Demo Vendor 1"
+    },
+    {
+      "save": "completed",
+      "reload": "Quote and Demo Vendor 1 rendered",
+      "vendorOptions": "Demo Vendor 1",
+      "keyboard": "Native View, Assign vendor and Save assignment buttons activated with Enter; selectors opened with ArrowDown"
     }
   ],
   "limits": [

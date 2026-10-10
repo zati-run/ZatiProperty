@@ -9,3 +9,9 @@ widths. Use a focused Save assignment action; remove the default context Edit
 action. Observed node refinements are recorded in
 `../bindings/linked-work-refinement.json`. Eligibility filtering and contextual
 read grants remain acceptance dependencies, not waived requirements.
+
+`maintenance-final-overlay.json` is the canonical ordered final refinement contract.
+Initial composition manifests and historical composition receipts are not the final
+page state. The initial composer refuses occupied grids or any prior attempt; it
+must never be used to regenerate the final experience without this overlay and
+new rendered acceptance.

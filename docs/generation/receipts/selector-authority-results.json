@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "caseCount": 6,
+  "results": [
+    {
+      "case": "root-stale-cas",
+      "expectedStatus": 409,
+      "observedBackendStatus": 409,
+      "hashAndScopeUnchanged": true,
+      "passed": true
+    },
+    {
+      "case": "zp_property_manager.1-get-denied",
+      "expectedStatus": 403,
+      "observedBackendStatus": 403,
+      "hashAndScopeUnchanged": true,
+      "passed": true
+    },
+    {
+      "case": "zp_property_manager.1-set-denied",
+      "expectedStatus": 403,
+      "observedBackendStatus": 403,
+      "hashAndScopeUnchanged": true,
+      "passed": true
+    },
+    {
+      "case": "zp_owner.1-get-denied",
+      "expectedStatus": 403,
+      "observedBackendStatus": 403,
+      "hashAndScopeUnchanged": true,
+      "passed": true
+    },
+    {
+      "case": "zp_tenant.1-get-denied",
+      "expectedStatus": 403,
+      "observedBackendStatus": 403,
+      "hashAndScopeUnchanged": true,
+      "passed": true
+    },
+    {
+      "case": "zp_vendor.1-get-denied",
+      "expectedStatus": 403,
+      "observedBackendStatus": 403,
+      "hashAndScopeUnchanged": true,
+      "passed": true
+    }
+  ],
+  "nativeSelectorUid": "bj2lik9byrf",
+  "hash": "301a2afaebbcdcaf5a4ccc03ec60959b4371dd96a44c0fde7946918c257123ee",
+  "scopeUnchanged": true,
+  "transport": "role-specific Loom MCP only"
+}

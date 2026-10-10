@@ -141,7 +141,7 @@
         "interface": "select",
         "uiSchema": {
           "type": "string",
-          "title": "status",
+          "title": "Status",
           "x-component": "Select",
           "enum": [
             {
@@ -343,7 +343,7 @@
         "interface": "select",
         "uiSchema": {
           "type": "string",
-          "title": "priority",
+          "title": "Priority",
           "x-component": "Select",
           "enum": [
             {
@@ -378,7 +378,7 @@
         "interface": "select",
         "uiSchema": {
           "type": "string",
-          "title": "status",
+          "title": "Status",
           "x-component": "Select",
           "enum": [
             {
@@ -550,7 +550,7 @@
         "interface": "select",
         "uiSchema": {
           "type": "string",
-          "title": "state",
+          "title": "Status",
           "x-component": "Select",
           "enum": [
             {
@@ -595,7 +595,7 @@
         "interface": "select",
         "uiSchema": {
           "type": "string",
-          "title": "priority",
+          "title": "Priority",
           "x-component": "Select",
           "enum": [
             {

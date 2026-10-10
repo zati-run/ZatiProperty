@@ -1,6 +1,7 @@
 'use strict';
 const transitions = Object.freeze({ new: ['quote', 'closed'], quote: ['new', 'progress', 'closed'], progress: ['quote', 'complete'], complete: ['progress', 'closed'], closed: [] });
-function deny(code) { const error = new Error(`ZP_MAINTENANCE_${code}`); error.status = 422; throw error; }
+const messages = Object.freeze({ OWNER_APPROVAL_UNAVAILABLE: 'Owner approval is required before work can progress. Approval is not available yet; keep this job in Quote. No changes were saved.' });
+function deny(code) { const error = new Error(messages[code] || `ZP_MAINTENANCE_${code}`); error.status = 422; error.code = `ZP_MAINTENANCE_${code}`; throw error; }
 const present = value => value !== undefined && value !== null && value !== '';
 const sameId = (a, b) => !present(a) && !present(b) || present(a) && present(b) && String(a) === String(b);
 function validateContext(values, { property, unit, tenancy }) {

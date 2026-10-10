@@ -72,3 +72,5 @@ subclass with an empty load method, no custom interface and no registration side
 effects. Its external client dependency is pinned to 2.2.21, matching the qualified
 native bundle. VM tests exercise AMD, CommonJS and browser-global loader formats;
 actual browser reload acceptance remains a separate required check.
+
+Version 0.1.3 gives the blocked approval transition a human-readable recovery message and a stable machine error code with the unchanged server rule. Native browser verification is recorded separately.
