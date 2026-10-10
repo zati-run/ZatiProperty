@@ -5,6 +5,7 @@
 has durable unique intent; any unclassified outcome stops, never retries a write.
 """
 import argparse, concurrent.futures, contextlib, datetime, hashlib, json, os, pathlib, re, uuid, threading, time
+import jsonschema
 from loom_mcp import Loom
 import verify_maintenance_writes as bridges
 
@@ -24,7 +25,8 @@ def tool(client,prefix):
 
 def call(client,action,values):
     args={"commandAction":values["action"],"requestId":values["requestId"]} if action=="reconcileCommand" else {"requestBody":values}
-    return unwrap(client.call(tool(client,PREFIX+ACTIONS[action]),args))
+    name=tool(client,PREFIX+ACTIONS[action]);jsonschema.validate(args,client.by_name[name]["inputSchema"])
+    return unwrap(client.call(name,args))
 
 def durable(path,value):
     with path.open("x") as f:
@@ -34,13 +36,43 @@ def durable(path,value):
     finally:os.close(fd)
 
 def read_rows(client,resource,fields=None,filter=None):
-    args={"resource":resource,"pageSize":1000,"page":1,"sort":["id"]}
-    if fields:args["fields"]=fields
-    if filter:args["filter"]=filter
-    response=client.call(tool(client,"loom_native_resource_list_"),args)
-    rows=unwrap(response)
-    if not isinstance(rows,list) or len(rows)>=1000:raise RuntimeError("Bounded native read exceeded or invalid")
-    return rows
+    rows=[];seen=set()
+    for page in range(1,22):
+        args={"resource":resource,"pageSize":50,"page":page,"sort":["id"]}
+        if fields:args["fields"]=fields
+        if filter:args["filter"]=filter
+        batch=unwrap(client.call(tool(client,"loom_native_resource_list_"),args))
+        if not isinstance(batch,list) or len(batch)>50:raise RuntimeError("Invalid bounded page")
+        for row in batch:
+            identity=str(row["id"])
+            if identity in seen:raise RuntimeError("Repeated row across pages")
+            seen.add(identity)
+        rows.extend(batch)
+        if len(rows)>1000:raise RuntimeError("Native read cap exceeded")
+        if len(batch)<50:return rows
+    raise RuntimeError("Native pagination did not terminate")
+
+def expected_version(row):
+    value=row.get("version")
+    if type(value) is not int or value<0:raise ValueError("Native version missing or invalid")
+    return value
+
+def expected_failure(error,code):
+    # Accept exact structured native status/code only, never an exception substring.
+    text=str(error);prefix="Loom tool error: "
+    if not text.startswith(prefix):return False
+    try:
+        outer=json.loads(text[len(prefix):])
+        packets=[json.loads(c["text"]) for c in outer.get("content",[]) if c.get("type")=="text"]
+    except (ValueError,KeyError,TypeError):return False
+    status=403 if code in ["PROPERTY_SCOPE","DOMAIN_ACTION_DENIED","CONSTRUCTOR_REQUIRED"] else 409
+    for packet in packets:
+        if not isinstance(packet,dict) or packet.get("statusCode")!=status:continue
+        errors=packet.get("body",{}).get("errors",[])
+        for entry in errors:
+            if entry.get("code")==code or entry.get("message")==code:return True
+            if code=="DOMAIN_ACTION_DENIED" and (entry.get("code") in ["FORBIDDEN","ACL_DENIED"] or entry.get("message")=="Forbidden"):return True
+    return False
 
 def verify_atomic(before,after,delta):
     created={}
@@ -97,7 +129,7 @@ class Qualification:
         after=self.audit()
         if error:
             # Never classify a transport failure as a successful deny.
-            if not expected_error or expected_error not in error:
+            if not expected_error or not expected_failure(error,expected_error):
                 reconciliation=None
                 try:reconciliation=call(client,"reconcileCommand",{"action":action,"requestId":values["requestId"]})
                 except Exception:pass
@@ -122,7 +154,7 @@ class Qualification:
             c,v=item;barrier.wait(timeout=10)
             try:return {"ok":True,"result":call(c,action,v)}
             except Exception as exc:
-                if error_code and error_code in str(exc):return {"ok":False,"code":error_code}
+                if error_code and expected_failure(exc,error_code):return {"ok":False,"code":error_code}
                 return {"ok":False,"code":"UNCLASSIFIED"}
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:results=list(pool.map(invoke,zip([left,right],payloads)))
         after=self.audit();successes=sum(r["ok"] for r in results)
@@ -165,11 +197,12 @@ def run(root,q):
         with role_client(root,q,"property_manager_parallel","zp_property_manager","1",18463) as parallel:
             rid=str(uuid.uuid4());same={"propertyId":property_id,"name":"Concurrent Unit","reasonCode":"initial-setup","requestId":rid}
             q.concurrent(m,parallel,"createUnit",[same,same],"same-command-concurrent",2)
-            optimistic=draft(unit["id"],tenant,"unused");optimistic.pop("unitId");optimistic.pop("code");optimistic.update(tenancyId=first["id"],expectedVersion=0,reasonCode="correction")
-            q.concurrent(m,parallel,"updateDraftTenancy",[optimistic,optimistic],"version-concurrent",1,"STALE_VERSION")
-            result=q.concurrent(m,parallel,"activateTenancy",[{"tenancyId":first["id"],"expectedVersion":1,"reasonCode":"activation-reviewed"},{"tenancyId":second["id"],"expectedVersion":0,"reasonCode":"activation-reviewed"}],"occupancy-concurrent",1,"OCCUPANCY_OVERLAP")
+            optimistic=draft(unit["id"],tenant,"unused");optimistic.pop("unitId");optimistic.pop("code");optimistic.update(tenancyId=first["id"],expectedVersion=expected_version(first),reasonCode="correction")
+            updated=q.concurrent(m,parallel,"updateDraftTenancy",[optimistic,optimistic],"version-concurrent",1,"STALE_VERSION")
+            current_first=next(r["result"] for r in updated if r["ok"])
+            result=q.concurrent(m,parallel,"activateTenancy",[{"tenancyId":first["id"],"expectedVersion":expected_version(current_first),"reasonCode":"activation-reviewed"},{"tenancyId":second["id"],"expectedVersion":expected_version(second),"reasonCode":"activation-reviewed"}],"occupancy-concurrent",1,"OCCUPANCY_OVERLAP")
         active=next(r["result"] for r in result if r["ok"])
-        ended,_=q.command(m,"manager1","endTenancy",{"tenancyId":active["id"],"expectedVersion":active["version"],"endDate":"2035-06-30","reasonCode":"move-out-confirmed"},"end-tenancy")
+        ended,_=q.command(m,"manager1","endTenancy",{"tenancyId":active["id"],"expectedVersion":expected_version(active),"endDate":"2035-06-30","reasonCode":"move-out-confirmed"},"end-tenancy")
         rows=read_rows(root,"zp_tenancies",["id","leaseState","version","tenantUserId","endDate"],{"id":ended["id"]})
         assert len(rows)==1 and rows[0]["leaseState"]=="ended" and str(rows[0]["tenantUserId"])==str(tenant)
         before=q.audit();health=call(m,"auditHealth",{"propertyId":property_id});assert before==q.audit() and health.get("valid") is True;q.record({"label":"audit-health-readonly","status":"qualified","result":health})

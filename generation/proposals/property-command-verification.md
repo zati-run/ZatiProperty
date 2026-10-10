@@ -22,3 +22,7 @@ Every command has a durable fsynced private intent and unique UUID before dispat
 ## Remaining independent gates
 
 Native direct/nested/bulk generic-CRUD denials for every protected table, readonly reconciliation permission negatives for each original action, ownership approval full lifecycle and schema restore/migration tests remain separate coverage unless added explicitly. This script does not fake browser or accessibility acceptance. Property UI/ActionForm worker must independently verify rendered role-specific journey, saved reload, useful errors and uncertain-command recovery. No mocks are reported as native execution.
+
+## Review hardening
+
+All expected versions now come from returned native draft/update/active results, including version0; no lifecycle version is inferred. Audit reads paginate in pages of50 with stable ID order, duplicate detection and a1000row safety cap. Denial acceptance parses the structured native HTTP status and exact domain code; permission denies may also use the native Forbidden/ACL_DENIED form. Transport text containing a code is never a passed denial. Every dispatch validates arguments against the actual live discovered JSON schema. Local safety tests exercise version0, missing version rejection, pagination and structured error boundaries, and run the actual domain validator against the proposed proration/rent-frequency fixture. Generic/bulk hook coverage remains separate.
