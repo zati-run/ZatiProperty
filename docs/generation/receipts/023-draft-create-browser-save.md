@@ -23,3 +23,7 @@ Fresh reload, role isolation and domain audit acceptance remain separately
 tracked. The surrounding tenancy table did not auto-refresh after save;
 explicit success feedback asks for refresh. Duplicate optional labels and
 raw enum punctuation remain visible usability work, not accepted polish.
+
+A subsequent scoped-manager Loom auditHealth read for property 4 returned
+valid true, sequence 23. This qualifies the current domain audit chain only;
+it is not ledger, trust-accounting or immutable-financial acceptance.
