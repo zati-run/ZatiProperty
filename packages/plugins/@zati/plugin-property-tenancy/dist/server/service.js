@@ -59,6 +59,7 @@ class Service {
           if(terms.length!==1)d.deny('INVALID_TERMS');
           const pick=(v,keys)=>Object.fromEntries(keys.filter(k=>v[k]!==undefined).map(k=>[k,v[k]]));
           d.tenancyInput({...row,term:pick(terms[0],['effectiveFrom','effectiveTo','currency','rentMinor','depositMinor','rentFrequency','dueDay','prorationPolicy']),parties:parties.map(p=>pick(p,['displayName','userId','partyRole','effectiveFrom','effectiveTo']))});
+          await this.accounts(tx,parties,actor);
           const primaryUser=parties.find(p=>p.partyRole==='primary').userId;
           if(row.tenantUserId&&!d.same(row.tenantUserId,primaryUser))d.deny('PRIMARY_IDENTITY_IMMUTABLE');
           if(parties.some(p=>p.userId&&!d.same(p.userId,primaryUser)))d.deny('PARTY_SCOPE_MIGRATION_REQUIRED');
@@ -111,7 +112,7 @@ class Service {
             for(const interest of interests) {
               const owner=await tx.get('zp_owner_contacts',interest.ownerContactId);
               if(!owner||!d.same(owner.managerUserId,actor))d.deny('OWNER_SCOPE');
-              if(owner.userId)accountIds.add(String(owner.userId));
+              if(owner.userId) {if(!await tx.get('users',owner.userId))d.deny('OWNER_ACCOUNT_MISSING');accountIds.add(String(owner.userId));}
             }
             if(property.ownerUserId ? accountIds.size!==1||!accountIds.has(String(property.ownerUserId)) : accountIds.size!==0)d.deny('OWNER_SCOPE_MIGRATION_REQUIRED');
             const existing=await tx.list('zp_ownership_sets',{propertyId:set.propertyId,state:'approved'},1001);
@@ -194,11 +195,14 @@ class Service {
     }
     return {id:row.id,propertyId:property.id,state:'created',version:0,_collection:({createBuilding:'zp_buildings',createUnit:'zp_units',createOwnerContact:'zp_owner_contacts',authorizeTenantAccount:'zp_tenant_account_permissions'})[action]};
   }
-  async proposals(tx,row,input,revision,actor) {
-    for(const party of input.parties)if(party.userId) {
+  async accounts(tx,parties,actor) {
+    for(const party of parties)if(party.userId) {
       const permissions=await tx.list('zp_tenant_account_permissions',{managerUserId:actor,userId:party.userId},2);
       if(permissions.length!==1||!await tx.get('users',party.userId))d.deny('PARTY_ACCOUNT_NOT_PERMITTED');
     }
+  }
+  async proposals(tx,row,input,revision,actor) {
+    await this.accounts(tx,input.parties,actor);
     await tx.create('zp_tenancy_terms',{...input.term,tenancyId:row.id,revision});
     for(const party of input.parties)await tx.create('zp_tenancy_parties',{...party,tenancyId:row.id,revision});
   }

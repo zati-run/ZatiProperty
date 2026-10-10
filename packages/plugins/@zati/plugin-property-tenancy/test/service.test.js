@@ -150,7 +150,7 @@ test('every linked party requires explicit constructor-owned manager/account per
  await assert.rejects(f.service.execute('activateTenancy',{tenancyId:1,expectedVersion:0,reasonCode:'activation-reviewed'},10),/PARTY_SCOPE_MIGRATION_REQUIRED/);
 });
 test('changed owner membership fails closed without rewriting legacy portal binding',async()=>{
- const f=fixture();f.rows.zp_properties[0].ownerUserId=30;f.rows.zp_owner_contacts[0].userId=31;
+ const f=fixture();f.rows.zp_properties[0].ownerUserId=30;f.rows.zp_owner_contacts[0].userId=31;f.rows.users.push({id:31});
  await f.service.execute('createOwnershipSet',{propertyId:1,effectiveFrom:'2030-01-01',reasonCode:'initial-setup'},10);
  await f.service.execute('setOwnershipInterests',{ownershipSetId:1,expectedVersion:0,interests:[{ownerContactId:1,shareBasisPoints:10000}],reasonCode:'ownership-reviewed'},10);
  await assert.rejects(f.service.execute('approveOwnershipSet',{ownershipSetId:1,expectedVersion:1,completeSet:true,reasonCode:'ownership-reviewed'},10),/OWNER_SCOPE_MIGRATION_REQUIRED/);
@@ -166,4 +166,13 @@ test('audit stores recoverable safe reason and prior/current state but no suppli
  assert.match(event.occurredAt,/Z$/);assert.ok(event.correlationId);
  assert.ok(!f.rows.zp_domain_events[0].canonicalPayload.includes('Synthetic tenant'));
  await assert.rejects(f.service.execute('createProperty',{name:'Other',reasonCode:'Some private text'},10),/INVALID_REASON_CODE/);
+});
+test('activation revalidates account existence before publishing identity',async()=>{
+ const f=fixture();await f.service.execute('createDraftTenancy',draft(),10);
+ f.rows.users=[];
+ await assert.rejects(f.service.execute('activateTenancy',{tenancyId:1,expectedVersion:0,reasonCode:'activation-reviewed'},10),/PARTY_ACCOUNT_NOT_PERMITTED/);
+ assert.equal(f.rows.zp_tenancies[0].tenantUserId,null);
+ assert.equal(f.rows.zp_domain_events.length,1);
+ const input=draft();input.term.currency=['USD'];
+ assert.throws(()=>d.tenancyInput(input),/INVALID_TERMS/);
 });

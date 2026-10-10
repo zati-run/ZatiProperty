@@ -24,7 +24,7 @@ function tenancyInput(input) {
   keys(input.term,['effectiveFrom','effectiveTo','currency','rentMinor','depositMinor','rentFrequency','dueDay','prorationPolicy']);
   const t=input.term;interval(t.effectiveFrom,t.effectiveTo);
   if(t.effectiveFrom!==input.startDate || (t.effectiveTo||null)!==(input.endDate||null))deny('TERM_PERIOD_MISMATCH');
-  if(!/^[A-Z]{3}$/.test(t.currency)||!['weekly','fortnightly','monthly','quarterly','annually'].includes(t.rentFrequency))deny('INVALID_TERMS');
+  if(typeof t.currency!=='string'||!/^[A-Z]{3}$/.test(t.currency)||!['weekly','fortnightly','monthly','quarterly','annually'].includes(t.rentFrequency))deny('INVALID_TERMS');
   integer(t.rentMinor,0,2147483647);integer(t.depositMinor,0,2147483647);integer(t.dueDay,1,31);string(t.prorationPolicy,64);
   if(!Array.isArray(input.parties)||input.parties.length<1||input.parties.length>20)deny('INVALID_PARTIES');
   let primary=0;
