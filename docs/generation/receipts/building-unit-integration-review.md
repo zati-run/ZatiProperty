@@ -1,6 +1,6 @@
 # Bounded building/unit source integration review
 
-Accepted exact candidate `e7157e6` against integrated base `957b2c6a9d8fb6aad0825a74cf8a54efd79ce681`, reviewed independently on2026-10-10 in an isolated DGX worktree. No native writes or integration performed by this review.
+Accepted exact candidate `e7157e638e2b570397a85ff575eb98b4232fc968` against integrated base `957b2c6a9d8fb6aad0825a74cf8a54efd79ce681`, reviewed independently on2026-10-10 in an isolated DGX worktree. No native writes or integration performed by this review.
 
 The delta preserves reviewed building/unit desired forms and qualified native placements, records generated table/control/context refinements, and includes the independent48-case role/read/form checks and1365/390 reload evidence for each bounded journey. Unit request and building request remain single coordinator-authored commands; independent read-only verification did not repeat them. Existing units/form content and removal of generic write controls are explicitly recorded.
 
