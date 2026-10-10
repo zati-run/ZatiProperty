@@ -1,0 +1,60 @@
+{
+  "nativeStatus": 400,
+  "errors": [
+    {
+      "message": "flowSurfaces authoring $.blocks[0].recordActions[0].popup.blocks[1].settings.dataScope.items[0].path references unknown field 'property.id'",
+      "type": "bad_request",
+      "code": "FLOW_SURFACE_AUTHORING_VALIDATION_ERROR",
+      "status": 400,
+      "index": 1,
+      "path": "$.blocks[0].recordActions[0].popup.blocks[1].settings.dataScope.items[0].path",
+      "ruleId": "field-path-unknown",
+      "details": {
+        "fieldPath": "property.id",
+        "collection": "zp_properties",
+        "availableFields": [
+          "createdBy",
+          "createdById",
+          "updatedBy",
+          "updatedById",
+          "name",
+          "address",
+          "managerUserId",
+          "ownerUserId",
+          "portfolioId",
+          "vendorPermissions",
+          "buildings",
+          "ownershipSets",
+          "portfolio"
+        ]
+      }
+    },
+    {
+      "message": "flowSurfaces authoring $.blocks[0].recordActions[0].popup.blocks[1].recordActions[0].popup.blocks[1].settings.dataScope.items[0].path references unknown field 'unit.id'",
+      "type": "bad_request",
+      "code": "FLOW_SURFACE_AUTHORING_VALIDATION_ERROR",
+      "status": 400,
+      "index": 2,
+      "path": "$.blocks[0].recordActions[0].popup.blocks[1].recordActions[0].popup.blocks[1].settings.dataScope.items[0].path",
+      "ruleId": "field-path-unknown",
+      "details": {
+        "fieldPath": "unit.id",
+        "collection": "zp_units",
+        "availableFields": [
+          "createdBy",
+          "createdById",
+          "updatedBy",
+          "updatedById",
+          "name",
+          "buildingId",
+          "property",
+          "building"
+        ]
+      }
+    }
+  ],
+  "afterOwnedGridEmpty": true,
+  "surfaceHash": "f9832e6775dc79e1437b47245b60c15554c97b3981d7c680fc7f7c0314fce2ad",
+  "source": "2cdf330445c53bf95156fccca8e8183566928643",
+  "outcome": "No page content generated. Investigating native associatedRecords hierarchy."
+}
