@@ -1,0 +1,124 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-10T12:18:46.799348+00:00",
+  "checks": [
+    {
+      "label": "root-direct",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "root-bulk-filter",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "root-nested",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "root-association",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "root-zp_domain_events",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "root-zp_domain_outbox",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "root-zp_domain_commands",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "root-zp_audit_heads",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "protected-hook",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "manager-direct",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "native-role-ACL",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "manager-bulk-filter",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "native-role-ACL",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "manager-nested",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "native-role-ACL",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "manager-association",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "native-role-ACL",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "manager-zp_domain_events",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "native-role-ACL",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "manager-zp_domain_outbox",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "native-role-ACL",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "manager-zp_domain_commands",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "native-role-ACL",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "manager-zp_audit_heads",
+      "status": "denied-unchanged",
+      "httpStatus": 403,
+      "boundary": "native-role-ACL",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f"
+    },
+    {
+      "label": "whole-batch",
+      "status": "unchanged",
+      "snapshotDigest": "96b5d7315f96bc310abc4d75665b77fdc2f164b438517a033a139cf28740d40f",
+      "nativeAttempts": 16
+    }
+  ]
+}
