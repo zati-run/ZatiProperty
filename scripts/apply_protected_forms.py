@@ -43,10 +43,11 @@ class Forms:
             if allow_missing and missing_model(error):return None
             raise
     def description(self,config):return self.read('loom_action_forms_describe',{k:config[k] for k in ('actionPackage','resource','action','reconcileAction')})
-    def placement_proof(self,grid_uid,config):
+    def placement_proof(self,grid_uid,config,_seen=None,_depth=0):
         if not any('recordField' in value for value in config.get('bindings',{}).values()):return {'kind':'context-free','gridUid':grid_uid}
         if config.get('context',{}).get('recordPath')!='popup.record':raise RuntimeError('Unsupported contextual form placement')
-        expected=['BlockGridModel','ChildPageTabModel','ChildPageModel','ViewActionModel','TableActionsColumnModel','TableBlockModel'];chain=[];uid=grid_uid;seen=set()
+        if _depth>1:raise RuntimeError('Nested association form context remains unqualified')
+        expected=['BlockGridModel','ChildPageTabModel','ChildPageModel','ViewActionModel','TableActionsColumnModel','TableBlockModel'];chain=[];uid=grid_uid;seen=set() if _seen is None else _seen
         for use in expected:
             if not uid or uid in seen:raise RuntimeError('Invalid/cyclic native context ancestry')
             seen.add(uid);tree=self.read('flow_surfaces_get',{'uid':uid}).get('tree',{})
@@ -54,11 +55,28 @@ class Forms:
             step=tree.get('stepParams',{});chain.append({'uid':uid,'use':use,'parentId':tree.get('parentId') or tree.get('parent'),'openView':step.get('popupSettings',{}).get('openView'),'resource':step.get('resourceSettings',{}).get('init')});uid=chain[-1]['parentId']
         popup=chain[3]['openView'] or {};resource=chain[-1]['resource'] or {};collection=config['context']['collection']
         if any(v.get('dataSourceKey')!='main' or v.get('collectionName')!=collection for v in [popup,resource]):raise RuntimeError('Native record context collection mismatch')
-        if resource.get('associationName') or resource.get('associationPathName'):raise RuntimeError('Association context requires separate qualification')
+        if resource.get('associationPathName') or popup.get('associationPathName'):raise RuntimeError('Association paths remain unqualified')
+        association=None;parent_proof=None
+        if resource.get('associationName'):
+            if _depth:raise RuntimeError('Nested association form context remains unqualified')
+            name=resource['associationName']
+            if not isinstance(name,str) or not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*',name) or popup.get('associationName')!=name:raise RuntimeError('Unsupported native association identity')
+            compact=lambda value:re.sub(r'\s','',str(value or ''))
+            if compact(resource.get('sourceId'))!='{{ctx.view.inputArgs.filterByTk}}' or compact(popup.get('sourceId'))!='{{ctx.view.inputArgs.sourceId}}':raise RuntimeError('Unsupported native association source binding')
+            source,field=name.split('.')
+            metadata=self.read('collections_fields_get',{'collectionName':source,'filterByTk':field})
+            foreign=metadata.get('foreignKey')
+            if metadata.get('name')!=field or metadata.get('collectionName')!=source or metadata.get('type')!='hasMany' or metadata.get('target')!=collection or metadata.get('sourceKey')!='id' or metadata.get('targetKey')!='id' or not isinstance(foreign,str) or not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*',foreign):raise RuntimeError('Native association metadata mismatch')
+            foreign_metadata=self.read('collections_fields_get',{'collectionName':collection,'filterByTk':foreign})
+            if foreign_metadata.get('name')!=foreign or foreign_metadata.get('collectionName')!=collection or foreign_metadata.get('isForeignKey') is not True or foreign_metadata.get('type') not in ('bigInt','integer'):raise RuntimeError('Native association foreign key unqualified')
+            parent_config={**config,'context':{**config['context'],'collection':source}}
+            parent_proof=self.placement_proof(chain[-1]['parentId'],parent_config,seen,_depth+1)
+            association={'name':name,'source':source,'target':collection,'field':metadata,'foreignKey':foreign_metadata}
+        elif popup.get('associationName') or resource.get('sourceId') or popup.get('sourceId'):raise RuntimeError('Unexpected native source context')
         if re.sub(r'\s','',str(popup.get('filterByTk','')))!='{{ctx.record.id}}':raise RuntimeError('Popup is not bound to the selected native row')
         context=self.read('flow_surfaces_context',{'requestBody':{'target':{'uid':grid_uid},'path':'popup.record','maxDepth':1}})
         if context.get('vars',{}).get('popup.record',{}).get('type')!='object':raise RuntimeError('Native popup.record context unavailable')
-        return {'kind':'native-popup-record','collection':collection,'chain':chain}
+        return {'kind':'native-associated-popup-record' if association else 'native-popup-record','collection':collection,'chain':chain,**({'association':association,'parentProof':parent_proof} if association else {})}
     def qualify(self,desired,bindings,key):
         forms=[v for v in desired['forms'] if v['key']==key]
         if len(forms)!=1:raise RuntimeError('Unknown form key')

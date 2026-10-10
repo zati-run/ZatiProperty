@@ -66,3 +66,25 @@ class Tests(unittest.TestCase):
   api.read=lambda stem,args:{'tree':{'uid':'0','use':'BlockGridModel','parentId':'0'}}
   with self.assertRaisesRegex(RuntimeError,'cyclic'):api.placement_proof('0',config)
 if __name__=='__main__':unittest.main()
+
+class AssociatedPlacement(unittest.TestCase):
+ def fixture(self):
+  config={'context':{'collection':'zp_units','recordPath':'popup.record'},'bindings':{'unitId':{'recordField':'id'}}}
+  uses=['BlockGridModel','ChildPageTabModel','ChildPageModel','ViewActionModel','TableActionsColumnModel','TableBlockModel'];nodes={}
+  for prefix,col in [('child','zp_units'),('parent','zp_properties')]:
+   for i,use in enumerate(uses):nodes[prefix+str(i)]={'uid':prefix+str(i),'use':use,'parentId':prefix+str(i+1)}
+   nodes[prefix+'3']['stepParams']={'popupSettings':{'openView':{'dataSourceKey':'main','collectionName':col,'filterByTk':'{{ctx.record.id}}'}}}
+   nodes[prefix+'5']['stepParams']={'resourceSettings':{'init':{'dataSourceKey':'main','collectionName':col}}}
+  nodes['child5']['parentId']='parent0';nodes['child5']['stepParams']['resourceSettings']['init'].update(associationName='zp_properties.units',sourceId='{{ctx.view.inputArgs.filterByTk}}');nodes['child3']['stepParams']['popupSettings']['openView'].update(associationName='zp_properties.units',sourceId='{{ctx.view.inputArgs.sourceId}}')
+  metadata={'name':'units','collectionName':'zp_properties','type':'hasMany','target':'zp_units','sourceKey':'id','targetKey':'id','foreignKey':'propertyId'};fk={'name':'propertyId','collectionName':'zp_units','isForeignKey':True,'type':'bigInt'};api=Forms(Client())
+  def read(stem,args):
+   if stem=='flow_surfaces_get':return {'tree':nodes[args['uid']]}
+   if stem=='collections_fields_get':return metadata if args['filterByTk']=='units' else fk
+   return {'vars':{'popup.record':{'type':'object'}}}
+  api.read=read;return api,config,nodes,metadata,fk
+ def test_associated_proof_pins_native_parent_chain_and_metadata(self):
+  api,c,n,m,f=self.fixture();proof=api.placement_proof('child0',c);self.assertEqual(proof['kind'],'native-associated-popup-record');self.assertEqual(proof['parentProof']['collection'],'zp_properties');self.assertEqual(proof['association']['foreignKey']['name'],'propertyId')
+ def test_foreign_target_source_expression_and_nested_chain_fail_closed(self):
+  for mutate in [lambda n,m,f:m.update(target='zp_tenancies'),lambda n,m,f:n['child5']['stepParams']['resourceSettings']['init'].update(sourceId='{{ctx.record.id}}'),lambda n,m,f:n['parent5']['stepParams']['resourceSettings']['init'].update(associationName='zp_portfolios.properties'),lambda n,m,f:f.update(isForeignKey=False)]:
+   api,c,n,m,f=self.fixture();mutate(n,m,f)
+   with self.assertRaises(RuntimeError):api.placement_proof('child0',c)

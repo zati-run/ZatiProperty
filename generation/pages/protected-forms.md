@@ -17,3 +17,12 @@ Use `scripts/apply_protected_forms.py qualify --key <key> --bindings <private JS
 Each application call handles one form. Requalify the grid before the next form, especially when activate/end share a grid. `verify` performs read-only config and placement readback. A present journal fences further dispatch, including a previous successful run; do not delete it or retry blindly. Unknown outcomes require independent reconciliation of observed native state and original intent.
 
 Required rendered acceptance includes narrow widths, labeled nested fields, readable money/date controls, allowed account choices, denied foreign accounts, explicit state changes, persistent native readback and terminal-error correction using a new request only after the original identity is durably rejected. These templates are not rendered acceptance.
+
+One-level associated popup forms require companion 0.1.4. The helper now pins
+both actual native popup ancestor chains, the native hasMany relation metadata,
+and its generated foreign-key metadata before construction. It compares the
+fresh proof again before each write. The server independently verifies scoped
+parent-child membership using the selected native popup source identity. Nested
+associated-table forms remain blocked; they require additional context custody
+qualification. No page bindings or native form acceptance are implied by these
+source changes.
