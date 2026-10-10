@@ -158,3 +158,7 @@ The historical rollback metadata blocker in [receipt025](../docs/generation/rece
 ## Latest bounded qualification
 
 [Receipt030](../docs/generation/receipts/030-latest-native-qualification.md) records schema0.1.5 successful rollback-only preview with complete baseline/metadata preservation; positive persistent authoring and effective ACL acceptance remain open. Preauth0.1.4 resolves the tested delayed-anonymous-response sign-in race with retained session/reload and preserved authenticated failure handling. Earlier failures remain historical. App957b2c6 and Loom9863d052 are locally integrated source, not whole E3 acceptance.
+
+## Building journey continuation
+
+The bounded property-to-building create/read path is generated in [receipt031](../docs/generation/receipts/031-building-native-journey.md): one protected native command saved building2 under property6, desktop reload recovered it through the scoped Buildings list, and the correct building/property context rendered without page errors. Independent role and narrow-width checks are pending. Native generic write controls were removed. The complete hierarchy requirement remains open, including units without buildings and the building-to-unit relationship. Unit-form placement is qualified source only.
