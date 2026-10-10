@@ -1,0 +1,4 @@
+ajent.social
+.local-source/
+__pycache__/
+*.pyc
