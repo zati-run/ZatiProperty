@@ -42,9 +42,23 @@ def checked_role(client):
  if not isinstance(role,str) or not role or not isinstance(roles,list) or roles!=[role]:
   raise RuntimeError('Singular effective role not qualified')
  return value
-def denied(c,stem,args,code):
+def native_acl_denial(error):
+ prefix='Loom tool error: '
+ text=str(error)
+ if not text.startswith(prefix):return False
+ try:
+  envelope=json.loads(text[len(prefix):])
+  if not isinstance(envelope,dict) or envelope.get('isError') is not True:return False
+  content=envelope.get('content')
+  if not isinstance(content,list) or len(content)!=1 or not isinstance(content[0],dict) or content[0].get('type')!='text':return False
+  packet=json.loads(content[0]['text'])
+ except (ValueError,TypeError,KeyError):return False
+ return packet=={'statusCode':403,'body':{'errors':[{'message':'No permissions'}]}}
+def denied(c,stem,args,code,allow_native_acl=False):
  try:call(c,stem,args)
  except RuntimeError as error:
+  if allow_native_acl and code=='CONSTRUCTOR_REQUIRED' and native_acl_denial(error):
+   return {'passed':True,'code':'NATIVE_ACL_DENIED','httpStatus':403,'rejectionLayer':'native-acl'}
   prefix='Loom tool error: '
   if not str(error).startswith(prefix):raise RuntimeError('Uncertain rejection; inspect private native result') from None
   envelope=json.loads(str(error)[len(prefix):]);texts=[x.get('text','') for x in envelope.get('content',[]) if x.get('type')=='text']
@@ -69,14 +83,14 @@ class Acceptance:
   if self.capture()!=before:raise RuntimeError('Baseline drift')
   role=checked_role(manager)
   if role.get('role')!=ROLE or role.get('allowAll') is not False:raise RuntimeError('Manager bridge not qualified')
-  cases=[denied(manager,'loom_schema_authoring_inspect',TARGET,'CONSTRUCTOR_REQUIRED')]
+  cases=[denied(manager,'loom_schema_authoring_inspect',TARGET,'CONSTRUCTOR_REQUIRED',allow_native_acl=True)]
   stale='0'*64 if before['inspect']['aclDigest']!='0'*64 else '1'*64
-  cases.append(denied(manager,'loom_schema_authoring_create_has_many',{'requestBody':{**TARGET,'expectedAclDigest':stale}},'CONSTRUCTOR_REQUIRED'))
+  cases.append(denied(manager,'loom_schema_authoring_create_has_many',{'requestBody':{**TARGET,'expectedAclDigest':stale}},'CONSTRUCTOR_REQUIRED',allow_native_acl=True))
   cases.append(denied(self.c,'loom_schema_authoring_create_has_many',{'requestBody':{**TARGET,'expectedAclDigest':stale}},'ACL_BASELINE_CHANGED'))
   if scoped:
    role=checked_role(scoped)
    if role.get('allowAll') is not False:raise RuntimeError('Scoped constructor fixture not qualified')
-   cases.append(denied(scoped,'loom_schema_authoring_inspect',TARGET,'CONSTRUCTOR_REQUIRED'))
+   cases.append(denied(scoped,'loom_schema_authoring_inspect',TARGET,'CONSTRUCTOR_REQUIRED',allow_native_acl=True))
   if self.capture()!=before:raise RuntimeError('Negative checks changed baseline')
   return {'cases':cases,'scopedConstructorGate':'denial-observed-fixture-scope-proof-required' if scoped else 'blocked-no-qualified-role-fixture','runtimeConcurrencyGate':'unverified'}
  def apply(self,before,journal):

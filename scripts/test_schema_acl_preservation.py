@@ -77,3 +77,22 @@ class NativeRoleEnvelopeTests(unittest.TestCase):
   for value in cases:
    with self.subTest(value=value),patch('verify_schema_acl_preservation.call',return_value=value):
     with self.assertRaises(RuntimeError):checked_role(Mock())
+
+class NativeAclDenial(unittest.TestCase):
+ def packet(self,status=403,message='No permissions',extra=None):
+  import json
+  packet={'statusCode':status,'body':{'errors':[{'message':message}]}}
+  if extra:packet.update(extra)
+  return RuntimeError('Loom tool error: '+json.dumps({'content':[{'type':'text','text':json.dumps(packet)}],'isError':True}))
+ def test_only_exact_native_acl_shape_is_qualified(self):
+  from verify_schema_acl_preservation import native_acl_denial
+  self.assertTrue(native_acl_denial(self.packet()))
+  for error in [self.packet(500),self.packet(401),self.packet(message='Forbidden'),self.packet(extra={'extra':True}),RuntimeError('No permissions'),RuntimeError('403 No permissions'),RuntimeError('Loom tool error: malformed')]:
+   self.assertFalse(native_acl_denial(error))
+ def test_native_acl_mode_is_explicit_and_cannot_satisfy_stale_digest_case(self):
+  from verify_schema_acl_preservation import denied
+  from unittest.mock import patch
+  with patch('verify_schema_acl_preservation.call',side_effect=self.packet()):
+   self.assertEqual(denied(None,'inspect',{},'CONSTRUCTOR_REQUIRED',allow_native_acl=True)['rejectionLayer'],'native-acl')
+   for code,enabled in [('CONSTRUCTOR_REQUIRED',False),('ACL_BASELINE_CHANGED',True)]:
+    with self.assertRaises(RuntimeError):denied(None,'inspect',{},code,allow_native_acl=enabled)
