@@ -1,0 +1,1260 @@
+{
+  "observedAt": "2026-10-10T10:57:51.859687+00:00",
+  "kind": "native synthetic role GET matrix; no app writes",
+  "caseCount": 126,
+  "passed": 126,
+  "cases": [
+    {
+      "account": "zp_property_manager.1",
+      "case": "known-manager1-get:zp_properties",
+      "http": 200,
+      "recordIds": [
+        "4"
+      ],
+      "keys": [
+        "address",
+        "id",
+        "name",
+        "portfolioId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "known-manager1-filtered-list:zp_properties",
+      "http": 200,
+      "recordIds": [
+        "4"
+      ],
+      "keys": [
+        "address",
+        "id",
+        "name",
+        "portfolioId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "known-manager1-get:zp_buildings",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "id",
+        "name",
+        "propertyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "known-manager1-filtered-list:zp_buildings",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "id",
+        "name",
+        "propertyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "known-manager1-get:zp_units",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "buildingId",
+        "id",
+        "name",
+        "propertyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "known-manager1-filtered-list:zp_units",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "buildingId",
+        "id",
+        "name",
+        "propertyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "known-manager1-get:zp_owner_contacts",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "displayName",
+        "id"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "known-manager1-filtered-list:zp_owner_contacts",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "displayName",
+        "id"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "known-manager2-get:zp_properties",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "known-manager2-get:zp_units",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "new-resource-list:zp_portfolios",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "new-resource-list:zp_buildings",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "id",
+        "name",
+        "propertyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "new-resource-list:zp_owner_contacts",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "displayName",
+        "id"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "new-resource-list:zp_ownership_sets",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "new-resource-list:zp_property_interests",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "new-resource-list:zp_tenancy_parties",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "new-resource-list:zp_tenancy_terms",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "new-resource-list:zp_tenant_account_permissions",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "append:zp_properties.buildings",
+      "http": 200,
+      "recordIds": [
+        "4"
+      ],
+      "keys": [
+        "address",
+        "buildings",
+        "id",
+        "name",
+        "portfolioId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association:zp_properties.buildings",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "id",
+        "name",
+        "propertyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "append:zp_units.property",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "buildingId",
+        "id",
+        "name",
+        "property",
+        "propertyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association:zp_units.property",
+      "http": 200,
+      "recordIds": [
+        "4"
+      ],
+      "keys": [
+        "address",
+        "id",
+        "name",
+        "portfolioId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "append:zp_units.building",
+      "http": 200,
+      "recordIds": [
+        "3"
+      ],
+      "keys": [
+        "building",
+        "buildingId",
+        "id",
+        "name",
+        "propertyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "association:zp_units.building",
+      "http": 200,
+      "recordIds": [
+        "1"
+      ],
+      "keys": [
+        "id",
+        "name",
+        "propertyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "forbidden-field:zp_properties.managerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "forbidden-field:zp_properties.ownerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.1",
+      "case": "forbidden-field:zp_owner_contacts.userId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "known-manager1-get:zp_properties",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "known-manager1-filtered-list:zp_properties",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "known-manager1-get:zp_buildings",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "known-manager1-filtered-list:zp_buildings",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "known-manager1-get:zp_units",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "known-manager1-filtered-list:zp_units",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "known-manager1-get:zp_owner_contacts",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "known-manager1-filtered-list:zp_owner_contacts",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "known-manager2-get:zp_properties",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "address",
+        "id",
+        "name",
+        "portfolioId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "known-manager2-get:zp_units",
+      "http": 200,
+      "recordIds": [
+        "2"
+      ],
+      "keys": [
+        "buildingId",
+        "id",
+        "name",
+        "propertyId"
+      ],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "new-resource-list:zp_portfolios",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "new-resource-list:zp_buildings",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "new-resource-list:zp_owner_contacts",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "new-resource-list:zp_ownership_sets",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "new-resource-list:zp_property_interests",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "new-resource-list:zp_tenancy_parties",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "new-resource-list:zp_tenancy_terms",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "new-resource-list:zp_tenant_account_permissions",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "append:zp_properties.buildings",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "association:zp_properties.buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "append:zp_units.property",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "association:zp_units.property",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "append:zp_units.building",
+      "http": 200,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "association:zp_units.building",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "forbidden-field:zp_properties.managerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "forbidden-field:zp_properties.ownerUserId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_property_manager.2",
+      "case": "forbidden-field:zp_owner_contacts.userId",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-resource-denied:zp_portfolios",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-resource-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-resource-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-resource-denied:zp_ownership_sets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-resource-denied:zp_property_interests",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-resource-denied:zp_tenancy_parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-resource-denied:zp_tenancy_terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-resource-denied:zp_tenant_account_permissions",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-record-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-record-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-relation-denied:ownershipSets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.1",
+      "case": "portal-new-relation-denied:building",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-resource-denied:zp_portfolios",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-resource-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-resource-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-resource-denied:zp_ownership_sets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-resource-denied:zp_property_interests",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-resource-denied:zp_tenancy_parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-resource-denied:zp_tenancy_terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-resource-denied:zp_tenant_account_permissions",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-record-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-record-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-relation-denied:ownershipSets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_owner.2",
+      "case": "portal-new-relation-denied:building",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-resource-denied:zp_portfolios",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-resource-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-resource-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-resource-denied:zp_ownership_sets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-resource-denied:zp_property_interests",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-resource-denied:zp_tenancy_parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-resource-denied:zp_tenancy_terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-resource-denied:zp_tenant_account_permissions",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-record-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-record-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-relation-denied:ownershipSets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.1",
+      "case": "portal-new-relation-denied:building",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-resource-denied:zp_portfolios",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-resource-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-resource-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-resource-denied:zp_ownership_sets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-resource-denied:zp_property_interests",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-resource-denied:zp_tenancy_parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-resource-denied:zp_tenancy_terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-resource-denied:zp_tenant_account_permissions",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-record-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-record-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-relation-denied:ownershipSets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_tenant.2",
+      "case": "portal-new-relation-denied:building",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-resource-denied:zp_portfolios",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-resource-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-resource-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-resource-denied:zp_ownership_sets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-resource-denied:zp_property_interests",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-resource-denied:zp_tenancy_parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-resource-denied:zp_tenancy_terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-resource-denied:zp_tenant_account_permissions",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-record-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-record-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-relation-denied:ownershipSets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.1",
+      "case": "portal-new-relation-denied:building",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-resource-denied:zp_portfolios",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-resource-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-resource-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-resource-denied:zp_ownership_sets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-resource-denied:zp_property_interests",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-resource-denied:zp_tenancy_parties",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-resource-denied:zp_tenancy_terms",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-resource-denied:zp_tenant_account_permissions",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-record-denied:zp_buildings",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-record-denied:zp_owner_contacts",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-relation-denied:ownershipSets",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    },
+    {
+      "account": "zp_vendor.2",
+      "case": "portal-new-relation-denied:building",
+      "http": 403,
+      "recordIds": [],
+      "keys": [],
+      "passed": true,
+      "findings": []
+    }
+  ]
+}
