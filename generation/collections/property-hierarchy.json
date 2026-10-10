@@ -1,0 +1,61 @@
+{
+  "format": "zp.additive-schema.v1",
+  "status": "prepared-unapplied",
+  "namespace": "zp.property-hierarchy.increment1",
+  "authority": "Synthetic development through Loom MCP only",
+  "preserve": [
+    "Existing records and foreign key identity",
+    "Existing role grants and protected domain actions"
+  ],
+  "collections": [],
+  "addFields": [
+    {
+      "collection": "zp_properties",
+      "field": {
+        "name": "units",
+        "type": "hasMany",
+        "interface": "o2m",
+        "target": "zp_units",
+        "foreignKey": "propertyId",
+        "sourceKey": "id",
+        "targetKey": "id",
+        "onDelete": "RESTRICT",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Units",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        }
+      }
+    },
+    {
+      "collection": "zp_units",
+      "field": {
+        "name": "tenancies",
+        "type": "hasMany",
+        "interface": "o2m",
+        "target": "zp_tenancies",
+        "foreignKey": "unitId",
+        "sourceKey": "id",
+        "targetKey": "id",
+        "onDelete": "RESTRICT",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Tenancies",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "code",
+              "value": "id"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

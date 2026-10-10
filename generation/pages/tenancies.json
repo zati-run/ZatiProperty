@@ -74,8 +74,8 @@
                   "key": "terms-history",
                   "type": "table",
                   "resource": {
-                    "dataSourceKey": "main",
-                    "collectionName": "zp_tenancy_terms"
+                    "binding": "associatedRecords",
+                    "associationField": "terms"
                   },
                   "settings": {
                     "title": "Terms history",
@@ -83,17 +83,7 @@
                     "density": "middle",
                     "enableRowSelection": false,
                     "quickEdit": false,
-                    "dragSort": false,
-                    "dataScope": {
-                      "logic": "$and",
-                      "items": [
-                        {
-                          "path": "tenancyId",
-                          "operator": "$eq",
-                          "value": "{{ ctx.popup.record.id }}"
-                        }
-                      ]
-                    }
+                    "dragSort": false
                   },
                   "fields": [
                     "revision",
@@ -114,8 +104,8 @@
                   "key": "parties-history",
                   "type": "table",
                   "resource": {
-                    "dataSourceKey": "main",
-                    "collectionName": "zp_tenancy_parties"
+                    "binding": "associatedRecords",
+                    "associationField": "parties"
                   },
                   "settings": {
                     "title": "Party history",
@@ -123,17 +113,7 @@
                     "density": "middle",
                     "enableRowSelection": false,
                     "quickEdit": false,
-                    "dragSort": false,
-                    "dataScope": {
-                      "logic": "$and",
-                      "items": [
-                        {
-                          "path": "tenancyId",
-                          "operator": "$eq",
-                          "value": "{{ ctx.popup.record.id }}"
-                        }
-                      ]
-                    }
+                    "dragSort": false
                   },
                   "fields": [
                     "displayName",

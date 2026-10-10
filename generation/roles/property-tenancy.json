@@ -29,7 +29,8 @@
         "portfolioId",
         "portfolio",
         "buildings",
-        "ownershipSets"
+        "ownershipSets",
+        "units"
       ]
     },
     {
@@ -45,7 +46,8 @@
         "propertyId",
         "property",
         "buildingId",
-        "building"
+        "building",
+        "tenancies"
       ]
     },
     {
