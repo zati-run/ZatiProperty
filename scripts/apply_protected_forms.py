@@ -6,7 +6,7 @@ from property_ui_journal import dispatch_once,sha,sync_write
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 DESIRED=ROOT/'generation/pages/property-protected-forms.json'
 HEX=re.compile(r'^[a-f0-9]{64}$')
-IMMUTABLE=('actionPackage','resource','action','schemaDigest','packageVersion','implementationDigest','commandContract','context','bindings','readback','reconcileAction')
+IMMUTABLE=('actionPackage','resource','action','schemaDigest','packageVersion','implementationDigest','commandContract','context','bindings','fixedInputs','readback','reconcileAction')
 def unwrap(value):
     for _ in range(3):
         if isinstance(value,dict) and set(value)=={'data'}:value=value['data']
@@ -43,12 +43,28 @@ class Forms:
             if allow_missing and missing_model(error):return None
             raise
     def description(self,config):return self.read('loom_action_forms_describe',{k:config[k] for k in ('actionPackage','resource','action','reconcileAction')})
+    def placement_proof(self,grid_uid,config):
+        if not any('recordField' in value for value in config.get('bindings',{}).values()):return {'kind':'context-free','gridUid':grid_uid}
+        if config.get('context',{}).get('recordPath')!='popup.record':raise RuntimeError('Unsupported contextual form placement')
+        expected=['BlockGridModel','ChildPageTabModel','ChildPageModel','ViewActionModel','TableActionsColumnModel','TableBlockModel'];chain=[];uid=grid_uid;seen=set()
+        for use in expected:
+            if not uid or uid in seen:raise RuntimeError('Invalid/cyclic native context ancestry')
+            seen.add(uid);tree=self.read('flow_surfaces_get',{'uid':uid}).get('tree',{})
+            if tree.get('uid')!=uid or tree.get('use')!=use:raise RuntimeError('Unsupported native context ancestry')
+            step=tree.get('stepParams',{});chain.append({'uid':uid,'use':use,'parentId':tree.get('parentId') or tree.get('parent'),'openView':step.get('popupSettings',{}).get('openView'),'resource':step.get('resourceSettings',{}).get('init')});uid=chain[-1]['parentId']
+        popup=chain[3]['openView'] or {};resource=chain[-1]['resource'] or {};collection=config['context']['collection']
+        if any(v.get('dataSourceKey')!='main' or v.get('collectionName')!=collection for v in [popup,resource]):raise RuntimeError('Native record context collection mismatch')
+        if resource.get('associationName') or resource.get('associationPathName'):raise RuntimeError('Association context requires separate qualification')
+        if re.sub(r'\s','',str(popup.get('filterByTk','')))!='{{ctx.record.id}}':raise RuntimeError('Popup is not bound to the selected native row')
+        context=self.read('flow_surfaces_context',{'requestBody':{'target':{'uid':grid_uid},'path':'popup.record','maxDepth':1}})
+        if context.get('vars',{}).get('popup.record',{}).get('type')!='object':raise RuntimeError('Native popup.record context unavailable')
+        return {'kind':'native-popup-record','collection':collection,'chain':chain}
     def qualify(self,desired,bindings,key):
         forms=[v for v in desired['forms'] if v['key']==key]
         if len(forms)!=1:raise RuntimeError('Unknown form key')
         form=forms[0];placement=bindings.get(form['placement'])
         if not isinstance(placement,dict) or not isinstance(placement.get('gridUid'),str):raise RuntimeError('Missing reviewed native grid binding')
-        config=dict(form['config']);grid=self.get(placement['gridUid'])
+        config=dict(form['config']);grid=self.get(placement['gridUid']);proof=self.placement_proof(placement['gridUid'],config)
         if grid.get('type')!='BlockGridModel' or not HEX.fullmatch(grid.get('nodeHash','')):raise RuntimeError('Native grid identity/digest unavailable')
         for name,version in [('@loom/plugin-action-form',desired['requiredCompanionVersion']),('@zati/plugin-property-tenancy',desired['requiredDomainVersion'])]:
             plugin=self.read('pm_get',{'filterByTk':name})
@@ -60,7 +76,7 @@ class Forms:
         schema=found.get('schema',{})
         if 'requestId' not in schema.get('required',[]) or schema.get('properties',{}).get('requestId',{}).get('format')!='uuid':raise RuntimeError('Missing required command identity')
         config.update({k:found[k] for k in ('schemaDigest','implementationDigest','packageVersion','commandContract')})
-        return {'key':key,'uid':form['uid'],'gridUid':placement['gridUid'],'expectedGridHash':grid['nodeHash'],'config':config,'schema':schema,'desiredHash':sha(desired),'bindingHash':sha(placement),'tools':{name:self.tool('loom_action_forms_'+name) for name in ('get','create','set','describe')}}
+        return {'key':key,'uid':form['uid'],'gridUid':placement['gridUid'],'expectedGridHash':grid['nodeHash'],'config':config,'schema':schema,'desiredHash':sha(desired),'bindingHash':sha(placement),'placementProof':proof,'tools':{name:self.tool('loom_action_forms_'+name) for name in ('get','create','set','describe')}}
     def observe(self,qualified):
         form=self.get(qualified['uid'],True)
         surface=self.read('flow_surfaces_get',{'uid':qualified['gridUid']})
@@ -72,6 +88,7 @@ class Forms:
     def apply(self,qualified,journal):
         journal=pathlib.Path(journal)
         if journal.exists():raise RuntimeError('Existing authoring intent is fenced; use verify and independent reconciliation, never replay')
+        if self.placement_proof(qualified['gridUid'],qualified['config'])!=qualified.get('placementProof'):raise RuntimeError('Native placement context changed; repeat qualification and review')
         before=self.observe(qualified)
         if self.matches(before,qualified):return {'state':'already-present-native-verified','after':before}
         fresh=self.description(qualified['config'])

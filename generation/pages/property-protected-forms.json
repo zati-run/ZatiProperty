@@ -1,7 +1,7 @@
 {
   "version": 1,
   "requiredDomainVersion": "0.1.3",
-  "requiredCompanionVersion": "0.1.2",
+  "requiredCompanionVersion": "0.1.3",
   "forms": [
     {
       "key": "create-property",
@@ -61,7 +61,8 @@
         "title": "Draft a tenancy for this unit",
         "submitLabel": "Save tenancy draft",
         "context": {
-          "collection": "zp_units"
+          "collection": "zp_units",
+          "recordPath": "popup.record"
         },
         "bindings": {
           "unitId": {
@@ -73,12 +74,12 @@
           "/code": "Tenancy reference",
           "/startDate": "Tenancy start date",
           "/endDate": "Tenancy end date (optional)",
-          "/term": "Rent and deposit terms",
+          "/term": "Rent and deposit terms (USD)",
           "/term/effectiveFrom": "Terms start date",
           "/term/effectiveTo": "Terms end date (optional)",
           "/term/currency": "Currency (three-letter code)",
-          "/term/rentMinor": "Rent amount",
-          "/term/depositMinor": "Deposit amount",
+          "/term/rentMinor": "Rent amount (USD)",
+          "/term/depositMinor": "Deposit amount (USD)",
           "/term/rentFrequency": "Rent frequency",
           "/term/dueDay": "Rent due day",
           "/term/prorationPolicy": "Proration policy",
@@ -125,6 +126,9 @@
             "valueField": "userId",
             "labelField": "displayName"
           }
+        },
+        "fixedInputs": {
+          "/term/currency": "USD"
         }
       }
     },
@@ -145,7 +149,8 @@
         "title": "Activate this tenancy",
         "submitLabel": "Activate tenancy",
         "context": {
-          "collection": "zp_tenancies"
+          "collection": "zp_tenancies",
+          "recordPath": "popup.record"
         },
         "bindings": {
           "tenancyId": {
@@ -196,7 +201,8 @@
         "title": "End this tenancy",
         "submitLabel": "Confirm tenancy end",
         "context": {
-          "collection": "zp_tenancies"
+          "collection": "zp_tenancies",
+          "recordPath": "popup.record"
         },
         "bindings": {
           "tenancyId": {

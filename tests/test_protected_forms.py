@@ -14,7 +14,7 @@ class Client:
   self.writes.append((name,args));self.saved=True
   if self.fail:raise RuntimeError('outcome unknown')
   return {'data':{'uid':'form0001'}}
-QUAL={'uid':'form0001','gridUid':'grid0001','expectedGridHash':'a'*64,'config':{'actionPackage':'@demo/plugin-domain','resource':'demo','action':'createDraft','reconcileAction':'reconcile','schemaDigest':'c'*64,'implementationDigest':'d'*64,'packageVersion':'0.1.3','commandContract':'idempotent-terminal-v1'}}
+QUAL={'uid':'form0001','gridUid':'grid0001','expectedGridHash':'a'*64,'placementProof':{'kind':'context-free','gridUid':'grid0001'},'config':{'actionPackage':'@demo/plugin-domain','resource':'demo','action':'createDraft','reconcileAction':'reconcile','schemaDigest':'c'*64,'implementationDigest':'d'*64,'packageVersion':'0.1.3','commandContract':'idempotent-terminal-v1'}}
 class Tests(unittest.TestCase):
  def test_create_has_native_cas_and_persists_intent_before_only_dispatch(self):
   c=Client();api=Forms(c)
@@ -50,6 +50,19 @@ class Tests(unittest.TestCase):
  def test_desired_forms_do_not_hide_decisions_or_expose_account_id_input(self):
   desired=json.loads((pathlib.Path(__file__).resolve().parents[1]/'generation/pages/property-protected-forms.json').read_text());draft=next(v['config'] for v in desired['forms'] if v['key']=='draft-tenancy')
   self.assertEqual(draft['choices']['/parties/*/userId'],{'collection':'zp_tenant_account_permissions','valueField':'userId','labelField':'displayName'})
-  self.assertEqual(draft['formats']['/term/rentMinor'],{'kind':'money','scale':2})
+  self.assertEqual(draft['formats']['/term/rentMinor'],{'kind':'money','scale':2});self.assertEqual(draft['fixedInputs'],{'/term/currency':'USD'});self.assertIn('USD',draft['labels']['/term/rentMinor'])
   for form in desired['forms']:self.assertNotIn('reasonCode',form['config']['bindings'])
+ def test_context_ancestry_rejects_wrong_collection_despite_matching_numeric_record_ids(self):
+  config={'context':{'collection':'zp_units','recordPath':'popup.record'},'bindings':{'unitId':{'recordField':'id'}}}
+  uses=['BlockGridModel','ChildPageTabModel','ChildPageModel','ViewActionModel','TableActionsColumnModel','TableBlockModel']
+  nodes={str(i):{'uid':str(i),'use':use,'parentId':str(i+1),'stepParams':{}} for i,use in enumerate(uses)}
+  nodes['3']['stepParams']={'popupSettings':{'openView':{'dataSourceKey':'main','collectionName':'zp_units','filterByTk':'{{ctx.record.id}}'}}};nodes['5']['stepParams']={'resourceSettings':{'init':{'dataSourceKey':'main','collectionName':'zp_units'}}}
+  api=Forms(Client());api.read=lambda stem,args: {'vars':{'popup.record':{'type':'object'}}} if stem=='flow_surfaces_context' else {'tree':nodes[args['uid']]}
+  proof=api.placement_proof('0',config);self.assertEqual(proof['collection'],'zp_units')
+  nodes['3']['stepParams']['popupSettings']['openView']['collectionName']='zp_properties'
+  with self.assertRaisesRegex(RuntimeError,'collection mismatch'):api.placement_proof('0',config)
+ def test_context_ancestry_rejects_cycle(self):
+  config={'context':{'collection':'zp_units','recordPath':'popup.record'},'bindings':{'unitId':{'recordField':'id'}}};api=Forms(Client())
+  api.read=lambda stem,args:{'tree':{'uid':'0','use':'BlockGridModel','parentId':'0'}}
+  with self.assertRaisesRegex(RuntimeError,'cyclic'):api.placement_proof('0',config)
 if __name__=='__main__':unittest.main()

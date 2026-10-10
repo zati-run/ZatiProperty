@@ -25,8 +25,18 @@ Four actual describe calls returned domain package version0.1.2 and implementati
 | activateTenancy | 704635d228d4da722eeb3866b11c5ee59ace70e47114d27279cc6fd0c7e93a6e |
 | endTenancy | a6590ae16d53fa1c064023bc936e0621d3efb9ab813fc836ab32e687a339080c |
 
-These are historical qualification observations, not usable generation pins for the terminal-recovery forms. The desired contract requires domain0.1.3, companion0.1.2 and idempotent-terminal-v1. Fresh describe, enabled/compatible package readback and exact reviewed grid bindings must pass before each form is generated. Final placement is unassigned; the observed Portfolio grid is not implicitly the property-create placement.
+These are historical qualification observations, not usable generation pins for the terminal-recovery forms. The desired contract requires domain0.1.3, companion0.1.3 and idempotent-terminal-v1. Fresh describe, enabled/compatible package readback and exact reviewed grid bindings must pass before each form is generated. Final placement is unassigned; the observed Portfolio grid is not implicitly the property-create placement.
 
 The source helper operates one form at a time, exclusively through discovered Loom tools. A durable private intent is fsynced before mutation, retained on all unknown outcomes, and never automatically replayed. Readback checks exact config and native grid attachment. Existing intent requires read-only verification and independent reconciliation; this helper does not erase a fence. It supports native CAS for initial creation and cosmetic configuration updates only; action binding changes require a separately reviewed migration.
 
 Pending: independent desired-form/source review, final page/detail-grid handoff, new-version qualification, native installation/rendering, role allow/deny, persistence and terminal-rejection correction in the browser. No app acceptance is established by this receipt.
+
+## Context and currency follow-up
+
+Read-only native context on existing maintenance popup grid `xavei31sxda` returned `vars:{}` for path `record`, and `popup.record` as an object for that explicit path. Native get yielded the actual chain: BlockGridModel → ChildPageTabModel → ChildPageModel → ViewActionModel → TableActionsColumnModel → TableBlockModel. The view popup and owning table both identified main-source `zp_maintenance_requests`; popup filterByTk was `{{ctx.record.id}}`. This existing journey proves the native shape only; new unit/tenancy grids must independently match their respective collection.
+
+The app constructor now requires the same bounded ancestor proof and native popup.record capability at qualification and refreshes that proof before dispatch. The reusable companion0.1.3 also validates the ancestor chain server-side, locks involved rows during constructor/submit transactions, and pins the explicit record path in its immutable configuration tuple. Wrong collection, unknown ancestry, cycles and association-specific context fail closed.
+
+The initial draft-tenancy form is explicitly USD-only: `fixedInputs:/term/currency=USD`, with visible USD labels for terms, rent and deposit. Companion0.1.3 validates the fixed value against the actual action schema, rejects conflicting browser input at prepare and submit, and omits the editable currency control. This does not restrict the general protected domain service to US currency. Other currency-specific forms remain ungenerated.
+
+Eight isolated source tests pass after these corrections. Independent review and native generated-form acceptance remain required.
