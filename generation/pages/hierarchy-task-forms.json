@@ -1,7 +1,7 @@
 {
   "version": 1,
   "requiredDomainVersion": "0.1.4",
-  "requiredCompanionVersion": "0.1.8",
+  "requiredCompanionVersion": "0.1.9",
   "forms": [
     {
       "key": "create-building",
@@ -15,7 +15,7 @@
         "commandContract": "idempotent-terminal-v1",
         "qualification": {
           "reviewed": true,
-          "evidenceRef": "generation/proposals/hierarchy-task-forms.md"
+          "evidenceRef": "docs/generation/receipts/hierarchy-task-forms-independent.md"
         },
         "context": {
           "collection": "zp_properties",
@@ -55,7 +55,7 @@
         "commandContract": "idempotent-terminal-v1",
         "qualification": {
           "reviewed": true,
-          "evidenceRef": "generation/proposals/hierarchy-task-forms.md"
+          "evidenceRef": "docs/generation/receipts/hierarchy-task-forms-independent.md"
         },
         "context": {
           "collection": "zp_buildings",
