@@ -1,0 +1,11 @@
+# Bounded E3 source integration review
+
+**Accepted for bounded source integration**, exact candidate `248541eb00f06dc5ec70452f5fcdf1f2b4798e74`, canonical comparison base `9e866aebb358a157cff03f637e8a93c3f6a22377`. Independent review on 2026-10-10 in an isolated DGX worktree. No native writes or canonical integration performed by this reviewer.
+
+This closes the record findings from historical candidate e311e84. Current README/design/amendment summaries now distinguish bounded acceptance from remaining RFC work. Tracked amendment placement and observed receipt agree on grid `4pv0ezsa1pp`, form `zp_tenancy_amend_draft_command`, native tenancy/main popup ancestry. Earlier review chat contained an incorrect grid transcription; this receipt uses the checked files. Coverage rows now include bounded lifecycle and independent role/audit evidence without completing the broad RFC groups. All seventeen whitespace findings are resolved with no script/test semantic delta.
+
+Verification: full canonical-to-candidate `git diff --check` passed. At corrected 4cc4cc7, 73 changed JSON files parsed and 36 changed Python files parsed with AST; final delta modifies only two coverage rows. Reviewed later receipts 027–029: 32 independent lifecycle reads and bounded audit/outbox verification; controlled browser fault feedback accurately distinguished from backend acceptance; schema preview remains blocked by target raw-attribute nullability mismatch.
+
+Review scope is source/evidence correspondence and correction of integration records. Existing exact-head independent implementation/security receipts remain authoritative. This reviewer does not independently attest their own plan, role, domain-command, prefill or amendment implementation; those rely on the recorded cross-review by the coordinator and other reviewers. No unchanged suite was rerun solely to broaden a claim.
+
+This approval does not close whole E3, full RFC lifecycle/concurrency, dated owner/co-tenant portal migration, keyboard/polish, trust accounting or ledger requirements. Pre-authentication runtime acceptance and schema-preview preservation remain open at this exact source snapshot. Queued or subsequently installed Loom fixes require their separate source and native evidence. No production, real customer data, live financial actions or external communications are authorized or claimed.
