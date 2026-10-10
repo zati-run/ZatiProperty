@@ -1,0 +1,64 @@
+{
+  "observedAt": "2026-10-10T12:30:05.114457+00:00",
+  "archiveSha256": "18a6f7ce9d3e79895bee757649c691d1ed3c7e0a71b16607fdc04f25fb5df278",
+  "files": [
+    {
+      "file": "dist/externalVersion.js",
+      "archiveSha256": "d060ecdd9b513ceb6a88c1dd67f8f0d8ccae66b46b71816938386d1ae14512e1",
+      "deployedSha256": "d060ecdd9b513ceb6a88c1dd67f8f0d8ccae66b46b71816938386d1ae14512e1",
+      "matches": true
+    },
+    {
+      "file": "dist/client/index.js",
+      "archiveSha256": "a8da54568c91a2c855d25b59a29cb83fe3d247c3b76419152463b07fc1e9b15b",
+      "deployedSha256": "a8da54568c91a2c855d25b59a29cb83fe3d247c3b76419152463b07fc1e9b15b",
+      "matches": true
+    },
+    {
+      "file": "dist/server/index.js",
+      "archiveSha256": "5486c3e218d5338081ffe7522c46bfabc7ebfea0010ef0939a960c830d6b7737",
+      "deployedSha256": "5486c3e218d5338081ffe7522c46bfabc7ebfea0010ef0939a960c830d6b7737",
+      "matches": true
+    },
+    {
+      "file": "dist/server/policy.js",
+      "archiveSha256": "91f51854cfddf0d6b5f08f12f15dfd3aed925b1cd2f2e14434a6df29850e7ede",
+      "deployedSha256": "91f51854cfddf0d6b5f08f12f15dfd3aed925b1cd2f2e14434a6df29850e7ede",
+      "matches": true
+    },
+    {
+      "file": "dist/server/service.js",
+      "archiveSha256": "620d604403e2b2c76cc608bbc568ce6afc219603dc522e35eea2112104c85cd3",
+      "deployedSha256": "620d604403e2b2c76cc608bbc568ce6afc219603dc522e35eea2112104c85cd3",
+      "matches": true
+    },
+    {
+      "file": "dist/swagger/index.json",
+      "archiveSha256": "8d991044a4e9474db52b141d8bdc965939074cac81cba6bd4cfd345ebefe7122",
+      "deployedSha256": "8d991044a4e9474db52b141d8bdc965939074cac81cba6bd4cfd345ebefe7122",
+      "matches": true
+    },
+    {
+      "file": "package.json",
+      "archiveSha256": "4929be561d465c1eefa846359ddacac4d1870ff9ab7aef089415f1ad560cbb27",
+      "deployedSha256": "4929be561d465c1eefa846359ddacac4d1870ff9ab7aef089415f1ad560cbb27",
+      "matches": true
+    },
+    {
+      "file": "README.md",
+      "archiveSha256": "520b9b36501e21c95cbf34ca11a9363425a19bbe89a2eeb59611784b1005ab64",
+      "deployedSha256": "520b9b36501e21c95cbf34ca11a9363425a19bbe89a2eeb59611784b1005ab64",
+      "matches": true
+    }
+  ],
+  "allFilesMatch": true,
+  "nativePackage": {
+    "name": "@loom/plugin-action-form",
+    "version": "0.1.4",
+    "enabled": true,
+    "installed": true,
+    "isCompatible": true
+  },
+  "reconciliation": "read-only after one uncertain upload; no retry",
+  "installationAcceptance": false
+}
