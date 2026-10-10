@@ -1,0 +1,104 @@
+{
+  "observedAt": "2026-10-10T10:57:08.483674+00:00",
+  "plugins": [
+    {
+      "name": "@zati/plugin-property-tenancy",
+      "version": "0.1.2",
+      "enabled": true,
+      "installed": true,
+      "isCompatible": true,
+      "reviewedSource": "7b9cda16a991d5b29c180e8d66ff5d45070ac9eb",
+      "files": [
+        {
+          "file": "dist/client/index.js",
+          "sha256": "751f99b2495b55ca64072d61ac1aec4688387ca235e4e6b6575084fd2befc44f",
+          "matches": true
+        },
+        {
+          "file": "dist/externalVersion.js",
+          "sha256": "7b00a95467ecadb7b6ee0627af4efd53fe5910732459287871d93c19380fa36b",
+          "matches": true
+        },
+        {
+          "file": "dist/server/domain.js",
+          "sha256": "58850677dcf5b3a5b06ee05fb000964af06ec380fd6ee6e641480b783a8388f3",
+          "matches": true
+        },
+        {
+          "file": "dist/server/errors.js",
+          "sha256": "eaa8975e2c445d847d4f1bb9d86e6d9f24a297a76a72c90eaa0a1172e20f5457",
+          "matches": true
+        },
+        {
+          "file": "dist/server/index.js",
+          "sha256": "ebf16cd9c20aa51e7c6ce62e29e731e062f4e81f67415a73e437aeed3d9ff01d",
+          "matches": true
+        },
+        {
+          "file": "dist/server/service.js",
+          "sha256": "1446cf58db534a541f694d54c4ff1a0f2c249aa78066d1789abb43710352c297",
+          "matches": true
+        },
+        {
+          "file": "dist/swagger/index.json",
+          "sha256": "c0c993fffdad5906fcb6572ca05dafd719b8cf53d98403a5bab2c3763320ac17",
+          "matches": true
+        },
+        {
+          "file": "package.json",
+          "sha256": "52bbc7255d9fe7d5fbfce7ffd7b20b372833ddfebc95fd36d5fce09fa07840a8",
+          "matches": true
+        }
+      ],
+      "allMatch": true
+    },
+    {
+      "name": "@loom/plugin-action-form",
+      "version": "0.1.0",
+      "enabled": true,
+      "installed": true,
+      "isCompatible": true,
+      "reviewedSource": "2e25700e258c0f8cbd035010e97d42c822b418d8",
+      "files": [
+        {
+          "file": "dist/client/index.js",
+          "sha256": "f5d77501eb29d5c430b753aaab304a77b97f8e2be618104f989f8ee0aad76e02",
+          "matches": true
+        },
+        {
+          "file": "dist/externalVersion.js",
+          "sha256": "d060ecdd9b513ceb6a88c1dd67f8f0d8ccae66b46b71816938386d1ae14512e1",
+          "matches": true
+        },
+        {
+          "file": "dist/server/index.js",
+          "sha256": "7d8b32e1e8349fe50ba114819b96cb7ffbec0c16d3903704b3e35e4c56f66233",
+          "matches": true
+        },
+        {
+          "file": "dist/server/policy.js",
+          "sha256": "e20dd96ba18ae2a093db039c50ce5b8715ed5641f8693293b94aeb5b4d869519",
+          "matches": true
+        },
+        {
+          "file": "dist/server/service.js",
+          "sha256": "2dc3016e043ba3e4b45134d3fd93d038024c2f91fe308e8642d49fe72a4908f8",
+          "matches": true
+        },
+        {
+          "file": "dist/swagger/index.json",
+          "sha256": "4e05fa5b1c1205ffe40b5b8e08727622ce778949b3b364b9759f1299f16ab63b",
+          "matches": true
+        },
+        {
+          "file": "package.json",
+          "sha256": "e1b7d154379345b6f77856bca1bd95ac56a23c8e847cf896f2be65aa8a7ee2e0",
+          "matches": true
+        }
+      ],
+      "allMatch": true
+    }
+  ],
+  "catalogSha256": "0c86d70bbb19c25dc35f706b6e25c35871e7ed161d47be2b131c0d9571ab5b75",
+  "toolCount": 272
+}

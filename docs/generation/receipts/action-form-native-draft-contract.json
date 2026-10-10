@@ -1,0 +1,159 @@
+{
+  "data": {
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unitId": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "nullable": true
+        },
+        "term": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "effectiveFrom": {
+              "type": "string",
+              "format": "date"
+            },
+            "effectiveTo": {
+              "type": "string",
+              "format": "date",
+              "nullable": true
+            },
+            "currency": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            },
+            "rentMinor": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "depositMinor": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            },
+            "rentFrequency": {
+              "type": "string",
+              "enum": [
+                "weekly",
+                "fortnightly",
+                "monthly",
+                "quarterly",
+                "annually"
+              ]
+            },
+            "dueDay": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 31
+            },
+            "prorationPolicy": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          },
+          "required": [
+            "effectiveFrom",
+            "currency",
+            "rentMinor",
+            "depositMinor",
+            "rentFrequency",
+            "dueDay",
+            "prorationPolicy"
+          ]
+        },
+        "parties": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "displayName": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "userId": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "partyRole": {
+                "type": "string",
+                "enum": [
+                  "primary",
+                  "cotenant",
+                  "guarantor",
+                  "occupant"
+                ]
+              },
+              "effectiveFrom": {
+                "type": "string",
+                "format": "date"
+              },
+              "effectiveTo": {
+                "type": "string",
+                "format": "date",
+                "nullable": true
+              }
+            },
+            "required": [
+              "displayName",
+              "partyRole",
+              "effectiveFrom"
+            ]
+          }
+        },
+        "reasonCode": {
+          "type": "string",
+          "enum": [
+            "initial-setup",
+            "correction",
+            "activation-reviewed",
+            "move-out-confirmed",
+            "ownership-reviewed",
+            "legacy-reviewed",
+            "account-authorized"
+          ]
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+          "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
+        }
+      },
+      "required": [
+        "unitId",
+        "code",
+        "startDate",
+        "term",
+        "parties",
+        "reasonCode",
+        "requestId"
+      ]
+    },
+    "schemaDigest": "43e782641379aad6ab4bfd99bfced9a4c341529754ab970ae848e60a4306c83e",
+    "packageVersion": "0.1.2",
+    "implementationDigest": "825a60605252bc08c008856cab96fd56173504f2344ac522bc97f157834f0873"
+  }
+}

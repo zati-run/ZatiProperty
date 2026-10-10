@@ -1,6 +1,6 @@
 # RFC implementation coverage
 
-Status: partial live development generation; representative maintenance acceptance remains blocked.
+Status: partial live development generation. The bounded representative manager maintenance journey is verified and locally integrated (receipt 015); broader maintenance and RFC acceptance remain open. Property and tenancy command/read boundaries are under native verification; their rendered journey is not yet accepted.
 
 Authority: the owner now authorizes synthetic development app generation and reusable Loom repairs. Historical workflow-only scope is superseded for this session. Production and consequential operations remain unauthorized.
 
@@ -134,4 +134,21 @@ Remaining numbered RFC scope stays planned; only RFC 2.3 non-goals and 15.2 deli
 
 ### Latest access checkpoint
 
-Guard 0.1.3 closes ZP-ACL-001/AG-001 for the tested maintenance native reads and supports the native chooser nested-filter shape. [012](../docs/generation/receipts/012-maintenance-access-and-selector-regression.md) records 215 authenticated GETs across security, scalar and selector suites; [013](../docs/generation/receipts/013-selector-authority.md) records six constructor/CAS denial cases. Manager context relations and linked work are explicitly granted and protected; native per-property active/unexpired vendor filtering passes with mixed-scope mapping fixtures. The guard 0.1.3 receipts record 95 security GETs and 24 selector cases separately. Desktop and narrow rendered context and picker checks pass in the browser qualification receipt. [The final fresh assignment/save/reload journey](../docs/generation/receipts/manager-final-journey.md) passes on desktop and narrow screens. Filtered-empty recovery and the blocked approval transition now have native UI evidence; local integration remains a separate gate.
+Guard 0.1.3 closes ZP-ACL-001/AG-001 for the tested maintenance native reads and supports the native chooser nested-filter shape. [012](../docs/generation/receipts/012-maintenance-access-and-selector-regression.md) records 215 authenticated GETs across security, scalar and selector suites; [013](../docs/generation/receipts/013-selector-authority.md) records six constructor/CAS denial cases. Manager context relations and linked work are explicitly granted and protected; native per-property active/unexpired vendor filtering passes with mixed-scope mapping fixtures. The guard 0.1.3 receipts record 95 security GETs and 24 selector cases separately. Desktop and narrow rendered context and picker checks pass in the browser qualification receipt. [The final fresh assignment/save/reload journey](../docs/generation/receipts/manager-final-journey.md) passes on desktop and narrow screens. Filtered-empty recovery and the blocked approval transition now have native UI evidence; [Local integration](../docs/generation/receipts/015-maintenance-local-integration.md) passed for that bounded maintenance source. Full RFC acceptance remains open.
+
+## Property/tenancy checkpoint — 2026-10-10
+
+These are partial subrequirements, not acceptance of the complete E3 batch or RFC sections.
+All construction used Loom native MCP in the same synthetic CE2.2.21 target.
+
+| Requirement subset | Status | Evidence / remaining gate |
+| --- | --- | --- |
+| ZP-11.1.property-tenancy-foundation | generated | [016](../docs/generation/receipts/016-property-domain-initial-qualification.md): eleven collections, twelve additive fields, separately chained command collection and account label field; native readback/bindings |
+| ZP-5.1.protected-lifecycle | generated | Plugin0.1.1 installed with fourteen native domain actions; [file identity](../docs/generation/receipts/property-tenancy-011-installed-files.json). Live transactions, roles, concurrency and lifecycle journey pending |
+| ZP-9.9.protected-audit-foundation | generated | Direct audit create denied and empty command reconciliation unchanged. Audit chain/rollback/concurrency/security acceptance pending; no accounting implementation |
+| ZP-4.6.protected-action-forms | blocked | [Native probe](../docs/generation/receipts/protected-action-ui-qualification.md) confirms CRUD-coupled forms hide protected actions. Reusable Loom action-form implementation in progress; no bypass or generic create grant |
+| ZP-6.1.property-navigation | planned | Reviewed read-only navigation candidate; native role overlay, pages, context bindings and rendered checks pending |
+| ZP-13.1.maintenance-regression-after-domain | verified | [95 bounded read cases](../docs/generation/receipts/maintenance-security-after-domain-upgrade.json) pass after0.1.1 installation, before new E3 role grants |
+
+Multiple owner/co-tenant portal membership changes currently fail closed pending
+qualified scope migration. This is an open requirement, not an approved deferral.

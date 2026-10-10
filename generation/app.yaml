@@ -17,5 +17,5 @@ consequential_actions: disabled
 production_deployment: not-authorized
 format: Project desired-state specification; not a native Loom input schema.
 loom_core_revision: bde529de0f969a5d81b2c18df67c6d34eaf8ee90
-loom_runtime_revision: ec4b6408d4376e5a3cf881dd2ffb28342140e1e7
-loom_catalog_sha256: f71713d09cfdb596df83ab2980fcd50c465c72065851ac287c0dcd7ba79e4850
+loom_runtime_revision: 3708d4a523e201aac3b35b4c112ea4b947a91142
+loom_catalog_sha256: 4c4787f32197bc079a776d414554e9316a68d24e46c9987bebfeb8cec3010cea

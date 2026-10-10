@@ -1,0 +1,8 @@
+{
+  "status": "local-schema-rejection-no-native-dispatch",
+  "stateReadbackUnchanged": true,
+  "commandReceiptAbsent": true,
+  "beforeAfterDigest": "18d0142eab39b70e9744761c2b0ec3130d5214a86f3bfa5f86d1688948d83681",
+  "source": "296dc78",
+  "reason": "Empty name violates minLength before dispatch; next probe uses schema-valid whitespace."
+}

@@ -1,0 +1,51 @@
+{
+  "package": "@zati/plugin-property-tenancy",
+  "version": "0.1.3",
+  "source": "d20ad2e6def07e750201cb378ab8e8b83dcd1bda",
+  "archiveSha256": "83fbe4d8fec0402e8e3f4dbc45ee1cf3bef137ae88bf4bb514312d57fa89465d",
+  "installedFiles": [
+    {
+      "path": "dist/server/domain.js",
+      "sha256": "58850677dcf5b3a5b06ee05fb000964af06ec380fd6ee6e641480b783a8388f3"
+    },
+    {
+      "path": "dist/server/errors.js",
+      "sha256": "fe2a034b1ca314905b995973253bca12071add06c0e178d02fe5b3aa617bc404"
+    },
+    {
+      "path": "dist/externalVersion.js",
+      "sha256": "7b00a95467ecadb7b6ee0627af4efd53fe5910732459287871d93c19380fa36b"
+    },
+    {
+      "path": "dist/client/index.js",
+      "sha256": "751f99b2495b55ca64072d61ac1aec4688387ca235e4e6b6575084fd2befc44f"
+    },
+    {
+      "path": "dist/server/index.js",
+      "sha256": "40d837f905b5ac3428d449cf103c13ec78a4ecd6f9f0e7b851b9e89bc51a1753"
+    },
+    {
+      "path": "dist/server/service.js",
+      "sha256": "56332c135b21aff64ab38cd32353a59bd50e78f655515c46363f91494fba7fc2"
+    },
+    {
+      "path": "dist/swagger/index.json",
+      "sha256": "c78bf105413e9a7c56a2b8c092372c7bb92487b06c4c39d4b7e4dff943754b7d"
+    },
+    {
+      "path": "package.json",
+      "sha256": "effe9258509c5157232a9f984d6fa0c5f56f95890b9f72dcc040e265523e6329"
+    },
+    {
+      "path": "README.md",
+      "sha256": "d37adb1fb5d9620bca331e3146b08947ac4b7b7f26b086e07694aa36f280a5c3"
+    }
+  ],
+  "nativePluginState": {
+    "enabled": true,
+    "installed": true,
+    "isCompatible": true
+  },
+  "catalogSha256": "4c4787f32197bc079a776d414554e9316a68d24e46c9987bebfeb8cec3010cea",
+  "scope": "Installed through Loom MCP; native plugin readback and read-only container file hashes. Not app journey acceptance."
+}

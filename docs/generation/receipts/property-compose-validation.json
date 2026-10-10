@@ -1,0 +1,62 @@
+{
+  "outcome": "rejected-native-validation",
+  "nativeStatus": 400,
+  "errors": [
+    {
+      "message": "flowSurfaces authoring $.blocks[0].recordActions[0].popup.blocks[1].settings.dataScope.items[0].path references unknown field 'propertyId'",
+      "type": "bad_request",
+      "code": "FLOW_SURFACE_AUTHORING_VALIDATION_ERROR",
+      "status": 400,
+      "index": 1,
+      "path": "$.blocks[0].recordActions[0].popup.blocks[1].settings.dataScope.items[0].path",
+      "ruleId": "field-path-unknown",
+      "details": {
+        "fieldPath": "propertyId",
+        "collection": "zp_units",
+        "availableFields": [
+          "createdBy",
+          "createdById",
+          "updatedBy",
+          "updatedById",
+          "name",
+          "buildingId",
+          "property",
+          "building"
+        ]
+      }
+    },
+    {
+      "message": "flowSurfaces authoring $.blocks[0].recordActions[0].popup.blocks[1].recordActions[0].popup.blocks[1].settings.dataScope.items[0].path references unknown field 'unitId'",
+      "type": "bad_request",
+      "code": "FLOW_SURFACE_AUTHORING_VALIDATION_ERROR",
+      "status": 400,
+      "index": 2,
+      "path": "$.blocks[0].recordActions[0].popup.blocks[1].recordActions[0].popup.blocks[1].settings.dataScope.items[0].path",
+      "ruleId": "field-path-unknown",
+      "details": {
+        "fieldPath": "unitId",
+        "collection": "zp_tenancies",
+        "availableFields": [
+          "createdBy",
+          "createdById",
+          "updatedBy",
+          "updatedById",
+          "code",
+          "status",
+          "tenantUserId",
+          "leaseState",
+          "startDate",
+          "endDate",
+          "version",
+          "draftRevision",
+          "parties",
+          "terms",
+          "unit"
+        ]
+      }
+    }
+  ],
+  "originalIntentPreserved": true,
+  "sourceFix": "2cdf330",
+  "acceptance": "No page content accepted; corrected desired payload awaits review and generation."
+}
