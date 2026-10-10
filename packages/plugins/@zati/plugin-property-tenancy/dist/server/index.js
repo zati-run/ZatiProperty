@@ -63,8 +63,10 @@ class PropertyTenancyPlugin extends Plugin {
         try {
           let constructor=false;
           if(action==='authorizeTenantAccount') {
-            const role=await model('roles').findByPk(roles[0]);
-            constructor=role?.get('allowAll')===true;
+            // Match Loom constructor companions: native effective, unrestricted
+            // authoring permission, never a persisted role flag or role name.
+            const authoring=acl.can({roles,resource:'flowSurfaces',action:'updateSettings'});
+            constructor=!!authoring&&(!authoring.params||Object.keys(authoring.params).length===0);
           }
           const values=action==='reconcileCommand'?{action:ctx.action.params.commandAction,requestId:ctx.action.params.requestId}:ctx.action.params.values||{};
           ctx.body={data:await service.execute(action,values,actor,{constructor})};

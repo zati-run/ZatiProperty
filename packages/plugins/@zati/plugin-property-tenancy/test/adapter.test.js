@@ -1,12 +1,12 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs'),path=require('node:path');
 const base=path.join(__dirname,'../dist');
-async function load(can=()=>true) {
+async function load(can=()=>true,ServiceOverride=null) {
  const hooks=new Map();const snippets=[];let resource,snippet;
  const Plugin=class {};
  const module={exports:{}};
  const source=fs.readFileSync(path.join(base,'server/index.js'),'utf8');
- vm.runInNewContext(source,{module,exports:module.exports,WeakSet,Object,Array,require:name=>name==='@nocobase/server'?{Plugin}:require(path.join(base,'server',name))});
+ vm.runInNewContext(source,{module,exports:module.exports,WeakSet,Object,Array,require:name=>name==='@nocobase/server'?{Plugin}:name==='./service'&&ServiceOverride?{...require(path.join(base,'server',name)),Service:ServiceOverride}:require(path.join(base,'server',name))});
  const p=new module.exports();
  p.db={on:(name,fn)=>{const old=hooks.get(name);hooks.set(name,old? (...args)=>{old(...args);return fn(...args);}:fn);},getModel:()=>null};
  p.app={resourcer:{define:value=>resource=value},acl:{can,registerSnippet:value=>{snippet=value;snippets.push(value);}}};
@@ -65,4 +65,32 @@ test('manager snippet excludes constructor account mapping action',async()=>{
  const manager=snippets.find(s=>s.name.endsWith('.manager'));
  assert.ok(manager.actions.includes('zpPropertyTenancy:reconcileCommand'));
  assert.equal(manager.actions.includes('zpPropertyTenancy:authorizeTenantAccount'),false);
+});
+
+async function constructorProbe(role,can) {
+ const calls=[];
+ class CapturingService {async execute(action,input,actor,authority){calls.push({action,authority});if(!authority.constructor){const e=new Error('CONSTRUCTOR_REQUIRED');e.code='CONSTRUCTOR_REQUIRED';throw e;}return {ok:true};}}
+ const {resource}=await load(can,CapturingService);
+ const ctx={state:{currentUser:{id:1},currentRoles:[role]},action:{params:{values:{}}},throw(status,message,extra){const e=new Error(message);e.status=status;e.code=extra?.code;throw e;}};
+ return {calls,ctx,invoke:()=>resource.actions.authorizeTenantAccount(ctx,async()=>{})};
+}
+test('stored role allowAll null does not block effective unrestricted constructor',async()=>{
+ const p=await constructorProbe('custom-constructor',({resource})=>resource==='flowSurfaces'?{params:{}}:true);
+ await p.invoke();assert.equal(p.ctx.body.data.ok,true);assert.equal(p.calls[0].authority.constructor,true);
+});
+test('named root without native authoring authority is denied',async()=>{
+ const p=await constructorProbe('root',({resource})=>resource==='zpPropertyTenancy');
+ await assert.rejects(p.invoke(),e=>e.status===403&&e.code==='CONSTRUCTOR_REQUIRED');
+});
+test('all domain actions do not imply constructor authority',async()=>{
+ const p=await constructorProbe('manager',({resource})=>resource==='zpPropertyTenancy');
+ await assert.rejects(p.invoke(),e=>e.status===403&&e.code==='CONSTRUCTOR_REQUIRED');
+});
+test('restricted native authoring authority cannot authorize accounts',async()=>{
+ const p=await constructorProbe('scoped-constructor',({resource})=>resource==='flowSurfaces'?{params:{filter:{id:1}}}:true);
+ await assert.rejects(p.invoke(),e=>e.status===403&&e.code==='CONSTRUCTOR_REQUIRED');
+});
+test('constructor authoring capability still requires explicit action ACL',async()=>{
+ const p=await constructorProbe('constructor',({resource})=>resource==='flowSurfaces'?{params:{}}:false);
+ await assert.rejects(p.invoke(),e=>e.status===403&&e.message==='DOMAIN_ACTION_DENIED');assert.equal(p.calls.length,0);
 });
