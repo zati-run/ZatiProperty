@@ -1,0 +1,12 @@
+{
+  "manager-unit-detail-grid": {
+    "gridUid": "rreftcpbznp",
+    "contextCollection": "zp_units",
+    "source": "native-readback"
+  },
+  "manager-tenancy-detail-grid": {
+    "gridUid": "6uqz7o0bcfb",
+    "contextCollection": "zp_tenancies",
+    "source": "native-readback"
+  }
+}

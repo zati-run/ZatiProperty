@@ -1,0 +1,14 @@
+{
+  "format": "zatiproperty.page-plan.v1",
+  "status": "prepared-unapplied",
+  "page": {
+    "title": "Create property",
+    "icon": "PlusOutlined",
+    "pageSchemaUid": "zp-create-property",
+    "pageUid": "zp-create-property-page",
+    "enableHeader": true
+  },
+  "protectedFormKey": "create-property",
+  "placement": "manager-property-create-grid",
+  "notes": "Create empty native page, read back exact grid, grant only manager navigation, then qualify and attach protected form through Loom. No generic CRUD block."
+}

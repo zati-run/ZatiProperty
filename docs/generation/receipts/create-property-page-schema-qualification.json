@@ -1,0 +1,14 @@
+{
+  "scope": "read-only discovered schema validation, not page creation",
+  "operation": "loom_native_flow_surfaces_create_page_f2c504e3472cfe7e",
+  "schemaDigest": "75145a9a0ac741690b52051157b407e61d6823f6a25409383af72fc451a39377",
+  "requestBody": {
+    "title": "Create property",
+    "icon": "PlusOutlined",
+    "pageSchemaUid": "zp-create-property",
+    "pageUid": "zp-create-property-page",
+    "enableHeader": true
+  },
+  "schemaValid": true,
+  "generated": false
+}
