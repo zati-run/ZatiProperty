@@ -1,0 +1,45 @@
+{
+  "scope": "read-only sign-in; optional browser-only response fault injection, no application mutation",
+  "before": [],
+  "after": [],
+  "events": [
+    {
+      "phase": "preauth",
+      "path": "/api/auth:check",
+      "status": 401
+    },
+    {
+      "phase": "preauth",
+      "path": "/api/aiEmployees:listByUser",
+      "status": 401
+    },
+    {
+      "phase": "preauth",
+      "path": "/api/aiConversations:unreadCounts",
+      "status": 401
+    },
+    {
+      "phase": "authenticated-fault-injection",
+      "path": "/api/aiEmployees:listByUser",
+      "status": 401
+    },
+    {
+      "phase": "authenticated-fault-injection",
+      "path": "/api/blockTemplates:list",
+      "status": 401
+    },
+    {
+      "phase": "authenticated-fault-injection",
+      "path": "/api/environmentVariables",
+      "status": 401
+    }
+  ],
+  "fault": {
+    "enabled": true,
+    "injected": 1,
+    "notifications": [
+      "Unauthenticated. Please sign in to continue."
+    ]
+  },
+  "noStalePreauthToast": true
+}
