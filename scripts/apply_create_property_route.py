@@ -23,6 +23,12 @@ class FocusedRoute:
  def gate(self,qualified):
   desired=json.loads((ROOT/'generation/pages/create-property.json').read_text())
   if qualified.get('key')!='create-property' or qualified.get('uid')!='zp_property_create_form_v1' or qualified.get('config',{}).get('action')!='createProperty':raise RuntimeError('Wrong protected form qualification')
+  templates=json.loads((ROOT/'generation/pages/property-protected-forms.json').read_text())
+  placements=json.loads((ROOT/'generation/bindings/property-protected-form-targets.json').read_text())
+  fresh=self.forms.qualify(templates,placements,'create-property')
+  # Attachment changes grid hash; immutable authority/context must stay exact.
+  for key in ('key','uid','gridUid','config','desiredHash','bindingHash','placementProof'):
+   if qualified.get(key)!=fresh.get(key):raise RuntimeError('Reviewed protected form qualification changed')
   surface=self.forms.read('flow_surfaces_get',{'pageSchemaUid':desired['page']['pageSchemaUid']});binding=page_binding(surface,desired['page'])
   if binding['gridUid']!=qualified.get('gridUid'):raise RuntimeError('Focused page grid changed')
   observed=self.forms.observe(qualified)

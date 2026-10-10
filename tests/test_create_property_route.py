@@ -27,3 +27,28 @@ class Route(unittest.TestCase):
    with self.assertRaises(RuntimeError):api.apply({},baseline,directory)
    self.assertEqual(len(api.c.calls),1)
 if __name__=='__main__':unittest.main()
+
+class QualificationGate(unittest.TestCase):
+ def test_immutable_qualification_changes_fail_before_observation(self):
+  q={'key':'create-property','uid':'zp_property_create_form_v1','gridUid':'g','config':{'action':'createProperty'},'desiredHash':'a','bindingHash':'b','placementProof':{}}
+  for key in ('uid','gridUid','config','desiredHash','bindingHash','placementProof'):
+   class FakeForms:
+    def qualify(self,*args):return {**q,key:'changed'}
+    def observe(self,*args):raise AssertionError('Must reject before observation')
+   api=object.__new__(FocusedRoute);api.forms=FakeForms()
+   with self.assertRaisesRegex(RuntimeError,'qualification changed'):api.gate(q)
+
+ def test_native_page_binding_is_derived_before_using_route_ids(self):
+  from unittest.mock import patch
+  q={'key':'create-property','uid':'zp_property_create_form_v1','gridUid':'g','config':{'action':'createProperty'},'desiredHash':'a','bindingHash':'b','placementProof':{}}
+  class FakeForms:
+   def __init__(self):self.reads=[]
+   def qualify(self,*args):return copy.deepcopy(q)
+   def read(self,stem,args):self.reads.append((stem,args));return {'native':'surface'}
+   def observe(self,*args):return {'attached':True,'form':{'config':q['config'],'nodeHash':'saved'}}
+  api=object.__new__(FocusedRoute);api.forms=FakeForms()
+  with patch('apply_create_property_route.page_binding',return_value={'gridUid':'g','menuRouteId':7,'tabRouteId':8}):
+   result=api.gate(q);self.assertEqual(result['binding']['menuRouteId'],7)
+   self.assertEqual(api.forms.reads,[('flow_surfaces_get',{'pageSchemaUid':'zp-create-property'})])
+  with patch('apply_create_property_route.page_binding',return_value={'gridUid':'other'}):
+   with self.assertRaisesRegex(RuntimeError,'grid changed'):api.gate(q)

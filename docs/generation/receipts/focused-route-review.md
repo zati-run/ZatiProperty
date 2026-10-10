@@ -1,0 +1,9 @@
+# Focused property route review and correction
+
+Original candidate 45f97c6cffcfe99f6c66a653214dc6d48c061a24 already derived route and grid bindings from a fresh native page read. The initial review claim that it trusted file route IDs was incorrect and is retracted. The existing native page gate is preserved and now explicitly regression-tested.
+
+The remaining finding was valid: saved qualification was not compared with the full reviewed desired form/configuration. The fix reruns read-only qualification from tracked templates and placement bindings, including installed versions and native action schema/implementation identities, then requires exact key, UID, grid, full config, desiredHash, bindingHash and placementProof agreement. It deliberately excludes the pre-attachment grid hash because adding the saved form changes that hash. The existing native page derivation, attachment readback, four-role baseline, manager-only route union and no-replay journal remain intact.
+
+DGX: python3 -m unittest discover -s tests -p test_create_property_route.py — six passed. git diff --check passed. No runtime mutation. This implementation delta requires independent coordinator review before use.
+
+UX source findings for rendered qualification: USD fixed input and rent/deposit labels correctly constrain the initial form. End-date labels should explain the domain's exclusive end-date semantics (the first day outside the tenancy/term/party period) before rendered acceptance. Verify date-only values remain unchanged across locale/timezone display and reload. Money controls must visibly show USD, preserve exact minor-unit conversion and reject overprecision/out-of-range input. The existing unused currency label says three-letter code despite fixed USD; it should remain hidden or read as USD, never suggest an editable currency. These are findings, not implemented UI changes or live acceptance.
