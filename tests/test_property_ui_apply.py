@@ -6,6 +6,10 @@ class Client:
  def __init__(self):self.calls=[]
  def call(self,name,args):self.calls.append((name,args));return {'data':{'saved':True}}
 class Tests(unittest.TestCase):
+ def test_exact_operation_alias_excludes_longer_operation_names(self):
+  class Catalog:
+   tools=[{"name":"loom_native_flow_surfaces_get_5ce19daccb56cc79"}, {"name":"loom_native_flow_surfaces_get_settings_1234567890abcdef"}]
+  self.assertEqual(Apply(Catalog(),{}, {},None).tool("loom_native_flow_surfaces_get_"),"loom_native_flow_surfaces_get_5ce19daccb56cc79")
  def test_fresh_baseline_drift_prevents_dispatch(self):
   c=Client();api=Apply(c,{'roles':{'manager':{'value':1}}},{},None)
   api.snapshot=lambda _: {'value':2}

@@ -77,7 +77,7 @@ class Apply:
     def __init__(self,client,baseline,manifest,journal):
         self.c=client;self.baseline=baseline;self.manifest=manifest;self.journal=journal
     def tool(self,prefix):
-        names=[t['name'] for t in self.c.tools if t['name'].startswith(prefix)]
+        names=[t['name'] for t in self.c.tools if t['name'].startswith(prefix) and '_' not in t['name'][len(prefix):]]
         if len(names)!=1:raise RuntimeError('Missing/ambiguous native capability: '+prefix)
         return names[0]
     def read(self,prefix,args):return self.c.call(self.tool(prefix),args)
