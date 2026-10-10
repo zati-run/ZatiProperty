@@ -2,7 +2,7 @@
 const {Plugin}=require('@nocobase/server');
 const {Service,ACTIONS,ZERO}=require('./service');
 const {deny}=require('./domain');
-const PROTECTED=['zp_tenancies','zp_tenancy_terms','zp_tenancy_parties','zp_ownership_sets','zp_property_interests','zp_domain_events','zp_audit_heads','zp_domain_outbox'];
+const PROTECTED=['zp_tenancies','zp_tenancy_terms','zp_tenancy_parties','zp_ownership_sets','zp_property_interests','zp_domain_events','zp_audit_heads','zp_domain_outbox','zp_properties','zp_units','zp_buildings','zp_owner_contacts','zp_tenant_account_permissions'];
 const plain=row=>row ? (typeof row.toJSON==='function'?row.toJSON():row) : null;
 class PropertyTenancyPlugin extends Plugin {
   async load() {
@@ -58,7 +58,12 @@ class PropertyTenancyPlugin extends Plugin {
         const acl=ctx.acl||this.app.acl;
         if(!actor||!Array.isArray(roles)||roles.length!==1||typeof roles[0]!=='string'||!acl.can({roles,resource:'zpPropertyTenancy',action}))ctx.throw(403,'DOMAIN_ACTION_DENIED');
         try {
-          ctx.body={data:await service.execute(action,ctx.action.params.values||{},actor)};
+          let constructor=false;
+          if(action==='authorizeTenantAccount') {
+            const role=await model('roles').findByPk(roles[0]);
+            constructor=role?.get('allowAll')===true;
+          }
+          ctx.body={data:await service.execute(action,ctx.action.params.values||{},actor,{constructor})};
         } catch(error) {
           // Only bounded domain codes; never echo SQL, values, credentials or PII.
           const code=typeof error.code==='string'&&/^[A-Z_]{3,64}$/.test(error.code)?error.code:'DOMAIN_OPERATION_FAILED';

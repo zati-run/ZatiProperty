@@ -139,10 +139,17 @@
                       ]
                     }
                   },
-                  "reason": {
+                  "reasonCode": {
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 240
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
                   }
                 },
                 "required": [
@@ -151,7 +158,7 @@
                   "startDate",
                   "term",
                   "parties",
-                  "reason"
+                  "reasonCode"
                 ]
               }
             }
@@ -307,10 +314,17 @@
                       ]
                     }
                   },
-                  "reason": {
+                  "reasonCode": {
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 240
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
                   }
                 },
                 "required": [
@@ -319,7 +333,7 @@
                   "startDate",
                   "term",
                   "parties",
-                  "reason"
+                  "reasonCode"
                 ]
               }
             }
@@ -362,16 +376,23 @@
                     "minimum": 0,
                     "nullable": true
                   },
-                  "reason": {
+                  "reasonCode": {
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 240
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
                   }
                 },
                 "required": [
                   "tenancyId",
                   "expectedVersion",
-                  "reason"
+                  "reasonCode"
                 ]
               }
             }
@@ -418,17 +439,24 @@
                     "type": "string",
                     "format": "date"
                   },
-                  "reason": {
+                  "reasonCode": {
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 240
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
                   }
                 },
                 "required": [
                   "tenancyId",
                   "expectedVersion",
                   "endDate",
-                  "reason"
+                  "reasonCode"
                 ]
               }
             }
@@ -475,16 +503,23 @@
                     "format": "date",
                     "nullable": true
                   },
-                  "reason": {
+                  "reasonCode": {
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 240
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
                   }
                 },
                 "required": [
                   "propertyId",
                   "effectiveFrom",
-                  "reason"
+                  "reasonCode"
                 ]
               }
             }
@@ -551,17 +586,24 @@
                       ]
                     }
                   },
-                  "reason": {
+                  "reasonCode": {
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 240
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
                   }
                 },
                 "required": [
                   "ownershipSetId",
                   "expectedVersion",
                   "interests",
-                  "reason"
+                  "reasonCode"
                 ]
               }
             }
@@ -610,17 +652,24 @@
                       true
                     ]
                   },
-                  "reason": {
+                  "reasonCode": {
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 240
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
                   }
                 },
                 "required": [
                   "ownershipSetId",
                   "expectedVersion",
                   "completeSet",
-                  "reason"
+                  "reasonCode"
                 ]
               }
             }
@@ -675,6 +724,308 @@
           },
           "409": {
             "description": "Invariant, version or persistence failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:createProperty": {
+      "post": {
+        "operationId": "zpPropertyTenancy_createProperty",
+        "summary": "Protected createProperty",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "reasonCode": {
+                    "type": "string",
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
+                  }
+                },
+                "required": [
+                  "name",
+                  "reasonCode"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Authority denied"
+          },
+          "409": {
+            "description": "Invariant failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:createBuilding": {
+      "post": {
+        "operationId": "zpPropertyTenancy_createBuilding",
+        "summary": "Protected createBuilding",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "propertyId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "reasonCode": {
+                    "type": "string",
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
+                  }
+                },
+                "required": [
+                  "propertyId",
+                  "name",
+                  "reasonCode"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Authority denied"
+          },
+          "409": {
+            "description": "Invariant failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:createUnit": {
+      "post": {
+        "operationId": "zpPropertyTenancy_createUnit",
+        "summary": "Protected createUnit",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "propertyId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "buildingId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "reasonCode": {
+                    "type": "string",
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
+                  }
+                },
+                "required": [
+                  "propertyId",
+                  "name",
+                  "reasonCode"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Authority denied"
+          },
+          "409": {
+            "description": "Invariant failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:createOwnerContact": {
+      "post": {
+        "operationId": "zpPropertyTenancy_createOwnerContact",
+        "summary": "Protected createOwnerContact",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "propertyId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "displayName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "userId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "reasonCode": {
+                    "type": "string",
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
+                  }
+                },
+                "required": [
+                  "propertyId",
+                  "displayName",
+                  "reasonCode"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Authority denied"
+          },
+          "409": {
+            "description": "Invariant failure; reconcile before retry"
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:authorizeTenantAccount": {
+      "post": {
+        "operationId": "zpPropertyTenancy_authorizeTenantAccount",
+        "summary": "Protected authorizeTenantAccount",
+        "tags": [
+          "ZatiProperty domain"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "propertyId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "managerUserId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "userId": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "reasonCode": {
+                    "type": "string",
+                    "enum": [
+                      "initial-setup",
+                      "correction",
+                      "activation-reviewed",
+                      "move-out-confirmed",
+                      "ownership-reviewed",
+                      "legacy-reviewed",
+                      "account-authorized"
+                    ]
+                  }
+                },
+                "required": [
+                  "propertyId",
+                  "managerUserId",
+                  "userId",
+                  "reasonCode"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Committed domain result"
+          },
+          "403": {
+            "description": "Authority denied"
+          },
+          "409": {
+            "description": "Invariant failure; reconcile before retry"
           }
         }
       }

@@ -59,4 +59,5 @@ function verifyEvents(events,head) {
   if(Number(head.headSequence)!==sequence||head.headHash!==previous)deny('AUDIT_HEAD');
   return {valid:true,sequence};
 }
-module.exports={deny,id,same,date,interval,overlaps,integer,string,keys,canonical,hash,tenancyInput,interestsInput,verifyEvents};
+const REASONS=Object.freeze({'initial-setup':'Initial setup','correction':'Correction of a draft','activation-reviewed':'Activation reviewed','move-out-confirmed':'Move-out confirmed','ownership-reviewed':'Ownership reviewed','legacy-reviewed':'Legacy record reviewed','account-authorized':'Account association authorized'});
+module.exports={REASONS,deny,id,same,date,interval,overlaps,integer,string,keys,canonical,hash,tenancyInput,interestsInput,verifyEvents};

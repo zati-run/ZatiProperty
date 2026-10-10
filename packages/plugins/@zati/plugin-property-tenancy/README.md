@@ -7,11 +7,17 @@ does not create collections, post money, send messages, or operate a dispatcher.
 
 ## Construction and authority
 
-The fixed resource is `zpPropertyTenancy`, with eight actions:
+The fixed resource is `zpPropertyTenancy`, with thirteen actions:
 createDraftTenancy, updateDraftTenancy, activateTenancy, endTenancy,
-createOwnershipSet, setOwnershipInterests, approveOwnershipSet, auditHealth.
+createOwnershipSet, setOwnershipInterests, approveOwnershipSet, auditHealth,
+createProperty, createBuilding, createUnit, createOwnerContact, authorizeTenantAccount.
 Every action requires a native action grant, one effective role, an authenticated
-actor, and that actor's assignment on the property's managerUserId. Root is not
+actor, and that actor's assignment on the property's managerUserId. New property
+creation binds managerUserId to the actor. authorizeTenantAccount is the explicit
+exception: it requires the selected native role's stored allowAll=true flag and
+checks the stated property's assigned manager before creating an immutable
+manager/account permission with canonical unique mappingKey. Application roles
+must not receive this constructor action. Root is not
 an implicit business manager. Owner contacts linked to interests must belong to
 the same manager. No user identity, ownership approval flag or audit payload is
 accepted from a generic collection mutation.
@@ -39,6 +45,15 @@ extend, the contracted end; it does not change transaction acceptance status or
 perform deposit settlement. There is no active-term amendment or renewal action.
 
 Terms/parties are append-only proposal revisions linked by tenancy.draftRevision.
+Generic context creation is also denied: property/building/unit/owner-contact
+creation uses narrow scoped actions with hierarchy checks. Ordinary context editing
+is not yet offered by this increment. Every linked tenant party account requires
+a constructor-owned zp_tenant_account_permissions row for its manager; mere users
+collection membership is insufficient. New drafts leave tenantUserId null; only
+activation publishes the primary binding atomically. Legacy adoption preserves
+its existing binding. Secondary party account access and changed owner account
+membership fail closed until new portal scopes are separately qualified.
+
 Generic writes, nested saves, bulk writes and deletes of protected collections
 are denied unless their exact transaction is privately owned by this service.
 Approved ownership sets cannot change. Draft complete interest sets append
@@ -51,7 +66,8 @@ Money is nonnegative integer minor units bounded to 2147483647 for this incremen
 IDs accept canonical positive integer numbers/strings up to MAX_SAFE_INTEGER.
 One draft has at most 20 parties/interests; occupancy/history scans max1000.
 Unique code, audit sequence, head ID, and outbox eventId metadata constraints are
-required. New primary user references must resolve; there is no invitation flow.
+required. New primary user references must resolve and have an explicit manager/account
+permission; there is no invitation flow.
 Portal current-revision row/field grants still need separate implementation and
 tests; preservation of history does not authorize its disclosure.
 
@@ -66,11 +82,14 @@ retrying. No process mutex substitutes for the native database row lock.
 Mutation, immutable change event, pending outbox row and head update use one
 transaction. Canonical JSON sorts object keys recursively and preserves arrays;
 eventHash is SHA256(previousHash + newline + canonicalPayload). Payload includes
-sequence, actor/action/entity/property IDs, version/state, server UTC timestamp,
-generated correlation ID, and hashes of the supplied reason/request. Raw party,
-contact and monetary terms are excluded. The supplied free-text reason is hashed,
-not retained as a human-readable audit explanation; a future reason-code and
-private narrative policy is still required for broader operational audit UX.
+sequence, actor/action/entity/property IDs, safe previous/resulting snapshots,
+server UTC timestamp, generated correlation ID, a fixed operational reasonCode
+and its human-readable description, plus a supplementary request hash. Snapshots
+retain tenancy dates/unit/primary binding/draftRevision or ownership dates and
+interestsRevision, preserving recoverable links to immutable detailed revisions.
+Raw names/contact values and free-text reasons are not accepted into the audit.
+Restricted audit role grants and rendered audit explanations still need native
+qualification.
 
 auditHealth independently recomputes the complete chain and head up to10000
 events. This is source-level verification behavior, not a production tamper-
