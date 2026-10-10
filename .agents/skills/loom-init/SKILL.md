@@ -21,3 +21,7 @@ Read [generation-contract.md](references/generation-contract.md) before tailorin
 The helper uses only the Python standard library, makes no network requests, and edits no credentials or MCP configuration. It refuses symbolic links in the target or managed paths, path escapes, nonregular destination files, and overlapping outputs. It preflights every destination before writing. Run with exclusive ownership of target paths: filesystem changes by another process between preflight and writing are outside its transaction guarantees.
 
 Run helper checks with `python3 -m unittest discover -s tests -v`. These fixtures qualify scaffolding behavior only.
+
+## Design companion
+
+The initializer installs `loom-design` from `assets/loom-design/` into the target project. This is the canonical template; keep the owning project copy synchronized when editing it. The design skill loads page-pattern and review references on demand. Existing differing skill files are preserved and reported as collisions; reconcile them deliberately before rerunning.

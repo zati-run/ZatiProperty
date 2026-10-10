@@ -77,3 +77,7 @@ local instructions and an RFC construction contract; it does not generate the ap
 configure credentials or implement a `loom init` CLI command. Reconcile the full RFC
 semantically after scaffolding. The existing `loom` launcher starts a server from an
 operator-provided configuration; it is not an initializer.
+
+## Application design
+
+For UI generation, use `.agents/skills/loom-design/SKILL.md` and its on-demand references. Maintain `generation/design.md` as the compact shared design contract. Require role-oriented navigation, usable native page patterns, accessible states and evidence from rendered representative journeys. Do not equate a saved schema with visual or interaction acceptance.
