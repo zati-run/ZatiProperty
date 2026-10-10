@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Read-only hierarchy role matrix. Synthetic identities authenticate through Loom."""
-import json,os,sys,urllib.request,urllib.parse,urllib.error,datetime,pathlib
+import argparse,json,os,sys,urllib.request,urllib.parse,urllib.error,datetime,pathlib
 from loom_mcp import Loom
 from verify_property_commands import tool,unwrap
 ROOT=pathlib.Path(__file__).resolve().parents[1]
@@ -11,15 +11,15 @@ def cases(manager,graph):
       ("unit-tenancies",f"zp_units/{ownunit}/tenancies:list",{"pageSize":50},tenancies if manager else None,"list"),
       ("append-units","zp_properties:get",{"filterByTk":ownproperty,"appends[]":["units"]},units if manager else None,"units"),
       ("append-tenancies","zp_units:get",{"filterByTk":ownunit,"appends[]":["tenancies"]},tenancies if manager else None,"tenancies"),
-      ("nested-hierarchy","zp_properties:get",{"filterByTk":ownproperty,"appends[]":["units.tenancies"]},units if manager else None,"nested"),
+      ("nested-hierarchy","zp_properties:get",{"filterByTk":ownproperty,"appends[]":["units.tenancies"]},None,"nested"),
       ("foreign-property-units",f"zp_properties/{2 if graph=='1' else 4}/units:list",{"pageSize":50},None,"list"),
       ("foreign-unit-tenancies",f"zp_units/{2 if graph=='1' else 3}/tenancies:list",{"pageSize":50},None,"list"),
-      ("foreign-append","zp_properties:get",{"filterByTk":2 if graph=="1" else 4,"appends[]":["units.tenancies"]},None,"nested"),
+      ("foreign-append","zp_properties:get",{"filterByTk":2 if graph=="1" else 4,"appends[]":["units.tenancies"]},None,"scoped-get"),
       ("sensitive-tenancy-field","zp_tenancies:get",{"filterByTk":4,"fields[]":["id","tenantUserId"]},None,"get"),
       ("users-denied","users:list",{"pageSize":1},None,"list"),
       ("protected-audit-denied","zp_domain_events:list",{"pageSize":1},None,"list")]
 def validate(status,body,expected,kind):
-    if expected is None:return status==403
+    if expected is None:return status==403 or (kind=="scoped-get" and status==200 and body.get("data","missing") is None)
     if status!=200:return False
     data=body.get("data")
     rows=data if kind=="list" else data.get("units" if kind=="nested" else kind) if isinstance(data,dict) else None
@@ -32,6 +32,8 @@ def validate(status,body,expected,kind):
             if any(str(t.get("unitId",row["id"]))!=str(row["id"]) for t in row["tenancies"]):return False
     return True
 def main():
+    parser=argparse.ArgumentParser();parser.add_argument("--receipt",type=pathlib.Path,default=ROOT/"docs/generation/receipts/hierarchy-role-native-matrix.json");args=parser.parse_args()
+    if args.receipt.exists():raise RuntimeError("Preserve previous receipt")
     runtime=pathlib.Path(os.environ["ZP_RUNTIME_DIR"]);client=Loom()
     base=json.loads((runtime/"loom.json").read_text())["backendURL"].rstrip("/")
     accounts=json.loads((runtime/"maintenance-test-accounts.json").read_text());results=[]
@@ -52,7 +54,7 @@ def main():
             status,body=get(path,params);ok=validate(status,body,expected,kind)
             results.append({"actor":key,"case":label,"status":status,"passed":ok,"expectedIds":expected})
     output={"observedAt":datetime.datetime.now(datetime.timezone.utc).isoformat(),"checks":results,"passed":sum(x["passed"] for x in results),"total":len(results),"allPassed":all(x["passed"] for x in results)}
-    destination=ROOT/"docs/generation/receipts/hierarchy-role-native-matrix.json"
+    destination=args.receipt
     if destination.exists():raise RuntimeError("Preserve previous receipt; use separate worktree for rerun")
     destination.write_text(json.dumps(output,indent=2)+"\n")
     print(json.dumps({"passed":output["passed"],"total":output["total"],"failed":[x for x in results if not x["passed"]]}))

@@ -1,0 +1,649 @@
+{
+  "observedAt": "2026-10-10T12:24:28.152040+00:00",
+  "checks": [
+    {
+      "actor": "zp_owner.1",
+      "case": "property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "append-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "append-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "nested-hierarchy",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "foreign-property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "foreign-unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "foreign-append",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "sensitive-tenancy-field",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "users-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.1",
+      "case": "protected-audit-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "append-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "append-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "nested-hierarchy",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "foreign-property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "foreign-unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "foreign-append",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "sensitive-tenancy-field",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "users-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_owner.2",
+      "case": "protected-audit-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "property-units",
+      "status": 200,
+      "passed": true,
+      "expectedIds": [
+        3,
+        4
+      ]
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "unit-tenancies",
+      "status": 200,
+      "passed": true,
+      "expectedIds": [
+        4,
+        5
+      ]
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "append-units",
+      "status": 200,
+      "passed": true,
+      "expectedIds": [
+        3,
+        4
+      ]
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "append-tenancies",
+      "status": 200,
+      "passed": true,
+      "expectedIds": [
+        4,
+        5
+      ]
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "nested-hierarchy",
+      "status": 403,
+      "passed": false,
+      "expectedIds": [
+        3,
+        4
+      ]
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "foreign-property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "foreign-unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "foreign-append",
+      "status": 200,
+      "passed": false,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "sensitive-tenancy-field",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "users-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.1",
+      "case": "protected-audit-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "property-units",
+      "status": 200,
+      "passed": true,
+      "expectedIds": [
+        2
+      ]
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "unit-tenancies",
+      "status": 200,
+      "passed": true,
+      "expectedIds": [
+        2
+      ]
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "append-units",
+      "status": 200,
+      "passed": true,
+      "expectedIds": [
+        2
+      ]
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "append-tenancies",
+      "status": 200,
+      "passed": true,
+      "expectedIds": [
+        2
+      ]
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "nested-hierarchy",
+      "status": 403,
+      "passed": false,
+      "expectedIds": [
+        2
+      ]
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "foreign-property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "foreign-unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "foreign-append",
+      "status": 200,
+      "passed": false,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "sensitive-tenancy-field",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "users-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_property_manager.2",
+      "case": "protected-audit-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "append-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "append-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "nested-hierarchy",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "foreign-property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "foreign-unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "foreign-append",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "sensitive-tenancy-field",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "users-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.1",
+      "case": "protected-audit-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "append-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "append-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "nested-hierarchy",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "foreign-property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "foreign-unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "foreign-append",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "sensitive-tenancy-field",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "users-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_tenant.2",
+      "case": "protected-audit-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "append-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "append-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "nested-hierarchy",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "foreign-property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "foreign-unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "foreign-append",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "sensitive-tenancy-field",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "users-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.1",
+      "case": "protected-audit-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "append-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "append-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "nested-hierarchy",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "foreign-property-units",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "foreign-unit-tenancies",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "foreign-append",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "sensitive-tenancy-field",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "users-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    },
+    {
+      "actor": "zp_vendor.2",
+      "case": "protected-audit-denied",
+      "status": 403,
+      "passed": true,
+      "expectedIds": null
+    }
+  ],
+  "passed": 84,
+  "total": 88,
+  "allPassed": false
+}

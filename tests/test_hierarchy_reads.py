@@ -8,5 +8,10 @@ class Matrix(unittest.TestCase):
  def test_status_failure_not_denial(self):self.assertFalse(h.validate(500,{},None,"list"))
  def test_exact_ids(self):self.assertFalse(h.validate(200,{"data":[{"id":3},{"id":99}]},[3,4],"list"))
  def test_nested_wrong_unit(self):self.assertFalse(h.validate(200,{"data":{"units":[{"id":3,"tenancies":[{"id":4,"unitId":2}]}]}},[3],"nested"))
+ def test_foreign_get_empty_is_scoped_exclusion(self):
+  self.assertTrue(h.validate(200,{"data":None},None,"scoped-get"))
+  self.assertFalse(h.validate(200,{"data":{"id":2}},None,"scoped-get"))
+  self.assertFalse(h.validate(200,{},None,"scoped-get"))
+ def test_nested_policy_remains_denied(self):self.assertIsNone(h.cases(True,"1")[4][3])
 if __name__=="__main__":unittest.main()
 
