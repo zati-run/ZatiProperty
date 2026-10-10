@@ -46,6 +46,8 @@ class Service {
           term:pick(terms[0],['effectiveFrom','effectiveTo','currency','rentMinor','depositMinor','rentFrequency','dueDay','prorationPolicy']),
           parties:parties.map(p=>pick(p,['displayName','userId','partyRole','effectiveFrom','effectiveTo']))};
         d.tenancyInput(values);
+        await this.accounts(tx,parties,actor);
+        for(const party of values.parties)if(party.userId!==undefined&&party.userId!==null)party.userId=Number(d.id(party.userId));
         const envelope={proposalVersion:1,tenancyId:String(row.id),expectedVersion:row.version,revision:row.draftRevision,values};
         return {...envelope,proposalDigest:d.hash(d.canonical(envelope))};
       });
