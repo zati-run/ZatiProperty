@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "requiredDomainVersion": "0.1.3",
+  "requiredCompanionVersion": "0.1.2",
+  "forms": [
+    {
+      "key": "create-property",
+      "uid": "zp_property_create_form_v1",
+      "placement": "manager-property-create-grid",
+      "config": {
+        "actionPackage": "@zati/plugin-property-tenancy",
+        "resource": "zpPropertyTenancy",
+        "reconcileAction": "reconcileCommand",
+        "commandContract": "idempotent-terminal-v1",
+        "qualification": {
+          "reviewed": true,
+          "evidenceRef": "docs/generation/receipts/property-protected-forms-review.md"
+        },
+        "action": "createProperty",
+        "title": "Add a property",
+        "submitLabel": "Add property",
+        "context": {
+          "collection": "zp_properties"
+        },
+        "bindings": {},
+        "labels": {
+          "/reasonCode": "Reason for this change",
+          "/name": "Property name"
+        },
+        "errorMessages": {
+          "OCCUPANCY_OVERLAP": "These dates overlap another active tenancy for this unit. Review the dates before trying again.",
+          "PARTY_ACCOUNT_NOT_PERMITTED": "Choose a tenant account permitted for your management scope.",
+          "STALE_VERSION": "This tenancy changed. Reload its details and review the latest version.",
+          "PARTY_SCOPE_MIGRATION_REQUIRED": "This change needs a reviewed portal-access migration before it can proceed.",
+          "OWNER_SCOPE_MIGRATION_REQUIRED": "This change needs a reviewed owner-access migration before it can proceed."
+        },
+        "readback": {
+          "collection": "zp_properties",
+          "resultIdField": "id",
+          "fields": [
+            "id",
+            "name"
+          ]
+        }
+      }
+    },
+    {
+      "key": "draft-tenancy",
+      "uid": "zp_tenancy_draft_form_v1",
+      "placement": "manager-unit-detail-grid",
+      "config": {
+        "actionPackage": "@zati/plugin-property-tenancy",
+        "resource": "zpPropertyTenancy",
+        "reconcileAction": "reconcileCommand",
+        "commandContract": "idempotent-terminal-v1",
+        "qualification": {
+          "reviewed": true,
+          "evidenceRef": "docs/generation/receipts/property-protected-forms-review.md"
+        },
+        "action": "createDraftTenancy",
+        "title": "Draft a tenancy for this unit",
+        "submitLabel": "Save tenancy draft",
+        "context": {
+          "collection": "zp_units"
+        },
+        "bindings": {
+          "unitId": {
+            "recordField": "id"
+          }
+        },
+        "labels": {
+          "/reasonCode": "Reason for this change",
+          "/code": "Tenancy reference",
+          "/startDate": "Tenancy start date",
+          "/endDate": "Tenancy end date (optional)",
+          "/term": "Rent and deposit terms",
+          "/term/effectiveFrom": "Terms start date",
+          "/term/effectiveTo": "Terms end date (optional)",
+          "/term/currency": "Currency (three-letter code)",
+          "/term/rentMinor": "Rent amount",
+          "/term/depositMinor": "Deposit amount",
+          "/term/rentFrequency": "Rent frequency",
+          "/term/dueDay": "Rent due day",
+          "/term/prorationPolicy": "Proration policy",
+          "/parties": "Tenancy parties",
+          "/parties/*": "Party",
+          "/parties/*/displayName": "Name on the tenancy",
+          "/parties/*/userId": "Permitted tenant portal account (optional)",
+          "/parties/*/partyRole": "Role in the tenancy",
+          "/parties/*/effectiveFrom": "Party start date",
+          "/parties/*/effectiveTo": "Party end date (optional)"
+        },
+        "errorMessages": {
+          "OCCUPANCY_OVERLAP": "These dates overlap another active tenancy for this unit. Review the dates before trying again.",
+          "PARTY_ACCOUNT_NOT_PERMITTED": "Choose a tenant account permitted for your management scope.",
+          "STALE_VERSION": "This tenancy changed. Reload its details and review the latest version.",
+          "PARTY_SCOPE_MIGRATION_REQUIRED": "This change needs a reviewed portal-access migration before it can proceed.",
+          "OWNER_SCOPE_MIGRATION_REQUIRED": "This change needs a reviewed owner-access migration before it can proceed."
+        },
+        "readback": {
+          "collection": "zp_tenancies",
+          "resultIdField": "id",
+          "fields": [
+            "id",
+            "code",
+            "leaseState",
+            "startDate",
+            "endDate",
+            "version"
+          ]
+        },
+        "formats": {
+          "/term/rentMinor": {
+            "kind": "money",
+            "scale": 2
+          },
+          "/term/depositMinor": {
+            "kind": "money",
+            "scale": 2
+          }
+        },
+        "choices": {
+          "/parties/*/userId": {
+            "collection": "zp_tenant_account_permissions",
+            "valueField": "userId",
+            "labelField": "displayName"
+          }
+        }
+      }
+    },
+    {
+      "key": "activate-tenancy",
+      "uid": "zp_tenancy_activate_form_v1",
+      "placement": "manager-tenancy-detail-grid",
+      "config": {
+        "actionPackage": "@zati/plugin-property-tenancy",
+        "resource": "zpPropertyTenancy",
+        "reconcileAction": "reconcileCommand",
+        "commandContract": "idempotent-terminal-v1",
+        "qualification": {
+          "reviewed": true,
+          "evidenceRef": "docs/generation/receipts/property-protected-forms-review.md"
+        },
+        "action": "activateTenancy",
+        "title": "Activate this tenancy",
+        "submitLabel": "Activate tenancy",
+        "context": {
+          "collection": "zp_tenancies"
+        },
+        "bindings": {
+          "tenancyId": {
+            "recordField": "id"
+          },
+          "expectedVersion": {
+            "recordField": "version"
+          }
+        },
+        "labels": {
+          "/reasonCode": "Reason for this change"
+        },
+        "errorMessages": {
+          "OCCUPANCY_OVERLAP": "These dates overlap another active tenancy for this unit. Review the dates before trying again.",
+          "PARTY_ACCOUNT_NOT_PERMITTED": "Choose a tenant account permitted for your management scope.",
+          "STALE_VERSION": "This tenancy changed. Reload its details and review the latest version.",
+          "PARTY_SCOPE_MIGRATION_REQUIRED": "This change needs a reviewed portal-access migration before it can proceed.",
+          "OWNER_SCOPE_MIGRATION_REQUIRED": "This change needs a reviewed owner-access migration before it can proceed."
+        },
+        "readback": {
+          "collection": "zp_tenancies",
+          "resultIdField": "id",
+          "fields": [
+            "id",
+            "code",
+            "leaseState",
+            "startDate",
+            "endDate",
+            "version"
+          ]
+        }
+      }
+    },
+    {
+      "key": "end-tenancy",
+      "uid": "zp_tenancy_end_form_v1",
+      "placement": "manager-tenancy-detail-grid",
+      "config": {
+        "actionPackage": "@zati/plugin-property-tenancy",
+        "resource": "zpPropertyTenancy",
+        "reconcileAction": "reconcileCommand",
+        "commandContract": "idempotent-terminal-v1",
+        "qualification": {
+          "reviewed": true,
+          "evidenceRef": "docs/generation/receipts/property-protected-forms-review.md"
+        },
+        "action": "endTenancy",
+        "title": "End this tenancy",
+        "submitLabel": "Confirm tenancy end",
+        "context": {
+          "collection": "zp_tenancies"
+        },
+        "bindings": {
+          "tenancyId": {
+            "recordField": "id"
+          },
+          "expectedVersion": {
+            "recordField": "version"
+          }
+        },
+        "labels": {
+          "/reasonCode": "Reason for this change",
+          "/endDate": "Confirmed tenancy end date"
+        },
+        "errorMessages": {
+          "OCCUPANCY_OVERLAP": "These dates overlap another active tenancy for this unit. Review the dates before trying again.",
+          "PARTY_ACCOUNT_NOT_PERMITTED": "Choose a tenant account permitted for your management scope.",
+          "STALE_VERSION": "This tenancy changed. Reload its details and review the latest version.",
+          "PARTY_SCOPE_MIGRATION_REQUIRED": "This change needs a reviewed portal-access migration before it can proceed.",
+          "OWNER_SCOPE_MIGRATION_REQUIRED": "This change needs a reviewed owner-access migration before it can proceed."
+        },
+        "readback": {
+          "collection": "zp_tenancies",
+          "resultIdField": "id",
+          "fields": [
+            "id",
+            "code",
+            "leaseState",
+            "startDate",
+            "endDate",
+            "version"
+          ]
+        }
+      }
+    }
+  ]
+}
