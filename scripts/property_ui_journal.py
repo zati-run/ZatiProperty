@@ -21,10 +21,12 @@ def dispatch_once(client,name,args,journal,before,read_after,verify):
     sync_write(journal,intent,True)
     try:
         response=client.call(name,args)
+        sync_write(journal.with_suffix(journal.suffix+".returned"),{"intentHash":sha(intent),"response":response},True)
         after=read_after()
         if not verify(after):raise RuntimeError("native readback mismatch")
-    except Exception:
-        # Preserve the original durable intent; caller must read current native state.
+    except Exception as error:
+        # Private diagnostic evidence never clears the original no-replay fence.
+        sync_write(journal.with_suffix(journal.suffix+".failed"),{"intentHash":sha(intent),"errorType":type(error).__name__,"error":str(error)},True)
         raise
     result={**intent,"state":"verified","response":response,"after":after,"afterHash":sha(after)}
     temp=journal.with_suffix(journal.suffix+".verified")
