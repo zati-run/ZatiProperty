@@ -1,0 +1,13 @@
+{
+  "package": "@loom/plugin-native-array-compat",
+  "attemptedArchiveVersion": "0.1.1",
+  "archiveSha256": "bcb89fbb4c5796c30cc56328712d5d3ae44f090b28a504efbe6c2b34e2932fdb",
+  "uploadReply": "ok",
+  "verifiedInstalledVersion": "0.1.0",
+  "enabled": false,
+  "installed": false,
+  "isCompatible": false,
+  "nativeError": "Failed to update plugin; package does not exist in installed plugin registry",
+  "status": "Update not applied; no enable dispatched. Staged package replacement workflow and Loom postcondition reporting require qualification.",
+  "scope": "Development only; preserves original receipts and does not treat HTTP200 as successful installation."
+}
