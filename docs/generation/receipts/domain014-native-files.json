@@ -1,0 +1,44 @@
+{
+  "package": "@zati/plugin-property-tenancy",
+  "version": "0.1.4",
+  "archiveSha256": "e5c5d33240e6824b354a1e80c9c2238ef5f25134f3fd5e32536927e6af89b7a7",
+  "nativeFiles": [
+    {
+      "path": "dist/server/domain.js",
+      "sha256": "58850677dcf5b3a5b06ee05fb000964af06ec380fd6ee6e641480b783a8388f3"
+    },
+    {
+      "path": "dist/server/errors.js",
+      "sha256": "fe2a034b1ca314905b995973253bca12071add06c0e178d02fe5b3aa617bc404"
+    },
+    {
+      "path": "dist/externalVersion.js",
+      "sha256": "7b00a95467ecadb7b6ee0627af4efd53fe5910732459287871d93c19380fa36b"
+    },
+    {
+      "path": "dist/client/index.js",
+      "sha256": "751f99b2495b55ca64072d61ac1aec4688387ca235e4e6b6575084fd2befc44f"
+    },
+    {
+      "path": "dist/server/index.js",
+      "sha256": "6f6d7a4c226d4c976289b84683ddf6cb5a50fb6d6ab70d478e270bfe08c5754a"
+    },
+    {
+      "path": "dist/server/service.js",
+      "sha256": "daf860c70ac1948c667d93b504d1d2b08a5443e805eb827f992729c15b0a193c"
+    },
+    {
+      "path": "dist/swagger/index.json",
+      "sha256": "b4e71bba0ce1e2dac1a526891943ca58f9d590c0be1cb98b180fdf362cf6a3b5"
+    },
+    {
+      "path": "package.json",
+      "sha256": "a446ea978401404fab5cabca6181aa8aec1c268d54fd16df9ec87acf55a9defa"
+    },
+    {
+      "path": "README.md",
+      "sha256": "de32543970029e72ce94eafa40a4c2642e22f4c712f202092af8b3c8bf43fb93"
+    }
+  ],
+  "method": "read-only installed file hashes; no direct app mutation"
+}
