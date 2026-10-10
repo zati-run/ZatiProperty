@@ -4,6 +4,7 @@
 --execute requires coordinator scheduling. No plugin/role mutations. Every command
 has durable unique intent; any unclassified outcome stops, never retries a write.
 """
+import tempfile
 import argparse, concurrent.futures, contextlib, datetime, hashlib, json, os, pathlib, re, uuid, threading, time
 import jsonschema
 from loom_mcp import Loom
@@ -107,7 +108,8 @@ def role_client(root,q,alias,role,graph,port):
     accounts=json.loads((root.runtime/"maintenance-test-accounts.json").read_text())
     loom_dir=pathlib.Path(os.environ["ZP_LOOM_DIR"])
     try:
-        with bridges.role_bridge(root,root.runtime,loom_dir,config,alias,accounts[role+"."+graph],q.path) as client:yield client
+        attempt_dir=pathlib.Path(tempfile.mkdtemp(prefix="bridge-attempt-",dir=q.path))
+        with bridges.role_bridge(root,root.runtime,loom_dir,config,alias,accounts[role+"."+graph],attempt_dir) as client:yield client
     finally:bridges.PORT=old
 
 class Qualification:

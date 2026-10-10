@@ -6,6 +6,13 @@ class GateTests(unittest.TestCase):
  @staticmethod
  def native_error(status,code):
   return RuntimeError("Loom tool error: "+json.dumps({"isError":True,"content":[{"type":"text","text":json.dumps({"statusCode":status,"body":{"errors":[{"code":code}]}})}]}))
+ def test_bridge_attempt_preserves_existing_directory(self):
+  with tempfile.TemporaryDirectory() as d:
+   old=pathlib.Path(d)/"property_manager_primary";old.mkdir();(old/"sentinel").write_text("keep")
+   first=pathlib.Path(v.tempfile.mkdtemp(prefix="bridge-attempt-",dir=d))
+   second=pathlib.Path(v.tempfile.mkdtemp(prefix="bridge-attempt-",dir=d))
+   self.assertNotEqual(first,second);self.assertEqual((old/"sentinel").read_text(),"keep")
+   self.assertEqual(first.stat().st_mode & 0o777,0o700)
  def test_zero_and_returned_versions(self):
   self.assertEqual(v.expected_version({"version":0}),0);self.assertEqual(v.expected_version({"version":7}),7)
   for row in [{},{"version":None},{"version":True},{"version":"1"}]:
