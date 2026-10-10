@@ -1,0 +1,67 @@
+{
+  "requestBody": {
+    "target": {
+      "uid": "xy18xhzkxu5"
+    },
+    "mode": "append",
+    "blocks": [
+      {
+        "key": "property-buildings",
+        "type": "table",
+        "resource": {
+          "dataSourceKey": "main",
+          "collectionName": "zp_buildings",
+          "associationName": "zp_properties.buildings",
+          "sourceId": "{{ctx.view.inputArgs.filterByTk}}"
+        },
+        "settings": {
+          "title": "Buildings",
+          "pageSize": 10,
+          "density": "middle",
+          "enableRowSelection": false,
+          "quickEdit": false,
+          "dragSort": false
+        },
+        "fields": [
+          "name"
+        ],
+        "actions": [
+          "filter",
+          "refresh"
+        ],
+        "recordActions": [
+          {
+            "type": "view",
+            "settings": {
+              "title": "Building"
+            },
+            "popup": {
+              "title": "Building",
+              "mode": "replace",
+              "blocks": [
+                {
+                  "key": "building-summary",
+                  "type": "details",
+                  "resource": {
+                    "binding": "currentRecord"
+                  },
+                  "settings": {
+                    "title": "Building context",
+                    "layout": "vertical",
+                    "labelWrap": true
+                  },
+                  "fields": [
+                    "name",
+                    "property"
+                  ],
+                  "actions": [],
+                  "recordActions": []
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
