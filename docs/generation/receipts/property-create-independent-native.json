@@ -1,0 +1,59 @@
+{
+  "packages": [
+    {
+      "name": "@zati/plugin-property-tenancy",
+      "version": "0.1.4",
+      "enabled": true,
+      "installed": true,
+      "isCompatible": true
+    },
+    {
+      "name": "@loom/plugin-action-form",
+      "version": "0.1.6",
+      "enabled": true,
+      "installed": true,
+      "isCompatible": true
+    },
+    {
+      "name": "@loom/plugin-popup-record-compat",
+      "version": "0.1.1",
+      "enabled": true,
+      "installed": true,
+      "isCompatible": true
+    }
+  ],
+  "forms": [
+    {
+      "name": "create-property",
+      "uid": "zp_property_create_form_v1",
+      "packageVersion": "0.1.4",
+      "schemaDigest": "3448f93ab0115aa96b41d6bdea79f433662439e89c9854a41cf51eeb240cef7f",
+      "implementationDigest": "13ec2fe70fc78c915d60db9bb98abbd0a1f13d3294304b29d2b048a104d19316",
+      "commandContract": "idempotent-terminal-v1"
+    },
+    {
+      "name": "draft-tenancy",
+      "uid": "zp_tenancy_draft_form_v1",
+      "packageVersion": "0.1.4",
+      "schemaDigest": "43e782641379aad6ab4bfd99bfced9a4c341529754ab970ae848e60a4306c83e",
+      "implementationDigest": "13ec2fe70fc78c915d60db9bb98abbd0a1f13d3294304b29d2b048a104d19316",
+      "commandContract": "idempotent-terminal-v1"
+    },
+    {
+      "name": "activate-tenancy",
+      "uid": "zp_tenancy_activate_form_v1",
+      "packageVersion": "0.1.4",
+      "schemaDigest": "704635d228d4da722eeb3866b11c5ee59ace70e47114d27279cc6fd0c7e93a6e",
+      "implementationDigest": "13ec2fe70fc78c915d60db9bb98abbd0a1f13d3294304b29d2b048a104d19316",
+      "commandContract": "idempotent-terminal-v1"
+    },
+    {
+      "name": "end-tenancy",
+      "uid": "zp_tenancy_end_form_v1",
+      "packageVersion": "0.1.4",
+      "schemaDigest": "a6590ae16d53fa1c064023bc936e0621d3efb9ab813fc836ab32e687a339080c",
+      "implementationDigest": "13ec2fe70fc78c915d60db9bb98abbd0a1f13d3294304b29d2b048a104d19316",
+      "commandContract": "idempotent-terminal-v1"
+    }
+  ]
+}
