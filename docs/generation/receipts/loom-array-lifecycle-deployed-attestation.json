@@ -1,0 +1,111 @@
+{
+  "observedAt": "2026-10-10T12:21:00.941520+00:00",
+  "method": "read-only archive/source/deployed SHA256 comparison",
+  "packages": [
+    {
+      "name": "@loom/plugin-native-array-compat",
+      "archiveSha256": "bcb89fbb4c5796c30cc56328712d5d3ae44f090b28a504efbe6c2b34e2932fdb",
+      "files": [
+        {
+          "file": "dist/server/compat.js",
+          "archiveSha256": "0b4f133c2a70194cf7bcce3506a5773e352588c1e22d825d8dd20719a4f07b79",
+          "deployedSha256": "0b4f133c2a70194cf7bcce3506a5773e352588c1e22d825d8dd20719a4f07b79",
+          "sourceSha256": "0b4f133c2a70194cf7bcce3506a5773e352588c1e22d825d8dd20719a4f07b79",
+          "matches": true
+        },
+        {
+          "file": "dist/externalVersion.js",
+          "archiveSha256": "b6fad1203e94dc604e49f35e5d5847afd040ea6852bf108dc148c98a9de84d1f",
+          "deployedSha256": "b6fad1203e94dc604e49f35e5d5847afd040ea6852bf108dc148c98a9de84d1f",
+          "sourceSha256": "b6fad1203e94dc604e49f35e5d5847afd040ea6852bf108dc148c98a9de84d1f",
+          "matches": true
+        },
+        {
+          "file": "dist/client/index.js",
+          "archiveSha256": "9bc7e9b8d99ddc6b5f46882673218fc02abb000b4c3c8f530d601cf02ed00782",
+          "deployedSha256": "9bc7e9b8d99ddc6b5f46882673218fc02abb000b4c3c8f530d601cf02ed00782",
+          "sourceSha256": "9bc7e9b8d99ddc6b5f46882673218fc02abb000b4c3c8f530d601cf02ed00782",
+          "matches": true
+        },
+        {
+          "file": "dist/server/index.js",
+          "archiveSha256": "79575ca36fe50390f8aad107d172a6789c2b261c12d1b4b8f718c2760217874a",
+          "deployedSha256": "79575ca36fe50390f8aad107d172a6789c2b261c12d1b4b8f718c2760217874a",
+          "sourceSha256": "79575ca36fe50390f8aad107d172a6789c2b261c12d1b4b8f718c2760217874a",
+          "matches": true
+        },
+        {
+          "file": "package.json",
+          "archiveSha256": "cc96bfc88b1a4bc6781735d86b0f50420afaaf2d6cdc9affeb2d1777aaf9be8f",
+          "deployedSha256": "cc96bfc88b1a4bc6781735d86b0f50420afaaf2d6cdc9affeb2d1777aaf9be8f",
+          "sourceSha256": "cc96bfc88b1a4bc6781735d86b0f50420afaaf2d6cdc9affeb2d1777aaf9be8f",
+          "matches": true
+        },
+        {
+          "file": "README.md",
+          "archiveSha256": "f3598b732979a0a0096092c1aabdd9bc3ffc3be06e9c46c3a66acb24d45f6215",
+          "deployedSha256": "f3598b732979a0a0096092c1aabdd9bc3ffc3be06e9c46c3a66acb24d45f6215",
+          "sourceSha256": "f3598b732979a0a0096092c1aabdd9bc3ffc3be06e9c46c3a66acb24d45f6215",
+          "matches": true
+        }
+      ],
+      "allFilesMatch": true
+    },
+    {
+      "name": "@loom/plugin-package-lifecycle",
+      "archiveSha256": "551adfb8ac9657925cd1bf56403ef4c1c483fc5c6bbea62a6701fe89abf77763",
+      "files": [
+        {
+          "file": "dist/externalVersion.js",
+          "archiveSha256": "ce4518e2d7b37ed01ec065e088e5778b838e26733d88e6b8f901b7c5016d2343",
+          "deployedSha256": "ce4518e2d7b37ed01ec065e088e5778b838e26733d88e6b8f901b7c5016d2343",
+          "sourceSha256": "ce4518e2d7b37ed01ec065e088e5778b838e26733d88e6b8f901b7c5016d2343",
+          "matches": true
+        },
+        {
+          "file": "dist/client/index.js",
+          "archiveSha256": "751f99b2495b55ca64072d61ac1aec4688387ca235e4e6b6575084fd2befc44f",
+          "deployedSha256": "751f99b2495b55ca64072d61ac1aec4688387ca235e4e6b6575084fd2befc44f",
+          "sourceSha256": "751f99b2495b55ca64072d61ac1aec4688387ca235e4e6b6575084fd2befc44f",
+          "matches": true
+        },
+        {
+          "file": "dist/server/index.js",
+          "archiveSha256": "79a3ad297c6387993f537bf7f230959636f658600fa23f38aff58b7926265a2b",
+          "deployedSha256": "79a3ad297c6387993f537bf7f230959636f658600fa23f38aff58b7926265a2b",
+          "sourceSha256": "79a3ad297c6387993f537bf7f230959636f658600fa23f38aff58b7926265a2b",
+          "matches": true
+        },
+        {
+          "file": "dist/server/service.js",
+          "archiveSha256": "50eca1ce09131baafef4bf9dd7448202b21aaa771ff700bf8915fecf565e1cdc",
+          "deployedSha256": "50eca1ce09131baafef4bf9dd7448202b21aaa771ff700bf8915fecf565e1cdc",
+          "sourceSha256": "50eca1ce09131baafef4bf9dd7448202b21aaa771ff700bf8915fecf565e1cdc",
+          "matches": true
+        },
+        {
+          "file": "dist/swagger/index.json",
+          "archiveSha256": "23626947dcd23928a154e866d812991524ef297c0ac57d99b7e01fe4d0439f3e",
+          "deployedSha256": "23626947dcd23928a154e866d812991524ef297c0ac57d99b7e01fe4d0439f3e",
+          "sourceSha256": "23626947dcd23928a154e866d812991524ef297c0ac57d99b7e01fe4d0439f3e",
+          "matches": true
+        },
+        {
+          "file": "package.json",
+          "archiveSha256": "152bed08c7ccb576b3ba84bb69b6ba778281d02cabdda34194c3363a11b31ab1",
+          "deployedSha256": "152bed08c7ccb576b3ba84bb69b6ba778281d02cabdda34194c3363a11b31ab1",
+          "sourceSha256": "152bed08c7ccb576b3ba84bb69b6ba778281d02cabdda34194c3363a11b31ab1",
+          "matches": true
+        },
+        {
+          "file": "README.md",
+          "archiveSha256": "111fc197d9f80e6e89f53111b77cca4669b345fef6b2ebc5e501d0361f0ad09e",
+          "deployedSha256": "111fc197d9f80e6e89f53111b77cca4669b345fef6b2ebc5e501d0361f0ad09e",
+          "sourceSha256": "111fc197d9f80e6e89f53111b77cca4669b345fef6b2ebc5e501d0361f0ad09e",
+          "matches": true
+        }
+      ],
+      "allFilesMatch": true
+    }
+  ]
+}
