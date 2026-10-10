@@ -271,6 +271,13 @@ class Apply:
             return after
         return self.journal.run('manager-page-routes',self.c,self.tool('loom_native_roles_desktop_routes_set_'),{'roleName':ROLE,'requestBody':wanted},verify)
 
+def result_path(runtime,phase,checkpoint,journal_suffix=''):
+    if phase not in ['permissions','snippet','pages','cleanup','routes']:raise RuntimeError('Invalid result phase')
+    if not checkpoint or not checkpoint.replace('-','').isalnum():raise RuntimeError('Invalid checkpoint label')
+    if journal_suffix and (phase!='permissions' or not journal_suffix.replace('-','').isalnum()):raise RuntimeError('Separate result only supports bounded permissions overlay')
+    qualifier='-'+checkpoint+'-'+journal_suffix if journal_suffix else ''
+    return runtime/('property-ui-'+phase+qualifier+'-result.json')
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--capture',action='store_true');p.add_argument('--baseline');p.add_argument('--checkpoint',required=True)
@@ -305,10 +312,11 @@ def main():
     if not args.phase:
         if (runtime/'property-ui-pages-result.json').exists(): print(json.dumps({'pageDigest':digest(api.owned_pages())}))
         _,missing=api.scopes();print(json.dumps({'newScopes':missing,'permissionWrites':1,'snippetWrites':1,'pageCreates':2,'pageComposes':2,'routeWrites':1,'cleanup':'native node inspection required before grants'}));return
+    output=result_path(runtime,args.phase,args.checkpoint,args.journal_suffix)
+    if output.exists():raise RuntimeError('Result already exists; reconcile existing journal and receipt without replay')
     result=api.permissions() if args.phase=='permissions' else api.snippet(args.qualified_manager_snippet) if args.phase=='snippet' else api.pages(resume=args.resume_pages) if args.phase=='pages' else api.cleanup() if args.phase=='cleanup' else api.routes(args.approved_page_digest)
     print(json.dumps({'phase':args.phase,'returned':True,'appAcceptance':False}))
     # Full results stay private; source receipts must be sanitized after review.
-    output=runtime/('property-ui-'+args.phase+'-result.json')
     fd=os.open(output,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
     with os.fdopen(fd,'w') as f:json.dump(result,f,indent=2);f.flush();os.fsync(f.fileno())
 if __name__=='__main__':main()
