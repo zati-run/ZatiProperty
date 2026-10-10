@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "requiredDomainVersion": "0.1.4",
+  "requiredCompanionVersion": "0.1.6",
+  "forms": [
+    {
+      "key": "amend-draft-tenancy",
+      "uid": "zp_tenancy_amend_draft_command",
+      "placement": "manager-tenancy-amendment-grid",
+      "config": {
+        "actionPackage": "@zati/plugin-property-tenancy",
+        "resource": "zpPropertyTenancy",
+        "reconcileAction": "reconcileCommand",
+        "commandContract": "idempotent-terminal-v1",
+        "errorMessages": {
+          "OCCUPANCY_OVERLAP": "These dates overlap another active tenancy for this unit. Review the dates before trying again.",
+          "PARTY_ACCOUNT_NOT_PERMITTED": "Choose a tenant account permitted for your management scope.",
+          "STALE_VERSION": "This tenancy changed. Reload its details and review the latest version.",
+          "PARTY_SCOPE_MIGRATION_REQUIRED": "This change needs a reviewed portal-access migration before it can proceed.",
+          "OWNER_SCOPE_MIGRATION_REQUIRED": "This change needs a reviewed owner-access migration before it can proceed."
+        },
+        "qualification": {
+          "reviewed": true,
+          "evidenceRef": "docs/generation/receipts/tenancy-draft-amendment-form-review.md"
+        },
+        "action": "updateDraftTenancy",
+        "context": {
+          "collection": "zp_tenancies",
+          "recordPath": "popup.record"
+        },
+        "bindings": {
+          "tenancyId": {
+            "recordField": "id"
+          },
+          "expectedVersion": {
+            "recordField": "version"
+          }
+        },
+        "prefill": {
+          "action": "draftTenancyProposal",
+          "contract": "scoped-proposal-v1",
+          "recordIdField": "tenancyId",
+          "versionField": "expectedVersion",
+          "fields": [
+            "startDate",
+            "endDate",
+            "term",
+            "parties"
+          ]
+        },
+        "readback": {
+          "collection": "zp_tenancies",
+          "idPath": "id",
+          "fields": [
+            "id",
+            "code",
+            "leaseState",
+            "version",
+            "draftRevision"
+          ]
+        },
+        "title": "Amend draft tenancy (save a new revision)",
+        "submitLabel": "Save draft revision",
+        "choices": {
+          "/parties/*/userId": {
+            "collection": "zp_tenant_account_permissions",
+            "valueField": "userId",
+            "labelField": "displayName"
+          }
+        },
+        "labels": {
+          "/startDate": "First occupied date",
+          "/endDate": "First date outside the tenancy (exclusive)",
+          "/term": "Complete contractual terms",
+          "/term/currency": "Currency code (preserve the agreed currency)",
+          "/term/rentMinor": "Rent in integer minor units",
+          "/term/depositMinor": "Deposit in integer minor units",
+          "/term/effectiveFrom": "Terms effective from",
+          "/term/effectiveTo": "First date outside these terms (exclusive)",
+          "/term/dueDay": "Rent due day of month",
+          "/term/prorationPolicy": "Proration policy",
+          "/parties": "Complete tenant list for this revision",
+          "/reasonCode": "Reason for changing the draft",
+          "/parties/*/displayName": "Tenant name",
+          "/parties/*/userId": "Permitted portal account (optional)",
+          "/parties/*/partyRole": "Tenant role",
+          "/parties/*/effectiveFrom": "Party effective from",
+          "/parties/*/effectiveTo": "First date outside party membership (exclusive)"
+        }
+      }
+    }
+  ]
+}

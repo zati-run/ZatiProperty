@@ -6,7 +6,7 @@ from property_ui_journal import dispatch_once,sha,sync_write
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 DESIRED=ROOT/'generation/pages/property-protected-forms.json'
 HEX=re.compile(r'^[a-f0-9]{64}$')
-IMMUTABLE=('actionPackage','resource','action','schemaDigest','packageVersion','implementationDigest','commandContract','context','bindings','fixedInputs','readback','reconcileAction')
+IMMUTABLE=('actionPackage','resource','action','schemaDigest','packageVersion','implementationDigest','commandContract','context','bindings','prefill','fixedInputs','readback','reconcileAction')
 def unwrap(value):
     for _ in range(3):
         if isinstance(value,dict) and set(value)=={'data'}:value=value['data']
@@ -42,7 +42,10 @@ class Forms:
         except RuntimeError as error:
             if allow_missing and missing_model(error):return None
             raise
-    def description(self,config):return self.read('loom_action_forms_describe',{k:config[k] for k in ('actionPackage','resource','action','reconcileAction')})
+    def description(self,config):
+        args={k:config[k] for k in ('actionPackage','resource','action','reconcileAction')}
+        if config.get('prefill'):args['prefillAction']=config['prefill']['action']
+        return self.read('loom_action_forms_describe',args)
     def placement_proof(self,grid_uid,config,_seen=None,_depth=0):
         if not any('recordField' in value for value in config.get('bindings',{}).values()):return {'kind':'context-free','gridUid':grid_uid}
         if config.get('context',{}).get('recordPath')!='popup.record':raise RuntimeError('Unsupported contextual form placement')
@@ -94,6 +97,10 @@ class Forms:
         schema=found.get('schema',{})
         if 'requestId' not in schema.get('required',[]) or schema.get('properties',{}).get('requestId',{}).get('format')!='uuid':raise RuntimeError('Missing required command identity')
         config.update({k:found[k] for k in ('schemaDigest','implementationDigest','packageVersion','commandContract')})
+        if config.get('prefill'):
+            wanted=config['prefill'];read=found.get('prefillContract',{})
+            if read.get('contract')!=wanted['contract'] or read.get('parameter')!=wanted['recordIdField'] or not HEX.fullmatch(read.get('schemaDigest','')):raise RuntimeError('Qualified proposal prefill contract unavailable')
+            config['prefill']={**wanted,'schemaDigest':read['schemaDigest']}
         return {'key':key,'uid':form['uid'],'gridUid':placement['gridUid'],'expectedGridHash':grid['nodeHash'],'config':config,'schema':schema,'desiredHash':sha(desired),'bindingHash':sha(placement),'placementProof':proof,'tools':{name:self.tool('loom_action_forms_'+name) for name in ('get','create','set','describe')}}
     def observe(self,qualified):
         form=self.get(qualified['uid'],True)
@@ -111,6 +118,9 @@ class Forms:
         if self.matches(before,qualified):return {'state':'already-present-native-verified','after':before}
         fresh=self.description(qualified['config'])
         if any(fresh.get(k)!=qualified['config'][k] for k in ('schemaDigest','implementationDigest','packageVersion','commandContract')):raise RuntimeError('Action qualification changed')
+        if qualified['config'].get('prefill'):
+            read=fresh.get('prefillContract',{});wanted=qualified['config']['prefill']
+            if read.get('contract')!=wanted['contract'] or read.get('parameter')!=wanted['recordIdField'] or read.get('schemaDigest')!=wanted['schemaDigest']:raise RuntimeError('Proposal prefill qualification changed')
         grid=self.get(qualified['gridUid'])
         if grid.get('nodeHash')!=qualified['expectedGridHash']:raise RuntimeError('Grid changed; repeat read-only qualification and review')
         if before['form']:
@@ -123,8 +133,8 @@ class Forms:
         return dispatch_once(self.c,name,{'requestBody':body},journal,before,lambda:self.observe(qualified),lambda after:self.matches(after,qualified))
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('phase',choices=['qualify','apply','verify']);parser.add_argument('--key',required=True);parser.add_argument('--bindings',required=True);parser.add_argument('--qualification',required=True);parser.add_argument('--journal');args=parser.parse_args()
-    desired=json.loads(DESIRED.read_text());bindings=json.loads(pathlib.Path(args.bindings).read_text());api=Forms(Loom());path=pathlib.Path(args.qualification)
+    parser=argparse.ArgumentParser();parser.add_argument('phase',choices=['qualify','apply','verify']);parser.add_argument('--key',required=True);parser.add_argument('--desired',default=str(DESIRED));parser.add_argument('--bindings',required=True);parser.add_argument('--qualification',required=True);parser.add_argument('--journal');args=parser.parse_args()
+    desired=json.loads(pathlib.Path(args.desired).read_text());bindings=json.loads(pathlib.Path(args.bindings).read_text());api=Forms(Loom());path=pathlib.Path(args.qualification)
     if args.phase=='qualify':
         value=api.qualify(desired,bindings,args.key);sync_write(path,value,True);print(json.dumps({'state':'qualified-read-only','key':args.key,'configDigest':sha(value['config'])}));return
     value=json.loads(path.read_text())
