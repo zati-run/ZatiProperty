@@ -15,6 +15,12 @@ class GateTests(unittest.TestCase):
   self.assertFalse(v.expected_failure(self.native_error(500,"PROPERTY_SCOPE"),"PROPERTY_SCOPE"))
   self.assertFalse(v.expected_failure(RuntimeError("transport PROPERTY_SCOPE"),"PROPERTY_SCOPE"))
   self.assertFalse(v.expected_failure(self.native_error(403,"DOMAIN_ACTION_DENIED"),"PROPERTY_SCOPE"))
+ def test_observed_native_acl_message_only_for_acl_category(self):
+  def error(status,message):return RuntimeError("Loom tool error: "+json.dumps({"content":[{"type":"text","text":json.dumps({"statusCode":status,"body":{"errors":[{"message":message}]}})}]}))
+  self.assertTrue(v.expected_failure(error(403,"No permissions"),"DOMAIN_ACTION_DENIED"))
+  self.assertFalse(v.expected_failure(error(500,"No permissions"),"DOMAIN_ACTION_DENIED"))
+  self.assertFalse(v.expected_failure(error(403,"No permissions"),"PROPERTY_SCOPE"))
+  self.assertFalse(v.expected_failure(error(403,"No permissions today"),"DOMAIN_ACTION_DENIED"))
  def test_native_pagination_max50(self):
   class C:
    tools=[{"name":"loom_native_resource_list_hash"}]

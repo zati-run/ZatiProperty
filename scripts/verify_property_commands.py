@@ -71,7 +71,7 @@ def expected_failure(error,code):
         errors=packet.get("body",{}).get("errors",[])
         for entry in errors:
             if entry.get("code")==code or entry.get("message")==code:return True
-            if code=="DOMAIN_ACTION_DENIED" and (entry.get("code") in ["FORBIDDEN","ACL_DENIED"] or entry.get("message")=="Forbidden"):return True
+            if code=="DOMAIN_ACTION_DENIED" and (entry.get("code") in ["FORBIDDEN","ACL_DENIED"] or entry.get("message") in ["Forbidden","No permissions"]):return True
     return False
 
 def verify_atomic(before,after,delta):
