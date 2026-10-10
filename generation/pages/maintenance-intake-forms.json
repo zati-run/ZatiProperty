@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "status": "source-candidate-not-generated",
+  "forms": [
+    {
+      "logicalId": "zp.maintenance.intake",
+      "placement": {
+        "page": "zp-maintenance",
+        "actionTitle": "Log request",
+        "openMode": "drawer"
+      },
+      "config": {
+        "title": "Log a maintenance request",
+        "submitLabel": "Save request",
+        "actionPackage": "@zati/plugin-maintenance",
+        "resource": "zpMaintenance",
+        "action": "createRequest",
+        "reconcileAction": "reconcileCommand",
+        "commandContract": "idempotent-terminal-v1",
+        "qualification": {
+          "reviewed": false,
+          "evidenceRef": "docs/generation/receipts/maintenance-intake-source.md"
+        },
+        "labels": {
+          "/propertyId": "Property",
+          "/unitId": "Unit (optional)",
+          "/tenancyId": "Tenancy (optional)",
+          "/title": "What needs attention?",
+          "/description": "Describe the problem",
+          "/category": "Category",
+          "/priority": "Priority",
+          "/preferredTimes": "Preferred access times",
+          "/permissionToEnter": "Permission to enter",
+          "/petInformation": "Pets or access notes"
+        },
+        "choices": {
+          "/propertyId": {
+            "collection": "zp_properties",
+            "valueField": "id",
+            "labelField": "name"
+          },
+          "/unitId": {
+            "collection": "zp_units",
+            "valueField": "id",
+            "labelField": "name"
+          },
+          "/tenancyId": {
+            "collection": "zp_tenancies",
+            "valueField": "id",
+            "labelField": "code"
+          }
+        },
+        "readback": {
+          "collection": "zp_maintenance_requests",
+          "resultIdField": "id",
+          "fields": [
+            "id",
+            "title",
+            "status",
+            "propertyId",
+            "unitId",
+            "tenancyId"
+          ]
+        }
+      }
+    },
+    {
+      "logicalId": "zp.maintenance.convert",
+      "placement": {
+        "page": "zp-maintenance",
+        "context": "request View drawer",
+        "actionTitle": "Create New job"
+      },
+      "config": {
+        "title": "Create a New job",
+        "submitLabel": "Create New job",
+        "actionPackage": "@zati/plugin-maintenance",
+        "resource": "zpMaintenance",
+        "action": "convertRequest",
+        "reconcileAction": "reconcileCommand",
+        "commandContract": "idempotent-terminal-v1",
+        "qualification": {
+          "reviewed": false,
+          "evidenceRef": "docs/generation/receipts/maintenance-intake-source.md"
+        },
+        "context": {
+          "collection": "zp_maintenance_requests",
+          "recordPath": "popup.record"
+        },
+        "bindings": {
+          "maintenanceRequestId": {
+            "recordField": "id"
+          }
+        },
+        "readback": {
+          "collection": "zp_work_orders",
+          "resultIdField": "id",
+          "fields": [
+            "id",
+            "title",
+            "state",
+            "requestId",
+            "propertyId",
+            "unitId",
+            "tenancyId"
+          ]
+        }
+      }
+    }
+  ],
+  "nativeAttachments": {
+    "requestEdit": "Photos and files native attachment field; upload after initial Save request and before Create New job.",
+    "workOrderDetails": "Display original linked attachment records; request remains accessible.",
+    "acceptanceRequired": [
+      "Native manager upload success and reload",
+      "Foreign-role attachment read/write denial",
+      "Native conversion retains exact attachment IDs",
+      "Responsive rendered upload and success/error feedback"
+    ]
+  },
+  "qualificationRequired": [
+    "Install reviewed package through Loom",
+    "Discover actual action schemas and package/implementation digests",
+    "Bind configs with live pins; no guessed digest",
+    "Place and compose through qualified Loom tools",
+    "Manager own/foreign and eight-role denial matrix",
+    "Desktop and narrow end-to-end saved readback"
+  ]
+}

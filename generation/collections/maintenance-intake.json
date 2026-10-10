@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "rfc": "RFC-ZP-0001 section 8.1",
+  "scope": "Manager intake and one-action conversion to New job; no approval, spend, progress, completion, invoice or payment authority.",
+  "collections": [
+    {
+      "name": "zp_maintenance_commands",
+      "title": "Protected maintenance command receipts",
+      "autoGenId": true,
+      "createdAt": true,
+      "updatedAt": false,
+      "fields": [
+        {
+          "name": "commandKey",
+          "type": "string",
+          "allowNull": false,
+          "unique": true
+        },
+        {
+          "name": "actorId",
+          "type": "bigInt",
+          "allowNull": false
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "allowNull": false
+        },
+        {
+          "name": "requestId",
+          "type": "string",
+          "allowNull": false
+        },
+        {
+          "name": "requestDigest",
+          "type": "string",
+          "allowNull": false
+        },
+        {
+          "name": "outcome",
+          "type": "string",
+          "allowNull": false
+        },
+        {
+          "name": "resultJSON",
+          "type": "text",
+          "allowNull": true
+        },
+        {
+          "name": "errorCode",
+          "type": "string",
+          "allowNull": true
+        }
+      ]
+    }
+  ],
+  "additiveFields": [
+    {
+      "collection": "zp_maintenance_requests",
+      "field": {
+        "name": "category",
+        "type": "string",
+        "interface": "input"
+      }
+    },
+    {
+      "collection": "zp_maintenance_requests",
+      "field": {
+        "name": "preferredTimes",
+        "type": "text",
+        "interface": "textarea"
+      }
+    },
+    {
+      "collection": "zp_maintenance_requests",
+      "field": {
+        "name": "petInformation",
+        "type": "text",
+        "interface": "textarea"
+      }
+    },
+    {
+      "collection": "zp_maintenance_requests",
+      "field": {
+        "name": "attachments",
+        "type": "belongsToMany",
+        "target": "attachments",
+        "interface": "attachment",
+        "uiSchema": {
+          "type": "array",
+          "title": "Photos and files",
+          "x-component": "Upload.Attachment",
+          "x-use-component-props": "useAttachmentFieldProps",
+          "x-component-props": {
+            "multiple": true
+          }
+        }
+      }
+    },
+    {
+      "collection": "zp_work_orders",
+      "field": {
+        "name": "category",
+        "type": "string",
+        "interface": "input"
+      }
+    },
+    {
+      "collection": "zp_work_orders",
+      "field": {
+        "name": "preferredTimes",
+        "type": "text",
+        "interface": "textarea"
+      }
+    },
+    {
+      "collection": "zp_work_orders",
+      "field": {
+        "name": "petInformation",
+        "type": "text",
+        "interface": "textarea"
+      }
+    },
+    {
+      "collection": "zp_work_orders",
+      "field": {
+        "name": "attachments",
+        "type": "belongsToMany",
+        "target": "attachments",
+        "interface": "attachment",
+        "uiSchema": {
+          "type": "array",
+          "title": "Photos and files",
+          "x-component": "Upload.Attachment",
+          "x-use-component-props": "useAttachmentFieldProps",
+          "x-component-props": {
+            "multiple": true
+          }
+        }
+      }
+    },
+    {
+      "collection": "zp_work_orders",
+      "field": {
+        "name": "description",
+        "type": "text",
+        "interface": "textarea"
+      }
+    },
+    {
+      "collection": "zp_work_orders",
+      "field": {
+        "name": "permissionToEnter",
+        "type": "boolean",
+        "interface": "checkbox"
+      }
+    },
+    {
+      "collection": "zp_work_orders",
+      "field": {
+        "name": "requestSnapshot",
+        "type": "text",
+        "interface": "textarea"
+      }
+    }
+  ],
+  "security": {
+    "receipts": "No generic CRUD for any role; command service transaction only.",
+    "attachments": "Native attachment links; actual upload, creator scope and rendered retrieval require separate native acceptance.",
+    "roles": "Add named maintenance manager snippet only to existing manager role; preserve all existing grants, scopes, portal roles and routes."
+  }
+}
