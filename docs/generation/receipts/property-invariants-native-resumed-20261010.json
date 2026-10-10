@@ -1,0 +1,673 @@
+{
+  "status": "blocked",
+  "checks": [
+    {
+      "action": "createOwnershipSet",
+      "actor": "manager1",
+      "auditDelta": 1,
+      "label": "ownership-a",
+      "reconcileReadOnly": true,
+      "requestId": "5a293fed-41a2-4609-9a45-6e6b6f7fc963",
+      "result": {
+        "id": 1,
+        "propertyId": 4,
+        "state": "draft",
+        "version": 0
+      },
+      "status": "committed"
+    },
+    {
+      "action": "setOwnershipInterests",
+      "actor": "manager1",
+      "auditUnchanged": true,
+      "code": "OWNERSHIP_TOTAL",
+      "label": "ownership-sum-denied",
+      "requestId": "79e88bdf-3fa0-44a8-b37c-1e6b2f7dcc14",
+      "status": "denied"
+    },
+    {
+      "action": "setOwnershipInterests",
+      "actor": "manager1",
+      "auditUnchanged": true,
+      "code": "OWNER_SCOPE",
+      "label": "ownership-partial-rollback",
+      "requestId": "eb7f40cf-2ae9-4104-99ba-a389ca0e6f8c",
+      "status": "denied"
+    },
+    {
+      "failureKind": "domain validation after first nested insertion; not injected database constraint",
+      "label": "partial-nested-rollback",
+      "status": "native-state-unchanged"
+    },
+    {
+      "action": "setOwnershipInterests",
+      "actor": "manager1",
+      "auditDelta": 1,
+      "label": "ownership-interests",
+      "reconcileReadOnly": true,
+      "requestId": "d2300378-2264-43e2-a64d-c5d825b32258",
+      "result": {
+        "id": 1,
+        "propertyId": 4,
+        "state": "draft",
+        "version": 1
+      },
+      "status": "committed"
+    },
+    {
+      "action": "approveOwnershipSet",
+      "actor": "manager1",
+      "auditUnchanged": true,
+      "code": "STALE_VERSION",
+      "label": "ownership-stale",
+      "requestId": "c584ac4c-aac6-475e-997a-e8d16b8903ca",
+      "status": "denied"
+    },
+    {
+      "action": "approveOwnershipSet",
+      "actor": "manager1",
+      "after": {
+        "zp_audit_heads": [
+          {
+            "headHash": "50dc824ad47ec02005d5b0579af75d3e90ca39a73b6a7cc55298a3770aa5bbae",
+            "headSequence": 13,
+            "id": 1
+          }
+        ],
+        "zp_domain_commands": [
+          {
+            "action": "createProperty",
+            "actorId": 2,
+            "commandKey": "6866b07e64e514fee920a1f165ca27582cb3676840720c6ca20f241bfd05cd43",
+            "eventId": 1,
+            "id": 1,
+            "requestId": "aae70436-9ac9-481b-b2d0-ef23e2fb44ff"
+          },
+          {
+            "action": "createBuilding",
+            "actorId": 2,
+            "commandKey": "a437d5b4635fd5f6a62cfa9074b608f4d982af9fee61ffc1788d7588457e13b6",
+            "eventId": 2,
+            "id": 2,
+            "requestId": "0cfc7192-5a4f-41ae-8358-fd74d46a5a2e"
+          },
+          {
+            "action": "createUnit",
+            "actorId": 2,
+            "commandKey": "0badb9281136045a83fb994ae7e57f260c934663452e07c97136f1f7d187ad36",
+            "eventId": 3,
+            "id": 3,
+            "requestId": "9aae1e0d-b319-465d-b396-5c1b4c996bb0"
+          },
+          {
+            "action": "createOwnerContact",
+            "actorId": 2,
+            "commandKey": "e4a1d2ae7461661a5ec9afb7ead01c9234f1bd698402c0b0b2c754d58468930e",
+            "eventId": 4,
+            "id": 4,
+            "requestId": "dc37ecfd-23d9-42b1-acca-940169fd2dfe"
+          },
+          {
+            "action": "authorizeTenantAccount",
+            "actorId": 1,
+            "commandKey": "11e948604024b071337a8bbbf5e2b4fcb2c56837a53c732f8992ca5690ad708f",
+            "eventId": 5,
+            "id": 5,
+            "requestId": "e94a0770-0ad3-4182-8d1f-42b9d5b55f43"
+          },
+          {
+            "action": "createDraftTenancy",
+            "actorId": 2,
+            "commandKey": "371b7e3df7bb8601a043ea8d176ef2171273b728bf00683f5abbbb3f7a83cb61",
+            "eventId": 6,
+            "id": 6,
+            "requestId": "c3578f07-8b71-4d65-bb6b-c23d2451f915"
+          },
+          {
+            "action": "createDraftTenancy",
+            "actorId": 2,
+            "commandKey": "67c6885ff0eaa25d46b87fd0543e1f5c624e93ffc51429d2d33fc5e07e85a13e",
+            "eventId": 7,
+            "id": 7,
+            "requestId": "d976608b-ecdd-4934-a35f-26d8378fc2b8"
+          },
+          {
+            "action": "createUnit",
+            "actorId": 2,
+            "commandKey": "9a84e517e28bb8242b2fadc8f71b84712b6c80a2ebb29a8920f8f5ee1908fa14",
+            "eventId": 8,
+            "id": 8,
+            "requestId": "d9b56492-68c7-46a8-9aba-a0d3053fe1c7"
+          },
+          {
+            "action": "updateDraftTenancy",
+            "actorId": 2,
+            "commandKey": "9d4713ce9bafedd9d70dd0032ef3918ffa9a4fb2c1f832215c557e168aa6d697",
+            "eventId": 9,
+            "id": 9,
+            "requestId": "20d289a6-fe7a-48c6-adb5-52f096c1b49f"
+          },
+          {
+            "action": "activateTenancy",
+            "actorId": 2,
+            "commandKey": "7febb508033ec42dced696a19c7d1b1a8e87b2ecf5652be54e815ce63ec43e9e",
+            "eventId": 10,
+            "id": 10,
+            "requestId": "1b736b28-6c0c-4168-9bf7-b016eb2f5916"
+          },
+          {
+            "action": "endTenancy",
+            "actorId": 2,
+            "commandKey": "611d3674abf7a1283bb17bc789aee9c6101390a0d46628abbba69860adaf236a",
+            "eventId": 11,
+            "id": 11,
+            "requestId": "1463e373-bc08-4e83-9d90-b92ba554d47f"
+          },
+          {
+            "action": "createOwnershipSet",
+            "actorId": 2,
+            "commandKey": "be22f1605bc87c5dcf0483c102758d4127c4ddccdc5a618cab356484e214970f",
+            "eventId": 12,
+            "id": 12,
+            "requestId": "5a293fed-41a2-4609-9a45-6e6b6f7fc963"
+          },
+          {
+            "action": "setOwnershipInterests",
+            "actorId": 2,
+            "commandKey": "7a564eaa00c9d9c6633dfc96cc1c99bffc3b927f7b231bc96b50163a1af3f71b",
+            "eventId": 13,
+            "id": 13,
+            "requestId": "d2300378-2264-43e2-a64d-c5d825b32258"
+          }
+        ],
+        "zp_domain_events": [
+          {
+            "eventHash": "12b7db19270c417dedd52a7ade605b704d7ad627838a3d19c8a0e1f8fc9e9814",
+            "id": 1,
+            "sequence": 1
+          },
+          {
+            "eventHash": "0decb57465ceecf9eacfe28bf4b110d946ec0fd2174babeea5a6747b38342aec",
+            "id": 2,
+            "sequence": 2
+          },
+          {
+            "eventHash": "7114707231ae29fabf7d26d7fa55faff711ec9b67ff06c2dffa9db1d88d07d14",
+            "id": 3,
+            "sequence": 3
+          },
+          {
+            "eventHash": "8c401c3e0b88657b0bbaf3d10e880b7efc2fd653471cd65929712d260d481cf5",
+            "id": 4,
+            "sequence": 4
+          },
+          {
+            "eventHash": "cae94cd46c92e26b47f8bf6181c8c34fb451afa2c1e6023cc7f5a607fe12fe55",
+            "id": 5,
+            "sequence": 5
+          },
+          {
+            "eventHash": "e5a5c484e8c141f6891152f89027d9b618449add1c8777ee5607ed1a59889709",
+            "id": 6,
+            "sequence": 6
+          },
+          {
+            "eventHash": "eef3f59ea9a6310a1853a6c916d35ab4ee6f9084550791bb79b2c7c7b547f8db",
+            "id": 7,
+            "sequence": 7
+          },
+          {
+            "eventHash": "0b4e3616b02f706e806742ed4f34ce8cb6f2409dac32f71464f058940d660d88",
+            "id": 8,
+            "sequence": 8
+          },
+          {
+            "eventHash": "2874f6b72f31fe5ac5097d3fa58d3d4accb04104593a0d83dbfbedc300dc2c1d",
+            "id": 9,
+            "sequence": 9
+          },
+          {
+            "eventHash": "7a840c33ad7a895246b54bc0de112420bedec34ad4b3d6759a9b892d0f72a0d6",
+            "id": 10,
+            "sequence": 10
+          },
+          {
+            "eventHash": "11162902075d9262f6bc85c572c53e09e2a7e12355b5b9bd01d8c1bc3df0dc59",
+            "id": 11,
+            "sequence": 11
+          },
+          {
+            "eventHash": "dc65da92f84db363b4f9a59c75011c58fd239cf41d47544a1bec1132f5fafaa5",
+            "id": 12,
+            "sequence": 12
+          },
+          {
+            "eventHash": "50dc824ad47ec02005d5b0579af75d3e90ca39a73b6a7cc55298a3770aa5bbae",
+            "id": 13,
+            "sequence": 13
+          }
+        ],
+        "zp_domain_outbox": [
+          {
+            "eventId": 1,
+            "id": 1,
+            "status": "pending"
+          },
+          {
+            "eventId": 2,
+            "id": 2,
+            "status": "pending"
+          },
+          {
+            "eventId": 3,
+            "id": 3,
+            "status": "pending"
+          },
+          {
+            "eventId": 4,
+            "id": 4,
+            "status": "pending"
+          },
+          {
+            "eventId": 5,
+            "id": 5,
+            "status": "pending"
+          },
+          {
+            "eventId": 6,
+            "id": 6,
+            "status": "pending"
+          },
+          {
+            "eventId": 7,
+            "id": 7,
+            "status": "pending"
+          },
+          {
+            "eventId": 8,
+            "id": 8,
+            "status": "pending"
+          },
+          {
+            "eventId": 9,
+            "id": 9,
+            "status": "pending"
+          },
+          {
+            "eventId": 10,
+            "id": 10,
+            "status": "pending"
+          },
+          {
+            "eventId": 11,
+            "id": 11,
+            "status": "pending"
+          },
+          {
+            "eventId": 12,
+            "id": 12,
+            "status": "pending"
+          },
+          {
+            "eventId": 13,
+            "id": 13,
+            "status": "pending"
+          }
+        ]
+      },
+      "before": {
+        "zp_audit_heads": [
+          {
+            "headHash": "50dc824ad47ec02005d5b0579af75d3e90ca39a73b6a7cc55298a3770aa5bbae",
+            "headSequence": 13,
+            "id": 1
+          }
+        ],
+        "zp_domain_commands": [
+          {
+            "action": "createProperty",
+            "actorId": 2,
+            "commandKey": "6866b07e64e514fee920a1f165ca27582cb3676840720c6ca20f241bfd05cd43",
+            "eventId": 1,
+            "id": 1,
+            "requestId": "aae70436-9ac9-481b-b2d0-ef23e2fb44ff"
+          },
+          {
+            "action": "createBuilding",
+            "actorId": 2,
+            "commandKey": "a437d5b4635fd5f6a62cfa9074b608f4d982af9fee61ffc1788d7588457e13b6",
+            "eventId": 2,
+            "id": 2,
+            "requestId": "0cfc7192-5a4f-41ae-8358-fd74d46a5a2e"
+          },
+          {
+            "action": "createUnit",
+            "actorId": 2,
+            "commandKey": "0badb9281136045a83fb994ae7e57f260c934663452e07c97136f1f7d187ad36",
+            "eventId": 3,
+            "id": 3,
+            "requestId": "9aae1e0d-b319-465d-b396-5c1b4c996bb0"
+          },
+          {
+            "action": "createOwnerContact",
+            "actorId": 2,
+            "commandKey": "e4a1d2ae7461661a5ec9afb7ead01c9234f1bd698402c0b0b2c754d58468930e",
+            "eventId": 4,
+            "id": 4,
+            "requestId": "dc37ecfd-23d9-42b1-acca-940169fd2dfe"
+          },
+          {
+            "action": "authorizeTenantAccount",
+            "actorId": 1,
+            "commandKey": "11e948604024b071337a8bbbf5e2b4fcb2c56837a53c732f8992ca5690ad708f",
+            "eventId": 5,
+            "id": 5,
+            "requestId": "e94a0770-0ad3-4182-8d1f-42b9d5b55f43"
+          },
+          {
+            "action": "createDraftTenancy",
+            "actorId": 2,
+            "commandKey": "371b7e3df7bb8601a043ea8d176ef2171273b728bf00683f5abbbb3f7a83cb61",
+            "eventId": 6,
+            "id": 6,
+            "requestId": "c3578f07-8b71-4d65-bb6b-c23d2451f915"
+          },
+          {
+            "action": "createDraftTenancy",
+            "actorId": 2,
+            "commandKey": "67c6885ff0eaa25d46b87fd0543e1f5c624e93ffc51429d2d33fc5e07e85a13e",
+            "eventId": 7,
+            "id": 7,
+            "requestId": "d976608b-ecdd-4934-a35f-26d8378fc2b8"
+          },
+          {
+            "action": "createUnit",
+            "actorId": 2,
+            "commandKey": "9a84e517e28bb8242b2fadc8f71b84712b6c80a2ebb29a8920f8f5ee1908fa14",
+            "eventId": 8,
+            "id": 8,
+            "requestId": "d9b56492-68c7-46a8-9aba-a0d3053fe1c7"
+          },
+          {
+            "action": "updateDraftTenancy",
+            "actorId": 2,
+            "commandKey": "9d4713ce9bafedd9d70dd0032ef3918ffa9a4fb2c1f832215c557e168aa6d697",
+            "eventId": 9,
+            "id": 9,
+            "requestId": "20d289a6-fe7a-48c6-adb5-52f096c1b49f"
+          },
+          {
+            "action": "activateTenancy",
+            "actorId": 2,
+            "commandKey": "7febb508033ec42dced696a19c7d1b1a8e87b2ecf5652be54e815ce63ec43e9e",
+            "eventId": 10,
+            "id": 10,
+            "requestId": "1b736b28-6c0c-4168-9bf7-b016eb2f5916"
+          },
+          {
+            "action": "endTenancy",
+            "actorId": 2,
+            "commandKey": "611d3674abf7a1283bb17bc789aee9c6101390a0d46628abbba69860adaf236a",
+            "eventId": 11,
+            "id": 11,
+            "requestId": "1463e373-bc08-4e83-9d90-b92ba554d47f"
+          },
+          {
+            "action": "createOwnershipSet",
+            "actorId": 2,
+            "commandKey": "be22f1605bc87c5dcf0483c102758d4127c4ddccdc5a618cab356484e214970f",
+            "eventId": 12,
+            "id": 12,
+            "requestId": "5a293fed-41a2-4609-9a45-6e6b6f7fc963"
+          },
+          {
+            "action": "setOwnershipInterests",
+            "actorId": 2,
+            "commandKey": "7a564eaa00c9d9c6633dfc96cc1c99bffc3b927f7b231bc96b50163a1af3f71b",
+            "eventId": 13,
+            "id": 13,
+            "requestId": "d2300378-2264-43e2-a64d-c5d825b32258"
+          }
+        ],
+        "zp_domain_events": [
+          {
+            "eventHash": "12b7db19270c417dedd52a7ade605b704d7ad627838a3d19c8a0e1f8fc9e9814",
+            "id": 1,
+            "sequence": 1
+          },
+          {
+            "eventHash": "0decb57465ceecf9eacfe28bf4b110d946ec0fd2174babeea5a6747b38342aec",
+            "id": 2,
+            "sequence": 2
+          },
+          {
+            "eventHash": "7114707231ae29fabf7d26d7fa55faff711ec9b67ff06c2dffa9db1d88d07d14",
+            "id": 3,
+            "sequence": 3
+          },
+          {
+            "eventHash": "8c401c3e0b88657b0bbaf3d10e880b7efc2fd653471cd65929712d260d481cf5",
+            "id": 4,
+            "sequence": 4
+          },
+          {
+            "eventHash": "cae94cd46c92e26b47f8bf6181c8c34fb451afa2c1e6023cc7f5a607fe12fe55",
+            "id": 5,
+            "sequence": 5
+          },
+          {
+            "eventHash": "e5a5c484e8c141f6891152f89027d9b618449add1c8777ee5607ed1a59889709",
+            "id": 6,
+            "sequence": 6
+          },
+          {
+            "eventHash": "eef3f59ea9a6310a1853a6c916d35ab4ee6f9084550791bb79b2c7c7b547f8db",
+            "id": 7,
+            "sequence": 7
+          },
+          {
+            "eventHash": "0b4e3616b02f706e806742ed4f34ce8cb6f2409dac32f71464f058940d660d88",
+            "id": 8,
+            "sequence": 8
+          },
+          {
+            "eventHash": "2874f6b72f31fe5ac5097d3fa58d3d4accb04104593a0d83dbfbedc300dc2c1d",
+            "id": 9,
+            "sequence": 9
+          },
+          {
+            "eventHash": "7a840c33ad7a895246b54bc0de112420bedec34ad4b3d6759a9b892d0f72a0d6",
+            "id": 10,
+            "sequence": 10
+          },
+          {
+            "eventHash": "11162902075d9262f6bc85c572c53e09e2a7e12355b5b9bd01d8c1bc3df0dc59",
+            "id": 11,
+            "sequence": 11
+          },
+          {
+            "eventHash": "dc65da92f84db363b4f9a59c75011c58fd239cf41d47544a1bec1132f5fafaa5",
+            "id": 12,
+            "sequence": 12
+          },
+          {
+            "eventHash": "50dc824ad47ec02005d5b0579af75d3e90ca39a73b6a7cc55298a3770aa5bbae",
+            "id": 13,
+            "sequence": 13
+          }
+        ],
+        "zp_domain_outbox": [
+          {
+            "eventId": 1,
+            "id": 1,
+            "status": "pending"
+          },
+          {
+            "eventId": 2,
+            "id": 2,
+            "status": "pending"
+          },
+          {
+            "eventId": 3,
+            "id": 3,
+            "status": "pending"
+          },
+          {
+            "eventId": 4,
+            "id": 4,
+            "status": "pending"
+          },
+          {
+            "eventId": 5,
+            "id": 5,
+            "status": "pending"
+          },
+          {
+            "eventId": 6,
+            "id": 6,
+            "status": "pending"
+          },
+          {
+            "eventId": 7,
+            "id": 7,
+            "status": "pending"
+          },
+          {
+            "eventId": 8,
+            "id": 8,
+            "status": "pending"
+          },
+          {
+            "eventId": 9,
+            "id": 9,
+            "status": "pending"
+          },
+          {
+            "eventId": 10,
+            "id": 10,
+            "status": "pending"
+          },
+          {
+            "eventId": 11,
+            "id": 11,
+            "status": "pending"
+          },
+          {
+            "eventId": 12,
+            "id": 12,
+            "status": "pending"
+          },
+          {
+            "eventId": 13,
+            "id": 13,
+            "status": "pending"
+          }
+        ]
+      },
+      "label": "ownership-incomplete",
+      "reconciliation": {
+        "requestId": "81cb82d7-6d73-4845-bbca-70fb02252607",
+        "retryAuthorized": false,
+        "status": "not_observed"
+      },
+      "requestId": "81cb82d7-6d73-4845-bbca-70fb02252607",
+      "status": "blocked-unknown-or-unexpected"
+    },
+    {
+      "errorType": "RuntimeError",
+      "label": "stopped",
+      "status": "blocked"
+    },
+    {
+      "label": "explicit-resume-after-schema-check",
+      "status": "native-readback-unchanged"
+    },
+    {
+      "label": "ownership-incomplete",
+      "status": "local-schema-rejected-no-native-call"
+    },
+    {
+      "label": "ownership-approved",
+      "actor": "manager1",
+      "action": "approveOwnershipSet",
+      "requestId": "c9d1c6a1-1647-4df3-ae91-deec004c1118",
+      "status": "committed",
+      "result": {
+        "id": 1,
+        "propertyId": 4,
+        "state": "approved",
+        "version": 2
+      },
+      "auditDelta": 1,
+      "reconcileReadOnly": true
+    },
+    {
+      "label": "ownership-immutable",
+      "actor": "manager1",
+      "action": "setOwnershipInterests",
+      "requestId": "b5a70124-bd77-45a2-b193-750d5befbc99",
+      "status": "denied",
+      "code": "OWNERSHIP_IMMUTABLE",
+      "auditUnchanged": true
+    },
+    {
+      "label": "ownership-b",
+      "actor": "manager1",
+      "action": "createOwnershipSet",
+      "requestId": "7c5205c7-4231-45ab-a287-9b0e7939520a",
+      "status": "committed",
+      "result": {
+        "id": 2,
+        "propertyId": 4,
+        "state": "draft",
+        "version": 0
+      },
+      "auditDelta": 1,
+      "reconcileReadOnly": true
+    },
+    {
+      "label": "ownership-b-interests",
+      "actor": "manager1",
+      "action": "setOwnershipInterests",
+      "requestId": "67b808dd-07d2-44df-810b-deaec8d3b086",
+      "status": "committed",
+      "result": {
+        "id": 2,
+        "propertyId": 4,
+        "state": "draft",
+        "version": 1
+      },
+      "auditDelta": 1,
+      "reconcileReadOnly": true
+    },
+    {
+      "label": "ownership-overlap",
+      "actor": "manager1",
+      "action": "approveOwnershipSet",
+      "requestId": "2940fc53-150e-45ff-92b8-4aad72fe43f6",
+      "status": "denied",
+      "code": "OWNERSHIP_OVERLAP",
+      "auditUnchanged": true
+    },
+    {
+      "label": "ownership-foreign",
+      "actor": "manager1",
+      "action": "createOwnershipSet",
+      "requestId": "d8cd2df5-1ccf-43f7-954a-0232ad5cd003",
+      "status": "denied",
+      "code": "PROPERTY_SCOPE",
+      "auditUnchanged": true
+    },
+    {
+      "label": "root-direct",
+      "status": "blocked-unclassified",
+      "actor": "root"
+    },
+    {
+      "label": "stopped",
+      "status": "blocked",
+      "errorType": "RuntimeError"
+    }
+  ],
+  "observedAt": "2026-10-10T11:22:55.921890+00:00"
+}

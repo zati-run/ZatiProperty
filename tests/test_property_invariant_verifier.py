@@ -39,7 +39,7 @@ class Safety(unittest.TestCase):
     def record(self,x):pass
    before={"audit":{"zp_domain_commands":[{"id":1,"resultJSON":"original"}]}}
    after={"audit":{"zp_domain_commands":[{"id":1,"resultJSON":"tampered"}]}}
-   with patch.object(s,"snapshot",side_effect=[before,after]),patch.object(s.v,"expected_failure",return_value=True):
+   with patch.object(s,"snapshot",side_effect=[before,after]),patch.object(s,"hook_denial",return_value=True):
     with self.assertRaisesRegex(AssertionError,"changed state"):s.denied_generic(None,Q(),self.client(RuntimeError("denied")),"root","update",{},"probe")
  def test_complete_audit_snapshot_uses_no_field_projection(self):
   class Q:
@@ -63,4 +63,11 @@ class Safety(unittest.TestCase):
    def audit(self):return {}
   with patch.object(s.v,"read_rows",return_value=[{"id":1}]):
    with self.assertRaisesRegex(RuntimeError,"Unexpected command receipt"):s.resume_checkpoint(None,Q())
+ def test_exact_native_hook_500_only(self):
+  import json
+  def error(status,code,message):return RuntimeError("Loom tool error: "+json.dumps({"content":[{"type":"text","text":json.dumps({"statusCode":status,"body":{"errors":[{"code":code,"message":message}]}})}]}))
+  self.assertTrue(s.hook_denial(error(500,"DOMAIN_ACTION_REQUIRED","DOMAIN_ACTION_REQUIRED")))
+  self.assertFalse(s.hook_denial(error(500,"OTHER","DOMAIN_ACTION_REQUIRED")))
+  self.assertFalse(s.hook_denial(error(403,"DOMAIN_ACTION_REQUIRED","DOMAIN_ACTION_REQUIRED")))
+  self.assertFalse(s.hook_denial(TimeoutError("DOMAIN_ACTION_REQUIRED")))
 if __name__=="__main__":unittest.main()

@@ -8,6 +8,15 @@ from loom_mcp import Loom
 WATCH=["zp_ownership_sets","zp_property_interests","zp_tenancies","zp_tenancy_terms","zp_tenancy_parties"]
 def snapshot(root,q):
     return {"audit":{name:v.read_rows(root,name) for name in v.AUDIT},"rows":{name:v.read_rows(root,name) for name in WATCH}}
+def hook_denial(error):
+    prefix="Loom tool error: "
+    if not str(error).startswith(prefix):return False
+    try:
+        outer=json.loads(str(error)[len(prefix):])
+        packets=[json.loads(x["text"]) for x in outer.get("content",[]) if x.get("type")=="text"]
+    except (ValueError,KeyError,TypeError):return False
+    return any(p.get("statusCode")==500 and any(e.get("code")=="DOMAIN_ACTION_REQUIRED" and e.get("message")=="DOMAIN_ACTION_REQUIRED" for e in p.get("body",{}).get("errors",[])) for p in packets)
+
 def denied_generic(root,q,client,actor,operation,args,label):
     before=snapshot(root,q);name=v.tool(client,"loom_native_resource_"+operation+"_")
     jsonschema.validate(args,client.by_name[name]["inputSchema"])
@@ -17,12 +26,12 @@ def denied_generic(root,q,client,actor,operation,args,label):
         v.durable(q.path/(label+"-error-private.json"),{"error":str(exc)})
         # Root proves the domain guard; manager proves native ACL only.
         code="DOMAIN_ACTION_REQUIRED" if actor=="root" else "DOMAIN_ACTION_DENIED"
-        if not v.expected_failure(exc,code):
+        if not (hook_denial(exc) if actor=="root" else v.expected_failure(exc,code)):
             q.record({"label":label,"status":"blocked-unclassified","actor":actor})
             raise RuntimeError("Unexpected generic denial; inspect private journal")
     else:raise AssertionError("Generic write unexpectedly succeeded; stop and reconcile")
     if snapshot(root,q)!=before:raise AssertionError("Denied generic write changed state")
-    q.record({"label":label,"status":"denied-unchanged","actor":actor,"boundary":code,"snapshotDigest":v.hashlib.sha256(json.dumps(before,sort_keys=True,separators=(",",":")).encode()).hexdigest()})
+    q.record({"label":label,"status":"denied-unchanged","actor":actor,"boundary":code,"nativeHttpStatus":500 if actor=="root" else 403,"errorStatusQualified":actor!="root","snapshotDigest":v.hashlib.sha256(json.dumps(before,sort_keys=True,separators=(",",":")).encode()).hexdigest()})
 
 def run(root,q,checkpoint=None):
     properties=v.read_rows(root,"zp_properties",filter={"id":4})
@@ -62,21 +71,24 @@ def run(root,q,checkpoint=None):
         b,_=q.command(manager,"manager1","setOwnershipInterests",{**interests,"ownershipSetId":b["id"],"expectedVersion":v.expected_version(b)},"ownership-b-interests")
         q.command(manager,"manager1","approveOwnershipSet",{**approval,"ownershipSetId":b["id"],"expectedVersion":v.expected_version(b)},"ownership-overlap",expected_error="OWNERSHIP_OVERLAP")
         q.command(manager,"manager1","createOwnershipSet",{**create,"propertyId":2},"ownership-foreign",expected_error="PROPERTY_SCOPE")
-        cases=[
-            ("update",{"resource":"zp_tenancies","filterByTk":4,"values":{"leaseState":"active"}},"direct"),
-            ("update",{"resource":"zp_tenancies","filter":{"id":{"$in":[4,5]}},"values":{"leaseState":"active"}},"bulk-filter"),
-            ("update",{"resource":"zp_tenancies","filterByTk":4,"values":{"parties":[{"displayName":"Synthetic forbidden nested party","partyRole":"occupant"}]},"updateAssociationValues":["parties"]},"nested"),
-            ("create",{"resource":"zp_tenancies.terms","sourceId":4,"values":{"currency":"NZD","rentMinor":1,"revision":999}},"association")]
-        audit=q.audit()
-        for resource,field,value in [("zp_domain_events","eventHash","f"*64),("zp_domain_outbox","status","delivered"),("zp_domain_commands","resultJSON","{}"),("zp_audit_heads","headHash","f"*64)]:
-            row=audit[resource][-1]
-            cases.append(("update",{"resource":resource,"filterByTk":row["id"],"values":{field:value}},resource))
-        for actor,client in [("root",root),("manager",manager)]:
-            for op,args,label in cases:denied_generic(root,q,client,actor,op,args,actor+"-"+label)
-        health=v.call(manager,"auditHealth",{"propertyId":4})
-        if health.get("valid") is not True:raise AssertionError("Audit invalid")
-        q.record({"label":"final-audit-health","status":"qualified","result":health})
+        generic_checks(root,q,manager)
 
+def generic_checks(root,q,manager,skip=()):
+    cases=[
+        ("update",{"resource":"zp_tenancies","filterByTk":4,"values":{"leaseState":"active"}},"direct"),
+        ("update",{"resource":"zp_tenancies","filter":{"id":{"$in":[4,5]}},"values":{"leaseState":"active"}},"bulk-filter"),
+        ("update",{"resource":"zp_tenancies","filterByTk":4,"values":{"parties":[{"displayName":"Synthetic forbidden nested party","partyRole":"occupant"}]},"updateAssociationValues":["parties"]},"nested"),
+        ("create",{"resource":"zp_tenancies.terms","sourceId":4,"values":{"currency":"NZD","rentMinor":1,"revision":999}},"association")]
+    audit=q.audit()
+    for resource,field,value in [("zp_domain_events","eventHash","f"*64),("zp_domain_outbox","status","delivered"),("zp_domain_commands","resultJSON","{}"),("zp_audit_heads","headHash","f"*64)]:
+        row=audit[resource][-1]
+        cases.append(("update",{"resource":resource,"filterByTk":row["id"],"values":{field:value}},resource))
+    for actor,client in [("root",root),("manager",manager)]:
+        for op,args,label in cases:
+            if actor+"-"+label not in skip:denied_generic(root,q,client,actor,op,args,actor+"-"+label)
+    health=v.call(manager,"auditHealth",{"propertyId":4})
+    if health.get("valid") is not True:raise AssertionError("Audit invalid")
+    q.record({"label":"final-audit-health","status":"qualified","result":health})
 def resume_checkpoint(root,q):
     stopped=[e for e in q.events if e.get("label")=="ownership-incomplete" and e.get("status")=="blocked-unknown-or-unexpected"]
     if len(stopped)!=1:raise RuntimeError("Expected stopped checkpoint absent")
@@ -92,17 +104,28 @@ def resume_checkpoint(root,q):
     q.record({"label":"explicit-resume-after-schema-check","status":"native-readback-unchanged"})
     return {"id":1,"version":1}
 
+def resume_generic(root,q):
+    intent=json.loads((q.path/"root-direct-intent.json").read_text())
+    error=json.loads((q.path/"root-direct-error-private.json").read_text())["error"]
+    if not hook_denial(error):raise RuntimeError("Saved outcome is not exact native hook denial")
+    if snapshot(root,q)!=intent["before"]:raise RuntimeError("Full protected/domain snapshot drift")
+    q.record({"label":"root-direct-reconciled","status":"denied-unchanged","boundary":"HTTP500 DOMAIN_ACTION_REQUIRED","errorStatusQualified":False,"snapshotDigest":v.hashlib.sha256(json.dumps(intent["before"],sort_keys=True,separators=(",",":")).encode()).hexdigest()})
+    with v.role_client(root,q,"invariant_manager_generic_resume","zp_property_manager","1",18462) as manager:generic_checks(root,q,manager,skip=("root-direct",))
+
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument("--execute",action="store_true");p.add_argument("--resume-incomplete",action="store_true");p.add_argument("--run-id",required=True);p.add_argument("--receipt",type=pathlib.Path);a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument("--execute",action="store_true");p.add_argument("--resume-incomplete",action="store_true");p.add_argument("--resume-generic",action="store_true");p.add_argument("--run-id",required=True);p.add_argument("--receipt",type=pathlib.Path);a=p.parse_args()
     if not v.re.fullmatch(r"[A-Za-z0-9-]{1,60}",a.run_id):p.error("invalid run ID")
     root=Loom();v.schema_gate(root)
     if not a.execute:
         print(json.dumps({"status":"source-schema-preflight-only","plannedWrites":27,"successfulCommands":5,"domainDenials":6,"genericDenials":16}));return
     if not a.receipt or a.receipt.exists():p.error("fresh receipt required")
-    q=v.Qualification(root,a.run_id,resume=a.resume_incomplete)
+    q=v.Qualification(root,a.run_id,resume=a.resume_incomplete or a.resume_generic)
     try:
-        checkpoint=resume_checkpoint(root,q) if a.resume_incomplete else None
-        run(root,q,checkpoint);status="passed"
+        if a.resume_generic:resume_generic(root,q)
+        else:
+            checkpoint=resume_checkpoint(root,q) if a.resume_incomplete else None
+            run(root,q,checkpoint)
+        status="boundary-qualified-error-status-unqualified"
     except Exception as exc:q.record({"label":"stopped","status":"blocked","errorType":type(exc).__name__});raise
     finally:
         a.receipt.parent.mkdir(parents=True,exist_ok=True)
