@@ -20,7 +20,7 @@
         "sourceKey": "id",
         "targetKey": "id",
         "onDelete": "RESTRICT",
-        "allowNull": true,
+        "allowNull": false,
         "uiSchema": {
           "title": "Units",
           "x-component": "AssociationField",
@@ -44,7 +44,7 @@
         "sourceKey": "id",
         "targetKey": "id",
         "onDelete": "RESTRICT",
-        "allowNull": true,
+        "allowNull": false,
         "uiSchema": {
           "title": "Tenancies",
           "x-component": "AssociationField",
@@ -55,6 +55,33 @@
             }
           }
         }
+      }
+    }
+  ],
+  "parentSpecDigest": "e767b528bfc0269688d91d22785a96e9436f28484376b8ad1af21c310267c0a7",
+  "preserveFields": [
+    {
+      "collection": "zp_units",
+      "field": {
+        "name": "property",
+        "type": "belongsTo",
+        "target": "zp_properties",
+        "foreignKey": "propertyId",
+        "allowNull": false,
+        "onDelete": "RESTRICT",
+        "targetKey": "id"
+      }
+    },
+    {
+      "collection": "zp_tenancies",
+      "field": {
+        "name": "unit",
+        "type": "belongsTo",
+        "target": "zp_units",
+        "foreignKey": "unitId",
+        "allowNull": false,
+        "onDelete": "RESTRICT",
+        "targetKey": "id"
       }
     }
   ]

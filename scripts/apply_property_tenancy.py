@@ -25,15 +25,16 @@ def subset(want,got):
             subset(value,got[key])
     elif want != got: raise RuntimeError('Metadata drift')
 def main():
-    p=argparse.ArgumentParser(description=__doc__); p.add_argument('--apply',action='store_true'); p.add_argument('--reconcile',action='store_true'); p.add_argument('--commands',action='store_true',help='Separate reviewed command-receipt migration with immutable parent ownership chain'); args=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__); p.add_argument('--apply',action='store_true'); p.add_argument('--reconcile',action='store_true'); p.add_argument('--commands',action='store_true',help='Separate reviewed command-receipt migration with immutable parent ownership chain'); p.add_argument('--hierarchy',action='store_true',help='Separate additive reverse-relation migration'); args=p.parse_args()
+    if args.commands and args.hierarchy:p.error('Choose one separate migration')
     if args.apply and args.reconcile: p.error('--reconcile is read-only')
     parent_spec=json.loads((ROOT/'generation/collections/property-tenancy.json').read_text())
-    spec=json.loads((ROOT/'generation/collections/property-tenancy-commands.json').read_text()) if args.commands else parent_spec
+    spec=json.loads((ROOT/('generation/collections/property-hierarchy.json' if args.hierarchy else 'generation/collections/property-tenancy-commands.json')).read_text()) if args.commands or args.hierarchy else parent_spec
     runtime=Path(os.environ['ZP_RUNTIME_DIR'])
-    prefix='property-command-schema' if args.commands else 'property-schema'
+    prefix='property-hierarchy-schema' if args.hierarchy else 'property-command-schema' if args.commands else 'property-schema'
     intent=runtime/(prefix+'-intent.json'); binding=runtime/(prefix+'-bindings.json')
     parent=None
-    if args.commands:
+    if args.commands or args.hierarchy:
         if (runtime/'property-schema-intent.json').exists(): raise RuntimeError('Parent migration has unresolved intent')
         parent=json.loads((runtime/'property-schema-bindings.json').read_text())
         if parent['specDigest']!=spec['parentSpecDigest'] or digest(parent_spec)!=spec['parentSpecDigest']: raise RuntimeError('Parent specification/ownership digest mismatch')
@@ -59,9 +60,19 @@ def main():
         row=data(client.call(get,{'filterByTk':name,'appends':['fields']}))
         if row.get('name')!=name or not isinstance(row.get('fields'),list): raise RuntimeError('Invalid collection readback')
         return row
+    def preserved_fields():
+        result={}
+        for requirement in spec.get('preserveFields',[]):
+            row=read(requirement['collection'])
+            field=next((f for f in row['fields'] if f['name']==requirement['field']['name']),None)
+            subset(requirement['field'],field)
+            result[requirement['collection']+'.'+requirement['field']['name']]=field
+        return result
+    preserved=preserved_fields()
     if args.reconcile:
         if not intent.exists(): raise RuntimeError('No unresolved intent')
         attempt=json.loads(intent.read_text())
+        if attempt.get('preservedFields',{})!=preserved:raise RuntimeError('Preserved relation field drift')
         if attempt['specDigest']!=digest(spec): raise RuntimeError('Intent specification changed')
         name=attempt['collection']; desired=attempt['desired']
         outcome='absent'
@@ -119,9 +130,10 @@ def main():
     for kind,name,desired in pending:
         before=owned(name) if kind=='field' else None
         if before and any(f['name']==desired['name'] for f in before['fields']): raise RuntimeError('Concurrent field collision')
-        durable(intent,{'kind':kind,'collection':name,'desired':desired,'before':before,'specDigest':digest(spec)})
+        durable(intent,{'kind':kind,'collection':name,'desired':desired,'before':before,'specDigest':digest(spec),'preservedFields':preserved})
         client.call(create if kind=='collection' else add,{'requestBody':desired} if kind=='collection' else {'collectionName':name,'requestBody':desired})
         row=read(name); fields={f['name']:f for f in row['fields']}
+        if preserved_fields()!=preserved:raise RuntimeError('Preserved relation metadata changed')
         if kind=='collection':
             subset({k:v for k,v in desired.items() if k!='fields'},row)
             for field in desired['fields']: subset(field,fields.get(field['name']))

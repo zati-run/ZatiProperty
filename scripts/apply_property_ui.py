@@ -274,6 +274,7 @@ class Apply:
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--capture',action='store_true');p.add_argument('--baseline');p.add_argument('--checkpoint',required=True)
+    p.add_argument('--journal-suffix',default='',help='Reviewed separate additive overlay journal; never use to replay an uncertain operation')
     p.add_argument('--phase',choices=['permissions','snippet','pages','cleanup','routes'])
     p.add_argument('--reconcile-page',choices=['portfolio','tenancies']);p.add_argument('--resume-pages',action='store_true')
     p.add_argument('--qualified-manager-snippet');p.add_argument('--approved-page-digest')
@@ -284,7 +285,8 @@ def main():
     manifest['resources']['zp_tenant_account_permissions']={'fields':['id','userId','displayName'],'scope':{'managerUserId':{'$eq':'{{ ctx.state.currentUser.id }}'}}}
     if not args.checkpoint.replace('-','').isalnum():raise RuntimeError('Invalid checkpoint label')
     baseline_path=runtime/('property-ui-'+args.checkpoint+'-baseline.json')
-    journal=Journal(runtime/'property-ui-apply-journal')
+    if args.journal_suffix and (args.phase not in [None,'permissions'] or not args.journal_suffix.replace('-','').isalnum()):raise RuntimeError('Separate journal only supports a bounded permissions overlay')
+    journal=Journal(runtime/('property-ui-apply-journal'+('-'+args.journal_suffix if args.journal_suffix else '')))
     api=Apply(client,{},manifest,journal)
     if args.capture:
         if args.phase:raise RuntimeError('Capture cannot mutate')

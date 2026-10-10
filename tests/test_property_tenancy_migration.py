@@ -147,5 +147,24 @@ class MigrationFaults(unittest.TestCase):
         self.assertIn('present-matching-unadopted',self.run_migration('--commands','--reconcile'))
         self.assertEqual(len(self.writes()),1)
 
+    def test_hierarchy_migration_has_separate_owned_binding(self):
+        self.command_manifest()
+        command=self.root/'generation/collections/property-tenancy-commands.json'
+        (self.root/'generation/collections/property-hierarchy.json').write_bytes(command.read_bytes())
+        parent=(self.runtime/'property-schema-bindings.json').read_bytes()
+        self.run_migration('--hierarchy','--apply')
+        self.assertEqual((self.runtime/'property-schema-bindings.json').read_bytes(),parent)
+        self.assertTrue((self.runtime/'property-hierarchy-schema-bindings.json').exists())
+        self.assertFalse((self.runtime/'property-command-schema-bindings.json').exists())
+        self.assertEqual(len(self.writes()),1)
+    def test_preserved_field_mismatch_stops_before_write(self):
+        self.command_manifest()
+        path=self.root/'generation/collections/property-hierarchy.json'
+        spec=json.loads((self.root/'generation/collections/property-tenancy-commands.json').read_text())
+        spec['preserveFields']=[{'collection':'zp_existing','field':{'name':'parent','allowNull':False}}]
+        self.client.rows['zp_existing']['fields']=[{'name':'parent','allowNull':True,'key':'existing-key'}]
+        path.write_text(json.dumps(spec))
+        with self.assertRaises(RuntimeError):self.run_migration('--hierarchy','--apply')
+        self.assertEqual(self.writes(),[])
 if __name__=='__main__': unittest.main()
 
