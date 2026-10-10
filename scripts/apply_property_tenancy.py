@@ -25,15 +25,23 @@ def subset(want,got):
             subset(value,got[key])
     elif want != got: raise RuntimeError('Metadata drift')
 def main():
-    p=argparse.ArgumentParser(description=__doc__); p.add_argument('--apply',action='store_true'); p.add_argument('--reconcile',action='store_true'); args=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__); p.add_argument('--apply',action='store_true'); p.add_argument('--reconcile',action='store_true'); p.add_argument('--commands',action='store_true',help='Separate reviewed command-receipt migration with immutable parent ownership chain'); args=p.parse_args()
     if args.apply and args.reconcile: p.error('--reconcile is read-only')
-    spec=json.loads((ROOT/'generation/collections/property-tenancy.json').read_text())
+    parent_spec=json.loads((ROOT/'generation/collections/property-tenancy.json').read_text())
+    spec=json.loads((ROOT/'generation/collections/property-tenancy-commands.json').read_text()) if args.commands else parent_spec
     runtime=Path(os.environ['ZP_RUNTIME_DIR'])
-    intent=runtime/'property-schema-intent.json'; binding=runtime/'property-schema-bindings.json'
+    prefix='property-command-schema' if args.commands else 'property-schema'
+    intent=runtime/(prefix+'-intent.json'); binding=runtime/(prefix+'-bindings.json')
+    parent=None
+    if args.commands:
+        if (runtime/'property-schema-intent.json').exists(): raise RuntimeError('Parent migration has unresolved intent')
+        parent=json.loads((runtime/'property-schema-bindings.json').read_text())
+        if parent['specDigest']!=spec['parentSpecDigest'] or digest(parent_spec)!=spec['parentSpecDigest']: raise RuntimeError('Parent specification/ownership digest mismatch')
     if intent.exists() and not args.reconcile: raise RuntimeError('Unresolved intent: independent native readback required before any retry')
     state=json.loads(binding.read_text()) if binding.exists() else {'specDigest':digest(spec),'collections':{},'fields':{}}
     if state['specDigest']!=digest(spec): raise RuntimeError('Specification changed; separate migration review required')
     base={x['name']:x['key'] for x in json.loads((ROOT/'generation/bindings/collections.json').read_text()).values()}
+    if parent: base.update(parent['collections'])
     client=Loom()
     def tool(prefix):
         names=[x['name'] for x in client.tools if x['name'].startswith(prefix)]
@@ -77,6 +85,18 @@ def main():
         row=read(name); key=base.get(name) or state['collections'].get(name)
         if key is None or row.get('key')!=key: raise RuntimeError('Unowned collection collision: '+name)
         return row
+    if parent:
+        # Parent IDs and all explicitly authored metadata must still match.
+        for collection in parent_spec['collections']:
+            row=owned(collection['name'])
+            subset({k:v for k,v in collection.items() if k!='fields'},row)
+            fields={f['name']:f for f in row['fields']}
+            for field in collection['fields']: subset(field,fields.get(field['name']))
+        for item in parent_spec['addFields']:
+            row=owned(item['collection']); fields={f['name']:f for f in row['fields']}
+            identity=item['collection']+'.'+item['field']['name']
+            if fields.get(item['field']['name'],{}).get('key')!=parent['fields'].get(identity): raise RuntimeError('Parent field identity drift')
+            subset(item['field'],fields.get(item['field']['name']))
     pending=[]
     for desired in spec['collections']:
         name=desired['name']

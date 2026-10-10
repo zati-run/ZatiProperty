@@ -1,0 +1,89 @@
+{
+  "format": "zp.additive-schema.v1",
+  "namespace": "zp.property-tenancy.commands.v1",
+  "parentSpecDigest": "e767b528bfc0269688d91d22785a96e9436f28484376b8ad1af21c310267c0a7",
+  "collections": [
+    {
+      "name": "zp_domain_commands",
+      "title": "Protected domain command receipts",
+      "description": "Immutable actor/action/request identity and committed result; protected domain service only.",
+      "template": "general",
+      "autoGenId": true,
+      "createdBy": true,
+      "updatedBy": true,
+      "timestamps": true,
+      "fields": [
+        {
+          "name": "commandKey",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false,
+          "unique": true
+        },
+        {
+          "name": "actorId",
+          "type": "bigInt",
+          "interface": "integer",
+          "allowNull": false
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false
+        },
+        {
+          "name": "requestId",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false
+        },
+        {
+          "name": "requestDigest",
+          "type": "string",
+          "interface": "input",
+          "allowNull": false
+        },
+        {
+          "name": "resultJSON",
+          "type": "text",
+          "interface": "textarea",
+          "allowNull": false
+        },
+        {
+          "name": "eventId",
+          "type": "integer",
+          "interface": "integer",
+          "allowNull": false,
+          "unique": true
+        }
+      ]
+    }
+  ],
+  "addFields": [
+    {
+      "collection": "zp_tenant_account_permissions",
+      "field": {
+        "name": "displayName",
+        "type": "string",
+        "interface": "input",
+        "allowNull": false,
+        "uiSchema": {
+          "title": "Permitted account",
+          "x-component": "Input"
+        },
+        "validation": {
+          "type": "string",
+          "rules": [
+            {
+              "name": "max",
+              "args": {
+                "limit": 160
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -2,7 +2,8 @@
 const {Plugin}=require('@nocobase/server');
 const {Service,ACTIONS,ZERO}=require('./service');
 const {deny}=require('./domain');
-const PROTECTED=['zp_tenancies','zp_tenancy_terms','zp_tenancy_parties','zp_ownership_sets','zp_property_interests','zp_domain_events','zp_audit_heads','zp_domain_outbox','zp_properties','zp_units','zp_buildings','zp_owner_contacts','zp_tenant_account_permissions'];
+const {safeFailure}=require('./errors');
+const PROTECTED=['zp_tenancies','zp_tenancy_terms','zp_tenancy_parties','zp_ownership_sets','zp_property_interests','zp_domain_events','zp_audit_heads','zp_domain_outbox','zp_properties','zp_units','zp_buildings','zp_owner_contacts','zp_tenant_account_permissions','zp_domain_commands'];
 const plain=row=>row ? (typeof row.toJSON==='function'?row.toJSON():row) : null;
 class PropertyTenancyPlugin extends Plugin {
   async load() {
@@ -10,15 +11,16 @@ class PropertyTenancyPlugin extends Plugin {
     const authorized=new WeakSet();
     const model=name=>{const m=db.getModel(name);if(!m)deny('SCHEMA_UNAVAILABLE');return m;};
     const service=new Service({
+      lookupCommand:async commandKey=>(await model('zp_domain_commands').findAll({where:{commandKey},limit:2})).map(plain),
       transaction:async callback=>db.sequelize.transaction(async transaction=>{
         authorized.add(transaction);
         const options={transaction,lock:transaction.LOCK.UPDATE};
         const store={
-          head:async()=>{
+          head:async(initialize=true)=>{
             // Unique PK makes initialization races fail/serialize in native DB;
             // no caller-provided head, sequence or hash is accepted.
             let head=await model('zp_audit_heads').findByPk(1,options);
-            if(!head)head=await model('zp_audit_heads').create({id:1,headSequence:0,headHash:ZERO},{transaction});
+            if(!head&&initialize)head=await model('zp_audit_heads').create({id:1,headSequence:0,headHash:ZERO},{transaction});
             return plain(head);
           },
           get:async(name,id)=>plain(await model(name).findByPk(id,options)),
@@ -57,23 +59,26 @@ class PropertyTenancyPlugin extends Plugin {
         const actor=ctx.state?.currentUser?.id;
         const acl=ctx.acl||this.app.acl;
         if(!actor||!Array.isArray(roles)||roles.length!==1||typeof roles[0]!=='string'||!acl.can({roles,resource:'zpPropertyTenancy',action}))ctx.throw(403,'DOMAIN_ACTION_DENIED');
+        if(action==='reconcileCommand'&&!acl.can({roles,resource:'zpPropertyTenancy',action:ctx.action.params.commandAction}))ctx.throw(403,'DOMAIN_ACTION_DENIED');
         try {
           let constructor=false;
           if(action==='authorizeTenantAccount') {
             const role=await model('roles').findByPk(roles[0]);
             constructor=role?.get('allowAll')===true;
           }
-          ctx.body={data:await service.execute(action,ctx.action.params.values||{},actor,{constructor})};
+          const values=action==='reconcileCommand'?{action:ctx.action.params.commandAction,requestId:ctx.action.params.requestId}:ctx.action.params.values||{};
+          ctx.body={data:await service.execute(action,values,actor,{constructor})};
         } catch(error) {
           // Only bounded domain codes; never echo SQL, values, credentials or PII.
-          const code=typeof error.code==='string'&&/^[A-Z_]{3,64}$/.test(error.code)?error.code:'DOMAIN_OPERATION_FAILED';
-          ctx.throw(code==='PROPERTY_SCOPE'?403:409,code);
+          const failure=safeFailure(error);
+          ctx.throw(failure.status,failure.message,{code:failure.code});
         }
         await next();
       };
     }
     this.app.resourcer.define({name:'zpPropertyTenancy',type:'single',actions,only:ACTIONS});
-    this.app.acl.registerSnippet({name:'pm.'+this.name,actions:ACTIONS.map(action=>'zpPropertyTenancy:'+action)});
+    this.app.acl.registerSnippet({name:'pm.'+this.name+'.manager',actions:ACTIONS.filter(action=>action!=='authorizeTenantAccount').map(action=>'zpPropertyTenancy:'+action)});
+    this.app.acl.registerSnippet({name:'pm.'+this.name+'.constructor',actions:['zpPropertyTenancy:authorizeTenantAccount','zpPropertyTenancy:reconcileCommand']});
   }
 }
 module.exports=PropertyTenancyPlugin;module.exports.default=PropertyTenancyPlugin;

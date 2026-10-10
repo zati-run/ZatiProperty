@@ -1,24 +1,25 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs'),path=require('node:path');
 const base=path.join(__dirname,'../dist');
-async function load() {
- const hooks=new Map();let resource,snippet;
+async function load(can=()=>true) {
+ const hooks=new Map();const snippets=[];let resource,snippet;
  const Plugin=class {};
  const module={exports:{}};
  const source=fs.readFileSync(path.join(base,'server/index.js'),'utf8');
  vm.runInNewContext(source,{module,exports:module.exports,WeakSet,Object,Array,require:name=>name==='@nocobase/server'?{Plugin}:require(path.join(base,'server',name))});
  const p=new module.exports();
  p.db={on:(name,fn)=>{const old=hooks.get(name);hooks.set(name,old? (...args)=>{old(...args);return fn(...args);}:fn);},getModel:()=>null};
- p.app={resourcer:{define:value=>resource=value},acl:{registerSnippet:value=>snippet=value}};
- await p.load();return {hooks,resource,snippet};
+ p.app={resourcer:{define:value=>resource=value},acl:{can,registerSnippet:value=>{snippet=value;snippets.push(value);}}};
+ await p.load();return {hooks,resource,snippet,snippets};
 }
 test('native resource defines only fixed typed actions and explicit ACL snippet',async()=>{
  const {resource,snippet}=await load();
  assert.equal(resource.name,'zpPropertyTenancy');
- assert.equal(resource.only.length,13);assert.equal(Object.keys(resource.actions).length,13);
- assert.equal(snippet.actions.length,13);
+ assert.equal(resource.only.length,14);assert.equal(Object.keys(resource.actions).length,14);
+ assert.equal(snippet.actions.length,2);assert.deepEqual(Array.from(snippet.actions),['zpPropertyTenancy:authorizeTenantAccount','zpPropertyTenancy:reconcileCommand']);
  const spec=require('../dist/swagger/index.json');
  for(const name of resource.only) {
+   if(name==='reconcileCommand'){assert.ok(spec.paths['/zpPropertyTenancy:'+name].get);continue;}
    const body=spec.paths['/zpPropertyTenancy:'+name].post.requestBody;
    assert.equal(body.required,true);
    assert.equal(body.content['application/json'].schema.additionalProperties,false);
@@ -50,4 +51,18 @@ test('no-op client entry loads with pinned native dependency',()=>{
  assert.ok(versions);
  const source=fs.readFileSync(path.join(base,'client/index.js'),'utf8');
  assert.match(source,/@nocobase\/client/);
+});
+
+test('reconciliation requires original action ACL before any repository lookup',async()=>{
+ const {resource}=await load(({action})=>action==='reconcileCommand');
+ let next=false;
+ const ctx={state:{currentUser:{id:10},currentRole:'manager'},action:{params:{commandAction:'createDraftTenancy',requestId:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'}},throw(status,message){const e=new Error(message);e.status=status;throw e;}};
+ await assert.rejects(resource.actions.reconcileCommand(ctx,async()=>{next=true;}),e=>e.status===403&&e.message==='DOMAIN_ACTION_DENIED');
+ assert.equal(next,false);
+});
+test('manager snippet excludes constructor account mapping action',async()=>{
+ const {snippets}=await load();
+ const manager=snippets.find(s=>s.name.endsWith('.manager'));
+ assert.ok(manager.actions.includes('zpPropertyTenancy:reconcileCommand'));
+ assert.equal(manager.actions.includes('zpPropertyTenancy:authorizeTenantAccount'),false);
 });

@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "ZatiProperty protected domain actions",
-    "version": "0.1.0"
+    "version": "0.1.1"
   },
   "paths": {
     "/zpPropertyTenancy:createDraftTenancy": {
@@ -150,6 +150,12 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
@@ -158,7 +164,8 @@
                   "startDate",
                   "term",
                   "parties",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -172,7 +179,7 @@
             "description": "Role or property scope denied"
           },
           "409": {
-            "description": "Invariant, version or persistence failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -325,6 +332,12 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
@@ -333,7 +346,8 @@
                   "startDate",
                   "term",
                   "parties",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -347,7 +361,7 @@
             "description": "Role or property scope denied"
           },
           "409": {
-            "description": "Invariant, version or persistence failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -387,12 +401,19 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
                   "tenancyId",
                   "expectedVersion",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -406,7 +427,7 @@
             "description": "Role or property scope denied"
           },
           "409": {
-            "description": "Invariant, version or persistence failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -450,13 +471,20 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
                   "tenancyId",
                   "expectedVersion",
                   "endDate",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -470,7 +498,7 @@
             "description": "Role or property scope denied"
           },
           "409": {
-            "description": "Invariant, version or persistence failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -514,12 +542,19 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
                   "propertyId",
                   "effectiveFrom",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -533,7 +568,7 @@
             "description": "Role or property scope denied"
           },
           "409": {
-            "description": "Invariant, version or persistence failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -597,13 +632,20 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
                   "ownershipSetId",
                   "expectedVersion",
                   "interests",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -617,7 +659,7 @@
             "description": "Role or property scope denied"
           },
           "409": {
-            "description": "Invariant, version or persistence failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -663,13 +705,20 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
                   "ownershipSetId",
                   "expectedVersion",
                   "completeSet",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -683,7 +732,7 @@
             "description": "Role or property scope denied"
           },
           "409": {
-            "description": "Invariant, version or persistence failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -723,7 +772,7 @@
             "description": "Role or property scope denied"
           },
           "409": {
-            "description": "Invariant, version or persistence failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -759,11 +808,18 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
                   "name",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -777,7 +833,7 @@
             "description": "Authority denied"
           },
           "409": {
-            "description": "Invariant failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -817,12 +873,19 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
                   "propertyId",
                   "name",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -836,7 +899,7 @@
             "description": "Authority denied"
           },
           "409": {
-            "description": "Invariant failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -880,12 +943,19 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
                   "propertyId",
                   "name",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -899,7 +969,7 @@
             "description": "Authority denied"
           },
           "409": {
-            "description": "Invariant failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -943,12 +1013,19 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
                   }
                 },
                 "required": [
                   "propertyId",
                   "displayName",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -962,7 +1039,7 @@
             "description": "Authority denied"
           },
           "409": {
-            "description": "Invariant failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }
@@ -1005,13 +1082,26 @@
                       "legacy-reviewed",
                       "account-authorized"
                     ]
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+                    "description": "Stable command UUIDv4. Preserve across unknown outcomes; mismatched payload reuse is rejected."
+                  },
+                  "displayName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160,
+                    "description": "Constructor-approved fallback label only when account nickname is absent."
                   }
                 },
                 "required": [
                   "propertyId",
                   "managerUserId",
                   "userId",
-                  "reasonCode"
+                  "reasonCode",
+                  "requestId"
                 ]
               }
             }
@@ -1025,7 +1115,59 @@
             "description": "Authority denied"
           },
           "409": {
-            "description": "Invariant failure; reconcile before retry"
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
+          }
+        }
+      }
+    },
+    "/zpPropertyTenancy:reconcileCommand": {
+      "get": {
+        "tags": [
+          "ZatiProperty protected tenancy and ownership"
+        ],
+        "summary": "Read own committed command receipt without initiating or retrying work",
+        "parameters": [
+          {
+            "name": "commandAction",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "createDraftTenancy",
+                "updateDraftTenancy",
+                "activateTenancy",
+                "endTenancy",
+                "createOwnershipSet",
+                "setOwnershipInterests",
+                "approveOwnershipSet",
+                "createProperty",
+                "createBuilding",
+                "createUnit",
+                "createOwnerContact",
+                "authorizeTenantAccount"
+              ]
+            }
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Own committed receipt or not_observed with retryAuthorized false; absence is not proof an in-flight command cannot commit"
+          },
+          "403": {
+            "description": "Original action or reconciliation ACL denied"
+          },
+          "409": {
+            "description": "Stable machine error code and safe recovery message; ambiguous outcomes require reconciliation, never blind replay."
           }
         }
       }

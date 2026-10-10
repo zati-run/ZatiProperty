@@ -109,5 +109,43 @@ class MigrationFaults(unittest.TestCase):
         self.assertEqual(self.writes(),[])
         self.assertTrue(all('roles' not in name for name,_ in self.native.calls))
 
+
+    def command_manifest(self):
+        self.run_migration('--apply')
+        spec={'parentSpecDigest':migration.digest(self.spec),'collections':[],
+              'addFields':[{'collection':'existing','field':{'name':'label','type':'string'}}]}
+        (self.root/'generation/collections/property-tenancy-commands.json').write_text(json.dumps(spec))
+        self.native.calls.clear()
+    def test_command_migration_keeps_parent_digest_and_uses_separate_binding(self):
+        self.command_manifest()
+        before=(self.runtime/'property-schema-bindings.json').read_bytes()
+        self.run_migration('--commands','--apply')
+        self.assertEqual((self.runtime/'property-schema-bindings.json').read_bytes(),before)
+        self.assertTrue((self.runtime/'property-command-schema-bindings.json').exists())
+        self.assertEqual(len(self.writes()),1)
+    def test_command_migration_refuses_parent_digest_or_field_identity_drift(self):
+        self.command_manifest()
+        self.native.rows['existing']['fields'][-1]['key']='changed'
+        with self.assertRaisesRegex(RuntimeError,'Parent field identity drift'):
+            self.run_migration('--commands','--apply')
+        self.assertEqual(self.writes(),[])
+        self.spec['addFields'][0]['field']['type']='integer';self.save()
+        with self.assertRaisesRegex(RuntimeError,'Parent specification/ownership digest mismatch'):
+            self.run_migration('--commands','--apply')
+        self.assertEqual(self.writes(),[])
+    def test_command_migration_cannot_pass_unresolved_parent_intent(self):
+        self.command_manifest()
+        (self.runtime/'property-schema-intent.json').write_text('{}')
+        with self.assertRaisesRegex(RuntimeError,'Parent migration has unresolved intent'):
+            self.run_migration('--commands','--apply')
+        self.assertEqual(self.writes(),[])
+    def test_command_unknown_write_uses_own_fence_and_reconciliation(self):
+        self.command_manifest();self.native.fail_after_write=True
+        with self.assertRaises(OSError):self.run_migration('--commands','--apply')
+        self.assertTrue((self.runtime/'property-command-schema-intent.json').exists())
+        with self.assertRaisesRegex(RuntimeError,'Unresolved intent'):self.run_migration('--commands','--apply')
+        self.assertIn('present-matching-unadopted',self.run_migration('--commands','--reconcile'))
+        self.assertEqual(len(self.writes()),1)
+
 if __name__=='__main__': unittest.main()
 

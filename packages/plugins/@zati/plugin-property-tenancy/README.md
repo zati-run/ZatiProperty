@@ -112,3 +112,13 @@ native activations, bulk/nested bypass negatives, complete ownership approval,
 audit/outbox readback and tamper rejection, persistence/reload, co-tenant privacy,
 and rendered manager/tenant journeys. Keep maintenance context and its historical
 IDs unchanged. No runtime changes were made by this source package work.
+
+## Command recovery contract (0.1.1)
+
+Every mutating action requires a lowercase UUIDv4 requestId. The immutable receipt key binds actor, action and requestId; canonical input excluding requestId is hashed. Under the existing global audit-head transaction lock, identical repeats return the committed result; differing payload reuse fails with REQUEST_ID_COLLISION. Business rows, audit event, outbox entry and command receipt commit together. Initial audit-head initialization races may produce a conflict; read the command outcome before considering an explicit retry with the identical identifier and payload.
+
+GET zpPropertyTenancy:reconcileCommand accepts commandAction and requestId. It requires both current reconciliation and original-action ACL, returns only the caller's receipt, and never initializes audit state. not_observed is not proof that an earlier in-flight command cannot still commit and does not authorize automatic replay. Preserve identifier and payload during uncertain outcomes. auditHealth also performs no initialization.
+
+Manager and constructor ACL snippets are separate. Generic CRUD on command receipts stays denied even for constructor users; account authorization additionally requires the native allowAll constructor flag. Permitted account choices read scoped mapping userId/displayName only. Labels derive from the linked user's nickname or a bounded explicit constructor-approved fallback. Identity bindings remain immutable.
+
+The reviewed additive migration uses generation/collections/property-tenancy-commands.json and apply_property_tenancy.py --commands. It keeps the original manifest and runtime ownership digest unchanged, verifies the pinned parent metadata/IDs, and uses separate command-schema intent/bindings. Never rewrite the original binding digest to bypass the migration chain. Source tests are not native transaction, formatter, browser or live acceptance; those remain required before enablement.

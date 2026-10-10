@@ -1,16 +1,42 @@
 'use strict';
 const d=require('./domain');
 const {randomUUID}=require('node:crypto');
-const ACTIONS=['createDraftTenancy','updateDraftTenancy','activateTenancy','endTenancy','createOwnershipSet','setOwnershipInterests','approveOwnershipSet','auditHealth','createProperty','createBuilding','createUnit','createOwnerContact','authorizeTenantAccount'];
+const ACTIONS=['createDraftTenancy','updateDraftTenancy','activateTenancy','endTenancy','createOwnershipSet','setOwnershipInterests','approveOwnershipSet','auditHealth','createProperty','createBuilding','createUnit','createOwnerContact','authorizeTenantAccount','reconcileCommand'];
 const ZERO='0'.repeat(64);
+function commandKey(actor,action,requestId) {
+  if(typeof requestId!=='string'||! /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(requestId))d.deny('INVALID_REQUEST_ID');
+  return d.hash(d.canonical([actor,action,requestId]));
+}
 class Service {
   constructor(store) {this.store=store;}
   async execute(action,input,actor,authority={}) {
     if(!ACTIONS.includes(action))d.deny('UNKNOWN_ACTION');
-    d.id(actor);
+    actor=d.id(actor);
+    if(action==='authorizeTenantAccount'&&!authority.constructor)d.deny('CONSTRUCTOR_REQUIRED');
+    if(action==='reconcileCommand'){
+      d.keys(input,['action','requestId']);
+      if(!ACTIONS.includes(input.action)||['auditHealth','reconcileCommand'].includes(input.action))d.deny('UNKNOWN_ACTION');
+      const found=await this.store.lookupCommand(commandKey(actor,input.action,input.requestId));
+      if(found.length>1)d.deny('COMMAND_CORRUPT');
+      return found.length?{status:'committed',requestId:input.requestId,result:JSON.parse(found[0].resultJSON)}:{status:'not_observed',requestId:input.requestId,retryAuthorized:false};
+    }
+    let key,requestId,requestDigest;
+    if(action!=='auditHealth'){
+      if(!input||typeof input!=='object'||Array.isArray(input))d.deny('UNKNOWN_INPUT');
+      requestId=input.requestId;key=commandKey(actor,action,requestId);
+      input={...input};delete input.requestId;requestDigest=d.hash(d.canonical(input));
+    }
     return this.store.transaction(async tx=>{
       // One lock order across every domain mutation; head serializes audit ordering.
-      const head=await tx.head();
+      const head=await tx.head(action!=='auditHealth')||{headSequence:0,headHash:ZERO};
+      if(key){
+        const prior=await tx.list('zp_domain_commands',{commandKey:key},2);
+        if(prior.length>1)d.deny('COMMAND_CORRUPT');
+        if(prior.length){
+          if(prior[0].requestDigest!==requestDigest)d.deny('REQUEST_ID_COLLISION');
+          return JSON.parse(prior[0].resultJSON);
+        }
+      }
       if(action==='auditHealth') {
         d.keys(input,['propertyId']);
         await this.property(tx,input.propertyId,actor);
@@ -131,6 +157,7 @@ class Service {
       const event=await tx.create('zp_domain_events',{sequence,previousHash:head.headHash,eventHash,canonicalPayload});
       await tx.create('zp_domain_outbox',{eventId:event.id,topic:'property-tenancy.'+action,payload:canonicalPayload,status:'pending'});
       await tx.update('zp_audit_heads',1,{headSequence:sequence,headHash:eventHash});
+      await tx.create('zp_domain_commands',{commandKey:key,actorId:actor,action,requestId,requestDigest,resultJSON:d.canonical(result),eventId:event.id});
       return result;
     });
   }
@@ -171,13 +198,15 @@ class Service {
       return {id:row.id,propertyId:row.id,state:'created',version:0,_collection:'zp_properties'};
     }
     if(action==='authorizeTenantAccount') {
-      d.keys(input,['propertyId','managerUserId','userId','reasonCode']);
+      d.keys(input,['propertyId','managerUserId','userId','displayName','reasonCode']);
       if(authority.constructor!==true)d.deny('CONSTRUCTOR_REQUIRED');
       property=await tx.get('zp_properties',d.id(input.propertyId));
       if(!property||!d.same(property.managerUserId,d.id(input.managerUserId))||!await tx.get('users',d.id(input.userId)))d.deny('ACCOUNT_CONTEXT');
       const existing=await tx.list('zp_tenant_account_permissions',{managerUserId:input.managerUserId,userId:input.userId},1);
       if(existing.length)d.deny('ACCOUNT_ALREADY_PERMITTED');
-      row=await tx.create('zp_tenant_account_permissions',{managerUserId:input.managerUserId,userId:input.userId,mappingKey:d.id(input.managerUserId)+':'+d.id(input.userId)});
+      const account=await tx.get('users',d.id(input.userId));
+      const displayName=d.string(typeof account.nickname==='string'&&account.nickname.trim()?account.nickname.trim():input.displayName,160);
+      row=await tx.create('zp_tenant_account_permissions',{managerUserId:input.managerUserId,userId:input.userId,mappingKey:d.id(input.managerUserId)+':'+d.id(input.userId),displayName});
     } else {
       d.keys(input,action==='createBuilding'?['propertyId','name','reasonCode']:action==='createUnit'?['propertyId','buildingId','name','reasonCode']:['propertyId','displayName','userId','reasonCode']);
       property=await this.property(tx,input.propertyId,actor);
