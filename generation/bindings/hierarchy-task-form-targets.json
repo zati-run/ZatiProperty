@@ -4,5 +4,11 @@
     "contextCollection": "zp_properties",
     "source": "native-readback",
     "evidenceRef": "docs/generation/receipts/building-form-placement-native-readback.json"
+  },
+  "building.details-grid": {
+    "gridUid": "d3vkb0wzty8",
+    "contextCollection": "zp_buildings",
+    "source": "native-readback",
+    "evidenceRef": "docs/generation/receipts/unit-form-placement-native-readback.json"
   }
 }

@@ -1,0 +1,178 @@
+{
+  "scope": "Read-only native qualification; no form generated",
+  "domainVersion": "0.1.4",
+  "companionVersion": "0.1.9",
+  "formUid": "zp_create_unit_form_v1",
+  "placementProof": {
+    "kind": "native-associated-popup-record",
+    "collection": "zp_buildings",
+    "chain": [
+      {
+        "uid": "d3vkb0wzty8",
+        "use": "BlockGridModel",
+        "parentId": "zuolqsulj1j",
+        "openView": null,
+        "resource": null
+      },
+      {
+        "uid": "zuolqsulj1j",
+        "use": "ChildPageTabModel",
+        "parentId": "bojnab6g2zy",
+        "openView": null,
+        "resource": null
+      },
+      {
+        "uid": "bojnab6g2zy",
+        "use": "ChildPageModel",
+        "parentId": "q79kp0urhq1",
+        "openView": null,
+        "resource": null
+      },
+      {
+        "uid": "q79kp0urhq1",
+        "use": "ViewActionModel",
+        "parentId": "oibs1ghi0vq",
+        "openView": {
+          "mode": "drawer",
+          "size": "medium",
+          "pageModelClass": "ChildPageModel",
+          "dataSourceKey": "main",
+          "collectionName": "zp_buildings",
+          "associationName": "zp_properties.buildings",
+          "sourceId": "{{ctx.view.inputArgs.sourceId}}",
+          "filterByTk": "{{ctx.record.id}}"
+        },
+        "resource": null
+      },
+      {
+        "uid": "oibs1ghi0vq",
+        "use": "TableActionsColumnModel",
+        "parentId": "wmyvf5lq9g0",
+        "openView": null,
+        "resource": null
+      },
+      {
+        "uid": "wmyvf5lq9g0",
+        "use": "TableBlockModel",
+        "parentId": "xy18xhzkxu5",
+        "openView": null,
+        "resource": {
+          "dataSourceKey": "main",
+          "collectionName": "zp_buildings",
+          "associationName": "zp_properties.buildings",
+          "sourceId": "{{ctx.view.inputArgs.filterByTk}}"
+        }
+      }
+    ],
+    "association": {
+      "name": "zp_properties.buildings",
+      "source": "zp_properties",
+      "target": "zp_buildings",
+      "field": {
+        "key": "womhycmw25m",
+        "name": "buildings",
+        "type": "hasMany",
+        "interface": "o2m",
+        "description": null,
+        "collectionName": "zp_properties",
+        "parentKey": null,
+        "reverseKey": null,
+        "target": "zp_buildings",
+        "foreignKey": "propertyId",
+        "sourceKey": "id",
+        "targetKey": "id",
+        "onDelete": "RESTRICT",
+        "allowNull": true,
+        "uiSchema": {
+          "title": "Buildings",
+          "x-component": "AssociationField",
+          "x-component-props": {
+            "fieldNames": {
+              "label": "name",
+              "value": "id"
+            }
+          }
+        }
+      },
+      "foreignKey": {
+        "key": "hxbqhx19993",
+        "name": "propertyId",
+        "type": "bigInt",
+        "interface": "integer",
+        "description": null,
+        "collectionName": "zp_buildings",
+        "parentKey": null,
+        "reverseKey": null,
+        "isForeignKey": true,
+        "uiSchema": {
+          "type": "number",
+          "title": "propertyId",
+          "x-component": "InputNumber",
+          "x-read-pretty": true
+        }
+      }
+    },
+    "parentProof": {
+      "kind": "native-popup-record",
+      "collection": "zp_properties",
+      "chain": [
+        {
+          "uid": "xy18xhzkxu5",
+          "use": "BlockGridModel",
+          "parentId": "res0ozb73cm",
+          "openView": null,
+          "resource": null
+        },
+        {
+          "uid": "res0ozb73cm",
+          "use": "ChildPageTabModel",
+          "parentId": "a430iy1dhw5",
+          "openView": null,
+          "resource": null
+        },
+        {
+          "uid": "a430iy1dhw5",
+          "use": "ChildPageModel",
+          "parentId": "78fu5mhr5wp",
+          "openView": null,
+          "resource": null
+        },
+        {
+          "uid": "78fu5mhr5wp",
+          "use": "ViewActionModel",
+          "parentId": "3fnq7u1cexl",
+          "openView": {
+            "mode": "drawer",
+            "size": "medium",
+            "pageModelClass": "ChildPageModel",
+            "dataSourceKey": "main",
+            "collectionName": "zp_properties",
+            "filterByTk": "{{ctx.record.id}}"
+          },
+          "resource": null
+        },
+        {
+          "uid": "3fnq7u1cexl",
+          "use": "TableActionsColumnModel",
+          "parentId": "1n2j1liptef",
+          "openView": null,
+          "resource": null
+        },
+        {
+          "uid": "1n2j1liptef",
+          "use": "TableBlockModel",
+          "parentId": "e3pqxowwqlx",
+          "openView": null,
+          "resource": {
+            "dataSourceKey": "main",
+            "collectionName": "zp_properties"
+          }
+        }
+      ]
+    }
+  },
+  "before": {
+    "form": null,
+    "attached": false
+  }
+}
