@@ -3,7 +3,7 @@ sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 from apply_protected_forms import Forms,attached,missing_model
 class Client:
  def __init__(self):
-  self.tools=[{'name':'loom_native_'+name+'_abcdef12'} for name in ['loom_action_forms_get','loom_action_forms_create','loom_action_forms_set','loom_action_forms_describe','flow_surfaces_get']];self.writes=[];self.saved=False;self.fail=False;self.wrong_parent=False
+  self.tools=[{'name':'loom_native_'+name+'_abcdef12','inputSchema':{'type':'object'}} for name in ['loom_action_forms_get','loom_action_forms_create','loom_action_forms_set','loom_action_forms_describe','flow_surfaces_get']];self.writes=[];self.saved=False;self.fail=False;self.wrong_parent=False
  def call(self,name,args):
   if 'loom_action_forms_describe_' in name:return {'data':dict(QUAL['config'])}
   if 'loom_action_forms_get_' in name:
@@ -88,3 +88,13 @@ class AssociatedPlacement(unittest.TestCase):
   for mutate in [lambda n,m,f:m.update(target='zp_tenancies'),lambda n,m,f:n['child5']['stepParams']['resourceSettings']['init'].update(sourceId='{{ctx.record.id}}'),lambda n,m,f:n['parent5']['stepParams']['resourceSettings']['init'].update(associationName='zp_portfolios.properties'),lambda n,m,f:f.update(isForeignKey=False)]:
    api,c,n,m,f=self.fixture();mutate(n,m,f)
    with self.assertRaises(RuntimeError):api.placement_proof('child0',c)
+
+class ArgumentSchemaTests(unittest.TestCase):
+ def test_discovered_schema_rejection_precedes_journal(self):
+  forms=Forms(Client())
+  for tool in forms.c.tools:tool['inputSchema']={'type':'object','additionalProperties':False,'properties':{'requestBody':{'type':'object','additionalProperties':False}}}
+  q=copy.deepcopy(QUAL)
+  with tempfile.TemporaryDirectory() as d:
+   path=pathlib.Path(d)/'intent.json'
+   with self.assertRaisesRegex(RuntimeError,'discovered tool schema'):forms.apply(q,path)
+   self.assertFalse(path.exists());self.assertFalse(forms.c.writes)

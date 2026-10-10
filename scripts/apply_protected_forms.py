@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Qualify and apply one reviewed protected native form through Loom MCP only."""
 import argparse,json,os,pathlib,re
+import jsonschema
 from loom_mcp import Loom
 from property_ui_journal import dispatch_once,sha,sync_write
 ROOT=pathlib.Path(__file__).resolve().parents[1]
@@ -110,6 +111,12 @@ class Forms:
     def matches(observed,qualified):
         value=observed['form']
         return bool(value and value.get('uid')==qualified['uid'] and value.get('type')=='LoomActionFormModel' and value.get('config')==qualified['config'] and observed['attached'])
+    def validate_arguments(self,name,arguments):
+        matches=[item for item in self.c.tools if item.get('name')==name]
+        if len(matches)!=1 or not isinstance(matches[0].get('inputSchema'),dict):raise RuntimeError('Discovered tool argument schema unavailable')
+        schema=matches[0]['inputSchema'];validator=jsonschema.validators.validator_for(schema);validator.check_schema(schema)
+        try:validator(schema).validate(arguments)
+        except jsonschema.ValidationError:raise RuntimeError('Arguments do not satisfy discovered tool schema; no authoring intent created') from None
     def apply(self,qualified,journal):
         journal=pathlib.Path(journal)
         if journal.exists():raise RuntimeError('Existing authoring intent is fenced; use verify and independent reconciliation, never replay')
@@ -130,6 +137,7 @@ class Forms:
             name=self.tool('loom_action_forms_set');body={'uid':qualified['uid'],'expectedNodeHash':before['form']['nodeHash'],'config':qualified['config']}
         else:
             name=self.tool('loom_action_forms_create');body={k:qualified[k] for k in ('uid','gridUid','expectedGridHash','config')}
+        self.validate_arguments(name,{'requestBody':body})
         return dispatch_once(self.c,name,{'requestBody':body},journal,before,lambda:self.observe(qualified),lambda after:self.matches(after,qualified))
 
 def main():

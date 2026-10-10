@@ -4,7 +4,7 @@ from apply_protected_forms import Forms,IMMUTABLE
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 DESIRED=json.loads((ROOT/'generation/pages/tenancy-draft-amendment-form.json').read_text())
 class Client:
- tools=[{'name':'loom_native_'+name+'_abcdef12'} for name in ['loom_action_forms_get','loom_action_forms_create','loom_action_forms_set','loom_action_forms_describe']]
+ tools=[{'name':'loom_native_'+name+'_abcdef12','inputSchema':{'type':'object'}} for name in ['loom_action_forms_get','loom_action_forms_create','loom_action_forms_set','loom_action_forms_describe']]
 class Fixture(Forms):
  def __init__(self):
   super().__init__(Client());self.calls=[];self.drift=False
