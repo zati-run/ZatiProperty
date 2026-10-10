@@ -1,0 +1,8 @@
+{
+  "property.details-grid": {
+    "gridUid": "xy18xhzkxu5",
+    "contextCollection": "zp_properties",
+    "source": "native-readback",
+    "evidenceRef": "docs/generation/receipts/building-form-placement-native-readback.json"
+  }
+}
