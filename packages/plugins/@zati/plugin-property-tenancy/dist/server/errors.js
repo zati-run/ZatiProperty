@@ -56,5 +56,3 @@ function denyHook(code){
  throw error;
 }
 module.exports={safeFailure,denyHook};
-
-
