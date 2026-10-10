@@ -20,6 +20,10 @@ available, prepare local artifacts and report the missing endpoint/role/catalog;
 never claim generation succeeded or fabricate tool calls. The installed `loom`
 launcher alone is not proof of a running or configured service.
 
+Before navigation, page, form, action or theme work, read
+`../loom-design/SKILL.md` relative to this skill. Persist the shared design contract
+in `generation/design.md`; review a representative role journey before reusing it.
+
 ## 1. Qualify the target
 
 - Confirm the authorized installation, environment and application boundary. Read

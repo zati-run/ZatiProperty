@@ -58,3 +58,7 @@ Only the RFC and agent workflow are being prepared. No target endpoint, generate
 resources, live mutations, customer data, provider integration or deployment has
 been qualified by this delivery. Future generation must discover its own connection
 and capabilities. Historical Loom fixture results do not establish this app's state.
+
+## Design contract
+
+Keep `generation/design.md` short and authoritative for role tasks, navigation, visual direction, native patterns and review evidence. Use the `loom-design` skill before generating UI. These design intentions are not executable Loom schemas; map them to qualified native capabilities. Review representative rendered journeys and report unsampled or unavailable browser acceptance.

@@ -58,7 +58,7 @@ def prepare(target, project_name, rfc):
     contract = (Path(__file__).resolve().parents[1] / "references/generation-contract.md").read_text()
     agents = ("# " + name + " agent instructions\n\n"
               "Application construction MUST use Loom MCP to generate this application in NocoBase.\n\n"
-              "Read " + rfc + " and " + skill_rel + " before implementation. "
+              "Read " + rfc + " and " + skill_rel + " before implementation. Read .agents/skills/loom-design/SKILL.md before UI work. "
               "Follow the Loom construction contract and preserve product requirements. "
               "Do not substitute a custom frontend/backend or direct NocoBase API/CLI writes. "
               "Record missing MCP capabilities and obtain an explicit scope decision.\n\n"
@@ -85,7 +85,15 @@ def prepare(target, project_name, rfc):
         text = text[:begin] + block + text[finish:]
     else:
         text = block + "\n\n" + (text if original else "# " + name + " application RFC\n\nProduct requirements must be supplied and reconciled before generation.\n")
-    return [(agents_path, agents.encode()), (skill_path, skill.encode()), (rfc_path, text.encode())], backup
+    desired = [(agents_path, agents.encode()), (skill_path, skill.encode()), (rfc_path, text.encode())]
+    design_source = Path(__file__).resolve().parents[1] / "assets/loom-design"
+    for relative in ("SKILL.md", "references/patterns.md", "references/review.md"):
+        destination = safe_path(root, ".agents/skills/loom-design/" + relative)
+        for other in [*paths, *(item[0] for item in desired)]:
+            if destination == other or destination in other.parents or other in destination.parents:
+                raise ValueError("managed destinations overlap")
+        desired.append((destination, (design_source / relative).read_bytes()))
+    return desired, backup
 
 
 def initialize(target, project_name, rfc, write=False, replace_agents=False):
@@ -102,8 +110,8 @@ def initialize(target, project_name, rfc, write=False, replace_agents=False):
                 if backup.exists():
                     raise ValueError("AGENTS backup already exists; refusing replacement")
                 pending.append((backup, old, False))
-            elif index == 1:
-                raise ValueError("project skill already exists with different content")
+            elif index != 2:
+                raise ValueError("managed skill already exists with different content")
         pending.append((path, data, path.exists()))
     # All collisions, RFC markers and contents are checked before any writes.
     for path, data, existed in pending:

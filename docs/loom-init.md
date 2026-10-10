@@ -2,7 +2,7 @@
 
 Use the portable **loom-init Agent Skill** at [.agents/skills/loom-init](../.agents/skills/loom-init/SKILL.md). There is no new `loom init` executable or subcommand. This choice keeps initialization available without changing or reinstalling the existing Loom bridge CLI.
 
-The helper prepares three local artifacts: AGENTS.md, a project generation skill, and a managed Loom construction contract in the chosen RFC. An agent must then reconcile the whole RFC and incorporate still-applicable old agent instructions. Running the helper does not generate an application or qualify a live NocoBase backend.
+The helper prepares four local artifact groups: AGENTS.md, a project generation skill, a managed Loom construction contract in the chosen RFC, and the Loom design skill with its two on-demand references. An agent must then reconcile the whole RFC and incorporate still-applicable old agent instructions. Running the helper does not generate an application or qualify a live NocoBase backend.
 
 ## Copy and invoke
 
@@ -62,3 +62,7 @@ python3 -m unittest discover -s .agents/skills/loom-init/tests -v
 ```
 
 These temporary-directory tests cover dry run, repeatability, preservation, explicit replacement, collisions, traversal, links, overlapping paths, malformed markers and Unicode names. They do not contact Loom or NocoBase and do not establish finished-app acceptance.
+
+## Design guidance included
+
+New projects receive `loom-design`: a compact core plus on-demand screen-pattern and review references. It adapts native NocoBase capabilities to role-based tasks, consistent visual hierarchy, forms, tables, states and accessibility. The canonical distributable lives in `loom-init/assets/loom-design/`; the initializer preserves differing target skills instead of overwriting them. A persistent `generation/design.md` prevents repeated design decisions and full-library loading. This is guidance, not a new MCP endpoint or a guarantee of visual quality.
